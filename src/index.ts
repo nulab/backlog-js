@@ -135,10 +135,31 @@ export type SortKey =
 
 export type Order = "asc" | "desc";
 
-export interface GetProjectsParam {
+export interface GetProjectsParams {
   archived?: boolean;
   all?: boolean;
 }
+
+export interface GetPullRequestsParams {
+  statusId?: number[];
+  assigneeId?: number[];
+  issueId?: number[];
+  createdUserId?: number[];
+  offset?: number;
+  count?: number;
+}
+
+export interface PostPullRequestParams {
+  summary: string;
+  description: string;
+  base: string;
+  branch: string;
+  issueId: number;
+  assigneeId: number;
+  notifiedUserId: number[];
+  attachmentId: number[];
+}
+
 
 export default class Backlog {
 
@@ -174,7 +195,7 @@ export default class Backlog {
     return this.get(`/api/v2/issues/${issueIdOrKey}`);
   }
 
-  public getProjects(params?: GetProjectsParam): Promise<any> {
+  public getProjects(params?: GetProjectsParams): Promise<any> {
     return this.get('/api/v2/projects', params);
   }
 
@@ -207,8 +228,46 @@ export default class Backlog {
   }
 
   public getStatuses(): Promise<any> {
-    return this.get(`/api/v2/statuses`);
+    return this.get('/api/v2/statuses');
   }
+
+  public getGitRepositories(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories`);
+  }
+
+  public getGitRepository(
+    projectIdOrKey: string,
+    repoIdOrName: string
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}`);
+  }
+
+  public getPullRequests(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    params: GetPullRequestsParams
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`, params);
+  }
+
+  public getPullRequestsCount(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    params: GetPullRequestsParams
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/count`, params);
+  }
+
+  public postPullRequest(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    params: PostPullRequestParams
+  ): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`, params);
+  }
+
+
+
 
 	private get(endpoint: string, query?: any): Promise<any> {
     return this.request('GET', endpoint, query);
