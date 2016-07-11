@@ -1,7 +1,40 @@
 import isArray from 'isarray';
 import FormData from 'form-data';
 
-export declare interface PostIssueParam {
+export interface GetSpaceActivitiesParams {
+  activityTypeId?: ActivityType[];
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export enum ActivityType {
+    Undefined = -1,
+    IssueCreated = 1,
+    IssueUpdated = 2,
+    IssueCommented = 3,
+    IssueDeleted = 4,
+    WikiCreated = 5,
+    WikiUpdated = 6,
+    WikiDeleted = 7,
+    FileAdded = 8,
+    FileUpdated = 9,
+    FileDeleted = 10,
+    SvnCommitted = 11,
+    GitPushed = 12,
+    GitRepositoryCreated = 13,
+    IssueMultiUpdated = 14,
+    ProjectUserAdded = 15,
+    ProjectUserRemoved = 16,
+    NotifyAdded = 17,
+    PullRequestAdded = 18,
+    PullRequestUpdated = 19,
+    PullRequestCommented = 20,
+    PullRequestMerged = 21
+}
+
+export interface PostIssueParams {
   projectId: number;
   summary: string;
   priorityId: number;
@@ -18,11 +51,10 @@ export declare interface PostIssueParam {
   assigneeId?: number;
   notifiedUserId?: number[];
   attachmentId?: number[];
-  customFields?: { [key:string]: any; };
-  customFieldOtherValues?: { [key:string]: any; };
+  [customField_:string]: any;
 }
 
-export declare interface PatchIssueParam {
+export interface PatchIssueParams {
   summary?: string;
   parentIssueId?: number;
   description?: string;
@@ -41,8 +73,71 @@ export declare interface PatchIssueParam {
   notifiedUserId?: number[];
   attachmentId?: number[];
   comment?: string;
-  customFields?: { [key:string]: any; };
-  customFieldOtherValues?: { [key:string]: any; };
+  [customField_:string]: any;
+}
+
+export interface GetIssuesParams {
+  projectId?: number[];
+  issueTypeId?: number[];
+  categoryId?: number[];
+  versionId?: number[];
+  milestoneId?: number[];
+  statusId?: number[];
+  priorityId?: number[];
+  assigneeId?: number[];
+  createdUserId?: number[];
+  resolutionId?: number[];
+  parentChild?: ParentChildType;
+  attachment?: boolean;
+  sharedFile?: boolean;
+  sort?: SortKey;
+  order?: Order;
+  offset?: number;
+  count?: number;
+  createdSince?: string;
+  createdUntil?: string;
+  updatedSince?: string;
+  updatedUntil?: string;
+  startDateSince?: string;
+  startDateUntil?: string;
+  dueDateSince?: string;
+  dueDateUntil?: string;
+  id?: number[];
+  parentIssueId?: number[];
+  keyword: string;
+}
+
+export enum ParentChildType {
+  All = 0, NotChild = 1, Child = 2, NotChildNotParent = 3, Parent = 4
+}
+
+// TODO add customField_${id}
+export type SortKey =
+  "issueType" |
+  "category" |
+  "version" |
+  "milestone" |
+  "summary" |
+  "status" |
+  "priority" |
+  "attachment" |
+  "sharedFile" |
+  "created" |
+  "createdUser" |
+  "updated" |
+  "updatedUser" |
+  "assignee" |
+  "startDate" |
+  "dueDate" |
+  "estimatedHours" |
+  "actualHours" |
+  "childIssue";
+
+export type Order = "asc" | "desc";
+
+export interface GetProjectsParam {
+  archived?: boolean;
+  all?: boolean;
 }
 
 export default class Backlog {
@@ -55,62 +150,65 @@ export default class Backlog {
     this.apiKey = option.apiKey;
   }
 
-  public postIssue(param: PostIssueParam): Promise<any> {
-    return this.post('/api/v2/issues', param);
+  public getSpace(): Promise<any> {
+    return this.get('/api/v2/space');
   }
 
-  public patchIssue(
-    issueIdOrKey: string,
-    param: PatchIssueParam
-  ): Promise<any> {
-    return this.patch(`/api/v2/issues/${issueIdOrKey}`, param);
+  public getSpaceActivities(params: GetSpaceActivitiesParams): Promise<any> {
+    return this.get('/api/v2/space/activities', params);
   }
 
-  public getIssues(param): Promise<any> {
-    return this.get('/api/v2/issues', param);
+  public postIssue(params: PostIssueParams): Promise<any> {
+    return this.post('/api/v2/issues', params);
+  }
+
+  public patchIssue(issueIdOrKey: string, params: PatchIssueParams): Promise<any> {
+    return this.patch(`/api/v2/issues/${issueIdOrKey}`, params);
+  }
+
+  public getIssues(params?: GetIssuesParams): Promise<any> {
+    return this.get('/api/v2/issues', params);
   }
 
   public getIssue(issueIdOrKey: string): Promise<any> {
     return this.get(`/api/v2/issues/${issueIdOrKey}`);
   }
 
-  getProjects(param?: { archived?: boolean, all?: boolean }): Promise<any> {
-    return this.get('/api/v2/projects', param)
+  public getProjects(params?: GetProjectsParam): Promise<any> {
+    return this.get('/api/v2/projects', params);
   }
 
-  getIssueTypes(data) {
-    return this.get(`/api/v2/projects/${data.projectIdOrKey}/issueTypes`, {})
+  public getIssueTypes(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/issueTypes`);
   }
 
-  getPriorities() {
-    return this.get('/api/v2/priorities', {})
+  public getPriorities(): Promise<any> {
+    return this.get('/api/v2/priorities');
   }
 
-  getCategories(data) {
-    return this.get(`/api/v2/projects/${data.projectIdOrKey}/categories`, {})
+  public getCategories(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/categories`);
   }
 
-  getVersions(data) {
-    return this.get(`/api/v2/projects/${data.projectIdOrKey}/versions`, {})
+  public getVersions(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/versions`);
   }
 
-  getUsers() {
-    return this.get(`/api/v2/users`, {})
+  public getUsers(): Promise<any> {
+    return this.get(`/api/v2/users`);
   }
 
-  getUser(userId) {
-    return this.get(`/api/v2/users/${userId}`, {})
+  public getUser(userId: number): Promise<any> {
+    return this.get(`/api/v2/users/${userId}`);
   }
 
-  getProjectUsers(data) {
-    return this.get(`/api/v2/projects/${data.projectIdOrKey}/users`, {})
+  public getProjectUsers(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/users`);
   }
 
-  getStatuses() {
-    return this.get(`/api/v2/statuses`, {})
+  public getStatuses(): Promise<any> {
+    return this.get(`/api/v2/statuses`);
   }
-
-
 
 	private get(endpoint: string, query?: any): Promise<any> {
     return this.request('GET', endpoint, query);

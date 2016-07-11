@@ -17,7 +17,8 @@
   "author": "vvatanabe",
   "license": "MIT",
   "dependencies": {
-    "isarray": "^1.0.0"
+    "isarray": "^1.0.0",
+    "isobject": "^2.1.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.9",
