@@ -7,8 +7,8 @@ MIT License
 * http://www.opensource.org/licenses/mit-license.php
 
 ## TODO
-- [ ] スペース情報の取得
-- [ ] 最近の更新の取得
+- [x] スペース情報の取得
+- [x] 最近の更新の取得
 - [ ] スペースアイコン画像の取得
 - [ ] スペースのお知らせの取得
 - [ ] スペースのお知らせの更新
