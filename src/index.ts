@@ -34,6 +34,84 @@ export enum ActivityType {
     PullRequestMerged = 21
 }
 
+export interface PutSpaceNotificationParams {
+  content: string;
+}
+
+export interface PostUserParams {
+  userId: string;
+  password: string;
+  name: string;
+  mailAddress: string;
+  roleType: RoleType;
+}
+
+export interface PatchUserParams {
+  password?: string;
+  name?: string;
+  mailAddress?: string;
+  roleType?: RoleType;
+}
+
+export enum RoleType {
+  Admin = 1,
+  User = 2,
+  Reporter = 3,
+  Viewer = 4,
+  GuestReporter = 5,
+  GuestViewer = 6
+}
+
+export interface GetUserActivitiesParams {
+  activityTypeId?: ActivityType[];
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface GetUserStarsParams {
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface GetUserStarsCountParams {
+  since?: string;
+  until?: string;
+}
+
+export interface GetRecentlyViewedParams {
+  order?: Order;
+  offset?: number;
+  count?: number;
+}
+
+export interface GetGroupsParams {
+  order?: Order;
+  offset?: number;
+  count?: number;
+}
+
+export interface PostGroupsParams {
+  name: string;
+  members?: string[];
+}
+
+export interface PatchGroupParams {
+  name?: string;
+  members?: string[];
+}
+
+
+
+
+
+
+// ======================================================
+
+
 export interface PostIssueParams {
   projectId: number;
   summary: string;
@@ -185,6 +263,10 @@ export interface PatchPullRequestCommentsParams {
   content: string;
 }
 
+
+
+
+
 export default class Backlog {
 
   private spaceId: string;
@@ -202,6 +284,97 @@ export default class Backlog {
   public getSpaceActivities(params: GetSpaceActivitiesParams): Promise<any> {
     return this.get('/api/v2/space/activities', params);
   }
+
+  public getSpaceNotification(): Promise<any> {
+    return this.get('/api/v2/space/notification');
+  }
+
+  public putSpaceNotification(params: PutSpaceNotificationParams): Promise<any> {
+    return this.put('/api/v2/space/notification', params);
+  }
+
+  public getSpaceDiskUsage(): Promise<any> {
+    return this.get('/api/v2/space/diskUsage');
+  }
+
+  public getUsers(): Promise<any> {
+    return this.get(`/api/v2/users`);
+  }
+
+  public getUser(userId: number): Promise<any> {
+    return this.get(`/api/v2/users/${userId}`);
+  }
+
+  public postUser(params: PostUserParams): Promise<any> {
+    return this.post(`/api/v2/users`, params);
+  }
+
+  public patchUser(userId: number, params: PatchUserParams): Promise<any> {
+    return this.patch(`/api/v2/users/${userId}`, params);
+  }
+
+  public deleteUser(userId: number): Promise<any> {
+    return this.delete(`/api/v2/users/${userId}`);
+  }
+
+  public getMyself(): Promise<any> {
+    return this.get('/api/v2/users/myself');
+  }
+
+  public getUserActivities(userId: number, params: GetUserActivitiesParams): Promise<any> {
+    return this.get(`/api/v2/users/${userId}/activities`, params);
+  }
+
+  public getUserStars(userId: number, params: GetUserStarsParams): Promise<any> {
+    return this.get(`/api/v2/users/${userId}/stars`, params);
+  }
+
+  public getUserStarsCount(userId: number, params: GetUserStarsCountParams): Promise<any> {
+    return this.get(`/api/v2/users/${userId}/count`, params);
+  }
+
+  public getRecentlyViewedIssues(params: GetRecentlyViewedParams): Promise<any> {
+    return this.get('/api/v2/users/myself/recentlyViewedIssues', params);
+  }
+
+  public getRecentlyViewedProjects(params: GetRecentlyViewedParams): Promise<any> {
+    return this.get('/api/v2/users/myself/recentlyViewedProjects', params);
+  }
+
+  public getRecentlyViewedWikis(params: GetRecentlyViewedParams): Promise<any> {
+    return this.get('/api/v2/users/myself/recentlyViewedWikis', params);
+  }
+
+  public getGroups(params: GetGroupsParams): Promise<any> {
+    return this.get('/api/v2/groups', params);
+  }
+
+  public postGroups(params: PostGroupsParams): Promise<any> {
+    return this.post('/api/v2/groups', params);
+  }
+
+  public getGroup(groupId: number): Promise<any> {
+    return this.get(`/api/v2/groups/${groupId}`);
+  }
+
+  public patchGroup(groupId:number, params: PatchGroupParams): Promise<any> {
+    return this.patch('/api/v2/groups', params);
+  }
+
+  public deleteGroup(groupId: number): Promise<any> {
+    return this.delete(`/api/v2/groups/${groupId}`);
+  }
+
+
+
+
+
+
+
+
+
+
+// =============================================================
 
   public postIssue(params: PostIssueParams): Promise<any> {
     return this.post('/api/v2/issues', params);
@@ -237,14 +410,6 @@ export default class Backlog {
 
   public getVersions(projectIdOrKey: string): Promise<any> {
     return this.get(`/api/v2/projects/${projectIdOrKey}/versions`);
-  }
-
-  public getUsers(): Promise<any> {
-    return this.get(`/api/v2/users`);
-  }
-
-  public getUser(userId: number): Promise<any> {
-    return this.get(`/api/v2/users/${userId}`);
   }
 
   public getProjectUsers(projectIdOrKey: string): Promise<any> {
@@ -368,11 +533,15 @@ export default class Backlog {
     return this.request('POST', endpoint, null, body);
   }
 
+  private put(endpoint: string, body: any): Promise<any> {
+    return this.request('PUT', endpoint, null, body);
+  }
+
   private patch(endpoint: string, body: any): Promise<any> {
     return this.request('PATCH', endpoint, null, body);
   }
 
-  private delete(endpoint: string, body: any): Promise<any> {
+  private delete(endpoint: string, body?: any): Promise<any> {
     return this.request('DELETE', endpoint, null, body);
   }
 
