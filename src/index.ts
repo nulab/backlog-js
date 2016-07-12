@@ -154,12 +154,36 @@ export interface PostPullRequestParams {
   description: string;
   base: string;
   branch: string;
-  issueId: number;
-  assigneeId: number;
-  notifiedUserId: number[];
-  attachmentId: number[];
+  issueId?: number;
+  assigneeId?: number;
+  notifiedUserId?: number[];
+  attachmentId?: number[];
 }
 
+export interface PatchPullRequestParams {
+  summary?: string;
+  description?: string;
+  issueId?: number;
+  assigneeId?: number;
+  notifiedUserId?: number[];
+  comment?: string[];
+}
+
+export interface GetPullRequestCommentsParams {
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface PostPullRequestCommentsParams {
+  content: string;
+  notifiedUserId?: number[];
+}
+
+export interface PatchPullRequestCommentsParams {
+  content: string;
+}
 
 export default class Backlog {
 
@@ -266,8 +290,75 @@ export default class Backlog {
     return this.post(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`, params);
   }
 
+  public getPullRequest(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`);
+  }
 
+  public patchPullRequest(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number,
+    params: PatchPullRequestParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`, params);
+  }
 
+  public getPullRequestComments(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number,
+    params: GetPullRequestCommentsParams
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`, params);
+  }
+
+  public postPullRequestComments(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number,
+    params: PostPullRequestCommentsParams
+  ): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`, params);
+  }
+
+  public getPullRequestCommentsCount(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/count`);
+  }
+
+  public patchPullRequestComments(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number,
+    commentId: number,
+    params: PatchPullRequestCommentsParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/${commentId}`, params);
+  }
+
+  public getPullRequestAttachments(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments`);
+  }
+
+  public deletePullRequestAttachment(
+    projectIdOrKey: string,
+    repoIdOrName: string,
+    number: number,
+    attachmentId: number
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
+  }
 
 	private get(endpoint: string, query?: any): Promise<any> {
     return this.request('GET', endpoint, query);
