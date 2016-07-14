@@ -1,7 +1,7 @@
 import isArray from 'isarray';
 import FormData from 'form-data';
 
-export interface GetSpaceActivitiesParams {
+export interface GetActivitiesParams {
   activityTypeId?: ActivityType[];
   minId?: number;
   maxId?: number;
@@ -104,13 +104,48 @@ export interface PatchGroupParams {
   members?: string[];
 }
 
+export interface PostProjectParams {
+  name: string;
+  key: string;
+  chartEnabled: boolean;
+  projectLeaderCanEditProjectLeader?: boolean;
+  subtaskingEnabled: boolean;
+  textFormattingRule: TextFormattingRule;
+}
 
+export type TextFormattingRule = "backlog" | "markdown";
 
+export interface PatchProjectParams {
+  name?: string;
+  key?: string;
+  chartEnabled?: boolean;
+  subtaskingEnabled?: boolean;
+  projectLeaderCanEditProjectLeader?: boolean;
+  textFormattingRule?: TextFormattingRule;
+  archived?: boolean;
+}
 
+export interface PostIssueTypeParams {
+  name: string;
+  color: IssueTypeColor;
+}
 
+export interface PatchIssueTypeParams {
+  name?: string;
+  color?: IssueTypeColor;
+}
 
-// ======================================================
-
+type IssueTypeColor =
+  "#e30000" |
+  "#990000" |
+  "#934981" |
+  "#814fbc" |
+  "#2779ca" |
+  "#007e9a" |
+  "#7ea800" |
+  "#ff9200" |
+  "#ff3265" |
+  "#666665";
 
 export interface PostIssueParams {
   projectId: number;
@@ -183,6 +218,7 @@ export interface GetIssuesParams {
   id?: number[];
   parentIssueId?: number[];
   keyword: string;
+  [customField_: string]: any;
 }
 
 export enum ParentChildType {
@@ -263,9 +299,157 @@ export interface PatchPullRequestCommentsParams {
   content: string;
 }
 
+export interface DeleteProjectUsersParams {
+  userId: number;
+}
 
+export interface PostProjectAdministrators {
+  userId: number;
+}
 
+export interface DeleteProjectAdministrators {
+  userId: number;
+}
 
+export interface DeleteIssueTypeParams {
+  substituteIssueTypeId: number;
+}
+
+export interface PostCategoriesParams {
+  name: string;
+}
+
+export interface PatchCategoriesParams {
+  name: string;
+}
+
+export interface PostVersionsParams {
+  name: string;
+  description: string;
+  startDate: string;
+  releaseDueDate: string;
+}
+
+export interface PatchVersionsParams {
+  name: string;
+  description?: string;
+  startDate?: string;
+  releaseDueDate?: string;
+  archived?: boolean;
+}
+
+export interface PostCustomFieldParams {
+  typeId: FieldType;
+  name: string;
+  applicableIssueTypes?: number[];
+  description?: string;
+  required?: boolean;
+}
+
+export interface PostCustomFieldWithNumericParams extends PostCustomFieldParams {
+  min?: number;
+  max?: number;
+  initialValue?: number;
+  unit?: string;
+}
+
+export interface PostCustomFieldWithDateParams extends PostCustomFieldParams {
+  min?: string;
+  max?: string;
+  initialValueType?: number;
+  initialDate?: string;
+  initialShift?: number;
+}
+
+export interface PostCustomFieldWithListParams extends PostCustomFieldParams {
+  items?: string[];
+  allowInput?: boolean;
+  allowAddItem?: boolean;
+}
+
+export interface PatchCustomFieldParams {
+  name?: string;
+  applicableIssueTypes?: number[];
+  description?: string;
+  required?: boolean;
+}
+
+export interface PatchCustomFieldWithNumericParams extends PatchCustomFieldParams {
+  min?: number;
+  max?: number;
+  initialValue?: number;
+  unit?: string;
+}
+
+export interface PatchCustomFieldWithDateParams extends PatchCustomFieldParams {
+  min?: string;
+  max?: string;
+  initialValueType?: number;
+  initialDate?: string;
+  initialShift?: number;
+}
+
+export interface PatchCustomFieldWithListParams extends PatchCustomFieldParams {
+  items?: string[];
+  allowInput?: boolean;
+  allowAddItem?: boolean;
+}
+
+// TODO 必須? https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-customfield-item
+export interface PostCustomFieldItemParams {
+  name: string;
+}
+
+export interface PatchCustomFieldItemParams {
+  name: string;
+}
+
+export interface GetSharedFilesParams {
+  order?: Order;
+  offset?: number;
+  count?:	number;
+}
+
+// TODO 必須? https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-webhook
+export interface PostWebhookParams {
+  name?: string;
+  description?: string;
+  hookUrl?: string;
+  allEvent?:  boolean;
+  activityTypeIds?: number[];
+}
+
+export interface PatchWebhookParams {
+  name?: string;
+  description?: string;
+  hookUrl?: string;
+  allEvent?: boolean;
+  activityTypeIds?: number[];
+}
+
+export enum FieldType {
+    Text = 1,
+    TextArea = 2,
+    Numeric = 3,
+    Date = 4,
+    SingleList = 5,
+    MultipleList = 6,
+    CheckBox = 7,
+    Radio = 8
+}
+
+export interface GetIssueCommentsParams {
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface PostIssueCommentsParams {
+  content: string;
+  notifiedUserId?: number[];
+  attachmentId?: number[];
+}
 
 export default class Backlog {
 
@@ -281,7 +465,7 @@ export default class Backlog {
     return this.get('/api/v2/space');
   }
 
-  public getSpaceActivities(params: GetSpaceActivitiesParams): Promise<any> {
+  public getSpaceActivities(params: GetActivitiesParams): Promise<any> {
     return this.get('/api/v2/space/activities', params);
   }
 
@@ -365,16 +549,204 @@ export default class Backlog {
     return this.delete(`/api/v2/groups/${groupId}`);
   }
 
+  public getResolutions(): Promise<any> {
+    return this.get('/api/v2/resolutions');
+  }
 
+  public postProject(params: PostProjectParams): Promise<any> {
+    return this.post('/api/v2/projects', params);
+  }
 
+  public getProjects(params?: GetProjectsParams): Promise<any> {
+    return this.get('/api/v2/projects', params);
+  }
 
+  public getProject(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}`);
+  }
 
+  public patchProject(projectIdOrKey: string, params: PatchProjectParams): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}`, params);
+  }
 
+  public deleteProject(projectIdOrKey: string): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}`);
+  }
 
+  public getProjectActivities(projectIdOrKey: string, params: GetActivitiesParams): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/activities`, params);
+  }
 
+  public getProjectUsers(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/users`);
+  }
 
+  public deleteProjectUsers(projectIdOrKey: string, params: DeleteProjectUsersParams): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/users`, params);
+  }
 
-// =============================================================
+  public postProjectAdministrators(projectIdOrKey: string, params: PostProjectAdministrators): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/administrators`, params);
+  }
+
+  public getProjectAdministrators(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/administrators`);
+  }
+
+  public deleteProjectAdministrators(projectIdOrKey: string, params: DeleteProjectAdministrators): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/administrators`, params);
+  }
+
+  public getIssueTypes(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/issueTypes`);
+  }
+
+  public postIssueType(projectIdOrKey: string, params: PostIssueTypeParams): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/issueTypes`, params);
+  }
+
+  public patchIssueType(projectIdOrKey: string, id: number, params: PostIssueTypeParams): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  }
+
+  public deleteIssueType(projectIdOrKey: string, id: number, params: DeleteIssueTypeParams): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  }
+
+  public getCategories(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/categories`);
+  }
+
+  public postCategories(projectIdOrKey: string, params: PostCategoriesParams): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/categories`, params);
+  }
+
+  public patchCategories(projectIdOrKey: string, id: number, params: PatchCategoriesParams): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/categories/${id}`, params);
+  }
+
+  public deleteCategories(projectIdOrKey: string, id: number): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/categories/${id}`);
+  }
+
+  public getVersions(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/versions`);
+  }
+
+  public postVersions(projectIdOrKey: string, params: PostVersionsParams): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/versions`, params);
+  }
+
+  public patchVersions(projectIdOrKey: string, id: number, params: PatchVersionsParams): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/versions/${id}`, params);
+  }
+
+  public deleteVersions(projectIdOrKey: string, id: number): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/versions/${id}`);
+  }
+
+  public getCustomFields(projectIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/customFields`);
+  }
+
+  public postCustomField(
+    projectIdOrKey: string,
+    params: PostCustomFieldParams |
+            PostCustomFieldWithNumericParams |
+            PostCustomFieldWithDateParams |
+            PostCustomFieldWithListParams
+  ): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/customFields`, params);
+  }
+
+  public patchCustomField(
+    projectIdOrKey: string,
+    id: number,
+    params: PatchCustomFieldParams |
+            PatchCustomFieldWithNumericParams |
+            PatchCustomFieldWithDateParams |
+            PatchCustomFieldWithListParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/customFields/${id}`, params);
+  }
+
+  public deleteCustomField(projectIdOrKey: string, id: number): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/customFields/${id}`);
+  }
+
+  public postCustomFieldItem(
+    projectIdOrKey: string,
+    id: number,
+    params: PostCustomFieldItemParams
+  ): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/customFields/${id}/items`, params);
+  }
+
+  public patchCustomFieldItem(
+    projectIdOrKey: string,
+    id: number,
+    itemId: number,
+    params: PatchCustomFieldItemParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`, params);
+  }
+
+  public deleteCustomFieldItem(
+    projectIdOrKey: string,
+    id: number,
+    params: PostCustomFieldItemParams
+  ): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/customFields/${id}/items`);
+  }
+
+  public getSharedFiles(
+    projectIdOrKey: string,
+    path: string, params:
+    GetSharedFilesParams
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/files/metadata/${path}`);
+  }
+
+  public getProjectsDiskUsage(
+    projectIdOrKey: string
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/diskUsage`);
+  }
+
+  public getWebhooks(
+    projectIdOrKey: string
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/webhooks`);
+  }
+
+  public postWebhook(
+    projectIdOrKey: string,
+    params: PostWebhookParams
+  ): Promise<any> {
+    return this.post(`/api/v2/projects/${projectIdOrKey}/webhooks`, params);
+  }
+
+  public getWebhook(
+    projectIdOrKey: string,
+    webhookId: string
+  ): Promise<any> {
+    return this.get(`/api/v2/projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  }
+
+  public patchWebhook(
+    projectIdOrKey: string,
+    webhookId: string,
+    params: PatchWebhookParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/projects/${projectIdOrKey}/webhooks/${webhookId}`, params);
+  }
+
+  public deleteWebhook(
+    projectIdOrKey: string,
+    webhookId: string
+  ): Promise<any> {
+    return this.delete(`/api/v2/projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  }
 
   public postIssue(params: PostIssueParams): Promise<any> {
     return this.post('/api/v2/issues', params);
@@ -392,33 +764,60 @@ export default class Backlog {
     return this.get(`/api/v2/issues/${issueIdOrKey}`);
   }
 
-  public getProjects(params?: GetProjectsParams): Promise<any> {
-    return this.get('/api/v2/projects', params);
+  public getIssuesCount(params?: GetIssuesParams): Promise<any> {
+    return this.get('/api/v2/issues/count', params);
   }
 
-  public getIssueTypes(projectIdOrKey: string): Promise<any> {
-    return this.get(`/api/v2/projects/${projectIdOrKey}/issueTypes`);
+  public deleteIssuesCount(issueIdOrKey: string): Promise<any> {
+    return this.delete(`/api/v2/issues/${issueIdOrKey}`);
   }
+
+  public getIssueComments(issueIdOrKey: string, params: GetIssueCommentsParams): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/comments`, params);
+  }
+
+  public postIssueComments(issueIdOrKey: string, params: PostIssueCommentsParams): Promise<any> {
+    return this.post(`/api/v2/issues/${issueIdOrKey}/comments`, params);
+  }
+
+  public getIssueCommentsCount(issueIdOrKey: string): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/comments/count`);
+  }
+
+  public getIssueComment(issueIdOrKey: string, commentId: number): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/comments/${commentId}`);
+  }
+
+
+
+
+
+
+
+
+
 
   public getPriorities(): Promise<any> {
     return this.get('/api/v2/priorities');
   }
 
-  public getCategories(projectIdOrKey: string): Promise<any> {
-    return this.get(`/api/v2/projects/${projectIdOrKey}/categories`);
-  }
-
-  public getVersions(projectIdOrKey: string): Promise<any> {
-    return this.get(`/api/v2/projects/${projectIdOrKey}/versions`);
-  }
-
-  public getProjectUsers(projectIdOrKey: string): Promise<any> {
-    return this.get(`/api/v2/projects/${projectIdOrKey}/users`);
-  }
-
   public getStatuses(): Promise<any> {
     return this.get('/api/v2/statuses');
   }
+
+
+
+
+
+
+
+
+
+
+
+// =============================================================
+
+
 
   public getGitRepositories(projectIdOrKey: string): Promise<any> {
     return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories`);
