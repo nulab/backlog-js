@@ -451,6 +451,58 @@ export interface PostIssueCommentsParams {
   attachmentId?: number[];
 }
 
+export interface PatchIssueCommentParams {
+  content: string;
+}
+
+export interface IssueCommentNotifications {
+  notifiedUserId: number[];
+}
+
+export interface PostIssueSharedFilesParams {
+  fileId: number[];
+}
+
+export interface PostWikiParams {
+  projectId: number;
+  name: string;
+  content: string;
+  mailNotify?: boolean;
+}
+
+export interface PatchWikiParams {
+  name?: string;
+  content?: string;
+  mailNotify?: boolean;
+}
+
+export interface GetWikisHistoryParams {
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface PostStarParams {
+  issueId?: number;
+  commentId?: number;
+  wikiId?: number;
+  pullRequestId?: number;
+  pullRequestCommentId?: number;
+}
+
+export interface GetNotificationsParams {
+  minId?: number;
+  maxId?: number;
+  count?: number;
+  order?: Order;
+}
+
+export interface GetNotificationsCount {
+  alreadyRead: boolean;
+  resourceAlreadyRead: boolean;
+}
+
 export default class Backlog {
 
   private spaceId: string;
@@ -551,6 +603,14 @@ export default class Backlog {
 
   public getResolutions(): Promise<any> {
     return this.get('/api/v2/resolutions');
+  }
+
+  public getPriorities(): Promise<any> {
+    return this.get('/api/v2/priorities');
+  }
+
+  public getStatuses(): Promise<any> {
+    return this.get('/api/v2/statuses');
   }
 
   public postProject(params: PostProjectParams): Promise<any> {
@@ -788,31 +848,146 @@ export default class Backlog {
     return this.get(`/api/v2/issues/${issueIdOrKey}/comments/${commentId}`);
   }
 
-
-
-
-
-
-
-
-
-
-  public getPriorities(): Promise<any> {
-    return this.get('/api/v2/priorities');
+  public patchIssueComment(
+    issueIdOrKey: string,
+    commentId: number,
+    params: PatchIssueCommentParams
+  ): Promise<any> {
+    return this.patch(`/api/v2/issues/${issueIdOrKey}/comments/${commentId}`, params);
   }
 
-  public getStatuses(): Promise<any> {
-    return this.get('/api/v2/statuses');
+  public getIssueCommentNotifications(
+    issueIdOrKey: string,
+    commentId: number
+  ): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/comments/${commentId}/notifications`);
   }
 
+  public postIssueCommentNotifications(
+    issueIdOrKey: string,
+    commentId: number,
+    prams: IssueCommentNotifications
+  ): Promise<any> {
+    return this.post(`/api/v2/issues/${issueIdOrKey}/comments/${commentId}/notifications`, prams);
+  }
 
+  public getIssueAttachments(
+    issueIdOrKey: string
+  ): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/attachments`);
+  }
 
+  public deleteIssueAttachment(
+    issueIdOrKey: string,
+    attachmentId: string
+  ): Promise<any> {
+    return this.delete(`/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`);
+  }
 
+  public getIssueSharedFiles(
+    issueIdOrKey: string
+  ): Promise<any> {
+    return this.get(`/api/v2/issues/${issueIdOrKey}/sharedFiles`);
+  }
 
+  // TODO 名前変更 https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-issue-sharedfile
+  public postIssueSharedFiles(
+    issueIdOrKey: string,
+    params: PostIssueSharedFilesParams
+  ): Promise<any> {
+    return this.post(`/api/v2/issues/${issueIdOrKey}/sharedFiles`, params);
+  }
 
+  public deleteIssueSharedFiles(
+    issueIdOrKey: string,
+    id: Number
+  ): Promise<any> {
+    return this.delete(`/api/v2/issues/${issueIdOrKey}/sharedFiles/${id}`);
+  }
 
+  public getWikis(projectIdOrKey: number): Promise<any> {
+    return this.get(`/api/v2/wikis`, { projectIdOrKey });
+  }
 
+  public getWikisCount(projectIdOrKey: number): Promise<any> {
+    return this.get(`/api/v2/wikis/count`, { projectIdOrKey });
+  }
 
+  public getWikisTags(projectIdOrKey: number): Promise<any> {
+    return this.get(`/api/v2/wikis/tags`, { projectIdOrKey });
+  }
+
+  public postWiki(params: PostWikiParams): Promise<any> {
+    return this.post(`/api/v2/wikis`, params);
+  }
+
+  public getWiki(wikiId: number): Promise<any> {
+    return this.get(`/api/v2/wikis/${wikiId}`);
+  }
+
+  public patchWiki(wikiId: number, params: PatchWikiParams): Promise<any> {
+    return this.patch(`/api/v2/wikis/${wikiId}`, params);
+  }
+
+  public deleteWiki(wikiId: number, mailNotify: boolean): Promise<any> {
+    return this.delete(`/api/v2/wikis/${wikiId}`, { mailNotify });
+  }
+
+  public getWikisAttachments(wikiId: number): Promise<any> {
+    return this.get(`/api/v2/wikis/${wikiId}/attachments`);
+  }
+
+  public postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any> {
+    return this.post(`/api/v2/wikis/${wikiId}/attachments`, { attachmentId });
+  }
+
+  public deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<any> {
+    return this.delete(`/api/v2/wikis/${wikiId}/attachments/${attachmentId}`);
+  }
+
+  public getWikisSharedFiles(wikiId: number): Promise<any> {
+    return this.get(`/api/v2/wikis/${wikiId}/sharedFiles`);
+  }
+
+  // 名前変更？ http://developer.nulab-inc.com/ja/docs/backlog/api/2/add-wiki-sharedfile
+  public postWikisSharedFiles(wikiId: number, fileId: number[]): Promise<any> {
+    return this.post(`/api/v2/wikis/${wikiId}/sharedFiles`, { fileId });
+  }
+
+  public deleteWikisSharedFiles(wikiId: number, id: number): Promise<any> {
+    return this.delete(`/api/v2/wikis/${wikiId}/sharedFiles/${id}`);
+  }
+
+  public getWikisHistory(wikiId: number, params: GetWikisHistoryParams): Promise<any> {
+    return this.get(`/api/v2/wikis/${wikiId}/history`, params);
+  }
+
+  public getWikisStars(wikiId: number): Promise<any> {
+    return this.get(`/api/v2/wikis/${wikiId}/stars`);
+  }
+
+  // TODO どれかひとつ？ http://developer.nulab-inc.com/ja/docs/backlog/api/2/add-star
+  public postStar(params: PostStarParams): Promise<any> {
+    return this.post('/api/v2/stars', params);
+  }
+
+  public getNotifications(params: GetNotificationsParams): Promise<any> {
+    return this.get('/api/v2/notifications', params);
+  }
+
+  public getNotificationsCount(params: GetNotificationsCount): Promise<any> {
+    return this.get('/api/v2/notifications/count', params);
+  }
+
+  // TODO 名前変更
+  public resetNotificationsMarkAsRead(): Promise<any> {
+    return this.post('/api/v2/notifications/markAsRead');
+  }
+
+  // TODO 名前変更
+  public markAsReadNotification(id: number): Promise<any> {
+    return this.post(`/api/v2/notifications/${id}/markAsRead`);
+  }
 
 
 // =============================================================
@@ -928,7 +1103,7 @@ export default class Backlog {
     return this.request('GET', endpoint, query);
   }
 
-  private post(endpoint: string, body: any): Promise<any> {
+  private post(endpoint: string, body?: any): Promise<any> {
     return this.request('POST', endpoint, null, body);
   }
 
