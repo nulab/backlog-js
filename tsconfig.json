@@ -2,7 +2,7 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
-        "sourceMap": false,
+        "sourceMap": true,
         "noImplicitAny": false,
         "noEmitOnError": false,
         "removeComments": false
@@ -10,6 +10,7 @@
     "files": [
         "./typings/index.d.ts",
         "./src/index.ts",
+        "./test/test-index.ts",
         "./node_modules/typescript/lib/lib.es6.d.ts"
     ],
     "exclude": [

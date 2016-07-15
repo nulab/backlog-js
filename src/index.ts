@@ -1,5 +1,6 @@
-import isArray from 'isarray';
 import FormData from 'form-data';
+
+const isArray: (arr: any) => boolean = require('isarray');
 
 export interface GetActivitiesParams {
   activityTypeId?: ActivityType[];
@@ -503,7 +504,7 @@ export interface GetNotificationsCount {
   resourceAlreadyRead: boolean;
 }
 
-export default class Backlog {
+export class Backlog {
 
   private spaceId: string;
   private apiKey: string;
@@ -1099,6 +1100,12 @@ export default class Backlog {
     return this.get(`/api/v2/projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
   }
 
+  // TODO ダウンロード
+  public getSpaceIcon(): Promise<any> {
+    return this.get('/api/v2/space/image');
+  }
+
+
 	private get(endpoint: string, query?: any): Promise<any> {
     return this.request('GET', endpoint, query);
   }
@@ -1122,10 +1129,10 @@ export default class Backlog {
   private request (
     method: string,
     endpoint: string,
-    query = new Map<string, any>(),
-    body = new Map<string, any>()
+    query = <{ [index: string]: any; }>{},
+    body = <{ [index: string]: any; }>{}
   ): Promise<any> {
-    query.set('apiKey', this.apiKey);
+    query['apiKey'] = this.apiKey;
     const url = `https://${this.spaceId}.backlog.jp${endpoint}?${this.toQueryString(query)}`;
     const init: RequestInit = {};
     init.method = method;
@@ -1133,6 +1140,8 @@ export default class Backlog {
       const form = this.toFormData(body);
       init.headers = <{ [index: string]: string; }> form.getHeaders();
       init.body = form;
+    } else {
+      init.headers = <{ [index: string]: string; }>{};
     }
     init.headers['Accept'] = 'application/json';
     return fetch(url, init).then(this.checkStatus).then(this.parseJSON);
@@ -1141,9 +1150,9 @@ export default class Backlog {
   private checkStatus(response: IResponse): Promise<IResponse> {
     return new Promise((resolve, reject) => {
       if (200 <= response.status && response.status < 300) {
-        return response;
+        resolve(response);
       } else {
-        throw new Error(response.statusText);
+        reject(new Error(response.statusText));
       }
     });
   }

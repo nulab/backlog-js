@@ -8,7 +8,7 @@
     "url": "git://github.com:vvatanabe/backlog-js.git"
   },
   "scripts": {
-    "test": "mocha --compilers ts:espower-typescript/guess test/test*.ts",
+    "test": "mocha --timeout 10000 --compilers ts:espower-typescript/guess test/test*.ts",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "tsc --removeComments",
@@ -24,6 +24,7 @@
     "coveralls": "^2.11.9",
     "dotenv": "^2.0.0",
     "espower-typescript": "^5.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
     "ncp": "^2.0.0",
