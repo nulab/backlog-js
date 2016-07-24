@@ -1,4 +1,5 @@
 import FormData from 'form-data';
+import * as stream from 'stream';
 
 const isArray: (arr: any) => boolean = require('isarray');
 
@@ -11,28 +12,28 @@ export interface GetActivitiesParams {
 }
 
 export enum ActivityType {
-    Undefined = -1,
-    IssueCreated = 1,
-    IssueUpdated = 2,
-    IssueCommented = 3,
-    IssueDeleted = 4,
-    WikiCreated = 5,
-    WikiUpdated = 6,
-    WikiDeleted = 7,
-    FileAdded = 8,
-    FileUpdated = 9,
-    FileDeleted = 10,
-    SvnCommitted = 11,
-    GitPushed = 12,
-    GitRepositoryCreated = 13,
-    IssueMultiUpdated = 14,
-    ProjectUserAdded = 15,
-    ProjectUserRemoved = 16,
-    NotifyAdded = 17,
-    PullRequestAdded = 18,
-    PullRequestUpdated = 19,
-    PullRequestCommented = 20,
-    PullRequestMerged = 21
+  Undefined = -1,
+  IssueCreated = 1,
+  IssueUpdated = 2,
+  IssueCommented = 3,
+  IssueDeleted = 4,
+  WikiCreated = 5,
+  WikiUpdated = 6,
+  WikiDeleted = 7,
+  FileAdded = 8,
+  FileUpdated = 9,
+  FileDeleted = 10,
+  SvnCommitted = 11,
+  GitPushed = 12,
+  GitRepositoryCreated = 13,
+  IssueMultiUpdated = 14,
+  ProjectUserAdded = 15,
+  ProjectUserRemoved = 16,
+  NotifyAdded = 17,
+  PullRequestAdded = 18,
+  PullRequestUpdated = 19,
+  PullRequestCommented = 20,
+  PullRequestMerged = 21
 }
 
 export interface PutSpaceNotificationParams {
@@ -165,7 +166,7 @@ export interface PostIssueParams {
   assigneeId?: number;
   notifiedUserId?: number[];
   attachmentId?: number[];
-  [customField_:string]: any;
+  [customField_: string]: any;
 }
 
 export interface PatchIssueParams {
@@ -187,7 +188,7 @@ export interface PatchIssueParams {
   notifiedUserId?: number[];
   attachmentId?: number[];
   comment?: string;
-  [customField_:string]: any;
+  [customField_: string]: any;
 }
 
 export interface GetIssuesParams {
@@ -408,7 +409,7 @@ export interface PatchCustomFieldItemParams {
 export interface GetSharedFilesParams {
   order?: Order;
   offset?: number;
-  count?:	number;
+  count?: number;
 }
 
 // TODO 必須? https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-webhook
@@ -416,7 +417,7 @@ export interface PostWebhookParams {
   name?: string;
   description?: string;
   hookUrl?: string;
-  allEvent?:  boolean;
+  allEvent?: boolean;
   activityTypeIds?: number[];
 }
 
@@ -429,14 +430,14 @@ export interface PatchWebhookParams {
 }
 
 export enum FieldType {
-    Text = 1,
-    TextArea = 2,
-    Numeric = 3,
-    Date = 4,
-    SingleList = 5,
-    MultipleList = 6,
-    CheckBox = 7,
-    Radio = 8
+  Text = 1,
+  TextArea = 2,
+  Numeric = 3,
+  Date = 4,
+  SingleList = 5,
+  MultipleList = 6,
+  CheckBox = 7,
+  Radio = 8
 }
 
 export interface GetIssueCommentsParams {
@@ -594,7 +595,7 @@ export class Backlog {
     return this.get(`/api/v2/groups/${groupId}`);
   }
 
-  public patchGroup(groupId:number, params: PatchGroupParams): Promise<any> {
+  public patchGroup(groupId: number, params: PatchGroupParams): Promise<any> {
     return this.patch('/api/v2/groups', params);
   }
 
@@ -713,9 +714,9 @@ export class Backlog {
   public postCustomField(
     projectIdOrKey: string,
     params: PostCustomFieldParams |
-            PostCustomFieldWithNumericParams |
-            PostCustomFieldWithDateParams |
-            PostCustomFieldWithListParams
+      PostCustomFieldWithNumericParams |
+      PostCustomFieldWithDateParams |
+      PostCustomFieldWithListParams
   ): Promise<any> {
     return this.post(`/api/v2/projects/${projectIdOrKey}/customFields`, params);
   }
@@ -724,9 +725,9 @@ export class Backlog {
     projectIdOrKey: string,
     id: number,
     params: PatchCustomFieldParams |
-            PatchCustomFieldWithNumericParams |
-            PatchCustomFieldWithDateParams |
-            PatchCustomFieldWithListParams
+      PatchCustomFieldWithNumericParams |
+      PatchCustomFieldWithDateParams |
+      PatchCustomFieldWithListParams
   ): Promise<any> {
     return this.patch(`/api/v2/projects/${projectIdOrKey}/customFields/${id}`, params);
   }
@@ -763,7 +764,7 @@ export class Backlog {
   public getSharedFiles(
     projectIdOrKey: string,
     path: string, params:
-    GetSharedFilesParams
+      GetSharedFilesParams
   ): Promise<any> {
     return this.get(`/api/v2/projects/${projectIdOrKey}/files/metadata/${path}`);
   }
@@ -991,7 +992,7 @@ export class Backlog {
   }
 
 
-// =============================================================
+  // =============================================================
 
 
 
@@ -1101,32 +1102,50 @@ export class Backlog {
   }
 
   // TODO ダウンロード
-  public getSpaceIcon(): Promise<any> {
-    return this.get('/api/v2/space/image');
+  public getSpaceIcon(): Promise<{ body: stream.PassThrough, filename: string }> {
+    return this.download('/api/v2/space/image').then((data: any) => {
+      return new Promise((resolve, reject) => {
+        const disposition = data.headers.get("Content-Disposition");
+        const filename = disposition.substring(disposition.indexOf("''") + 2);
+        resolve({
+          body: data.body,
+          filename: filename
+        });
+      });
+    });
   }
 
+  // const disposition: string = response.headers.get("Content-Disposition");
+  // if (!disposition) {
+  //   reject(new Error('Not found Content-Disposition header.'));
+  // }
+  // const encode: string = disposition.substring(disposition.indexOf("=") + 1, disposition.indexOf("''"));
+  // const filename: string = disposition.substring(disposition.indexOf("''") + 2);
+  private download(endpoint: string): Promise<IResponse> {
+    return this.request('GET', endpoint);
+  }
 
-	private get(endpoint: string, query?: any): Promise<any> {
-    return this.request('GET', endpoint, query);
+  private get(endpoint: string, query?: any): Promise<any> {
+    return this.request('GET', endpoint, query).then(this.parseJSON);
   }
 
   private post(endpoint: string, body?: any): Promise<any> {
-    return this.request('POST', endpoint, null, body);
+    return this.request('POST', endpoint, null, body).then(this.parseJSON);
   }
 
   private put(endpoint: string, body: any): Promise<any> {
-    return this.request('PUT', endpoint, null, body);
+    return this.request('PUT', endpoint, null, body).then(this.parseJSON);
   }
 
   private patch(endpoint: string, body: any): Promise<any> {
-    return this.request('PATCH', endpoint, null, body);
+    return this.request('PATCH', endpoint, null, body).then(this.parseJSON);
   }
 
   private delete(endpoint: string, body?: any): Promise<any> {
-    return this.request('DELETE', endpoint, null, body);
+    return this.request('DELETE', endpoint, null, body).then(this.parseJSON);
   }
 
-  private request (
+  private request(
     method: string,
     endpoint: string,
     query = <{ [index: string]: any; }>{},
@@ -1136,15 +1155,16 @@ export class Backlog {
     const url = `https://${this.spaceId}.backlog.jp${endpoint}?${this.toQueryString(query)}`;
     const init: RequestInit = {};
     init.method = method;
+    init.mode = 'cors';
     if (method != 'GET') {
       const form = this.toFormData(body);
-      init.headers = <{ [index: string]: string; }> form.getHeaders();
+      init.headers = <{ [index: string]: string; }>form.getHeaders();
       init.body = form;
     } else {
       init.headers = <{ [index: string]: string; }>{};
     }
     init.headers['Accept'] = 'application/json';
-    return fetch(url, init).then(this.checkStatus).then(this.parseJSON);
+    return fetch(url, init).then(this.checkStatus);
   }
 
   private checkStatus(response: IResponse): Promise<IResponse> {

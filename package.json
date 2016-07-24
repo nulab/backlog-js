@@ -8,10 +8,14 @@
     "url": "git://github.com:vvatanabe/backlog-js.git"
   },
   "scripts": {
-    "test": "mocha --timeout 10000 --compilers ts:espower-typescript/guess test/test*.ts",
+    "test": "mocha --timeout 20000 --compilers ts:espower-typescript/guess test/test*.ts",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "tsc --removeComments",
+    "build": "npm run build-tsc && npm run build-dist && npm run build-minify && npm run build-demo",
+    "build-dist": "browserify --standalone Backlog src/index.js -o dist/backlog.js",
+    "build-minify": "uglifyjs dist/backlog.js -o dist/backlog.min.js",
+    "build-demo": "browserify --standalone Demo demo/index.js -o demo/demo.js",
+    "build-tsc": "tsc --removeComments",
     "build-tsd": "tsc -d"
   },
   "author": "vvatanabe",
@@ -21,6 +25,7 @@
     "isobject": "^2.1.0"
   },
   "devDependencies": {
+    "browserify": "^13.0.1",
     "coveralls": "^2.11.9",
     "dotenv": "^2.0.0",
     "espower-typescript": "^5.0.1",
