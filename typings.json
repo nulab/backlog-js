@@ -2,14 +2,12 @@
   "globalDependencies": {
     "dotenv": "registry:dt/dotenv#2.0.0+20160327131627",
     "empower": "registry:dt/empower#0.0.0+20160317120654",
-    "form-data": "file:typings-local/form-data/index.d.ts",
-    "isarray": "file:typings-local/isarray/index.d.ts",
-    "isobject": "file:typings-local/isobject/index.d.ts",
     "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
     "mocha": "registry:dt/mocha#2.2.5+20160317120654",
     "nock": "registry:dt/nock#0.54.0+20160613160405",
     "node": "registry:dt/node#6.0.0+20160613154055",
     "power-assert": "registry:dt/power-assert#0.0.0+20160316155526",
-    "power-assert-formatter": "registry:dt/power-assert-formatter#0.0.0+20160317120654"
+    "power-assert-formatter": "registry:dt/power-assert-formatter#0.0.0+20160317120654",
+    "qs": "registry:dt/qs#6.2.0+20160707010053"
   }
 }
