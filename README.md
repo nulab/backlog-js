@@ -57,7 +57,7 @@ backlog.getSpaceIcon().then(data => {
   // node
   data.body.pipe(fs.createWriteStream(`./${data.filename}`));
     
-  // browzer
+  // browser
   data.blob().then((blob) => {
     const objectURL = URL.createObjectURL(blob);
     const element = window.document.querySelector('#image');
@@ -77,7 +77,7 @@ const formData = new FormData();
 formData.append("filename", "sample.png");
 formData.append("file", fs.createReadStream("./sample.png"));
 
-// browzer
+// browser
 const $form = window.document.querySelector('#upload_form');
 const formData = new FormData($form);
 
