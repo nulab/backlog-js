@@ -122,7 +122,9 @@ app.get('/callback', async (req, res) => {
     
     // save access token.
     
-    const myself = await new backlogjs.Backlog({host, accessToken: accessToken.access_token}).getMyself();
+    const myself = await new backlogjs.Backlog({
+      host, accessToken: accessToken.access_token
+    }).getMyself();
     console.log('Myself:', myself);
     
     res.redirect('/');
