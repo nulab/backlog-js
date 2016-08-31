@@ -1,15 +1,12 @@
 # backlog-js
----
 Backlog API version 2 client for browser and node.
 
 
 ## Required reading
----
 Please check out the [Nulab Developers portal page](http://developer.nulab-inc.com/docs/backlog/api/2/).
 
 
 ## Installation
----
 Install the client library using npm:
 
 ``` sh
@@ -17,8 +14,6 @@ $ npm install --save backlog-js
 ```
 
 ## Getting started
----
-
 Append your "API Key" or "OAuth2 Access Token" to requests to the API to return data.
 
 ``` javascript
