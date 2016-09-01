@@ -20,7 +20,6 @@
         "./test/fixtures/oauth2.ts",
         "./test/fixtures/space.ts",
         "./test/fixtures/project.ts",
-        "./demo/index.ts",
         "./node_modules/typescript/lib/lib.es6.d.ts"
     ],
     "exclude": [

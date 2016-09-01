@@ -6,7 +6,6 @@ import * as stream from 'stream';
 import * as dotenv from 'dotenv';
 import * as backlogjs from '../src/index';
 import * as Fixtures from './fixtures/index';
-
 import 'isomorphic-form-data';
 import 'isomorphic-fetch';
 
@@ -15,12 +14,13 @@ dotenv.config();
 
 const host = process.env.BACKLOG_HOST || 'example.backlog.jp';
 const apiKey = process.env.BACKLOG_API_KEY || 'apiKey';
-const clientId = process.env.CLIENT_ID || 'clientId';
-const clientSecret = process.env.CLIENT_SECRET || 'clientSecret';
-const redirectUri = process.env.REDIRECT_URI || 'redirectUri';
-const state = process.env.STATE || 'state';
-const code = process.env.CODE || 'code';
-const refreshToken = process.env.REFRESH_TOKEN || 'refreshToken';
+const clientId = process.env.BACKLOG_CLIENT_ID || 'clientId';
+const clientSecret = process.env.BACKLOG_CLIENT_SECRET || 'clientSecret';
+const redirectUri = process.env.BACKLOG_REDIRECT_URI || 'redirectUri';
+const state = process.env.BACKLOG_STATE || 'state';
+const code = process.env.BACKLOG_CODE || 'code';
+const refreshToken = process.env.BACKLOG_REFRESH_TOKEN || 'refreshToken';
+const accessToken = process.env.BACKLOG_ACCESS_TOKEN || 'accessToken';
 
 const configure = { host, apiKey }
 const credentials = { clientId, clientSecret }
@@ -111,6 +111,7 @@ describe("Backlog API", () => {
 
   afterEach(() => {
     backlog = null;
+    nock.cleanAll();
   })
 
   it('should get web app base url.', (done) => {
