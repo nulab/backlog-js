@@ -410,6 +410,7 @@ exports.default = Backlog;
 "use strict";
 
 },{}],3:[function(require,module,exports){
+(function (global){
 "use strict";
 var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
@@ -462,7 +463,7 @@ var BacklogError = (function (_super) {
         configurable: true
     });
     return BacklogError;
-}(Error));
+}(global.Error));
 exports.BacklogError = BacklogError;
 var BacklogApiError = (function (_super) {
     __extends(BacklogApiError, _super);
@@ -489,6 +490,7 @@ var UnexpectedError = (function (_super) {
 }(BacklogError));
 exports.UnexpectedError = UnexpectedError;
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 "use strict";
 var backlog_1 = require('./backlog');

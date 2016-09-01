@@ -3,11 +3,11 @@
         "target": "es5",
         "sourceMap": false,
         "noImplicitAny": false,
-        "noEmitOnError": false,
-        "removeComments": false
+        "noEmitOnError": false
     },
     "files": [
         "./typings/index.d.ts",
+        "./node_modules/typescript/lib/lib.es6.d.ts",
         "./src/index.ts",
         "./src/backlog.ts",
         "./src/error.ts",
@@ -19,8 +19,7 @@
         "./test/fixtures/index.ts",
         "./test/fixtures/oauth2.ts",
         "./test/fixtures/space.ts",
-        "./test/fixtures/project.ts",
-        "./node_modules/typescript/lib/lib.es6.d.ts"
+        "./test/fixtures/project.ts"
     ],
     "exclude": [
         "node_modules"

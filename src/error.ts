@@ -1,5 +1,5 @@
 
-export class BacklogError extends Error {
+export class BacklogError extends global.Error {
   private _name: BacklogErrorNameType;
   private _url: string;
   private _status: number;
@@ -67,4 +67,4 @@ export interface BacklogErrorMessage {
   moreInfo: string;
 }
 
-type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';
+export type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';

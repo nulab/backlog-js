@@ -114,4 +114,4 @@ export default class Request {
 
 }
 
-type Params = { [index: string]: number|string|number[]|string[]; };
+export type Params = { [index: string]: number|string|number[]|string[]; };
