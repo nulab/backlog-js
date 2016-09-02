@@ -1,5 +1,34 @@
-
 declare module 'backlog-js' {
+
+  class Request {
+      private configure;
+      constructor(configure: {
+          host: string;
+          apiKey?: string;
+          accessToken?: string;
+          timeout?: number;
+      });
+      get<T>(path: string, params?: any): Promise<T>;
+      post<T>(path: string, params?: any): Promise<T>;
+      put<T>(path: string, params: any): Promise<T>;
+      patch<T>(path: string, params: any): Promise<T>;
+      delete<T>(path: string, params?: any): Promise<T>;
+      request(options: {
+          method: string;
+          path: string;
+          params?: Params | FormData;
+      }): Promise<IResponse>;
+      checkStatus(response: IResponse): Promise<IResponse>;
+      parseJSON<T>(response: IResponse): Promise<T>;
+      private toFormData(params);
+      private toQueryString(params);
+      webAppBaseURL: string;
+      restBaseURL: string;
+  }
+
+  type Params = {
+      [index: string]: number | string | number[] | string[];
+  };
 
   export class Backlog extends Request {
     constructor(configure: {
