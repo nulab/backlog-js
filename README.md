@@ -47,23 +47,25 @@ backlog.getSpace().then(data => {
 
 ```
 
-### Example
+### Other Example
 
 #### Download File
 
 ``` javascript
+// node
 backlog.getSpaceIcon().then(data => {
-    
-  // node
   data.body.pipe(fs.createWriteStream(`./${data.filename}`));
-    
-  // browser
+}).catch(err => {
+  console.log('error:', err.message);
+});
+
+// browser
+backlog.getSpaceIcon().then(data => {  
   data.blob().then((blob) => {
     const objectURL = URL.createObjectURL(blob);
     const element = window.document.querySelector('#image');
     element.src = objectURL;
   });
-          
 }).catch(err => {
   console.log('error:', err.message);
 });
@@ -78,6 +80,9 @@ formData.append("filename", "sample.png");
 formData.append("file", fs.createReadStream("./sample.png"));
 
 // browser
+// <form id="upload_form" method="post" enctype="multipart/form-data" >
+//   <input type="file" name="file" >
+// </form>
 const $form = window.document.querySelector('#upload_form');
 const formData = new FormData($form);
 
@@ -119,14 +124,14 @@ app.get('/callback', async (req, res) => {
   try {
     const accessToken = await oauth2.getAccessToken({ host, code, redirectUri });
     console.log('Access Token:', accessToken);
-    
+
     // save access token.
-    
+
     const myself = await new backlogjs.Backlog({
       host, accessToken: accessToken.access_token
     }).getMyself();
     console.log('Myself:', myself);
-    
+
     res.redirect('/');
   } catch (e) {
     console.log('Access Token Error', e.message);

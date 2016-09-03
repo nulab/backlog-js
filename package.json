@@ -5,7 +5,7 @@
   "main": "dist/backlog.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com:vvatanabe/backlog-js.git"
+    "url": "git://github.com:nulab/backlog-js.git"
   },
   "scripts": {
     "test": "mocha --timeout 10000 --compilers ts:espower-typescript/guess test/test*.ts",
@@ -14,13 +14,11 @@
     "build": "npm run build-tsc && npm run build-dist && npm run build-minify",
     "build-dist": "browserify --standalone Backlog src/index.js -o dist/backlog.js",
     "build-minify": "uglifyjs dist/backlog.js -o dist/backlog.min.js",
-    "build-demo": "browserify demo/index.js -o demo/bundle.js",
     "build-tsc": "tsc --removeComments",
     "build-tsd": "tsc -d"
   },
   "author": "vvatanabe",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "browserify": "^13.0.1",
     "coveralls": "^2.11.9",
