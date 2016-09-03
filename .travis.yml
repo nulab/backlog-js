@@ -1,0 +1,10 @@
+sudo: false
+language: node_js
+node_js:
+- node
+before_install:
+  - npm install -g typings
+install:
+  - npm install
+  - typings install
+script: npm run build && npm test
