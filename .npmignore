@@ -1,0 +1,15 @@
+.git
+coverage
+npm-debug.log
+typings
+.DS_Store
+.env
+.gitignore
+.travis.yml
+tsconfig.json
+test/**/*.ts
+test/**/*.js
+test/**/*.js.map
+src/**/*.ts
+src/**/*.js
+src/**/*.js.map
