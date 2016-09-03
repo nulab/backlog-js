@@ -5,7 +5,7 @@
   "main": "dist/backlog.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com:nulab/backlog-js.git"
+    "url": "git://github.com/nulab/backlog-js.git"
   },
   "scripts": {
     "test": "mocha --timeout 10000 --compilers ts:espower-typescript/guess test/test*.ts",
