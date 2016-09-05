@@ -1,6 +1,6 @@
 {
   "name": "backlog-js",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Backlog API v2 client for browser and node",
   "main": "dist/backlog.js",
   "repository": {
@@ -34,5 +34,10 @@
     "qs": "^6.2.1",
     "typescript": "^1.8.10",
     "uglify-js": "^2.6.2"
-  }
+  },
+  "keywords": [
+    "nulab",
+    "backlog",
+    "api"
+  ]
 }

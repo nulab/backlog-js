@@ -1,4 +1,4 @@
-# backlog-js [![Build Status](https://travis-ci.org/nulab/backlog-js.svg?branch=master)](https://travis-ci.org/nulab/backlog-js)
+# backlog-js [![Build Status](https://travis-ci.org/nulab/backlog-js.svg?branch=master)](https://travis-ci.org/nulab/backlog-js) [![npm version](https://badge.fury.io/js/backlog-js.svg)](https://badge.fury.io/js/backlog-js)
 Backlog API version 2 client for browser and node.
 
 ## Required reading
