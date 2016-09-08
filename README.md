@@ -1,19 +1,18 @@
-# backlog-js [![Build Status](https://travis-ci.org/nulab/backlog-js.svg?branch=master)](https://travis-ci.org/nulab/backlog-js) [![npm version](https://badge.fury.io/js/backlog-js.svg)](https://badge.fury.io/js/backlog-js)
+# backlog-js [![Build Status](https://travis-ci.org/nulab/backlog-js.svg?branch=master)](https://travis-ci.org/nulab/backlog-js) [![npm version](https://badge.fury.io/js/backlog-js.svg)](https://badge.fury.io/js/backlog-js) [![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
 Backlog API version 2 client for browser and node.
 
 ## Required reading
 Please check out the [Nulab Developers portal page](http://developer.nulab-inc.com/docs/backlog/api/2/).
 
-
 ## Installation
-NPM:
+npm:
 ``` sh
 $ npm install --save backlog-js
 ```
 
 Typings:
 ```
-$ typings i dt~backlog-js -SG
+$ typings install dt~backlog-js --save --global
 ```
 
 ## Getting started
@@ -144,7 +143,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.send('<br><a href="/auth">Log in with Backlog</a>');
+  res.send('<a href="/auth">Login with Backlog</a>');
 });
 
 app.listen(3000);
