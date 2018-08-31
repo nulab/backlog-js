@@ -1,3 +1,4 @@
+declare interface IResponse { [name:string]: any; }
 
 export class BacklogError extends global.Error {
   private _name: BacklogErrorNameType;

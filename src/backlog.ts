@@ -3,6 +3,8 @@ import * as Entity from './entity';
 import * as Error from './error';
 import Request from './request';
 
+declare interface IResponse { [name:string]: any; }
+
 export default class Backlog extends Request {
 
   constructor(configure: {
