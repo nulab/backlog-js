@@ -30,6 +30,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * 3: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-logo/
+   */
+  public getSpaceIcon(): Promise<Entity.File.FileData> {
+    return this.download('space/image');
+  }
+
+  /**
    * 4: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-notification/
    */
   public getSpaceNotification(): Promise<any> {
@@ -50,13 +57,6 @@ export default class Backlog extends Request {
    */
   public getSpaceDiskUsage(): Promise<any> {
     return this.get('space/diskUsage');
-  }
-
-  /**
-   * 3: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-logo/
-   */
-  public getSpaceIcon(): Promise<Entity.File.FileData> {
-    return this.download('space/image');
   }
 
   /**
@@ -111,6 +111,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * 14: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-icon/
+   */
+  public getUserIcon(userId: number): Promise<Entity.File.FileData> {
+    return this.download(`users/${userId}/icon`);
+  }
+
+  /**
    * 15: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-recent-updates/
    */
   public getUserActivities(
@@ -162,13 +169,6 @@ export default class Backlog extends Request {
     params: Option.User.GetRecentlyViewedParams
   ): Promise<any> {
     return this.get('users/myself/recentlyViewedWikis', params);
-  }
-
-  /**
-   * 14: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-icon/
-   */
-  public getUserIcon(userId: number): Promise<Entity.File.FileData> {
-    return this.download(`users/${userId}/icon`);
   }
 
   /**
@@ -230,17 +230,17 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 30: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project/
-   */
-  public postProject(params: Option.Project.PostProjectParams): Promise<any> {
-    return this.post('projects', params);
-  }
-
-  /**
    * 29: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-list/
    */
   public getProjects(params?: Option.Project.GetProjectsParams): Promise<any> {
     return this.get('projects', params);
+  }
+
+  /**
+   * 30: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project/
+   */
+  public postProject(params: Option.Project.PostProjectParams): Promise<any> {
+    return this.post('projects', params);
   }
 
   /**
@@ -264,6 +264,12 @@ export default class Backlog extends Request {
    */
   public deleteProject(projectIdOrKey: string): Promise<any> {
     return this.delete(`projects/${projectIdOrKey}`);
+  }
+  /**
+   * 34: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-icon/
+   */
+  public getProjectIcon(projectIdOrKey: string): Promise<Entity.File.FileData> {
+    return this.download(`projects/${projectIdOrKey}/image`);
   }
 
   /**
@@ -499,6 +505,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * 62: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-file/
+   */
+  public getSharedFile(projectIdOrKey: string, sharedFileId: number): Promise<Entity.File.FileData> {
+    return this.download(`projects/${projectIdOrKey}/files/${sharedFileId}`);
+  }
+
+  /**
    * 63: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-disk-usage/
    */
   public getProjectsDiskUsage(
@@ -553,6 +566,20 @@ export default class Backlog extends Request {
   }
 
   /**
+   * 69: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-list/
+   */
+  public getIssues(params?: Option.Issue.GetIssuesParams): Promise<any> {
+    return this.get('issues', params);
+  }
+
+  /**
+   * 70: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-issue/
+   */
+  public getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any> {
+    return this.get('issues/count', params);
+  }
+
+  /**
    * 71: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-issue/
    */
   public postIssue(params: Option.Issue.PostIssueParams): Promise<any> {
@@ -569,25 +596,12 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 69: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-list/
-   */
-  public getIssues(params?: Option.Issue.GetIssuesParams): Promise<any> {
-    return this.get('issues', params);
-  }
-
-  /**
    * 72: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue/
    */
   public getIssue(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}`);
   }
 
-  /**
-   * 70: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-issue/
-   */
-  public getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any> {
-    return this.get('issues/count', params);
-  }
 
   /**
    * 74: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-issue/
@@ -660,6 +674,13 @@ export default class Backlog extends Request {
    */
   public getIssueAttachments(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}/attachments`);
+  }
+
+  /**
+   * 83: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-attachment/
+   */
+  public getIssueAttachment(issueIdOrKey: string, attachmentId: number): Promise<Entity.File.FileData> {
+    return this.download(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
   }
 
   /**
@@ -755,6 +776,13 @@ export default class Backlog extends Request {
    */
   public postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any> {
     return this.post(`wikis/${wikiId}/attachments`, { attachmentId });
+  }
+
+  /**
+   * 97: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-attachment/
+   */
+  public getWikiAttachment(wikiId: number, attachmentId: number): Promise<Entity.File.FileData> {
+    return this.download(`wikis/${wikiId}/attachments/${attachmentId}`);
   }
 
   /**
@@ -966,49 +994,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 122: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-pull-request-attachments/
-   */
-  public deletePullRequestAttachment(
-    projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
-  ): Promise<any> {
-    return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
-  }
-
-  /**
-   * 34: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-icon/
-   */
-  public getProjectIcon(projectIdOrKey: string): Promise<Entity.File.FileData> {
-    return this.download(`projects/${projectIdOrKey}/image`);
-  }
-
-  /**
-   * 62: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-file/
-   */
-  public getSharedFile(projectIdOrKey: string, sharedFileId: number): Promise<Entity.File.FileData> {
-    return this.download(`projects/${projectIdOrKey}/files/${sharedFileId}`);
-  }
-
-  /**
-   * 83: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-attachment/
-   */
-  public getIssueAttachment(issueIdOrKey: string, attachmentId: number): Promise<Entity.File.FileData> {
-    return this.download(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
-  }
-
-  /**
-   * 97: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-attachment/
-   */
-  public getWikiAttachment(wikiId: number, attachmentId: number): Promise<Entity.File.FileData> {
-    return this.download(`wikis/${wikiId}/attachments/${attachmentId}`);
-  }
-
-  /**
    * 121: https://developer.nulab-inc.com/ja/docs/backlog/api/2/download-pull-request-attachment/
    */
   public getPullRequestAttachment(
     projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
   ): Promise<Entity.File.FileData> {
     return this.download(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
+  }
+
+  /**
+   * 122: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-pull-request-attachments/
+   */
+  public deletePullRequestAttachment(
+    projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
+  ): Promise<any> {
+    return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
   }
 
   /**
