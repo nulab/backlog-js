@@ -272,7 +272,14 @@ export default class Backlog extends Request {
   public getProjectActivities(
     projectIdOrKey: string, params: Option.Space.GetActivitiesParams
   ): Promise<any> {
-    return this.delete(`projects/${projectIdOrKey}/activities`, params);
+    return this.get(`projects/${projectIdOrKey}/activities`, params);
+  }
+
+  /**
+   * 36: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project-user/
+   */
+  public postProjectUser(projectIdOrKey: string|number, userId: string): Promise<any> {
+    return this.post(`projects/${projectIdOrKey}/users`, { userId });
   }
 
   /**
@@ -329,7 +336,7 @@ export default class Backlog extends Request {
   public postIssueType(
     projectIdOrKey: string, params: Option.Project.PostIssueTypeParams
   ): Promise<any> {
-    return this.get(`projects/${projectIdOrKey}/issueTypes`, params);
+    return this.post(`projects/${projectIdOrKey}/issueTypes`, params);
   }
 
   /**
@@ -1002,6 +1009,90 @@ export default class Backlog extends Request {
     projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
   ): Promise<Entity.File.FileData> {
     return this.download(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
+  }
+
+  /**
+   * 123: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-watching-list
+   */
+  public getWatchingListItems(userId: number): Promise<any> {
+    return this.get(`users/${userId}/watchings`);
+  }
+
+  /**
+   * 124: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-watching
+   */
+  public getWatchingListCount(userId: number): Promise<any> {
+    return this.get(`users/${userId}/watchings/count`);
+  }
+
+  /**
+   * 125: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-watching
+   */
+  public getWatchingListItem(watchId: number): Promise<any> {
+    return this.get(`watchings/${watchId}`);
+  }
+
+  /**
+   * 126: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-watching
+   */
+  public postWatchingListItem(params: any) {
+    return this.post(`watchings`, params);
+  }
+
+  /**
+   * 127: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-watching
+   */
+  public patchWatchingListItem(watchId: number, note: string): Promise<any> {
+    return this.patch(`watchings/${watchId}`, { note });
+  }
+
+  /**
+   * 128: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-watching
+   */
+  public deletehWatchingListItem(watchId: number) {
+    return this.delete(`watchings/${watchId}`);
+  }
+
+  /**
+   * 129: https://developer.nulab-inc.com/ja/docs/backlog/api/2/mark-watching-as-read
+   */
+  public resetWatchingListItemAsRead(watchId: number): Promise<undefined> {
+    return this.post(`watchings/${watchId}/markAsRead`);
+  }
+
+  /**
+   * 130: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-group-list
+   */
+  public getProjectGroupList(projectIdOrKey: string|number) {
+    return this.get(`projects/${projectIdOrKey}/groups`)
+  }
+
+  /**
+   * 131: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project-group
+   */
+  public postProjectGroup(projectIdOrKey: string|number, params: any) {
+    return this.post(`projects/${projectIdOrKey}/groups`, params);
+  }
+  
+  /**
+   * 132: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-project-group
+   */
+  public deleteProjectGroup(projectIdOrKey: string|number) {
+    return this.delete(`projects/${projectIdOrKey}/groups`);
+  }
+
+  /**
+   * 133: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-group-icon
+   */
+  public getGroupIcon(groupId: string): Promise<any> {
+    return this.download(`groups/${groupId}/icon`);
+  }
+
+  /**
+   * 134: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-licence
+   */
+  public getLicence(): Promise<any> {
+    return this.get(`space/licence`);
   }
 
 
