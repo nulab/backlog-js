@@ -1,15 +1,24 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Backlog = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Backlog = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
-var request_1 = require('./request');
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var request_1 = require("./request");
 var Backlog = (function (_super) {
     __extends(Backlog, _super);
     function Backlog(configure) {
-        _super.call(this, configure);
+        return _super.call(this, configure) || this;
     }
     Backlog.prototype.getSpace = function () {
         return this.get('space');
@@ -403,29 +412,39 @@ var Backlog = (function (_super) {
     };
     return Backlog;
 }(request_1.default));
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Backlog;
 
 },{"./request":7}],2:[function(require,module,exports){
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 
 },{}],3:[function(require,module,exports){
 (function (global){
 "use strict";
-var __extends = (this && this.__extends) || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-};
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
 var BacklogError = (function (_super) {
     __extends(BacklogError, _super);
     function BacklogError(name, response, body) {
-        _super.call(this, response.statusText);
-        this._name = name;
-        this._url = response.url;
-        this._status = response.status;
-        this._body = body;
-        this._response = response;
+        var _this = _super.call(this, response.statusText) || this;
+        _this._name = name;
+        _this._url = response.url;
+        _this._status = response.status;
+        _this._body = body;
+        _this._response = response;
+        return _this;
     }
     Object.defineProperty(BacklogError.prototype, "name", {
         get: function () {
@@ -468,7 +487,7 @@ exports.BacklogError = BacklogError;
 var BacklogApiError = (function (_super) {
     __extends(BacklogApiError, _super);
     function BacklogApiError(response, body) {
-        _super.call(this, 'BacklogApiError', response, body);
+        return _super.call(this, 'BacklogApiError', response, body) || this;
     }
     return BacklogApiError;
 }(BacklogError));
@@ -476,7 +495,7 @@ exports.BacklogApiError = BacklogApiError;
 var BacklogAuthError = (function (_super) {
     __extends(BacklogAuthError, _super);
     function BacklogAuthError(response, body) {
-        _super.call(this, 'BacklogAuthError', response, body);
+        return _super.call(this, 'BacklogAuthError', response, body) || this;
     }
     return BacklogAuthError;
 }(BacklogError));
@@ -484,7 +503,7 @@ exports.BacklogAuthError = BacklogAuthError;
 var UnexpectedError = (function (_super) {
     __extends(UnexpectedError, _super);
     function UnexpectedError(response) {
-        _super.call(this, 'UnexpectedError', response);
+        return _super.call(this, 'UnexpectedError', response) || this;
     }
     return UnexpectedError;
 }(BacklogError));
@@ -493,20 +512,22 @@ exports.UnexpectedError = UnexpectedError;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 "use strict";
-var backlog_1 = require('./backlog');
+Object.defineProperty(exports, "__esModule", { value: true });
+var backlog_1 = require("./backlog");
 exports.Backlog = backlog_1.default;
-var oauth2_1 = require('./oauth2');
+var oauth2_1 = require("./oauth2");
 exports.OAuth2 = oauth2_1.default;
-var Option = require('./option');
+var Option = require("./option");
 exports.Option = Option;
-var Entity = require('./entity');
+var Entity = require("./entity");
 exports.Entity = Entity;
-var Error = require('./error');
+var Error = require("./error");
 exports.Error = Error;
 
 },{"./backlog":1,"./entity":2,"./error":3,"./oauth2":5,"./option":6}],5:[function(require,module,exports){
 "use strict";
-var request_1 = require('./request');
+Object.defineProperty(exports, "__esModule", { value: true });
+var request_1 = require("./request");
 var OAuth2 = (function () {
     function OAuth2(credentials, timeout) {
         this.credentials = credentials;
@@ -519,7 +540,7 @@ var OAuth2 = (function () {
             redirect_uri: options.redirectUri,
             state: options.state
         };
-        return ("https://" + options.host + "/OAuth2AccessRequest.action?") +
+        return "https://" + options.host + "/OAuth2AccessRequest.action?" +
             Object.keys(params)
                 .map(function (key) { return params[key] ? key + "=" + params[key] : ''; })
                 .filter(function (x) { return x.length > 0; })
@@ -548,11 +569,12 @@ var OAuth2 = (function () {
     };
     return OAuth2;
 }());
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = OAuth2;
 
 },{"./request":7}],6:[function(require,module,exports){
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var ActivityType;
 (function (ActivityType) {
     ActivityType[ActivityType["Undefined"] = -1] = "Undefined";
     ActivityType[ActivityType["IssueCreated"] = 1] = "IssueCreated";
@@ -576,10 +598,10 @@ exports.default = OAuth2;
     ActivityType[ActivityType["PullRequestUpdated"] = 19] = "PullRequestUpdated";
     ActivityType[ActivityType["PullRequestCommented"] = 20] = "PullRequestCommented";
     ActivityType[ActivityType["PullRequestMerged"] = 21] = "PullRequestMerged";
-})(exports.ActivityType || (exports.ActivityType = {}));
-var ActivityType = exports.ActivityType;
+})(ActivityType = exports.ActivityType || (exports.ActivityType = {}));
 var User;
 (function (User) {
+    var RoleType;
     (function (RoleType) {
         RoleType[RoleType["Admin"] = 1] = "Admin";
         RoleType[RoleType["User"] = 2] = "User";
@@ -587,11 +609,11 @@ var User;
         RoleType[RoleType["Viewer"] = 4] = "Viewer";
         RoleType[RoleType["GuestReporter"] = 5] = "GuestReporter";
         RoleType[RoleType["GuestViewer"] = 6] = "GuestViewer";
-    })(User.RoleType || (User.RoleType = {}));
-    var RoleType = User.RoleType;
+    })(RoleType = User.RoleType || (User.RoleType = {}));
 })(User = exports.User || (exports.User = {}));
 var Project;
 (function (Project) {
+    var FieldType;
     (function (FieldType) {
         FieldType[FieldType["Text"] = 1] = "Text";
         FieldType[FieldType["TextArea"] = 2] = "TextArea";
@@ -601,24 +623,24 @@ var Project;
         FieldType[FieldType["MultipleList"] = 6] = "MultipleList";
         FieldType[FieldType["CheckBox"] = 7] = "CheckBox";
         FieldType[FieldType["Radio"] = 8] = "Radio";
-    })(Project.FieldType || (Project.FieldType = {}));
-    var FieldType = Project.FieldType;
+    })(FieldType = Project.FieldType || (Project.FieldType = {}));
 })(Project = exports.Project || (exports.Project = {}));
 var Issue;
 (function (Issue) {
+    var ParentChildType;
     (function (ParentChildType) {
         ParentChildType[ParentChildType["All"] = 0] = "All";
         ParentChildType[ParentChildType["NotChild"] = 1] = "NotChild";
         ParentChildType[ParentChildType["Child"] = 2] = "Child";
         ParentChildType[ParentChildType["NotChildNotParent"] = 3] = "NotChildNotParent";
         ParentChildType[ParentChildType["Parent"] = 4] = "Parent";
-    })(Issue.ParentChildType || (Issue.ParentChildType = {}));
-    var ParentChildType = Issue.ParentChildType;
+    })(ParentChildType = Issue.ParentChildType || (Issue.ParentChildType = {}));
 })(Issue = exports.Issue || (exports.Issue = {}));
 
 },{}],7:[function(require,module,exports){
 "use strict";
-var Error = require('./error');
+Object.defineProperty(exports, "__esModule", { value: true });
+var Error = require("./error");
 var Request = (function () {
     function Request(configure) {
         this.configure = configure;
@@ -659,7 +681,7 @@ var Request = (function () {
             Object.keys(params).forEach(function (key) { return query[key] = params[key]; });
         }
         var qs = this.toQueryString(query);
-        var url = (this.restBaseURL + "/" + path) + (qs.length > 0 ? "?" + qs : '');
+        var url = this.restBaseURL + "/" + path + (qs.length > 0 ? "?" + qs : '');
         return fetch(url, init).then(this.checkStatus);
     };
     Request.prototype.checkStatus = function (response) {
@@ -692,7 +714,7 @@ var Request = (function () {
                 value.forEach(function (v) { return result.append(key + "[]", v); });
             }
             else {
-                result.append(key, value);
+                result.append(key, "" + value);
             }
             return result;
         }, new FormData());
@@ -728,7 +750,6 @@ var Request = (function () {
     });
     return Request;
 }());
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Request;
 
 },{"./error":3}]},{},[4])(4)

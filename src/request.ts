@@ -1,5 +1,7 @@
 import * as Error from './error';
 
+declare interface IResponse { [name:string]: any; }
+
 export default class Request {
 
   constructor(private configure: {
@@ -83,7 +85,7 @@ export default class Request {
       if (Array.isArray(value)) {
         (<any[]> value).forEach(v => result.append(`${key}[]`, v));
       } else {
-        result.append(key, value);
+        result.append(key, `${value}`);
       }
       return result;
     }, new FormData());
