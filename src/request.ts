@@ -45,7 +45,12 @@ export default class Request {
       init.mode = 'cors';
     }
     if (method !== 'GET') {
-      init.body = params instanceof FormData ? <FormData>params : this.toFormData(params);
+      if (params instanceof FormData) {
+        init.body = <FormData>params
+      } else {
+        init.headers['Content-type'] = 'application/x-www-form-urlencoded';
+        init.body = this.toQueryString(params);
+      }
     } else {
       Object.keys(params).forEach(key => query[key] = params[key]);
     }
@@ -72,21 +77,6 @@ export default class Request {
 
   public parseJSON<T>(response: IResponse): Promise<T> {
     return response.json();
-  }
-
-  private toFormData(params: Params): FormData {
-    return Object.keys(params).reduce((result, key) => {
-      const value = params[key];
-      if (!value) {
-        return result;
-      }
-      if (Array.isArray(value)) {
-        (<any[]> value).forEach(v => result.append(`${key}[]`, v));
-      } else {
-        result.append(key, value);
-      }
-      return result;
-    }, new FormData());
   }
 
   private toQueryString(params: Params): string {
