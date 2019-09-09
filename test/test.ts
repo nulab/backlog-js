@@ -152,43 +152,6 @@ describe("Backlog API", () => {
     done();
   });
 
-  it('should convert object to FormData.', (done) => {
-    const formData = (<any>backlog).toFormData({
-      userId: 'test01',
-      password: 'pazzword',
-      name: 'testuser',
-      mailAddress: 'testuser@example.com',
-      roleType: backlogjs.Option.User.RoleType.Admin
-    });
-    assert("test01" === formData._streams[1]);
-    assert("pazzword" === formData._streams[4]);
-    assert("testuser" === formData._streams[7]);
-    assert("testuser@example.com" === formData._streams[10]);
-    done();
-  });
-
-  it('should convert object(array) to FormData.', (done) => {
-    const formData = (<any>backlog).toFormData({
-      activityTypeId: [
-        backlogjs.Option.ActivityType.IssueCreated,
-        backlogjs.Option.ActivityType.IssueUpdated,
-        backlogjs.Option.ActivityType.IssueCommented
-      ],
-      minId: 1,
-      maxId: 2,
-      count: 3,
-      order: 'asc'
-    });
-    assert("1" === formData._streams[1]);
-    assert("2" === formData._streams[4]);
-    assert("3" === formData._streams[7]);
-    assert("1" === formData._streams[10]);
-    assert("2" === formData._streams[13]);
-    assert("3" === formData._streams[16]);
-    assert("asc" === formData._streams[19]);
-    done();
-  });
-
   it('should get space.', (done) => {
     nock(`https://${host}`)
       .get("/api/v2/space")
