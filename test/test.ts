@@ -46,13 +46,7 @@ describe("OAuth2 API", () => {
   it('should get access token.', done => {
     nock(`https://${host}`)
       .post("/api/v2/oauth2/token", body => {
-        return JSON.stringify(body.toString()
-          .split("\r\n")
-          .reduce((previous, current, index, array) => {
-            const matched = current.match(/^.*name=\"(.*)\"$/);
-            if (matched) previous[`${matched[1]}`] = array[index + 2];
-            return previous;
-          }, {})) === JSON.stringify({
+        return JSON.stringify(body) === JSON.stringify({
             grant_type: 'authorization_code',
             code: code,
             client_id: clientId,
@@ -75,13 +69,7 @@ describe("OAuth2 API", () => {
   it('should refresh access token.', done => {
     nock(`https://${host}`)
       .post("/api/v2/oauth2/token", body => {
-        return JSON.stringify(body.toString()
-          .split("\r\n")
-          .reduce((previous, current, index, array) => {
-            const matched = current.match(/^.*name=\"(.*)\"$/);
-            if (matched) previous[`${matched[1]}`] = array[index + 2];
-            return previous;
-          }, {})) === JSON.stringify({
+        return JSON.stringify(body) === JSON.stringify({
             grant_type: 'refresh_token',
             client_id: clientId,
             client_secret: clientSecret,
