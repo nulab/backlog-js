@@ -32,7 +32,7 @@ const apiKey = 'yourApiKey';
 const accessToken = 'yourAccessToken';
 
 // Use API Key
-const backlog = new backlogjs.Backlog({ host, apikey });
+const backlog = new backlogjs.Backlog({ host, apiKey });
 
 // Use OAuth2 Access Token
 const backlog = new backlogjs.Backlog({ host, accessToken });
