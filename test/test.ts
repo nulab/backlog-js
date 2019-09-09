@@ -46,13 +46,7 @@ describe("OAuth2 API", () => {
   it('should get access token.', done => {
     nock(`https://${host}`)
       .post("/api/v2/oauth2/token", body => {
-        return JSON.stringify(body.toString()
-          .split("\r\n")
-          .reduce((previous, current, index, array) => {
-            const matched = current.match(/^.*name=\"(.*)\"$/);
-            if (matched) previous[`${matched[1]}`] = array[index + 2];
-            return previous;
-          }, {})) === JSON.stringify({
+        return JSON.stringify(body) === JSON.stringify({
             grant_type: 'authorization_code',
             code: code,
             client_id: clientId,
@@ -75,13 +69,7 @@ describe("OAuth2 API", () => {
   it('should refresh access token.', done => {
     nock(`https://${host}`)
       .post("/api/v2/oauth2/token", body => {
-        return JSON.stringify(body.toString()
-          .split("\r\n")
-          .reduce((previous, current, index, array) => {
-            const matched = current.match(/^.*name=\"(.*)\"$/);
-            if (matched) previous[`${matched[1]}`] = array[index + 2];
-            return previous;
-          }, {})) === JSON.stringify({
+        return JSON.stringify(body) === JSON.stringify({
             grant_type: 'refresh_token',
             client_id: clientId,
             client_secret: clientSecret,
@@ -149,43 +137,6 @@ describe("Backlog API", () => {
       order: 'asc'
     });
     assert('activityTypeId[]=1&activityTypeId[]=2&activityTypeId[]=3&minId=1&maxId=2&count=3&order=asc' === query);
-    done();
-  });
-
-  it('should convert object to FormData.', (done) => {
-    const formData = (<any>backlog).toFormData({
-      userId: 'test01',
-      password: 'pazzword',
-      name: 'testuser',
-      mailAddress: 'testuser@example.com',
-      roleType: backlogjs.Option.User.RoleType.Admin
-    });
-    assert("test01" === formData._streams[1]);
-    assert("pazzword" === formData._streams[4]);
-    assert("testuser" === formData._streams[7]);
-    assert("testuser@example.com" === formData._streams[10]);
-    done();
-  });
-
-  it('should convert object(array) to FormData.', (done) => {
-    const formData = (<any>backlog).toFormData({
-      activityTypeId: [
-        backlogjs.Option.ActivityType.IssueCreated,
-        backlogjs.Option.ActivityType.IssueUpdated,
-        backlogjs.Option.ActivityType.IssueCommented
-      ],
-      minId: 1,
-      maxId: 2,
-      count: 3,
-      order: 'asc'
-    });
-    assert("1" === formData._streams[1]);
-    assert("2" === formData._streams[4]);
-    assert("3" === formData._streams[7]);
-    assert("1" === formData._streams[10]);
-    assert("2" === formData._streams[13]);
-    assert("3" === formData._streams[16]);
-    assert("asc" === formData._streams[19]);
     done();
   });
 
