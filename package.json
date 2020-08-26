@@ -20,6 +20,7 @@
   "author": "vvatanabe",
   "license": "MIT",
   "devDependencies": {
+    "@types/isomorphic-fetch": "0.0.35",
     "browserify": "^13.0.1",
     "coveralls": "^2.11.9",
     "dotenv": "^2.0.0",

@@ -2,7 +2,6 @@
   "globalDependencies": {
     "dotenv": "registry:dt/dotenv#2.0.0+20160327131627",
     "empower": "registry:dt/empower#0.0.0+20160317120654",
-    "isomorphic-fetch": "registry:dt/isomorphic-fetch#0.0.0+20160524142046",
     "mocha": "registry:dt/mocha#2.2.5+20160317120654",
     "nock": "registry:dt/nock#0.54.0+20160613160405",
     "node": "registry:dt/node#6.0.0+20160613154055",
