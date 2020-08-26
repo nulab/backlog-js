@@ -643,11 +643,11 @@ export default class Backlog extends Request {
     return this.request({ method: 'GET', path }).then(this.parseFileData);
   }
 
-  private upload(path: string, params: FormData): Promise<IResponse> {
+  private upload(path: string, params: FormData): Promise<any> {
     return this.request({ method: 'POST', path, params }).then(this.parseJSON);
   }
 
-  private parseFileData(response: IResponse): Promise<Entity.File.FileData> {
+  private parseFileData(response: Response): Promise<Entity.File.FileData> {
     return new Promise((resolve, reject) => {
       if (typeof window !== 'undefined') {
         resolve({
