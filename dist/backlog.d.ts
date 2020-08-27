@@ -17,9 +17,9 @@ declare module 'backlog-js' {
           method: string;
           path: string;
           params?: Params | FormData;
-      }): Promise<IResponse>;
-      checkStatus(response: IResponse): Promise<IResponse>;
-      parseJSON<T>(response: IResponse): Promise<T>;
+      }): Promise<Response>;
+      checkStatus(response: Response): Promise<Response>;
+      parseJSON<T>(response: Response): Promise<T>;
       private toFormData(params);
       private toQueryString(params);
       webAppBaseURL: string;
@@ -43,7 +43,7 @@ declare module 'backlog-js' {
     putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<any>;
     getSpaceDiskUsage(): Promise<any>;
     getSpaceIcon(): Promise<Entity.File.FileData>;
-    postSpaceAttachment(form: FormData): Promise<IResponse>;
+    postSpaceAttachment(form: FormData): Promise<any>;
     getUsers(): Promise<any>;
     getUser(userId: number): Promise<any>;
     postUser(params: Option.User.PostUserParams): Promise<any>;
@@ -158,9 +158,9 @@ declare module 'backlog-js' {
     getIssueAttachment(issueIdOrKey: string, attachmentId: number): Promise<Entity.File.FileData>;
     getWikiAttachment(wikiId: number, attachmentId: number): Promise<Entity.File.FileData>;
     getPullRequestAttachment(projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number): Promise<Entity.File.FileData>;
-    private download(path);
-    private upload(path, params);
-    private parseFileData(response);
+    private download;
+    private upload;
+    private parseFileData;
   }
 
   export class OAuth2 {
@@ -650,7 +650,7 @@ declare module 'backlog-js' {
       private _status;
       private _body;
       private _response;
-      constructor(name: BacklogErrorNameType, response: IResponse, body?: {
+      constructor(name: BacklogErrorNameType, response: Response, body?: {
         errors: BacklogErrorMessage[];
       });
       name: BacklogErrorNameType;
@@ -659,20 +659,20 @@ declare module 'backlog-js' {
       body: {
         errors: BacklogErrorMessage[];
       };
-      response: IResponse;
+      response: Response;
     }
     export class BacklogApiError extends BacklogError {
-      constructor(response: IResponse, body?: {
+      constructor(response: Response, body?: {
         errors: BacklogErrorMessage[];
       });
     }
     export class BacklogAuthError extends BacklogError {
-      constructor(response: IResponse, body?: {
+      constructor(response: Response, body?: {
         errors: BacklogErrorMessage[];
       });
     }
     export class UnexpectedError extends BacklogError {
-      constructor(response: IResponse);
+      constructor(response: Response);
     }
     export interface BacklogErrorMessage {
       message: string;
