@@ -30,7 +30,7 @@ export default class Request {
     method: string,
     path: string,
     params?: Params | FormData
-  }): Promise<IResponse> {
+  }): Promise<Response> {
     const { method, path, params = <Params>{} } = options;
     const { apiKey, accessToken, timeout } = this.configure;
     const query: Params = apiKey ? { apiKey: apiKey } : {};
@@ -59,7 +59,7 @@ export default class Request {
     return fetch(url, init).then(this.checkStatus);
   }
 
-  public checkStatus(response: IResponse): Promise<IResponse> {
+  public checkStatus(response: Response): Promise<Response> {
     return new Promise((resolve, reject) => {
       if (200 <= response.status && response.status < 300) {
         resolve(response);
@@ -75,7 +75,7 @@ export default class Request {
     });
   }
 
-  public parseJSON<T>(response: IResponse): Promise<T> {
+  public parseJSON<T>(response: Response): Promise<T> {
     return response.json();
   }
 

@@ -4,10 +4,10 @@ export class BacklogError extends global.Error {
   private _url: string;
   private _status: number;
   private _body: { errors: BacklogErrorMessage[] };
-  private _response: IResponse;
+  private _response: Response;
   constructor(
     name: BacklogErrorNameType,
-    response: IResponse,
+    response: Response,
     body?: { errors: BacklogErrorMessage[] }
   ) {
     super(response.statusText);
@@ -29,14 +29,14 @@ export class BacklogError extends global.Error {
   get body(): { errors: BacklogErrorMessage[] } {
     return this._body;
   }
-  get response(): IResponse {
+  get response(): Response {
     return this._response;
   }
 }
 
 export class BacklogApiError extends BacklogError {
   constructor(
-    response: IResponse,
+    response: Response,
     body?: { errors: BacklogErrorMessage[] }
   ) {
     super('BacklogApiError', response, body);
@@ -45,7 +45,7 @@ export class BacklogApiError extends BacklogError {
 
 export class BacklogAuthError extends BacklogError {
   constructor(
-    response: IResponse,
+    response: Response,
     body?: { errors: BacklogErrorMessage[] }
   ) {
     super('BacklogAuthError', response, body);
@@ -54,7 +54,7 @@ export class BacklogAuthError extends BacklogError {
 
 export class UnexpectedError extends BacklogError {
   constructor(
-    response: IResponse
+    response: Response
   ) {
     super('UnexpectedError', response);
   }
