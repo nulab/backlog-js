@@ -2,7 +2,7 @@
 Backlog API version 2 client for browser and node.
 
 ## Required reading
-Please check out the [Nulab Developers portal page](http://developer.nulab-inc.com/docs/backlog/api/2/).
+Please check out the [Nulab Backlog API page](https://developer.nulab.com/docs/backlog/).
 
 ## Installation
 npm:
