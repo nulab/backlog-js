@@ -1,7 +1,5 @@
 import * as Error from './error';
 
-declare interface IResponse { [name:string]: any; }
-
 export default class Request {
 
   constructor(private configure: {
