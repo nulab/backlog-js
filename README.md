@@ -10,11 +10,6 @@ npm:
 $ npm install --save backlog-js
 ```
 
-Typings:
-```
-$ typings install dt~backlog-js --save --global
-```
-
 ## Getting started
 Append your "API Key" or "OAuth2 Access Token" to requests to the API to return data.
 

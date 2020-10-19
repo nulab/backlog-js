@@ -1,25 +1,15 @@
 {
     "compilerOptions": {
         "target": "es5",
+        "lib": ["dom", "es2016"],
+        "outDir": "dist",
         "sourceMap": false,
         "noImplicitAny": false,
         "noEmitOnError": false
     },
-    "files": [
-        "./typings/index.d.ts",
-        "./node_modules/typescript/lib/lib.es6.d.ts",
-        "./src/index.ts",
-        "./src/backlog.ts",
-        "./src/error.ts",
-        "./src/option.ts",
-        "./src/entity.ts",
-        "./src/oauth2.ts",
-        "./src/request.ts",
-        "./test/test.ts",
-        "./test/fixtures/index.ts",
-        "./test/fixtures/oauth2.ts",
-        "./test/fixtures/space.ts",
-        "./test/fixtures/project.ts"
+    "include": [
+        "src/**/*",
+        "test/**/*"
     ],
     "exclude": [
         "node_modules"

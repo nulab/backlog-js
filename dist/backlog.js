@@ -1,9 +1,12 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.Backlog = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -23,6 +26,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getSpaceActivities = function (params) {
         return this.get('space/activities', params);
     };
+    Backlog.prototype.getSpaceIcon = function () {
+        return this.download('space/image');
+    };
     Backlog.prototype.getSpaceNotification = function () {
         return this.get('space/notification');
     };
@@ -31,9 +37,6 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.getSpaceDiskUsage = function () {
         return this.get('space/diskUsage');
-    };
-    Backlog.prototype.getSpaceIcon = function () {
-        return this.download('space/image');
     };
     Backlog.prototype.postSpaceAttachment = function (form) {
         return this.upload("space/attachment", form);
@@ -56,6 +59,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getMyself = function () {
         return this.get('users/myself');
     };
+    Backlog.prototype.getUserIcon = function (userId) {
+        return this.download("users/" + userId + "/icon");
+    };
     Backlog.prototype.getUserActivities = function (userId, params) {
         return this.get("users/" + userId + "/activities", params);
     };
@@ -73,9 +79,6 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.getRecentlyViewedWikis = function (params) {
         return this.get('users/myself/recentlyViewedWikis', params);
-    };
-    Backlog.prototype.getUserIcon = function (userId) {
-        return this.download("users/" + userId + "/icon");
     };
     Backlog.prototype.getGroups = function (params) {
         return this.get('groups', params);
@@ -101,11 +104,11 @@ var Backlog = (function (_super) {
     Backlog.prototype.getPriorities = function () {
         return this.get('priorities');
     };
-    Backlog.prototype.postProject = function (params) {
-        return this.post('projects', params);
-    };
     Backlog.prototype.getProjects = function (params) {
         return this.get('projects', params);
+    };
+    Backlog.prototype.postProject = function (params) {
+        return this.post('projects', params);
     };
     Backlog.prototype.getProject = function (projectIdOrKey) {
         return this.get("projects/" + projectIdOrKey);
@@ -116,8 +119,14 @@ var Backlog = (function (_super) {
     Backlog.prototype.deleteProject = function (projectIdOrKey) {
         return this.delete("projects/" + projectIdOrKey);
     };
+    Backlog.prototype.getProjectIcon = function (projectIdOrKey) {
+        return this.download("projects/" + projectIdOrKey + "/image");
+    };
     Backlog.prototype.getProjectActivities = function (projectIdOrKey, params) {
-        return this.delete("projects/" + projectIdOrKey + "/activities", params);
+        return this.get("projects/" + projectIdOrKey + "/activities", params);
+    };
+    Backlog.prototype.postProjectUser = function (projectIdOrKey, userId) {
+        return this.post("projects/" + projectIdOrKey + "/users", { userId: userId });
     };
     Backlog.prototype.getProjectUsers = function (projectIdOrKey) {
         return this.get("projects/" + projectIdOrKey + "/users");
@@ -138,7 +147,7 @@ var Backlog = (function (_super) {
         return this.get("projects/" + projectIdOrKey + "/issueTypes");
     };
     Backlog.prototype.postIssueType = function (projectIdOrKey, params) {
-        return this.get("projects/" + projectIdOrKey + "/issueTypes", params);
+        return this.post("projects/" + projectIdOrKey + "/issueTypes", params);
     };
     Backlog.prototype.patchIssueType = function (projectIdOrKey, id, params) {
         return this.patch("projects/" + projectIdOrKey + "/issueTypes/" + id, params);
@@ -194,6 +203,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getSharedFiles = function (projectIdOrKey, path, params) {
         return this.get("projects/" + projectIdOrKey + "/files/metadata/" + path);
     };
+    Backlog.prototype.getSharedFile = function (projectIdOrKey, sharedFileId) {
+        return this.download("projects/" + projectIdOrKey + "/files/" + sharedFileId);
+    };
     Backlog.prototype.getProjectsDiskUsage = function (projectIdOrKey) {
         return this.get("projects/" + projectIdOrKey + "/diskUsage");
     };
@@ -212,20 +224,20 @@ var Backlog = (function (_super) {
     Backlog.prototype.deleteWebhook = function (projectIdOrKey, webhookId) {
         return this.delete("projects/" + projectIdOrKey + "/webhooks/" + webhookId);
     };
+    Backlog.prototype.getIssues = function (params) {
+        return this.get('issues', params);
+    };
+    Backlog.prototype.getIssuesCount = function (params) {
+        return this.get('issues/count', params);
+    };
     Backlog.prototype.postIssue = function (params) {
         return this.post('issues', params);
     };
     Backlog.prototype.patchIssue = function (issueIdOrKey, params) {
         return this.patch("issues/" + issueIdOrKey, params);
     };
-    Backlog.prototype.getIssues = function (params) {
-        return this.get('issues', params);
-    };
     Backlog.prototype.getIssue = function (issueIdOrKey) {
         return this.get("issues/" + issueIdOrKey);
-    };
-    Backlog.prototype.getIssuesCount = function (params) {
-        return this.get('issues/count', params);
     };
     Backlog.prototype.deleteIssuesCount = function (issueIdOrKey) {
         return this.delete("issues/" + issueIdOrKey);
@@ -253,6 +265,9 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.getIssueAttachments = function (issueIdOrKey) {
         return this.get("issues/" + issueIdOrKey + "/attachments");
+    };
+    Backlog.prototype.getIssueAttachment = function (issueIdOrKey, attachmentId) {
+        return this.download("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
     };
     Backlog.prototype.deleteIssueAttachment = function (issueIdOrKey, attachmentId) {
         return this.delete("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
@@ -292,6 +307,9 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.postWikisAttachments = function (wikiId, attachmentId) {
         return this.post("wikis/" + wikiId + "/attachments", { attachmentId: attachmentId });
+    };
+    Backlog.prototype.getWikiAttachment = function (wikiId, attachmentId) {
+        return this.download("wikis/" + wikiId + "/attachments/" + attachmentId);
     };
     Backlog.prototype.deleteWikisAttachments = function (wikiId, attachmentId) {
         return this.delete("wikis/" + wikiId + "/attachments/" + attachmentId);
@@ -362,23 +380,47 @@ var Backlog = (function (_super) {
     Backlog.prototype.getPullRequestAttachments = function (projectIdOrKey, repoIdOrName, number) {
         return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments");
     };
+    Backlog.prototype.getPullRequestAttachment = function (projectIdOrKey, repoIdOrName, number, attachmentId) {
+        return this.download("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments/" + attachmentId);
+    };
     Backlog.prototype.deletePullRequestAttachment = function (projectIdOrKey, repoIdOrName, number, attachmentId) {
         return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments/" + attachmentId);
     };
-    Backlog.prototype.getProjectIcon = function (projectIdOrKey) {
-        return this.download("projects/" + projectIdOrKey + "/image");
+    Backlog.prototype.getWatchingListItems = function (userId) {
+        return this.get("users/" + userId + "/watchings");
     };
-    Backlog.prototype.getSharedFile = function (projectIdOrKey, sharedFileId) {
-        return this.download("projects/" + projectIdOrKey + "/files/" + sharedFileId);
+    Backlog.prototype.getWatchingListCount = function (userId) {
+        return this.get("users/" + userId + "/watchings/count");
     };
-    Backlog.prototype.getIssueAttachment = function (issueIdOrKey, attachmentId) {
-        return this.download("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
+    Backlog.prototype.getWatchingListItem = function (watchId) {
+        return this.get("watchings/" + watchId);
     };
-    Backlog.prototype.getWikiAttachment = function (wikiId, attachmentId) {
-        return this.download("wikis/" + wikiId + "/attachments/" + attachmentId);
+    Backlog.prototype.postWatchingListItem = function (params) {
+        return this.post("watchings", params);
     };
-    Backlog.prototype.getPullRequestAttachment = function (projectIdOrKey, repoIdOrName, number, attachmentId) {
-        return this.download("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments/" + attachmentId);
+    Backlog.prototype.patchWatchingListItem = function (watchId, note) {
+        return this.patch("watchings/" + watchId, { note: note });
+    };
+    Backlog.prototype.deletehWatchingListItem = function (watchId) {
+        return this.delete("watchings/" + watchId);
+    };
+    Backlog.prototype.resetWatchingListItemAsRead = function (watchId) {
+        return this.post("watchings/" + watchId + "/markAsRead");
+    };
+    Backlog.prototype.getProjectGroupList = function (projectIdOrKey) {
+        return this.get("projects/" + projectIdOrKey + "/groups");
+    };
+    Backlog.prototype.postProjectGroup = function (projectIdOrKey, params) {
+        return this.post("projects/" + projectIdOrKey + "/groups", params);
+    };
+    Backlog.prototype.deleteProjectGroup = function (projectIdOrKey) {
+        return this.delete("projects/" + projectIdOrKey + "/groups");
+    };
+    Backlog.prototype.getGroupIcon = function (groupId) {
+        return this.download("groups/" + groupId + "/icon");
+    };
+    Backlog.prototype.getLicence = function () {
+        return this.get("space/licence");
     };
     Backlog.prototype.download = function (path) {
         return this.request({ method: 'GET', path: path }).then(this.parseFileData);
@@ -419,9 +461,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 (function (global){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    }
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
