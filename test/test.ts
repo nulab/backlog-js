@@ -120,7 +120,7 @@ describe("Backlog API", () => {
       mailAddress: 'testuser@example.com',
       roleType: backlogjs.Option.User.RoleType.Admin
     });
-    assert('userId=test01&password=pazzword&name=testuser&mailAddress=testuser@example.com&roleType=1' === query);
+    assert('userId=test01&password=pazzword&name=testuser&mailAddress=testuser%40example.com&roleType=1' === query);
     done();
   });
 
@@ -136,7 +136,7 @@ describe("Backlog API", () => {
       count: 3,
       order: 'asc'
     });
-    assert('activityTypeId[]=1&activityTypeId[]=2&activityTypeId[]=3&minId=1&maxId=2&count=3&order=asc' === query);
+    assert('activityTypeId%5B%5D=1&activityTypeId%5B%5D=2&activityTypeId%5B%5D=3&minId=1&maxId=2&count=3&order=asc' === query);
     done();
   });
 

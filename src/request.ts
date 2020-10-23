@@ -1,4 +1,5 @@
 import * as Error from './error';
+import * as qs from 'qs';
 
 export default class Request {
 
@@ -54,8 +55,8 @@ export default class Request {
     } else {
       Object.keys(params).forEach(key => query[key] = params[key]);
     }
-    const qs = this.toQueryString(query);
-    const url = `${this.restBaseURL}/${path}` + (qs.length > 0 ? `?${qs}` : '');
+    const queryStr = this.toQueryString(query);
+    const url = `${this.restBaseURL}/${path}` + (queryStr.length > 0 ? `?${queryStr}` : '');
     return fetch(url, init).then(this.checkStatus);
   }
 
@@ -80,18 +81,7 @@ export default class Request {
   }
 
   private toQueryString(params: Params): string {
-    return Object.keys(params).reduce((result, key) => {
-      const value = params[key];
-      if (!value) {
-        return result;
-      }
-      if (Array.isArray(value)) {
-        (<any[]> value).forEach(v => result.push(`${key}[]=${v}`));
-      } else {
-        result.push(`${key}=${value}`);
-      }
-      return result;
-    }, []).join('&');
+    return qs.stringify(params, { arrayFormat: 'brackets' });
   }
 
   public get webAppBaseURL(): string {

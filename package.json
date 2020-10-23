@@ -19,6 +19,9 @@
   },
   "author": "vvatanabe",
   "license": "MIT",
+  "dependencies": {
+    "qs": "^6.5.2"
+  },
   "devDependencies": {
     "@types/dotenv": "^4.0.3",
     "@types/empower": "^1.2.30",
@@ -40,7 +43,6 @@
     "mocha": "^5.2.0",
     "nock": "^9.6.1",
     "power-assert": "^1.6.0",
-    "qs": "^6.5.2",
     "typescript": "^3.0.3",
     "uglify-js": "^3.4.8"
   },
