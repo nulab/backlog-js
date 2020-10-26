@@ -1,6 +1,6 @@
 {
   "name": "backlog-js",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Backlog API v2 client for browser and node",
   "main": "dist/backlog.js",
   "repository": {
@@ -15,7 +15,8 @@
     "build-dist": "npx browserify --standalone Backlog dist/src/index.js -o dist/backlog.js",
     "build-minify": "npx uglifyjs dist/backlog.js -o dist/backlog.min.js",
     "build-tsc": "npx tsc --removeComments",
-    "build-tsd": "npx tsc -d"
+    "build-tsd": "npx tsc -d",
+    "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
   "author": "vvatanabe",
   "license": "MIT",
