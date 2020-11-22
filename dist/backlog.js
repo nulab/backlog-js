@@ -90,7 +90,7 @@ var Backlog = (function (_super) {
         return this.get("groups/" + groupId);
     };
     Backlog.prototype.patchGroup = function (groupId, params) {
-        return this.patch('groups', params);
+        return this.patch("groups/" + groupId, params);
     };
     Backlog.prototype.deleteGroup = function (groupId) {
         return this.delete("groups/" + groupId);
@@ -197,11 +197,11 @@ var Backlog = (function (_super) {
     Backlog.prototype.patchCustomFieldItem = function (projectIdOrKey, id, itemId, params) {
         return this.patch("projects/" + projectIdOrKey + "/customFields/" + id + "/items/" + itemId, params);
     };
-    Backlog.prototype.deleteCustomFieldItem = function (projectIdOrKey, id, params) {
-        return this.delete("projects/" + projectIdOrKey + "/customFields/" + id + "/items");
+    Backlog.prototype.deleteCustomFieldItem = function (projectIdOrKey, id, itemId) {
+        return this.delete("projects/" + projectIdOrKey + "/customFields/" + id + "/items/" + itemId);
     };
     Backlog.prototype.getSharedFiles = function (projectIdOrKey, path, params) {
-        return this.get("projects/" + projectIdOrKey + "/files/metadata/" + path);
+        return this.get("projects/" + projectIdOrKey + "/files/metadata/" + path, params);
     };
     Backlog.prototype.getSharedFile = function (projectIdOrKey, sharedFileId) {
         return this.download("projects/" + projectIdOrKey + "/files/" + sharedFileId);
