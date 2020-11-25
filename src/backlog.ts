@@ -195,7 +195,7 @@ export default class Backlog extends Request {
   public patchGroup(
     groupId: number, params: Option.Group.PatchGroupParams
   ): Promise<any> {
-    return this.patch('groups', params);
+    return this.patch(`groups/${groupId}`, params);
   }
 
   /**
@@ -487,9 +487,9 @@ export default class Backlog extends Request {
    * 60: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
    */
   public deleteCustomFieldItem(
-    projectIdOrKey: string, id: number, params: Option.Project.PostCustomFieldItemParams
+    projectIdOrKey: string, id: number, itemId: number
   ): Promise<any> {
-    return this.delete(`projects/${projectIdOrKey}/customFields/${id}/items`);
+    return this.delete(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`);
   }
 
   /**
@@ -498,7 +498,7 @@ export default class Backlog extends Request {
   public getSharedFiles(
     projectIdOrKey: string, path: string, params: Option.Project.GetSharedFilesParams
   ): Promise<any> {
-    return this.get(`projects/${projectIdOrKey}/files/metadata/${path}`);
+    return this.get(`projects/${projectIdOrKey}/files/metadata/${path}`, params);
   }
 
   /**
