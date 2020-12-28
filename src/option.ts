@@ -508,6 +508,11 @@
 
   export namespace Wiki {
 
+    export interface GetWikiParams {
+      projectIdOrKey: number;
+      keyword?: string;
+    }
+
     export interface PostWikiParams {
       projectId: number;
       name: string;

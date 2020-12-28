@@ -138,7 +138,7 @@ export default class Backlog extends Request {
   public getUserStarsCount(
     userId: number, params: Option.User.GetUserStarsCountParams
   ): Promise<any> {
-    return this.get(`users/${userId}/count`, params);
+    return this.get(`users/${userId}/stars/count`, params);
   }
 
   /**
@@ -978,7 +978,7 @@ export default class Backlog extends Request {
     commentId: number,
     params: Option.PullRequest.PatchPullRequestCommentsParams
   ): Promise<any> {
-    return this.patch(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/${commentId}`, params);
+    return this.patch(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/${commentId}`, params);
   }
 
   /**

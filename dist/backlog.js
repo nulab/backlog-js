@@ -69,7 +69,7 @@ var Backlog = (function (_super) {
         return this.get("users/" + userId + "/stars", params);
     };
     Backlog.prototype.getUserStarsCount = function (userId, params) {
-        return this.get("users/" + userId + "/count", params);
+        return this.get("users/" + userId + "/stars/count", params);
     };
     Backlog.prototype.getRecentlyViewedIssues = function (params) {
         return this.get('users/myself/recentlyViewedIssues', params);
@@ -375,7 +375,7 @@ var Backlog = (function (_super) {
         return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments/count");
     };
     Backlog.prototype.patchPullRequestComments = function (projectIdOrKey, repoIdOrName, number, commentId, params) {
-        return this.patch("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/" + commentId, params);
+        return this.patch("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments/" + commentId, params);
     };
     Backlog.prototype.getPullRequestAttachments = function (projectIdOrKey, repoIdOrName, number) {
         return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments");
