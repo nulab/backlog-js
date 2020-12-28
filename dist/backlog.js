@@ -281,8 +281,8 @@ var Backlog = (function (_super) {
     Backlog.prototype.unlinkIssueSharedFile = function (issueIdOrKey, id) {
         return this.delete("issues/" + issueIdOrKey + "/sharedFiles/" + id);
     };
-    Backlog.prototype.getWikis = function (projectIdOrKey) {
-        return this.get("wikis", { projectIdOrKey: projectIdOrKey });
+    Backlog.prototype.getWikis = function (params) {
+        return this.get("wikis", params);
     };
     Backlog.prototype.getWikisCount = function (projectIdOrKey) {
         return this.get("wikis/count", { projectIdOrKey: projectIdOrKey });

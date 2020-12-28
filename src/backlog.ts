@@ -713,8 +713,8 @@ export default class Backlog extends Request {
   /**
    * 88: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-list/
    */
-  public getWikis(projectIdOrKey: number): Promise<any> {
-    return this.get(`wikis`, { projectIdOrKey });
+  public getWikis(params: Option.Wiki.GetWikiParams): Promise<any> {
+    return this.get(`wikis`, params);
   }
 
   /**
