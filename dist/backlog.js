@@ -98,6 +98,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getStatuses = function () {
         return this.get('statuses');
     };
+    Backlog.prototype.getProjectStatuses = function (projectIdOrKey) {
+        return this.get("projects/" + projectIdOrKey + "/statuses");
+    };
     Backlog.prototype.getResolutions = function () {
         return this.get('resolutions');
     };
@@ -142,6 +145,18 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.deleteProjectAdministrators = function (projectIdOrKey, params) {
         return this.delete("projects/" + projectIdOrKey + "/administrators", params);
+    };
+    Backlog.prototype.postProjectStatus = function (projectIdOrKey, params) {
+        return this.post("projects/" + projectIdOrKey + "/statuses", params);
+    };
+    Backlog.prototype.patchProjectStatus = function (projectIdOrKey, id, params) {
+        return this.patch("projects/" + projectIdOrKey + "/statuses/" + id, params);
+    };
+    Backlog.prototype.deleteProjectStatus = function (projectIdOrKey, id, substituteStatusId) {
+        return this.delete("projects/" + projectIdOrKey + "/statuses/" + id, { substituteStatusId: substituteStatusId });
+    };
+    Backlog.prototype.patchProjectStatusOrder = function (projectIdOrKey, statusId) {
+        return this.patch("projects/" + projectIdOrKey + "/statuses/updateDisplayOrder", { statusId: statusId });
     };
     Backlog.prototype.getIssueTypes = function (projectIdOrKey) {
         return this.get("projects/" + projectIdOrKey + "/issueTypes");
@@ -254,6 +269,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getIssueComment = function (issueIdOrKey, commentId) {
         return this.get("issues/" + issueIdOrKey + "/comments/" + commentId);
     };
+    Backlog.prototype.deleteIssueComment = function (issueIdOrKey, commentId) {
+        return this.delete("issues/" + issueIdOrKey + "/comments/" + commentId);
+    };
     Backlog.prototype.patchIssueComment = function (issueIdOrKey, commentId, params) {
         return this.patch("issues/" + issueIdOrKey + "/comments/" + commentId, params);
     };
@@ -271,6 +289,9 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.deleteIssueAttachment = function (issueIdOrKey, attachmentId) {
         return this.delete("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
+    };
+    Backlog.prototype.getIssueParticipants = function (issueIdOrKey) {
+        return this.get("issues/" + issueIdOrKey + "/participants");
     };
     Backlog.prototype.getIssueSharedFiles = function (issueIdOrKey) {
         return this.get("issues/" + issueIdOrKey + "/sharedFiles");
@@ -421,6 +442,33 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.getLicence = function () {
         return this.get("space/licence");
+    };
+    Backlog.prototype.getTeams = function (params) {
+        return this.get("teams", params);
+    };
+    Backlog.prototype.postTeam = function (members) {
+        return this.post("teams", { members: members });
+    };
+    Backlog.prototype.getTeam = function (teamId) {
+        return this.get("teams/" + teamId);
+    };
+    Backlog.prototype.patchTeam = function (teamId, params) {
+        return this.patch("teams/" + teamId, params);
+    };
+    Backlog.prototype.deleteTeam = function (teamId) {
+        return this.delete("teams/" + teamId);
+    };
+    Backlog.prototype.getTeamIcon = function (teamId) {
+        return this.download("teams/" + teamId + "/icon");
+    };
+    Backlog.prototype.getProjectTeams = function (projectIdOrKey) {
+        return this.get("projects/" + projectIdOrKey + "/teams");
+    };
+    Backlog.prototype.postProjectTeam = function (projectIdOrKey, teamId) {
+        return this.post("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
+    };
+    Backlog.prototype.deleteProjectTeam = function (projectIdOrKey, teamId) {
+        return this.delete("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
     };
     Backlog.prototype.download = function (path) {
         return this.request({ method: 'GET', path: path }).then(this.parseFileData);
