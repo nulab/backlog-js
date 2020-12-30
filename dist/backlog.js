@@ -81,21 +81,27 @@ var Backlog = (function (_super) {
         return this.get('users/myself/recentlyViewedWikis', params);
     };
     Backlog.prototype.getGroups = function (params) {
+        console.warn("Deprecated: Use getTeams instead.");
         return this.get('groups', params);
     };
     Backlog.prototype.postGroups = function (params) {
+        console.warn("Deprecated: Use postTeam instead.");
         return this.post('groups', params);
     };
     Backlog.prototype.getGroup = function (groupId) {
+        console.warn("Deprecated: Use getTeam instead.");
         return this.get("groups/" + groupId);
     };
     Backlog.prototype.patchGroup = function (groupId, params) {
+        console.warn("Deprecated: Use patchTeam instead.");
         return this.patch("groups/" + groupId, params);
     };
     Backlog.prototype.deleteGroup = function (groupId) {
+        console.warn("Deprecated: Use deleteTeam instead.");
         return this.delete("groups/" + groupId);
     };
     Backlog.prototype.getStatuses = function () {
+        console.warn("Deprecated: Use getProjectStatuses instead.");
         return this.get('statuses');
     };
     Backlog.prototype.getProjectStatuses = function (projectIdOrKey) {
@@ -429,15 +435,19 @@ var Backlog = (function (_super) {
         return this.post("watchings/" + watchId + "/markAsRead");
     };
     Backlog.prototype.getProjectGroupList = function (projectIdOrKey) {
+        console.warn("Deprecated: Use getProjectTeams instead.");
         return this.get("projects/" + projectIdOrKey + "/groups");
     };
     Backlog.prototype.postProjectGroup = function (projectIdOrKey, params) {
+        console.warn("Deprecated: Use postProjectTeam instead.");
         return this.post("projects/" + projectIdOrKey + "/groups", params);
     };
     Backlog.prototype.deleteProjectGroup = function (projectIdOrKey) {
+        console.warn("Deprecated: Use deleteProjectTeam instead.");
         return this.delete("projects/" + projectIdOrKey + "/groups");
     };
     Backlog.prototype.getGroupIcon = function (groupId) {
+        console.warn("Deprecated: Use getTeamIcon instead.");
         return this.download("groups/" + groupId + "/icon");
     };
     Backlog.prototype.getLicence = function () {
