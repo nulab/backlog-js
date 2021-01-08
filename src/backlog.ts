@@ -11,14 +11,14 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 1: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space/
+   * https://developer.nulab.com/docs/backlog/api/2/get-space/
    */
   public getSpace(): Promise<any> {
     return this.get('space');
   }
 
   /**
-   * 2: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-recent-updates/
+   * https://developer.nulab.com/docs/backlog/api/2/get-recent-updates/
    */
   public getSpaceActivities(
     params: Option.Space.GetActivitiesParams
@@ -27,21 +27,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 3: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-logo/
+   * https://developer.nulab.com/docs/backlog/api/2/get-space-logo/
    */
   public getSpaceIcon(): Promise<Entity.File.FileData> {
     return this.download('space/image');
   }
 
   /**
-   * 4: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/get-space-notification/
    */
   public getSpaceNotification(): Promise<any> {
     return this.get('space/notification');
   }
 
   /**
-   * 5: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-space-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/update-space-notification/
    */
   public putSpaceNotification(
     params: Option.Space.PutSpaceNotificationParams
@@ -50,42 +50,42 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 6: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-space-disk-usage/
+   * https://developer.nulab.com/docs/backlog/api/2/get-space-disk-usage/
    */
   public getSpaceDiskUsage(): Promise<any> {
     return this.get('space/diskUsage');
   }
 
   /**
-   * 7: https://developer.nulab-inc.com/ja/docs/backlog/api/2/post-attachment-file/
+   * https://developer.nulab.com/docs/backlog/api/2/post-attachment-file/
    */
   public postSpaceAttachment(form: FormData) {
     return this.upload("space/attachment", form);
   }
 
   /**
-   * 8: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-user-list/
    */
   public getUsers(): Promise<any> {
     return this.get(`users`);
   }
 
   /**
-   * 9: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user/
+   * https://developer.nulab.com/docs/backlog/api/2/get-user/
    */
   public getUser(userId: number): Promise<any> {
     return this.get(`users/${userId}`);
   }
 
   /**
-   * 10: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-user/
+   * https://developer.nulab.com/docs/backlog/api/2/add-user/
    */
   public postUser(params: Option.User.PostUserParams): Promise<any> {
     return this.post(`users`, params);
   }
 
   /**
-   * 11: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-user/
+   * https://developer.nulab.com/docs/backlog/api/2/update-user/
    */
   public patchUser(
     userId: number, params: Option.User.PatchUserParams
@@ -94,28 +94,28 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 12: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-user/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-user/
    */
   public deleteUser(userId: number): Promise<any> {
     return this.delete(`users/${userId}`);
   }
 
   /**
-   * 13: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-own-user/
+   * https://developer.nulab.com/docs/backlog/api/2/get-own-user/
    */
   public getMyself(): Promise<any> {
     return this.get('users/myself');
   }
 
   /**
-   * 14: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-icon/
+   * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
    */
   public getUserIcon(userId: number): Promise<Entity.File.FileData> {
     return this.download(`users/${userId}/icon`);
   }
 
   /**
-   * 15: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-user-recent-updates/
+   * https://developer.nulab.com/docs/backlog/api/2/get-user-recent-updates/
    */
   public getUserActivities(
     userId: number, params: Option.User.GetUserActivitiesParams
@@ -124,7 +124,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 16: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-received-star-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-received-star-list/
    */
   public getUserStars(
     userId: number, params: Option.User.GetUserStarsParams
@@ -133,7 +133,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 17: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-user-received-stars/
+   * https://developer.nulab.com/docs/backlog/api/2/count-user-received-stars/
    */
   public getUserStarsCount(
     userId: number, params: Option.User.GetUserStarsCountParams
@@ -142,7 +142,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 18: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-recently-viewed-issues/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-issues/
    */
   public getRecentlyViewedIssues(
     params: Option.User.GetRecentlyViewedParams
@@ -151,7 +151,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 19: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-recently-viewed-projects/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-projects/
    */
   public getRecentlyViewedProjects(
     params: Option.User.GetRecentlyViewedParams
@@ -160,7 +160,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 20: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-recently-viewed-wikis/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-wikis/
    */
   public getRecentlyViewedWikis(
     params: Option.User.GetRecentlyViewedParams
@@ -169,86 +169,99 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 21: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-groups/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
    */
   public getGroups(params: Option.Group.GetGroupsParams): Promise<any> {
+    console.warn("Deprecated: Use getTeams instead.");
     return this.get('groups', params);
   }
 
   /**
-   * 22: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-group/
+   * https://developer.nulab.com/docs/backlog/api/2/add-group/
    */
   public postGroups(params: Option.Group.PostGroupsParams): Promise<any> {
+    console.warn("Deprecated: Use postTeam instead.");
     return this.post('groups', params);
   }
 
   /**
-   * 23: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-group/
+   * https://developer.nulab.com/docs/backlog/api/2/get-group/
    */
   public getGroup(groupId: number): Promise<any> {
+    console.warn("Deprecated: Use getTeam instead.");
     return this.get(`groups/${groupId}`);
   }
 
   /**
-   * 24: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-group/
+   * https://developer.nulab.com/docs/backlog/api/2/update-group/
    */
   public patchGroup(
     groupId: number, params: Option.Group.PatchGroupParams
   ): Promise<any> {
+    console.warn("Deprecated: Use patchTeam instead.");
     return this.patch(`groups/${groupId}`, params);
   }
 
   /**
-   * 25: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-group/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-group/
    */
   public deleteGroup(groupId: number): Promise<any> {
+    console.warn("Deprecated: Use deleteTeam instead.");
     return this.delete(`groups/${groupId}`);
   }
 
   /**
-   * 26: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-status-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
    */
   public getStatuses(): Promise<any> {
+    console.warn("Deprecated: Use getProjectStatuses instead.");
     return this.get('statuses');
   }
 
   /**
-   * 27: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-resolution-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
+   */
+  public getProjectStatuses(projectIdOrKey: string): Promise<any> {
+    return this.get(`projects/${projectIdOrKey}/statuses`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-resolution-list/
    */
   public getResolutions(): Promise<any> {
     return this.get('resolutions');
   }
 
   /**
-   * 28: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-priority-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-priority-list/
    */
   public getPriorities(): Promise<any> {
     return this.get('priorities');
   }
 
   /**
-   * 29: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-list/
    */
   public getProjects(params?: Option.Project.GetProjectsParams): Promise<any> {
     return this.get('projects', params);
   }
 
   /**
-   * 30: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project/
+   * https://developer.nulab.com/docs/backlog/api/2/add-project/
    */
   public postProject(params: Option.Project.PostProjectParams): Promise<any> {
     return this.post('projects', params);
   }
 
   /**
-   * 31: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project/
    */
   public getProject(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}`);
   }
 
   /**
-   * 32: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-project/
+   * https://developer.nulab.com/docs/backlog/api/2/update-project/
    */
   public patchProject(
     projectIdOrKey: string, params: Option.Project.PatchProjectParams
@@ -257,20 +270,20 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 33: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-project/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-project/
    */
   public deleteProject(projectIdOrKey: string): Promise<any> {
     return this.delete(`projects/${projectIdOrKey}`);
   }
   /**
-   * 34: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-icon/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-icon/
    */
   public getProjectIcon(projectIdOrKey: string): Promise<Entity.File.FileData> {
     return this.download(`projects/${projectIdOrKey}/image`);
   }
 
   /**
-   * 35: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-recent-updates/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-recent-updates/
    */
   public getProjectActivities(
     projectIdOrKey: string, params: Option.Space.GetActivitiesParams
@@ -279,21 +292,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 36: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project-user/
+   * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
    */
   public postProjectUser(projectIdOrKey: string|number, userId: string): Promise<any> {
     return this.post(`projects/${projectIdOrKey}/users`, { userId });
   }
 
   /**
-   * 37: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-user-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
    */
   public getProjectUsers(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/users`);
   }
 
   /**
-   * 38: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-project-user/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-project-user/
    */
   public deleteProjectUsers(
     projectIdOrKey: string, params: Option.Project.DeleteProjectUsersParams
@@ -302,7 +315,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 39: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project-administrator/
+   * https://developer.nulab.com/docs/backlog/api/2/add-project-administrator/
    */
   public postProjectAdministrators(
     projectIdOrKey: string, params: Option.Project.PostProjectAdministrators
@@ -311,14 +324,14 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 40: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-project-administrators/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
    */
   public getProjectAdministrators(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/administrators`);
   }
 
   /**
-   * 41: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-project-administrator/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-project-administrator/
    */
   public deleteProjectAdministrators(
     projectIdOrKey: string, params: Option.Project.DeleteProjectAdministrators
@@ -327,14 +340,50 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 42: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-type-list/
+   * https://developer.nulab.com/docs/backlog/api/2/add-status/
+   */
+  public postProjectStatus(
+    projectIdOrKey: string, params: Option.Project.PostStatusParams,
+  ): Promise<any> {
+    return this.post(`projects/${projectIdOrKey}/statuses`, params);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/update-status/
+   */
+  public patchProjectStatus(
+    projectIdOrKey: string, id: number, params: Option.Project.PatchStatusParams
+  ): Promise<any> {
+    return this.patch(`projects/${projectIdOrKey}/statuses/${id}`, params);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/delete-status/
+   */
+  public deleteProjectStatus(
+    projectIdOrKey: string, id: number, substituteStatusId: number
+  ): Promise<any> {
+    return this.delete(`projects/${projectIdOrKey}/statuses/${id}`, { substituteStatusId });
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/update-order-of-status/
+   */
+  public patchProjectStatusOrder(
+    projectIdOrKey: string, statusId: number[]
+  ): Promise<any> {
+    return this.patch(`projects/${projectIdOrKey}/statuses/updateDisplayOrder`, { statusId });
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
    */
   public getIssueTypes(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/issueTypes`);
   }
 
   /**
-   * 43: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-issue-type/
+   * https://developer.nulab.com/docs/backlog/api/2/add-issue-type/
    */
   public postIssueType(
     projectIdOrKey: string, params: Option.Project.PostIssueTypeParams
@@ -343,7 +392,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 44: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-issue-type/
+   * https://developer.nulab.com/docs/backlog/api/2/update-issue-type/
    */
   public patchIssueType(
     projectIdOrKey: string, id: number, params: Option.Project.PatchIssueTypeParams
@@ -352,7 +401,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 45: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-issue-type/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-issue-type/
    */
   public deleteIssueType(
     projectIdOrKey: string, id: number, params: Option.Project.DeleteIssueTypeParams
@@ -361,14 +410,14 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 46: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-category-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-category-list/
    */
   public getCategories(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/categories`);
   }
 
   /**
-   * 47: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-category/
+   * https://developer.nulab.com/docs/backlog/api/2/add-category/
    */
   public postCategories(
     projectIdOrKey: string, params: Option.Project.PostCategoriesParams
@@ -377,7 +426,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 48: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-category/
+   * https://developer.nulab.com/docs/backlog/api/2/update-category/
    */
   public patchCategories(
     projectIdOrKey: string, id: number, params: Option.Project.PatchCategoriesParams
@@ -386,21 +435,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 49: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-category/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-category/
    */
   public deleteCategories(projectIdOrKey: string, id: number): Promise<any> {
     return this.delete(`projects/${projectIdOrKey}/categories/${id}`);
   }
 
   /**
-   * 50: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-version-milestone-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-version-milestone-list/
    */
   public getVersions(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/versions`);
   }
 
   /**
-   * 51: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-version-milestone/
+   * https://developer.nulab.com/docs/backlog/api/2/add-version-milestone/
    */
   public postVersions(
     projectIdOrKey: string, params: Option.Project.PostVersionsParams
@@ -409,7 +458,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 52: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-version-milestone/
+   * https://developer.nulab.com/docs/backlog/api/2/update-version-milestone/
    */
   public patchVersions(
     projectIdOrKey: string, id: number, params: Option.Project.PatchVersionsParams
@@ -418,21 +467,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 53: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-version/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-version/
    */
   public deleteVersions(projectIdOrKey: string, id: number): Promise<any> {
     return this.delete(`projects/${projectIdOrKey}/versions/${id}`);
   }
 
   /**
-   * 54: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-custom-field-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
    */
   public getCustomFields(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/customFields`);
   }
 
   /**
-   * 55: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/add-custom-field/
    */
   public postCustomField(
     projectIdOrKey: string,
@@ -445,7 +494,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 56: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/update-custom-field/
    */
   public patchCustomField(
     projectIdOrKey: string,
@@ -459,14 +508,14 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 57: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
    */
   public deleteCustomField(projectIdOrKey: string, id: number): Promise<any> {
     return this.delete(`projects/${projectIdOrKey}/customFields/${id}`);
   }
 
   /**
-   * 58: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
    */
   public postCustomFieldItem(
     projectIdOrKey: string, id: number, params: Option.Project.PostCustomFieldItemParams
@@ -475,7 +524,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 59: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
    */
   public patchCustomFieldItem(
     projectIdOrKey: string, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams
@@ -484,7 +533,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 60: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
    */
   public deleteCustomFieldItem(
     projectIdOrKey: string, id: number, itemId: number
@@ -493,7 +542,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 61: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-shared-files/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files/
    */
   public getSharedFiles(
     projectIdOrKey: string, path: string, params: Option.Project.GetSharedFilesParams
@@ -502,14 +551,14 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 62: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-file/
+   * https://developer.nulab.com/docs/backlog/api/2/get-file/
    */
   public getSharedFile(projectIdOrKey: string, sharedFileId: number): Promise<Entity.File.FileData> {
     return this.download(`projects/${projectIdOrKey}/files/${sharedFileId}`);
   }
 
   /**
-   * 63: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-disk-usage/
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-disk-usage/
    */
   public getProjectsDiskUsage(
     projectIdOrKey: string
@@ -518,7 +567,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 64: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-webhooks/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
    */
   public getWebhooks(
     projectIdOrKey: string
@@ -527,7 +576,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 65: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-webhook/
+   * https://developer.nulab.com/docs/backlog/api/2/add-webhook/
    */
   public postWebhook(
     projectIdOrKey: string, params: Option.Project.PostWebhookParams
@@ -536,7 +585,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 66: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-webhook/
+   * https://developer.nulab.com/docs/backlog/api/2/get-webhook/
    */
   public getWebhook(
     projectIdOrKey: string, webhookId: string
@@ -545,7 +594,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 67: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-webhook/
+   * https://developer.nulab.com/docs/backlog/api/2/update-webhook/
    */
   public patchWebhook(
     projectIdOrKey: string, webhookId: string, params: Option.Project.PatchWebhookParams
@@ -554,7 +603,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 68: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-webhook/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-webhook/
    */
   public deleteWebhook(
     projectIdOrKey: string, webhookId: string
@@ -563,28 +612,28 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 69: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
    */
   public getIssues(params?: Option.Issue.GetIssuesParams): Promise<any> {
     return this.get('issues', params);
   }
 
   /**
-   * 70: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/count-issue/
    */
   public getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any> {
     return this.get('issues/count', params);
   }
 
   /**
-   * 71: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/add-issue/
    */
   public postIssue(params: Option.Issue.PostIssueParams): Promise<any> {
     return this.post('issues', params);
   }
 
   /**
-   * 73: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/update-issue/
    */
   public patchIssue(
     issueIdOrKey: string, params: Option.Issue.PatchIssueParams
@@ -593,7 +642,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 72: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/get-issue/
    */
   public getIssue(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}`);
@@ -601,14 +650,14 @@ export default class Backlog extends Request {
 
 
   /**
-   * 74: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
    */
   public deleteIssuesCount(issueIdOrKey: string): Promise<any> {
     return this.delete(`issues/${issueIdOrKey}`);
   }
 
   /**
-   * 75: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-comment-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
    */
   public getIssueComments(
     issueIdOrKey: string, params: Option.Issue.GetIssueCommentsParams
@@ -617,7 +666,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 76: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/add-comment/
    */
   public postIssueComments(
     issueIdOrKey: string, params: Option.Issue.PostIssueCommentsParams
@@ -626,21 +675,28 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 77: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/count-comment/
    */
   public getIssueCommentsCount(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}/comments/count`);
   }
 
   /**
-   * 78: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/get-comment/
    */
   public getIssueComment(issueIdOrKey: string, commentId: number): Promise<any> {
     return this.get(`issues/${issueIdOrKey}/comments/${commentId}`);
   }
 
   /**
-   * 79: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
+   */
+  public deleteIssueComment(issueIdOrKey: string, commentId: number): Promise<any> {
+    return this.delete(`issues/${issueIdOrKey}/comments/${commentId}`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/update-comment/
    */
   public patchIssueComment(
     issueIdOrKey: string, commentId: number, params: Option.Issue.PatchIssueCommentParams
@@ -649,7 +705,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 80: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-comment-notifications/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
    */
   public getIssueCommentNotifications(
     issueIdOrKey: string, commentId: number
@@ -658,7 +714,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 81: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-comment-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
    */
   public postIssueCommentNotifications(
     issueIdOrKey: string, commentId: number, prams: Option.Issue.IssueCommentNotifications
@@ -667,35 +723,42 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 82: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-issue-attachments/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
    */
   public getIssueAttachments(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}/attachments`);
   }
 
   /**
-   * 83: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-issue-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/get-issue-attachment/
    */
   public getIssueAttachment(issueIdOrKey: string, attachmentId: number): Promise<Entity.File.FileData> {
     return this.download(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
   }
 
   /**
-   * 84: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-issue-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
    */
   public deleteIssueAttachment(issueIdOrKey: string, attachmentId: string): Promise<any> {
     return this.delete(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
   }
 
   /**
-   * 85: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-linked-shared-files/
+   * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
+   */
+  public getIssueParticipants(issueIdOrKey: string): Promise<any> {
+    return this.get(`issues/${issueIdOrKey}/participants`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
    */
   public getIssueSharedFiles(issueIdOrKey: string): Promise<any> {
     return this.get(`issues/${issueIdOrKey}/sharedFiles`);
   }
 
   /**
-   * 86: https://developer.nulab-inc.com/ja/docs/backlog/api/2/link-shared-files-to-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-issue/
    */
   public linkIssueSharedFiles(
     issueIdOrKey: string, params: Option.Issue.LinkIssueSharedFilesParams
@@ -704,49 +767,49 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 87: https://developer.nulab-inc.com/ja/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
+   * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
    */
   public unlinkIssueSharedFile(issueIdOrKey: string, id: number): Promise<any> {
     return this.delete(`issues/${issueIdOrKey}/sharedFiles/${id}`);
   }
 
   /**
-   * 88: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
    */
   public getWikis(params: Option.Wiki.GetWikiParams): Promise<any> {
     return this.get(`wikis`, params);
   }
 
   /**
-   * 89: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-wiki-page/
+   * https://developer.nulab.com/docs/backlog/api/2/count-wiki-page/
    */
   public getWikisCount(projectIdOrKey: number): Promise<any> {
     return this.get(`wikis/count`, { projectIdOrKey });
   }
 
   /**
-   * 90: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-tag-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-tag-list/
    */
   public getWikisTags(projectIdOrKey: number): Promise<any> {
     return this.get(`wikis/tags`, { projectIdOrKey });
   }
 
   /**
-   * 91: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-wiki-page/
+   * https://developer.nulab.com/docs/backlog/api/2/add-wiki-page/
    */
   public postWiki(params: Option.Wiki.PostWikiParams): Promise<any> {
     return this.post(`wikis`, params);
   }
 
   /**
-   * 92: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
    */
   public getWiki(wikiId: number): Promise<any> {
     return this.get(`wikis/${wikiId}`);
   }
 
   /**
-   * 93: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-wiki-page/
+   * https://developer.nulab.com/docs/backlog/api/2/update-wiki-page/
    */
   public patchWiki(
     wikiId: number, params: Option.Wiki.PatchWikiParams
@@ -755,63 +818,63 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 94: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-wiki-page/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
    */
   public deleteWiki(wikiId: number, mailNotify: boolean): Promise<any> {
     return this.delete(`wikis/${wikiId}`, { mailNotify });
   }
 
   /**
-   * 95: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-wiki-attachments/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
    */
   public getWikisAttachments(wikiId: number): Promise<any> {
     return this.get(`wikis/${wikiId}/attachments`);
   }
 
   /**
-   * 96: https://developer.nulab-inc.com/ja/docs/backlog/api/2/attach-file-to-wiki/
+   * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
    */
   public postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any> {
     return this.post(`wikis/${wikiId}/attachments`, { attachmentId });
   }
 
   /**
-   * 97: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-attachment/
    */
   public getWikiAttachment(wikiId: number, attachmentId: number): Promise<Entity.File.FileData> {
     return this.download(`wikis/${wikiId}/attachments/${attachmentId}`);
   }
 
   /**
-   * 98: https://developer.nulab-inc.com/ja/docs/backlog/api/2/remove-wiki-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
    */
   public deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<any> {
     return this.delete(`wikis/${wikiId}/attachments/${attachmentId}`);
   }
 
   /**
-   * 99: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
    */
   public getWikisSharedFiles(wikiId: number): Promise<any> {
     return this.get(`wikis/${wikiId}/sharedFiles`);
   }
 
   /**
-   * 100: https://developer.nulab-inc.com/ja/docs/backlog/api/2/link-shared-files-to-wiki/
+   * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
    */
   public linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<any> {
     return this.post(`wikis/${wikiId}/sharedFiles`, { fileId });
   }
 
   /**
-   * 101: https://developer.nulab-inc.com/ja/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
+   * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
    */
   public unlinkWikisSharedFiles(wikiId: number, id: number): Promise<any> {
     return this.delete(`wikis/${wikiId}/sharedFiles/${id}`);
   }
 
   /**
-   * 102: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-history/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
    */
   public getWikisHistory(
     wikiId: number, params: Option.Wiki.GetWikisHistoryParams
@@ -820,21 +883,21 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 103: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-wiki-page-star/
+   * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
    */
   public getWikisStars(wikiId: number): Promise<any> {
     return this.get(`wikis/${wikiId}/stars`);
   }
 
   /**
-   * 104: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-star/
+   * https://developer.nulab.com/docs/backlog/api/2/add-star/
    */
   public postStar(params: Option.Project.PostStarParams): Promise<any> {
     return this.post('stars', params);
   }
 
   /**
-   * 105: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/get-notification/
    */
   public getNotifications(
     params: Option.Notification.GetNotificationsParams
@@ -843,7 +906,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 106: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/count-notification/
    */
   public getNotificationsCount(
     params: Option.Notification.GetNotificationsCountParams
@@ -852,28 +915,28 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 107: https://developer.nulab-inc.com/ja/docs/backlog/api/2/reset-unread-notification-count/
+   * https://developer.nulab.com/docs/backlog/api/2/reset-unread-notification-count/
    */
   public resetNotificationsMarkAsRead(): Promise<any> {
     return this.post('notifications/markAsRead');
   }
 
   /**
-   * 108: https://developer.nulab-inc.com/ja/docs/backlog/api/2/read-notification/
+   * https://developer.nulab.com/docs/backlog/api/2/read-notification/
    */
   public markAsReadNotification(id: number): Promise<any> {
     return this.post(`notifications/${id}/markAsRead`);
   }
 
   /**
-   * 109: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-git-repositories/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
    */
   public getGitRepositories(projectIdOrKey: string): Promise<any> {
     return this.get(`projects/${projectIdOrKey}/git/repositories`);
   }
 
   /**
-   * 110: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-git-repository/
+   * https://developer.nulab.com/docs/backlog/api/2/get-git-repository/
    */
   public getGitRepository(
     projectIdOrKey: string, repoIdOrName: string
@@ -882,7 +945,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 111: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-pull-request-list/
+   * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-list/
    */
   public getPullRequests(
     projectIdOrKey: string,
@@ -893,7 +956,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 112: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-number-of-pull-requests/
+   * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-requests/
    */
   public getPullRequestsCount(
     projectIdOrKey: string,
@@ -904,7 +967,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 113: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-pull-request/
+   * https://developer.nulab.com/docs/backlog/api/2/add-pull-request/
    */
   public postPullRequest(
     projectIdOrKey: string,
@@ -915,7 +978,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 114: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-pull-request/
+   * https://developer.nulab.com/docs/backlog/api/2/get-pull-request/
    */
   public getPullRequest(
     projectIdOrKey: string, repoIdOrName: string, number: number
@@ -924,7 +987,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 115: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-pull-request/
+   * https://developer.nulab.com/docs/backlog/api/2/update-pull-request/
    */
   public patchPullRequest(
     projectIdOrKey: string,
@@ -936,7 +999,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 116: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-pull-request-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-comment/
    */
   public getPullRequestComments(
     projectIdOrKey: string,
@@ -948,7 +1011,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 117: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-pull-request-comment/
+   * https://developer.nulab.com/docs/backlog/api/2/add-pull-request-comment/
    */
   public postPullRequestComments(
     projectIdOrKey: string,
@@ -960,7 +1023,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 118: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-number-of-pull-request-comments/
+   * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-request-comments/
    */
   public getPullRequestCommentsCount(
     projectIdOrKey: string, repoIdOrName: string, number: number
@@ -969,7 +1032,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 119: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-pull-request-comment-information/
+   * https://developer.nulab.com/docs/backlog/api/2/update-pull-request-comment-information/
    */
   public patchPullRequestComments(
     projectIdOrKey: string,
@@ -982,7 +1045,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 120: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-list-of-pull-request-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
    */
   public getPullRequestAttachments(
     projectIdOrKey: string, repoIdOrName: string, number: number
@@ -991,7 +1054,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 121: https://developer.nulab-inc.com/ja/docs/backlog/api/2/download-pull-request-attachment/
+   * https://developer.nulab.com/docs/backlog/api/2/download-pull-request-attachment/
    */
   public getPullRequestAttachment(
     projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
@@ -1000,7 +1063,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 122: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-pull-request-attachments/
+   * https://developer.nulab.com/docs/backlog/api/2/delete-pull-request-attachments/
    */
   public deletePullRequestAttachment(
     projectIdOrKey: string, repoIdOrName: string, number: number, attachmentId: number
@@ -1009,89 +1072,155 @@ export default class Backlog extends Request {
   }
 
   /**
-   * 123: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-watching-list
+   * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
    */
   public getWatchingListItems(userId: number): Promise<any> {
     return this.get(`users/${userId}/watchings`);
   }
 
   /**
-   * 124: https://developer.nulab-inc.com/ja/docs/backlog/api/2/count-watching
+   * https://developer.nulab.com/docs/backlog/api/2/count-watching
    */
   public getWatchingListCount(userId: number): Promise<any> {
     return this.get(`users/${userId}/watchings/count`);
   }
 
   /**
-   * 125: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-watching
+   * https://developer.nulab.com/docs/backlog/api/2/get-watching
    */
   public getWatchingListItem(watchId: number): Promise<any> {
     return this.get(`watchings/${watchId}`);
   }
 
   /**
-   * 126: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-watching
+   * https://developer.nulab.com/docs/backlog/api/2/add-watching
    */
   public postWatchingListItem(params: any) {
     return this.post(`watchings`, params);
   }
 
   /**
-   * 127: https://developer.nulab-inc.com/ja/docs/backlog/api/2/update-watching
+   * https://developer.nulab.com/docs/backlog/api/2/update-watching
    */
   public patchWatchingListItem(watchId: number, note: string): Promise<any> {
     return this.patch(`watchings/${watchId}`, { note });
   }
 
   /**
-   * 128: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-watching
+   * https://developer.nulab.com/docs/backlog/api/2/delete-watching
    */
   public deletehWatchingListItem(watchId: number) {
     return this.delete(`watchings/${watchId}`);
   }
 
   /**
-   * 129: https://developer.nulab-inc.com/ja/docs/backlog/api/2/mark-watching-as-read
+   * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
    */
   public resetWatchingListItemAsRead(watchId: number): Promise<undefined> {
     return this.post(`watchings/${watchId}/markAsRead`);
   }
 
   /**
-   * 130: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-project-group-list
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
    */
   public getProjectGroupList(projectIdOrKey: string|number) {
+    console.warn("Deprecated: Use getProjectTeams instead.");
     return this.get(`projects/${projectIdOrKey}/groups`)
   }
 
   /**
-   * 131: https://developer.nulab-inc.com/ja/docs/backlog/api/2/add-project-group
+   * https://developer.nulab.com/docs/backlog/api/2/add-project-group
    */
   public postProjectGroup(projectIdOrKey: string|number, params: any) {
+    console.warn("Deprecated: Use postProjectTeam instead.");
     return this.post(`projects/${projectIdOrKey}/groups`, params);
   }
-  
+
   /**
-   * 132: https://developer.nulab-inc.com/ja/docs/backlog/api/2/delete-project-group
+   * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
    */
   public deleteProjectGroup(projectIdOrKey: string|number) {
+    console.warn("Deprecated: Use deleteProjectTeam instead.");
     return this.delete(`projects/${projectIdOrKey}/groups`);
   }
 
   /**
-   * 133: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-group-icon
+   * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
    */
   public getGroupIcon(groupId: string): Promise<any> {
+    console.warn("Deprecated: Use getTeamIcon instead.");
     return this.download(`groups/${groupId}/icon`);
   }
 
   /**
-   * 134: https://developer.nulab-inc.com/ja/docs/backlog/api/2/get-licence
+   * https://developer.nulab.com/docs/backlog/api/2/get-licence
    */
   public getLicence(): Promise<any> {
     return this.get(`space/licence`);
   }
 
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-teams/
+   */
+  public getTeams(params?: Option.Team.GetTeamsParams): Promise<any> {
+    return this.get(`teams`, params);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/add-team/
+   */
+  public postTeam(members: number[]): Promise<any> {
+    return this.post(`teams`, { members });
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-team/
+   */
+  public getTeam(teamId: number): Promise<any> {
+    return this.get(`teams/${teamId}`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/update-team/
+   */
+  public patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<any> {
+    return this.patch(`teams/${teamId}`, params);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/delete-team/
+   */
+  public deleteTeam(teamId: number): Promise<any> {
+    return this.delete(`teams/${teamId}`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
+   */
+  public getTeamIcon(teamId: number): Promise<Entity.File.FileData> {
+    return this.download(`teams/${teamId}/icon`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
+   */
+  public getProjectTeams(projectIdOrKey: string): Promise<any> {
+    return this.get(`projects/${projectIdOrKey}/teams`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
+   */
+  public postProjectTeam(projectIdOrKey: string, teamId: number): Promise<any> {
+    return this.post(`projects/${projectIdOrKey}/teams`, { teamId });
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
+   */
+  public deleteProjectTeam(projectIdOrKey: string, teamId: number): Promise<any> {
+    return this.delete(`projects/${projectIdOrKey}/teams`, { teamId });
+  }
 
   private download(path: string): Promise<Entity.File.FileData> {
     return this.request({ method: 'GET', path }).then(this.parseFileData);

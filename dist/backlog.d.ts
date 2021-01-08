@@ -63,6 +63,7 @@ declare module 'backlog-js' {
     patchGroup(groupId: number, params: Option.Group.PatchGroupParams): Promise<any>;
     deleteGroup(groupId: number): Promise<any>;
     getStatuses(): Promise<any>;
+    getProjectStatuses(projectIdOrKey: string): Promise<any>;
     getResolutions(): Promise<any>;
     getPriorities(): Promise<any>;
     getProjects(params?: Option.Project.GetProjectsParams): Promise<any>;
@@ -78,6 +79,10 @@ declare module 'backlog-js' {
     postProjectAdministrators(projectIdOrKey: string, params: Option.Project.PostProjectAdministrators): Promise<any>;
     getProjectAdministrators(projectIdOrKey: string): Promise<any>;
     deleteProjectAdministrators(projectIdOrKey: string, params: Option.Project.DeleteProjectAdministrators): Promise<any>;
+    postProjectStatus(projectIdOrKey: string, params: Option.Project.PostStatusParams): Promise<any>;
+    patchProjectStatus(projectIdOrKey: string, id: number, params: Option.Project.PatchStatusParams): Promise<any>;
+    deleteProjectStatus(projectIdOrKey: string, id: number, substituteStatusId: number): Promise<any>;
+    patchProjectStatusOrder(projectIdOrKey: string, statusId: number[]): Promise<any>;
     getIssueTypes(projectIdOrKey: string): Promise<any>;
     postIssueType(projectIdOrKey: string, params: Option.Project.PostIssueTypeParams): Promise<any>;
     patchIssueType(projectIdOrKey: string, id: number, params: Option.Project.PatchIssueTypeParams): Promise<any>;
@@ -115,12 +120,14 @@ declare module 'backlog-js' {
     postIssueComments(issueIdOrKey: string, params: Option.Issue.PostIssueCommentsParams): Promise<any>;
     getIssueCommentsCount(issueIdOrKey: string): Promise<any>;
     getIssueComment(issueIdOrKey: string, commentId: number): Promise<any>;
+    deleteIssueComment(issueIdOrKey: string, commentId: number): Promise<any>;
     patchIssueComment(issueIdOrKey: string, commentId: number, params: Option.Issue.PatchIssueCommentParams): Promise<any>;
     getIssueCommentNotifications(issueIdOrKey: string, commentId: number): Promise<any>;
     postIssueCommentNotifications(issueIdOrKey: string, commentId: number, prams: Option.Issue.IssueCommentNotifications): Promise<any>;
     getIssueAttachments(issueIdOrKey: string): Promise<any>;
     getIssueAttachment(issueIdOrKey: string, attachmentId: number): Promise<Entity.File.FileData>;
     deleteIssueAttachment(issueIdOrKey: string, attachmentId: string): Promise<any>;
+    getIssueParticipants(issueIdOrKey: string): Promise<any>;
     getIssueSharedFiles(issueIdOrKey: string): Promise<any>;
     linkIssueSharedFiles(issueIdOrKey: string, params: Option.Issue.LinkIssueSharedFilesParams): Promise<any>;
     unlinkIssueSharedFile(issueIdOrKey: string, id: number): Promise<any>;
@@ -171,6 +178,15 @@ declare module 'backlog-js' {
     deleteProjectGroup(projectIdOrKey: string|number);
     getGroupIcon(groupId: string): Promise<any>;
     getLicence(): Promise<any>;
+    getTeams(params?: Option.Team.GetTeamsParams): Promise<any>;
+    postTeam(members: number[]): Promise<any>;
+    getTeam(teamId: number): Promise<any>;
+    patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<any>;
+    deleteTeam(teamId: number): Promise<any>;
+    getTeamIcon(teamId: number): Promise<Entity.File.FileData>;
+    getProjectTeams(projectIdOrKey: string): Promise<any>;
+    postProjectTeam(projectIdOrKey: string, teamId: number): Promise<any>;
+    deleteProjectTeam(projectIdOrKey: string, teamId: number): Promise<any>;
     private download;
     private upload;
     private parseFileData;
@@ -332,6 +348,17 @@ declare module 'backlog-js' {
         members?: string[];
       }
     }
+    export namespace Team {
+      export interface GetTeamsParams {
+        order?: Order;
+        offset?: number;
+        count?: number;
+      }
+      export interface PatchTeamParams {
+        name?: string;
+        members?: number[];
+      }
+    }
     export namespace Project {
       export type TextFormattingRule = "backlog" | "markdown";
       export interface PostProjectParams {
@@ -485,6 +512,15 @@ declare module 'backlog-js' {
         wikiId?: number;
         pullRequestId?: number;
         pullRequestCommentId?: number;
+      }
+      export type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" | "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
+      export interface PostStatusParams {
+        name: string;
+        color: ProjectStatusColor;
+      }
+      export interface PatchStatusParams {
+        name?: string;
+        color?: ProjectStatusColor;
       }
     }
     export namespace Issue {

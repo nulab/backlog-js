@@ -81,22 +81,31 @@ var Backlog = (function (_super) {
         return this.get('users/myself/recentlyViewedWikis', params);
     };
     Backlog.prototype.getGroups = function (params) {
+        console.warn("Deprecated: Use getTeams instead.");
         return this.get('groups', params);
     };
     Backlog.prototype.postGroups = function (params) {
+        console.warn("Deprecated: Use postTeam instead.");
         return this.post('groups', params);
     };
     Backlog.prototype.getGroup = function (groupId) {
+        console.warn("Deprecated: Use getTeam instead.");
         return this.get("groups/" + groupId);
     };
     Backlog.prototype.patchGroup = function (groupId, params) {
+        console.warn("Deprecated: Use patchTeam instead.");
         return this.patch("groups/" + groupId, params);
     };
     Backlog.prototype.deleteGroup = function (groupId) {
+        console.warn("Deprecated: Use deleteTeam instead.");
         return this.delete("groups/" + groupId);
     };
     Backlog.prototype.getStatuses = function () {
+        console.warn("Deprecated: Use getProjectStatuses instead.");
         return this.get('statuses');
+    };
+    Backlog.prototype.getProjectStatuses = function (projectIdOrKey) {
+        return this.get("projects/" + projectIdOrKey + "/statuses");
     };
     Backlog.prototype.getResolutions = function () {
         return this.get('resolutions');
@@ -142,6 +151,18 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.deleteProjectAdministrators = function (projectIdOrKey, params) {
         return this.delete("projects/" + projectIdOrKey + "/administrators", params);
+    };
+    Backlog.prototype.postProjectStatus = function (projectIdOrKey, params) {
+        return this.post("projects/" + projectIdOrKey + "/statuses", params);
+    };
+    Backlog.prototype.patchProjectStatus = function (projectIdOrKey, id, params) {
+        return this.patch("projects/" + projectIdOrKey + "/statuses/" + id, params);
+    };
+    Backlog.prototype.deleteProjectStatus = function (projectIdOrKey, id, substituteStatusId) {
+        return this.delete("projects/" + projectIdOrKey + "/statuses/" + id, { substituteStatusId: substituteStatusId });
+    };
+    Backlog.prototype.patchProjectStatusOrder = function (projectIdOrKey, statusId) {
+        return this.patch("projects/" + projectIdOrKey + "/statuses/updateDisplayOrder", { statusId: statusId });
     };
     Backlog.prototype.getIssueTypes = function (projectIdOrKey) {
         return this.get("projects/" + projectIdOrKey + "/issueTypes");
@@ -254,6 +275,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.getIssueComment = function (issueIdOrKey, commentId) {
         return this.get("issues/" + issueIdOrKey + "/comments/" + commentId);
     };
+    Backlog.prototype.deleteIssueComment = function (issueIdOrKey, commentId) {
+        return this.delete("issues/" + issueIdOrKey + "/comments/" + commentId);
+    };
     Backlog.prototype.patchIssueComment = function (issueIdOrKey, commentId, params) {
         return this.patch("issues/" + issueIdOrKey + "/comments/" + commentId, params);
     };
@@ -271,6 +295,9 @@ var Backlog = (function (_super) {
     };
     Backlog.prototype.deleteIssueAttachment = function (issueIdOrKey, attachmentId) {
         return this.delete("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
+    };
+    Backlog.prototype.getIssueParticipants = function (issueIdOrKey) {
+        return this.get("issues/" + issueIdOrKey + "/participants");
     };
     Backlog.prototype.getIssueSharedFiles = function (issueIdOrKey) {
         return this.get("issues/" + issueIdOrKey + "/sharedFiles");
@@ -408,19 +435,50 @@ var Backlog = (function (_super) {
         return this.post("watchings/" + watchId + "/markAsRead");
     };
     Backlog.prototype.getProjectGroupList = function (projectIdOrKey) {
+        console.warn("Deprecated: Use getProjectTeams instead.");
         return this.get("projects/" + projectIdOrKey + "/groups");
     };
     Backlog.prototype.postProjectGroup = function (projectIdOrKey, params) {
+        console.warn("Deprecated: Use postProjectTeam instead.");
         return this.post("projects/" + projectIdOrKey + "/groups", params);
     };
     Backlog.prototype.deleteProjectGroup = function (projectIdOrKey) {
+        console.warn("Deprecated: Use deleteProjectTeam instead.");
         return this.delete("projects/" + projectIdOrKey + "/groups");
     };
     Backlog.prototype.getGroupIcon = function (groupId) {
+        console.warn("Deprecated: Use getTeamIcon instead.");
         return this.download("groups/" + groupId + "/icon");
     };
     Backlog.prototype.getLicence = function () {
         return this.get("space/licence");
+    };
+    Backlog.prototype.getTeams = function (params) {
+        return this.get("teams", params);
+    };
+    Backlog.prototype.postTeam = function (members) {
+        return this.post("teams", { members: members });
+    };
+    Backlog.prototype.getTeam = function (teamId) {
+        return this.get("teams/" + teamId);
+    };
+    Backlog.prototype.patchTeam = function (teamId, params) {
+        return this.patch("teams/" + teamId, params);
+    };
+    Backlog.prototype.deleteTeam = function (teamId) {
+        return this.delete("teams/" + teamId);
+    };
+    Backlog.prototype.getTeamIcon = function (teamId) {
+        return this.download("teams/" + teamId + "/icon");
+    };
+    Backlog.prototype.getProjectTeams = function (projectIdOrKey) {
+        return this.get("projects/" + projectIdOrKey + "/teams");
+    };
+    Backlog.prototype.postProjectTeam = function (projectIdOrKey, teamId) {
+        return this.post("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
+    };
+    Backlog.prototype.deleteProjectTeam = function (projectIdOrKey, teamId) {
+        return this.delete("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
     };
     Backlog.prototype.download = function (path) {
         return this.request({ method: 'GET', path: path }).then(this.parseFileData);

@@ -132,6 +132,21 @@
 
   }
 
+  export namespace Team {
+
+    export interface GetTeamsParams {
+      order?: Order;
+      offset?: number;
+      count?: number;
+    }
+
+    export interface PatchTeamParams {
+      name?: string;
+      members?: number[];
+    }
+
+  }
+
   export namespace Project {
 
     export type TextFormattingRule = "backlog" | "markdown";
@@ -325,6 +340,19 @@
       wikiId?: number;
       pullRequestId?: number;
       pullRequestCommentId?: number;
+    }
+
+    export type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" |
+      "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
+
+    export interface PostStatusParams {
+      name: string;
+      color: ProjectStatusColor;
+    }
+
+    export interface PatchStatusParams {
+      name?: string;
+      color?: ProjectStatusColor;
     }
 
   }
