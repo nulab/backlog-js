@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.12.0](https://github.com/nulab/backlog-js/compare/0.11.0...0.12.0) (2021-01-08)
+
+* Add missing endpoints [#25](https://github.com/nulab/backlog-js/pull/25) ([mmktomato](https://github.com/mmktomato))
+* Fix url and parameter [#24](https://github.com/nulab/backlog-js/pull/24) ([mmktomato](https://github.com/mmktomato))
+* Fix wrong path and params #20 [#21](https://github.com/nulab/backlog-js/pull/21) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.11.0](https://github.com/nulab/backlog-js/compare/0.10.0...0.11.0) (2020-10-25)
 
 * Bump cached-path-relative from 1.0.1 to 1.0.2 [#17](https://github.com/nulab/backlog-js/pull/17) ([dependabot[bot]](https://github.com/apps/dependabot))
