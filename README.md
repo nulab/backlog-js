@@ -1,4 +1,4 @@
-# backlog-js [![Build Status](https://travis-ci.org/nulab/backlog-js.svg?branch=master)](https://travis-ci.org/nulab/backlog-js) [![npm version](https://badge.fury.io/js/backlog-js.svg)](https://badge.fury.io/js/backlog-js) [![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
+# backlog-js [![Build Status](https://travis-ci.com/nulab/backlog-js.svg?branch=master)](https://travis-ci.com/nulab/backlog-js) [![npm version](https://badge.fury.io/js/backlog-js.svg)](https://badge.fury.io/js/backlog-js) [![TypeScript definitions on DefinitelyTyped](http://definitelytyped.org/badges/standard.svg)](http://definitelytyped.org)
 Backlog API version 2 client for browser and node.
 
 ## Required reading
