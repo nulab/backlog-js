@@ -57,11 +57,17 @@ declare module 'backlog-js' {
     getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<any>;
     getRecentlyViewedProjects(params: Option.User.GetRecentlyViewedParams): Promise<any>;
     getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    /** @deprecated */
     getGroups(params: Option.Group.GetGroupsParams): Promise<any>;
+    /** @deprecated */
     postGroups(params: Option.Group.PostGroupsParams): Promise<any>;
+    /** @deprecated */
     getGroup(groupId: number): Promise<any>;
+    /** @deprecated */
     patchGroup(groupId: number, params: Option.Group.PatchGroupParams): Promise<any>;
+    /** @deprecated */
     deleteGroup(groupId: number): Promise<any>;
+    /** @deprecated */
     getStatuses(): Promise<any>;
     getProjectStatuses(projectIdOrKey: string): Promise<any>;
     getResolutions(): Promise<any>;
@@ -173,9 +179,13 @@ declare module 'backlog-js' {
     patchWatchingListItem(watchId: number, note: string): Promise<any>;
     deletehWatchingListItem(watchId: number);
     resetWatchingListItemAsRead(watchId: number): Promise<undefined>;
+    /** @deprecated */
     getProjectGroupList(projectIdOrKey: string|number);
+    /** @deprecated */
     postProjectGroup(projectIdOrKey: string|number, params: any);
+    /** @deprecated */
     deleteProjectGroup(projectIdOrKey: string|number);
+    /** @deprecated */
     getGroupIcon(groupId: string): Promise<any>;
     getLicence(): Promise<any>;
     getTeams(params?: Option.Team.GetTeamsParams): Promise<any>;

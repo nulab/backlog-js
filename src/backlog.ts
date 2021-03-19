@@ -170,6 +170,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
+   * @deprecated
    */
   public getGroups(params: Option.Group.GetGroupsParams): Promise<any> {
     console.warn("Deprecated: Use getTeams instead.");
@@ -178,6 +179,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-group/
+   * @deprecated
    */
   public postGroups(params: Option.Group.PostGroupsParams): Promise<any> {
     console.warn("Deprecated: Use postTeam instead.");
@@ -186,6 +188,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-group/
+   * @deprecated
    */
   public getGroup(groupId: number): Promise<any> {
     console.warn("Deprecated: Use getTeam instead.");
@@ -194,6 +197,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/update-group/
+   * @deprecated
    */
   public patchGroup(
     groupId: number, params: Option.Group.PatchGroupParams
@@ -204,6 +208,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-group/
+   * @deprecated
    */
   public deleteGroup(groupId: number): Promise<any> {
     console.warn("Deprecated: Use deleteTeam instead.");
@@ -212,6 +217,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
+   * @deprecated
    */
   public getStatuses(): Promise<any> {
     console.warn("Deprecated: Use getProjectStatuses instead.");
@@ -1122,6 +1128,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
+   * @deprecated
    */
   public getProjectGroupList(projectIdOrKey: string|number) {
     console.warn("Deprecated: Use getProjectTeams instead.");
@@ -1130,6 +1137,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-project-group
+   * @deprecated
    */
   public postProjectGroup(projectIdOrKey: string|number, params: any) {
     console.warn("Deprecated: Use postProjectTeam instead.");
@@ -1138,6 +1146,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
+   * @deprecated
    */
   public deleteProjectGroup(projectIdOrKey: string|number) {
     console.warn("Deprecated: Use deleteProjectTeam instead.");
@@ -1146,6 +1155,7 @@ export default class Backlog extends Request {
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
+   * @deprecated
    */
   public getGroupIcon(groupId: string): Promise<any> {
     console.warn("Deprecated: Use getTeamIcon instead.");
