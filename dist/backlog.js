@@ -4,10 +4,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -522,16 +524,19 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.UnexpectedError = exports.BacklogAuthError = exports.BacklogApiError = exports.BacklogError = void 0;
 var BacklogError = (function (_super) {
     __extends(BacklogError, _super);
     function BacklogError(name, response, body) {
@@ -547,35 +552,35 @@ var BacklogError = (function (_super) {
         get: function () {
             return this._name;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BacklogError.prototype, "url", {
         get: function () {
             return this._url;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BacklogError.prototype, "status", {
         get: function () {
             return this._status;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BacklogError.prototype, "body", {
         get: function () {
             return this._body;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(BacklogError.prototype, "response", {
         get: function () {
             return this._response;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return BacklogError;
@@ -610,6 +615,7 @@ exports.UnexpectedError = UnexpectedError;
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Error = exports.Entity = exports.Option = exports.OAuth2 = exports.Backlog = void 0;
 var backlog_1 = require("./backlog");
 exports.Backlog = backlog_1.default;
 var oauth2_1 = require("./oauth2");
@@ -671,6 +677,7 @@ exports.default = OAuth2;
 },{"./request":7}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Issue = exports.Project = exports.User = exports.ActivityType = void 0;
 var ActivityType;
 (function (ActivityType) {
     ActivityType[ActivityType["Undefined"] = -1] = "Undefined";
@@ -815,14 +822,14 @@ var Request = (function () {
         get: function () {
             return "https://" + this.configure.host;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(Request.prototype, "restBaseURL", {
         get: function () {
             return this.webAppBaseURL + "/api/v2";
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return Request;
