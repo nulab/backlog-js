@@ -8,7 +8,7 @@
     "url": "git://github.com/nulab/backlog-js.git"
   },
   "scripts": {
-    "test": "npx mocha --timeout 10000 --compilers ts:espower-typescript/guess test/test*.ts",
+    "test": "npx mocha --timeout 10000 --require espower-typescript/guess test/test*.ts",
     "test-cov": "npx istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "build": "npx npm run build-tsc && npm run build-dist && npm run build-minify",
@@ -21,31 +21,31 @@
   "author": "vvatanabe",
   "license": "MIT",
   "dependencies": {
-    "qs": "^6.5.2"
+    "qs": "^6.10.1"
   },
   "devDependencies": {
-    "@types/dotenv": "^4.0.3",
+    "@types/dotenv": "^6.1.1",
     "@types/empower": "^1.2.30",
     "@types/isomorphic-fetch": "0.0.35",
-    "@types/mocha": "^5.2.5",
-    "@types/nock": "^9.3.0",
+    "@types/mocha": "^8.2.2",
+    "@types/nock": "^10.0.3",
     "@types/node": "^14.14.37",
-    "@types/power-assert": "^1.5.0",
-    "@types/power-assert-formatter": "^1.4.28",
-    "@types/qs": "^6.5.1",
-    "browserify": "^16.2.2",
-    "coveralls": "^3.0.2",
-    "dotenv": "^6.0.0",
-    "es6-promise": "^4.2.4",
+    "@types/power-assert": "^1.5.3",
+    "@types/power-assert-formatter": "^1.4.29",
+    "@types/qs": "^6.9.6",
+    "browserify": "^17.0.0",
+    "coveralls": "^3.1.0",
+    "dotenv": "^8.2.0",
+    "es6-promise": "^4.2.8",
     "espower-typescript": "^10.0.0",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "isomorphic-form-data": "^2.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^5.2.0",
-    "nock": "^9.6.1",
-    "power-assert": "^1.6.0",
+    "mocha": "^8.3.2",
+    "nock": "^13.0.11",
+    "power-assert": "^1.6.1",
     "typescript": "^4.2.3",
-    "uglify-js": "^3.4.8"
+    "uglify-js": "^3.13.3"
   },
   "keywords": [
     "nulab",

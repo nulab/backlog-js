@@ -183,7 +183,16 @@ describe("Backlog API", () => {
     query['apiKey'] = apiKey;
     nock(`https://${host}`)
       .get("/api/v2/space/activities")
-      .query(query)
+      .query(queryObj => {
+        return queryObj["activityTypeId[]"].length === 3
+          && queryObj["activityTypeId[]"][0] === "1"
+          && queryObj["activityTypeId[]"][1] === "2"
+          && queryObj["activityTypeId[]"][2] === "3"
+          && queryObj.minId === "1"
+          && queryObj.maxId === "10"
+          && queryObj.count === "5"
+          && queryObj.order === "desc";
+      })
       .once()
       .reply(200, []);
     backlog.getSpaceActivities(query).then(data => {
