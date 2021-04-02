@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.12.1](https://github.com/nulab/backlog-js/compare/0.12.0...0.12.1) (2021-04-01)
+
+* Bump npm libraries [#30](https://github.com/nulab/backlog-js/pull/30) ([mmktomato](https://github.com/mmktomato))
+* Migrate GitHub Action [#27](https://github.com/nulab/backlog-js/pull/27) ([odanado](https://github.com/odanado))
+
 ## [0.12.0](https://github.com/nulab/backlog-js/compare/0.11.0...0.12.0) (2021-01-08)
 
 * Add missing endpoints [#25](https://github.com/nulab/backlog-js/pull/25) ([mmktomato](https://github.com/mmktomato))
