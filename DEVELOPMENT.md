@@ -29,6 +29,7 @@
     1. `git push`
     1. Create a pull request in your favourite way.
 1. After the PR is merged, add new tag to the HEAD of master branch.
+    1. `git switch master && git pull`
     1. `git tag <TAG>`
     1. `git push origin <TAG>`
 
