@@ -1,11 +1,11 @@
 .git
+.github
 coverage
 npm-debug.log
 typings
 .DS_Store
 .env
 .gitignore
-.travis.yml
 tsconfig.json
 test/**/*.ts
 test/**/*.js
