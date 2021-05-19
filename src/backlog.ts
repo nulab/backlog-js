@@ -1232,6 +1232,13 @@ export default class Backlog extends Request {
     return this.delete(`projects/${projectIdOrKey}/teams`, { teamId });
   }
 
+  /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
+   */
+  public getRateLimit(): Promise<any> {
+    return this.get("rateLimit");
+  }
+
   private download(path: string): Promise<Entity.File.FileData> {
     return this.request({ method: 'GET', path }).then(this.parseFileData);
   }

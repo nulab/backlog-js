@@ -482,6 +482,9 @@ var Backlog = (function (_super) {
     Backlog.prototype.deleteProjectTeam = function (projectIdOrKey, teamId) {
         return this.delete("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
     };
+    Backlog.prototype.getRateLimit = function () {
+        return this.get("rateLimit");
+    };
     Backlog.prototype.download = function (path) {
         return this.request({ method: 'GET', path: path }).then(this.parseFileData);
     };

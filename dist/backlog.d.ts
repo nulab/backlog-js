@@ -197,6 +197,7 @@ declare module 'backlog-js' {
     getProjectTeams(projectIdOrKey: string): Promise<any>;
     postProjectTeam(projectIdOrKey: string, teamId: number): Promise<any>;
     deleteProjectTeam(projectIdOrKey: string, teamId: number): Promise<any>;
+    getRateLimit(): Promise<any>;
     private download;
     private upload;
     private parseFileData;
