@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.2](https://github.com/nulab/backlog-js/compare/0.12.1...0.12.2) (2021-05-31)
+
+* Add GET /api/v2/rateLimit [#38](https://github.com/nulab/backlog-js/pull/38) ([mmktomato](https://github.com/mmktomato))
+* Bump handlebars from 4.7.6 to 4.7.7 [#37](https://github.com/nulab/backlog-js/pull/37) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Cleanup published files [#35](https://github.com/nulab/backlog-js/pull/35) ([mmktomato](https://github.com/mmktomato))
+* Remove Travis CI [#34](https://github.com/nulab/backlog-js/pull/34) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.12.1](https://github.com/nulab/backlog-js/compare/0.12.0...0.12.1) (2021-04-01)
 
 * Bump npm libraries [#30](https://github.com/nulab/backlog-js/pull/30) ([mmktomato](https://github.com/mmktomato))
