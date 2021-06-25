@@ -429,7 +429,7 @@
       dueDateUntil?: string;
       id?: number[];
       parentIssueId?: number[];
-      keyword: string;
+      keyword?: string;
       [customField_: string]: any;
     }
 
