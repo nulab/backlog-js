@@ -137,7 +137,7 @@ declare module 'backlog-js' {
     getIssueSharedFiles(issueIdOrKey: string): Promise<any>;
     linkIssueSharedFiles(issueIdOrKey: string, params: Option.Issue.LinkIssueSharedFilesParams): Promise<any>;
     unlinkIssueSharedFile(issueIdOrKey: string, id: number): Promise<any>;
-    getWikis(projectIdOrKey: number): Promise<any>;
+    getWikis(params: Option.Wiki.GetWikiParams): Promise<any>;
     getWikisCount(projectIdOrKey: number): Promise<any>;
     getWikisTags(projectIdOrKey: number): Promise<any>;
     postWiki(params: Option.Wiki.PostWikiParams): Promise<any>;
@@ -603,7 +603,7 @@ declare module 'backlog-js' {
         dueDateUntil?: string;
         id?: number[];
         parentIssueId?: number[];
-        keyword: string;
+        keyword?: string;
         [customField_: string]: any;
       }
       export enum ParentChildType {
@@ -677,6 +677,10 @@ declare module 'backlog-js' {
       }
     }
     export namespace Wiki {
+      export interface GetWikiParams {
+        projectIdOrKey: number;
+        keyword?: string;
+      }
       export interface PostWikiParams {
         projectId: number;
         name: string;
