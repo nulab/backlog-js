@@ -537,7 +537,7 @@
   export namespace Wiki {
 
     export interface GetWikiParams {
-      projectIdOrKey: number;
+      projectIdOrKey: string | number;
       keyword?: string;
     }
 
