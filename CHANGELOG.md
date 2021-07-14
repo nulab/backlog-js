@@ -1,5 +1,10 @@
 # Changelog
 
+## [0.12.3](https://github.com/nulab/backlog-js/compare/0.12.2...0.12.3) (2021-07-08)
+
+* string and number for IdOrKey parameters [#44](https://github.com/nulab/backlog-js/pull/44) ([mmktomato](https://github.com/mmktomato))
+* Fix type bugs [#43](https://github.com/nulab/backlog-js/pull/43) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.12.2](https://github.com/nulab/backlog-js/compare/0.12.1...0.12.2) (2021-05-31)
 
 * Add GET /api/v2/rateLimit [#38](https://github.com/nulab/backlog-js/pull/38) ([mmktomato](https://github.com/mmktomato))
