@@ -175,16 +175,16 @@ declare module 'backlog-js' {
     getWatchingListItems(userId: number): Promise<any>;
     getWatchingListCount(userId: number): Promise<any>;
     getWatchingListItem(watchId: number): Promise<any>;
-    postWatchingListItem(params: any);
+    postWatchingListItem(params: any): Promise<any>;
     patchWatchingListItem(watchId: number, note: string): Promise<any>;
-    deletehWatchingListItem(watchId: number);
+    deletehWatchingListItem(watchId: number): Promise<any>;
     resetWatchingListItemAsRead(watchId: number): Promise<undefined>;
     /** @deprecated */
-    getProjectGroupList(projectIdOrKey: string | number);
+    getProjectGroupList(projectIdOrKey: string | number): Promise<any>;
     /** @deprecated */
-    postProjectGroup(projectIdOrKey: string | number, params: any);
+    postProjectGroup(projectIdOrKey: string | number, params: any): Promise<any>;
     /** @deprecated */
-    deleteProjectGroup(projectIdOrKey: string | number);
+    deleteProjectGroup(projectIdOrKey: string | number): Promise<any>;
     /** @deprecated */
     getGroupIcon(groupId: string): Promise<any>;
     getLicence(): Promise<any>;

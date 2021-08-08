@@ -1101,7 +1101,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-watching
    */
-  public postWatchingListItem(params: any) {
+  public postWatchingListItem(params: any): Promise<any> {
     return this.post(`watchings`, params);
   }
 
@@ -1115,7 +1115,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-watching
    */
-  public deletehWatchingListItem(watchId: number) {
+  public deletehWatchingListItem(watchId: number): Promise<any> {
     return this.delete(`watchings/${watchId}`);
   }
 
@@ -1130,7 +1130,7 @@ export default class Backlog extends Request {
    * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
    * @deprecated
    */
-  public getProjectGroupList(projectIdOrKey: string | number) {
+  public getProjectGroupList(projectIdOrKey: string | number): Promise<any> {
     console.warn("Deprecated: Use getProjectTeams instead.");
     return this.get(`projects/${projectIdOrKey}/groups`)
   }
@@ -1139,7 +1139,7 @@ export default class Backlog extends Request {
    * https://developer.nulab.com/docs/backlog/api/2/add-project-group
    * @deprecated
    */
-  public postProjectGroup(projectIdOrKey: string | number, params: any) {
+  public postProjectGroup(projectIdOrKey: string | number, params: any): Promise<any> {
     console.warn("Deprecated: Use postProjectTeam instead.");
     return this.post(`projects/${projectIdOrKey}/groups`, params);
   }
@@ -1148,7 +1148,7 @@ export default class Backlog extends Request {
    * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
    * @deprecated
    */
-  public deleteProjectGroup(projectIdOrKey: string | number) {
+  public deleteProjectGroup(projectIdOrKey: string | number): Promise<any> {
     console.warn("Deprecated: Use deleteProjectTeam instead.");
     return this.delete(`projects/${projectIdOrKey}/groups`);
   }
