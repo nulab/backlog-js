@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.12.4](https://github.com/nulab/backlog-js/compare/0.12.3...0.12.4) (2021-08-10)
+
+* Add return type [#47](https://github.com/nulab/backlog-js/pull/47) ([ohyama](https://github.com/ohyama))
+
 ## [0.12.3](https://github.com/nulab/backlog-js/compare/0.12.2...0.12.3) (2021-07-08)
 
 * string and number for IdOrKey parameters [#44](https://github.com/nulab/backlog-js/pull/44) ([mmktomato](https://github.com/mmktomato))
