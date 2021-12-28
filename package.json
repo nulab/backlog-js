@@ -3,6 +3,7 @@
   "version": "0.12.4",
   "description": "Backlog API v2 client for browser and node",
   "main": "dist/backlog.js",
+  "types": "dist/types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/nulab/backlog-js.git"
@@ -11,11 +12,12 @@
     "test": "npx mocha --timeout 10000 --require espower-typescript/guess test/test*.ts",
     "test-cov": "npx istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "npx npm run build-tsc && npm run build-dist && npm run build-minify",
+    "clean": "/bin/rm -rf dist",
+    "build": "npm run clean && npm run build-tsc && npm run copy-dts && npm run build-dist && npm run build-minify",
     "build-dist": "npx browserify --standalone Backlog dist/src/index.js -o dist/backlog.js",
     "build-minify": "npx uglifyjs dist/backlog.js -o dist/backlog.min.js",
-    "build-tsc": "npx tsc --removeComments",
-    "build-tsd": "npx tsc -d",
+    "build-tsc": "npx tsc --declaration",
+    "copy-dts": "mkdir -p dist/types && cp -r dist/src/*.d.ts dist/types",
     "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
   "author": "vvatanabe",
