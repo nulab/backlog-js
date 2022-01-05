@@ -2,7 +2,7 @@
   "name": "backlog-js",
   "version": "0.12.4",
   "description": "Backlog API v2 client for browser and node",
-  "main": "dist/backlog.js",
+  "main": "dist/backlog.min.js",
   "types": "dist/types/index.d.ts",
   "repository": {
     "type": "git",
