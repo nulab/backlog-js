@@ -984,7 +984,6 @@ exports.default = Backlog;
 Object.defineProperty(exports, "__esModule", { value: true });
 
 },{}],3:[function(require,module,exports){
-(function (global){(function (){
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -1050,7 +1049,7 @@ var BacklogError = /** @class */ (function (_super) {
         configurable: true
     });
     return BacklogError;
-}(global.Error));
+}(Error));
 exports.BacklogError = BacklogError;
 var BacklogApiError = /** @class */ (function (_super) {
     __extends(BacklogApiError, _super);
@@ -1077,7 +1076,6 @@ var UnexpectedError = /** @class */ (function (_super) {
 }(BacklogError));
 exports.UnexpectedError = UnexpectedError;
 
-}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
