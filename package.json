@@ -9,14 +9,14 @@
     "url": "git://github.com/nulab/backlog-js.git"
   },
   "scripts": {
-    "test": "npx mocha --timeout 10000 --require espower-typescript/guess test/test*.ts",
-    "test-cov": "npx istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
+    "test": "mocha --timeout 10000 --require espower-typescript/guess test/test*.ts",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
     "build": "npm run clean && npm run build-tsc && npm run copy-dts && npm run build-dist && npm run build-minify",
-    "build-dist": "npx browserify --standalone Backlog dist/src/index.js -o dist/backlog.js",
-    "build-minify": "npx uglifyjs dist/backlog.js -o dist/backlog.min.js",
-    "build-tsc": "npx tsc --declaration",
+    "build-dist": "browserify --standalone Backlog dist/src/index.js -o dist/backlog.js",
+    "build-minify": "uglifyjs dist/backlog.js -o dist/backlog.min.js",
+    "build-tsc": "tsc --declaration",
     "copy-dts": "mkdir -p dist/types && cp -r dist/src/*.d.ts dist/types",
     "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
