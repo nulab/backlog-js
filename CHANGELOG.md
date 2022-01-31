@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.12.5](https://github.com/nulab/backlog-js/compare/0.12.4...0.12.5) (2022-01-28)
+
+* Bump cached-path-relative from 1.0.2 to 1.1.0 [#56](https://github.com/nulab/backlog-js/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump node-fetch from 2.6.1 to 2.6.7 [#55](https://github.com/nulab/backlog-js/pull/55) ([dependabot[bot]](https://github.com/apps/dependabot))
+* No npx in scripts [#54](https://github.com/nulab/backlog-js/pull/54) ([mmktomato](https://github.com/mmktomato))
+* Remove unnecessary namespace (global) [#53](https://github.com/nulab/backlog-js/pull/53) ([mmktomato](https://github.com/mmktomato))
+* Use minified script [#52](https://github.com/nulab/backlog-js/pull/52) ([mmktomato](https://github.com/mmktomato))
+* Generate d.ts automatically [#51](https://github.com/nulab/backlog-js/pull/51) ([mmktomato](https://github.com/mmktomato))
+* Bump path-parse from 1.0.6 to 1.0.7 [#49](https://github.com/nulab/backlog-js/pull/49) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.12.4](https://github.com/nulab/backlog-js/compare/0.12.3...0.12.4) (2021-08-10)
 
 * Add return type [#47](https://github.com/nulab/backlog-js/pull/47) ([ohyama](https://github.com/ohyama))
