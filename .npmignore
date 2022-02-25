@@ -3,5 +3,5 @@
 !/README.md
 !/CHANGELOG.md
 !/dist/backlog.js
-!/dist/backlog.d.ts
 !/dist/backlog.min.js
+!/dist/types/*
