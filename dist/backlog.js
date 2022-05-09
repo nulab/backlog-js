@@ -74,7 +74,7 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-user/
      */
     Backlog.prototype.getUser = function (userId) {
-        return this.get("users/" + userId);
+        return this.get("users/".concat(userId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-user/
@@ -86,13 +86,13 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/update-user/
      */
     Backlog.prototype.patchUser = function (userId, params) {
-        return this.patch("users/" + userId, params);
+        return this.patch("users/".concat(userId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-user/
      */
     Backlog.prototype.deleteUser = function (userId) {
-        return this.delete("users/" + userId);
+        return this.delete("users/".concat(userId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-own-user/
@@ -104,25 +104,25 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
      */
     Backlog.prototype.getUserIcon = function (userId) {
-        return this.download("users/" + userId + "/icon");
+        return this.download("users/".concat(userId, "/icon"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-recent-updates/
      */
     Backlog.prototype.getUserActivities = function (userId, params) {
-        return this.get("users/" + userId + "/activities", params);
+        return this.get("users/".concat(userId, "/activities"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-received-star-list/
      */
     Backlog.prototype.getUserStars = function (userId, params) {
-        return this.get("users/" + userId + "/stars", params);
+        return this.get("users/".concat(userId, "/stars"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-user-received-stars/
      */
     Backlog.prototype.getUserStarsCount = function (userId, params) {
-        return this.get("users/" + userId + "/stars/count", params);
+        return this.get("users/".concat(userId, "/stars/count"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-issues/
@@ -164,7 +164,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.getGroup = function (groupId) {
         console.warn("Deprecated: Use getTeam instead.");
-        return this.get("groups/" + groupId);
+        return this.get("groups/".concat(groupId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-group/
@@ -172,7 +172,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.patchGroup = function (groupId, params) {
         console.warn("Deprecated: Use patchTeam instead.");
-        return this.patch("groups/" + groupId, params);
+        return this.patch("groups/".concat(groupId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-group/
@@ -180,7 +180,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.deleteGroup = function (groupId) {
         console.warn("Deprecated: Use deleteTeam instead.");
-        return this.delete("groups/" + groupId);
+        return this.delete("groups/".concat(groupId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
@@ -194,7 +194,7 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
      */
     Backlog.prototype.getProjectStatuses = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/statuses");
+        return this.get("projects/".concat(projectIdOrKey, "/statuses"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-resolution-list/
@@ -224,253 +224,253 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-project/
      */
     Backlog.prototype.getProject = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey);
+        return this.get("projects/".concat(projectIdOrKey));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-project/
      */
     Backlog.prototype.patchProject = function (projectIdOrKey, params) {
-        return this.patch("projects/" + projectIdOrKey, params);
+        return this.patch("projects/".concat(projectIdOrKey), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project/
      */
     Backlog.prototype.deleteProject = function (projectIdOrKey) {
-        return this.delete("projects/" + projectIdOrKey);
+        return this.delete("projects/".concat(projectIdOrKey));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-icon/
      */
     Backlog.prototype.getProjectIcon = function (projectIdOrKey) {
-        return this.download("projects/" + projectIdOrKey + "/image");
+        return this.download("projects/".concat(projectIdOrKey, "/image"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-recent-updates/
      */
     Backlog.prototype.getProjectActivities = function (projectIdOrKey, params) {
-        return this.get("projects/" + projectIdOrKey + "/activities", params);
+        return this.get("projects/".concat(projectIdOrKey, "/activities"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
      */
     Backlog.prototype.postProjectUser = function (projectIdOrKey, userId) {
-        return this.post("projects/" + projectIdOrKey + "/users", { userId: userId });
+        return this.post("projects/".concat(projectIdOrKey, "/users"), { userId: userId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
      */
     Backlog.prototype.getProjectUsers = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/users");
+        return this.get("projects/".concat(projectIdOrKey, "/users"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-user/
      */
     Backlog.prototype.deleteProjectUsers = function (projectIdOrKey, params) {
-        return this.delete("projects/" + projectIdOrKey + "/users", params);
+        return this.delete("projects/".concat(projectIdOrKey, "/users"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-administrator/
      */
     Backlog.prototype.postProjectAdministrators = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/administrators", params);
+        return this.post("projects/".concat(projectIdOrKey, "/administrators"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
      */
     Backlog.prototype.getProjectAdministrators = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/administrators");
+        return this.get("projects/".concat(projectIdOrKey, "/administrators"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-administrator/
      */
     Backlog.prototype.deleteProjectAdministrators = function (projectIdOrKey, params) {
-        return this.delete("projects/" + projectIdOrKey + "/administrators", params);
+        return this.delete("projects/".concat(projectIdOrKey, "/administrators"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-status/
      */
     Backlog.prototype.postProjectStatus = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/statuses", params);
+        return this.post("projects/".concat(projectIdOrKey, "/statuses"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-status/
      */
     Backlog.prototype.patchProjectStatus = function (projectIdOrKey, id, params) {
-        return this.patch("projects/" + projectIdOrKey + "/statuses/" + id, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/statuses/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-status/
      */
     Backlog.prototype.deleteProjectStatus = function (projectIdOrKey, id, substituteStatusId) {
-        return this.delete("projects/" + projectIdOrKey + "/statuses/" + id, { substituteStatusId: substituteStatusId });
+        return this.delete("projects/".concat(projectIdOrKey, "/statuses/").concat(id), { substituteStatusId: substituteStatusId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-order-of-status/
      */
     Backlog.prototype.patchProjectStatusOrder = function (projectIdOrKey, statusId) {
-        return this.patch("projects/" + projectIdOrKey + "/statuses/updateDisplayOrder", { statusId: statusId });
+        return this.patch("projects/".concat(projectIdOrKey, "/statuses/updateDisplayOrder"), { statusId: statusId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
      */
     Backlog.prototype.getIssueTypes = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/issueTypes");
+        return this.get("projects/".concat(projectIdOrKey, "/issueTypes"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-issue-type/
      */
     Backlog.prototype.postIssueType = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/issueTypes", params);
+        return this.post("projects/".concat(projectIdOrKey, "/issueTypes"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-issue-type/
      */
     Backlog.prototype.patchIssueType = function (projectIdOrKey, id, params) {
-        return this.patch("projects/" + projectIdOrKey + "/issueTypes/" + id, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/issueTypes/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue-type/
      */
     Backlog.prototype.deleteIssueType = function (projectIdOrKey, id, params) {
-        return this.delete("projects/" + projectIdOrKey + "/issueTypes/" + id, params);
+        return this.delete("projects/".concat(projectIdOrKey, "/issueTypes/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-category-list/
      */
     Backlog.prototype.getCategories = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/categories");
+        return this.get("projects/".concat(projectIdOrKey, "/categories"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-category/
      */
     Backlog.prototype.postCategories = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/categories", params);
+        return this.post("projects/".concat(projectIdOrKey, "/categories"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-category/
      */
     Backlog.prototype.patchCategories = function (projectIdOrKey, id, params) {
-        return this.patch("projects/" + projectIdOrKey + "/categories/" + id, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/categories/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-category/
      */
     Backlog.prototype.deleteCategories = function (projectIdOrKey, id) {
-        return this.delete("projects/" + projectIdOrKey + "/categories/" + id);
+        return this.delete("projects/".concat(projectIdOrKey, "/categories/").concat(id));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-version-milestone-list/
      */
     Backlog.prototype.getVersions = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/versions");
+        return this.get("projects/".concat(projectIdOrKey, "/versions"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-version-milestone/
      */
     Backlog.prototype.postVersions = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/versions", params);
+        return this.post("projects/".concat(projectIdOrKey, "/versions"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-version-milestone/
      */
     Backlog.prototype.patchVersions = function (projectIdOrKey, id, params) {
-        return this.patch("projects/" + projectIdOrKey + "/versions/" + id, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/versions/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-version/
      */
     Backlog.prototype.deleteVersions = function (projectIdOrKey, id) {
-        return this.delete("projects/" + projectIdOrKey + "/versions/" + id);
+        return this.delete("projects/".concat(projectIdOrKey, "/versions/").concat(id));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
      */
     Backlog.prototype.getCustomFields = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/customFields");
+        return this.get("projects/".concat(projectIdOrKey, "/customFields"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-custom-field/
      */
     Backlog.prototype.postCustomField = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/customFields", params);
+        return this.post("projects/".concat(projectIdOrKey, "/customFields"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-custom-field/
      */
     Backlog.prototype.patchCustomField = function (projectIdOrKey, id, params) {
-        return this.patch("projects/" + projectIdOrKey + "/customFields/" + id, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/customFields/").concat(id), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
      */
     Backlog.prototype.deleteCustomField = function (projectIdOrKey, id) {
-        return this.delete("projects/" + projectIdOrKey + "/customFields/" + id);
+        return this.delete("projects/".concat(projectIdOrKey, "/customFields/").concat(id));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
      */
     Backlog.prototype.postCustomFieldItem = function (projectIdOrKey, id, params) {
-        return this.post("projects/" + projectIdOrKey + "/customFields/" + id + "/items", params);
+        return this.post("projects/".concat(projectIdOrKey, "/customFields/").concat(id, "/items"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
      */
     Backlog.prototype.patchCustomFieldItem = function (projectIdOrKey, id, itemId, params) {
-        return this.patch("projects/" + projectIdOrKey + "/customFields/" + id + "/items/" + itemId, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/customFields/").concat(id, "/items/").concat(itemId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
      */
     Backlog.prototype.deleteCustomFieldItem = function (projectIdOrKey, id, itemId) {
-        return this.delete("projects/" + projectIdOrKey + "/customFields/" + id + "/items/" + itemId);
+        return this.delete("projects/".concat(projectIdOrKey, "/customFields/").concat(id, "/items/").concat(itemId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files/
      */
     Backlog.prototype.getSharedFiles = function (projectIdOrKey, path, params) {
-        return this.get("projects/" + projectIdOrKey + "/files/metadata/" + path, params);
+        return this.get("projects/".concat(projectIdOrKey, "/files/metadata/").concat(path), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-file/
      */
     Backlog.prototype.getSharedFile = function (projectIdOrKey, sharedFileId) {
-        return this.download("projects/" + projectIdOrKey + "/files/" + sharedFileId);
+        return this.download("projects/".concat(projectIdOrKey, "/files/").concat(sharedFileId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-disk-usage/
      */
     Backlog.prototype.getProjectsDiskUsage = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/diskUsage");
+        return this.get("projects/".concat(projectIdOrKey, "/diskUsage"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
      */
     Backlog.prototype.getWebhooks = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/webhooks");
+        return this.get("projects/".concat(projectIdOrKey, "/webhooks"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-webhook/
      */
     Backlog.prototype.postWebhook = function (projectIdOrKey, params) {
-        return this.post("projects/" + projectIdOrKey + "/webhooks", params);
+        return this.post("projects/".concat(projectIdOrKey, "/webhooks"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-webhook/
      */
     Backlog.prototype.getWebhook = function (projectIdOrKey, webhookId) {
-        return this.get("projects/" + projectIdOrKey + "/webhooks/" + webhookId);
+        return this.get("projects/".concat(projectIdOrKey, "/webhooks/").concat(webhookId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-webhook/
      */
     Backlog.prototype.patchWebhook = function (projectIdOrKey, webhookId, params) {
-        return this.patch("projects/" + projectIdOrKey + "/webhooks/" + webhookId, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/webhooks/").concat(webhookId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-webhook/
      */
     Backlog.prototype.deleteWebhook = function (projectIdOrKey, webhookId) {
-        return this.delete("projects/" + projectIdOrKey + "/webhooks/" + webhookId);
+        return this.delete("projects/".concat(projectIdOrKey, "/webhooks/").concat(webhookId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
@@ -494,109 +494,109 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/update-issue/
      */
     Backlog.prototype.patchIssue = function (issueIdOrKey, params) {
-        return this.patch("issues/" + issueIdOrKey, params);
+        return this.patch("issues/".concat(issueIdOrKey), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue/
      */
     Backlog.prototype.getIssue = function (issueIdOrKey) {
-        return this.get("issues/" + issueIdOrKey);
+        return this.get("issues/".concat(issueIdOrKey));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
      */
     Backlog.prototype.deleteIssuesCount = function (issueIdOrKey) {
-        return this.delete("issues/" + issueIdOrKey);
+        return this.delete("issues/".concat(issueIdOrKey));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
      */
     Backlog.prototype.getIssueComments = function (issueIdOrKey, params) {
-        return this.get("issues/" + issueIdOrKey + "/comments", params);
+        return this.get("issues/".concat(issueIdOrKey, "/comments"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment/
      */
     Backlog.prototype.postIssueComments = function (issueIdOrKey, params) {
-        return this.post("issues/" + issueIdOrKey + "/comments", params);
+        return this.post("issues/".concat(issueIdOrKey, "/comments"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-comment/
      */
     Backlog.prototype.getIssueCommentsCount = function (issueIdOrKey) {
-        return this.get("issues/" + issueIdOrKey + "/comments/count");
+        return this.get("issues/".concat(issueIdOrKey, "/comments/count"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment/
      */
     Backlog.prototype.getIssueComment = function (issueIdOrKey, commentId) {
-        return this.get("issues/" + issueIdOrKey + "/comments/" + commentId);
+        return this.get("issues/".concat(issueIdOrKey, "/comments/").concat(commentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
      */
     Backlog.prototype.deleteIssueComment = function (issueIdOrKey, commentId) {
-        return this.delete("issues/" + issueIdOrKey + "/comments/" + commentId);
+        return this.delete("issues/".concat(issueIdOrKey, "/comments/").concat(commentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-comment/
      */
     Backlog.prototype.patchIssueComment = function (issueIdOrKey, commentId, params) {
-        return this.patch("issues/" + issueIdOrKey + "/comments/" + commentId, params);
+        return this.patch("issues/".concat(issueIdOrKey, "/comments/").concat(commentId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
      */
     Backlog.prototype.getIssueCommentNotifications = function (issueIdOrKey, commentId) {
-        return this.get("issues/" + issueIdOrKey + "/comments/" + commentId + "/notifications");
+        return this.get("issues/".concat(issueIdOrKey, "/comments/").concat(commentId, "/notifications"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
      */
     Backlog.prototype.postIssueCommentNotifications = function (issueIdOrKey, commentId, prams) {
-        return this.post("issues/" + issueIdOrKey + "/comments/" + commentId + "/notifications", prams);
+        return this.post("issues/".concat(issueIdOrKey, "/comments/").concat(commentId, "/notifications"), prams);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
      */
     Backlog.prototype.getIssueAttachments = function (issueIdOrKey) {
-        return this.get("issues/" + issueIdOrKey + "/attachments");
+        return this.get("issues/".concat(issueIdOrKey, "/attachments"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-attachment/
      */
     Backlog.prototype.getIssueAttachment = function (issueIdOrKey, attachmentId) {
-        return this.download("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
+        return this.download("issues/".concat(issueIdOrKey, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
      */
     Backlog.prototype.deleteIssueAttachment = function (issueIdOrKey, attachmentId) {
-        return this.delete("issues/" + issueIdOrKey + "/attachments/" + attachmentId);
+        return this.delete("issues/".concat(issueIdOrKey, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
      */
     Backlog.prototype.getIssueParticipants = function (issueIdOrKey) {
-        return this.get("issues/" + issueIdOrKey + "/participants");
+        return this.get("issues/".concat(issueIdOrKey, "/participants"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
      */
     Backlog.prototype.getIssueSharedFiles = function (issueIdOrKey) {
-        return this.get("issues/" + issueIdOrKey + "/sharedFiles");
+        return this.get("issues/".concat(issueIdOrKey, "/sharedFiles"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-issue/
      */
     Backlog.prototype.linkIssueSharedFiles = function (issueIdOrKey, params) {
-        return this.post("issues/" + issueIdOrKey + "/sharedFiles", params);
+        return this.post("issues/".concat(issueIdOrKey, "/sharedFiles"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
      */
     Backlog.prototype.unlinkIssueSharedFile = function (issueIdOrKey, id) {
-        return this.delete("issues/" + issueIdOrKey + "/sharedFiles/" + id);
+        return this.delete("issues/".concat(issueIdOrKey, "/sharedFiles/").concat(id));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
@@ -626,73 +626,73 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
      */
     Backlog.prototype.getWiki = function (wikiId) {
-        return this.get("wikis/" + wikiId);
+        return this.get("wikis/".concat(wikiId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-wiki-page/
      */
     Backlog.prototype.patchWiki = function (wikiId, params) {
-        return this.patch("wikis/" + wikiId, params);
+        return this.patch("wikis/".concat(wikiId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
      */
     Backlog.prototype.deleteWiki = function (wikiId, mailNotify) {
-        return this.delete("wikis/" + wikiId, { mailNotify: mailNotify });
+        return this.delete("wikis/".concat(wikiId), { mailNotify: mailNotify });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
      */
     Backlog.prototype.getWikisAttachments = function (wikiId) {
-        return this.get("wikis/" + wikiId + "/attachments");
+        return this.get("wikis/".concat(wikiId, "/attachments"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
      */
     Backlog.prototype.postWikisAttachments = function (wikiId, attachmentId) {
-        return this.post("wikis/" + wikiId + "/attachments", { attachmentId: attachmentId });
+        return this.post("wikis/".concat(wikiId, "/attachments"), { attachmentId: attachmentId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-attachment/
      */
     Backlog.prototype.getWikiAttachment = function (wikiId, attachmentId) {
-        return this.download("wikis/" + wikiId + "/attachments/" + attachmentId);
+        return this.download("wikis/".concat(wikiId, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
      */
     Backlog.prototype.deleteWikisAttachments = function (wikiId, attachmentId) {
-        return this.delete("wikis/" + wikiId + "/attachments/" + attachmentId);
+        return this.delete("wikis/".concat(wikiId, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
      */
     Backlog.prototype.getWikisSharedFiles = function (wikiId) {
-        return this.get("wikis/" + wikiId + "/sharedFiles");
+        return this.get("wikis/".concat(wikiId, "/sharedFiles"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
      */
     Backlog.prototype.linkWikisSharedFiles = function (wikiId, fileId) {
-        return this.post("wikis/" + wikiId + "/sharedFiles", { fileId: fileId });
+        return this.post("wikis/".concat(wikiId, "/sharedFiles"), { fileId: fileId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
      */
     Backlog.prototype.unlinkWikisSharedFiles = function (wikiId, id) {
-        return this.delete("wikis/" + wikiId + "/sharedFiles/" + id);
+        return this.delete("wikis/".concat(wikiId, "/sharedFiles/").concat(id));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
     Backlog.prototype.getWikisHistory = function (wikiId, params) {
-        return this.get("wikis/" + wikiId + "/history", params);
+        return this.get("wikis/".concat(wikiId, "/history"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
      */
     Backlog.prototype.getWikisStars = function (wikiId) {
-        return this.get("wikis/" + wikiId + "/stars");
+        return this.get("wikis/".concat(wikiId, "/stars"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-star/
@@ -722,109 +722,109 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/read-notification/
      */
     Backlog.prototype.markAsReadNotification = function (id) {
-        return this.post("notifications/" + id + "/markAsRead");
+        return this.post("notifications/".concat(id, "/markAsRead"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
      */
     Backlog.prototype.getGitRepositories = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories");
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-git-repository/
      */
     Backlog.prototype.getGitRepository = function (projectIdOrKey, repoIdOrName) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-list/
      */
     Backlog.prototype.getPullRequests = function (projectIdOrKey, repoIdOrName, params) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests", params);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-requests/
      */
     Backlog.prototype.getPullRequestsCount = function (projectIdOrKey, repoIdOrName, params) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/count", params);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/count"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-pull-request/
      */
     Backlog.prototype.postPullRequest = function (projectIdOrKey, repoIdOrName, params) {
-        return this.post("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests", params);
+        return this.post("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request/
      */
     Backlog.prototype.getPullRequest = function (projectIdOrKey, repoIdOrName, number) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-pull-request/
      */
     Backlog.prototype.patchPullRequest = function (projectIdOrKey, repoIdOrName, number, params) {
-        return this.patch("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-comment/
      */
     Backlog.prototype.getPullRequestComments = function (projectIdOrKey, repoIdOrName, number, params) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments", params);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/comments"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-pull-request-comment/
      */
     Backlog.prototype.postPullRequestComments = function (projectIdOrKey, repoIdOrName, number, params) {
-        return this.post("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments", params);
+        return this.post("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/comments"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-request-comments/
      */
     Backlog.prototype.getPullRequestCommentsCount = function (projectIdOrKey, repoIdOrName, number) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments/count");
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/comments/count"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-pull-request-comment-information/
      */
     Backlog.prototype.patchPullRequestComments = function (projectIdOrKey, repoIdOrName, number, commentId, params) {
-        return this.patch("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/comments/" + commentId, params);
+        return this.patch("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/comments/").concat(commentId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
      */
     Backlog.prototype.getPullRequestAttachments = function (projectIdOrKey, repoIdOrName, number) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments");
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/attachments"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/download-pull-request-attachment/
      */
     Backlog.prototype.getPullRequestAttachment = function (projectIdOrKey, repoIdOrName, number, attachmentId) {
-        return this.download("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments/" + attachmentId);
+        return this.download("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-pull-request-attachments/
      */
     Backlog.prototype.deletePullRequestAttachment = function (projectIdOrKey, repoIdOrName, number, attachmentId) {
-        return this.get("projects/" + projectIdOrKey + "/git/repositories/" + repoIdOrName + "/pullRequests/" + number + "/attachments/" + attachmentId);
+        return this.get("projects/".concat(projectIdOrKey, "/git/repositories/").concat(repoIdOrName, "/pullRequests/").concat(number, "/attachments/").concat(attachmentId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
      */
     Backlog.prototype.getWatchingListItems = function (userId) {
-        return this.get("users/" + userId + "/watchings");
+        return this.get("users/".concat(userId, "/watchings"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-watching
      */
     Backlog.prototype.getWatchingListCount = function (userId) {
-        return this.get("users/" + userId + "/watchings/count");
+        return this.get("users/".concat(userId, "/watchings/count"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching
      */
     Backlog.prototype.getWatchingListItem = function (watchId) {
-        return this.get("watchings/" + watchId);
+        return this.get("watchings/".concat(watchId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-watching
@@ -836,19 +836,19 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/update-watching
      */
     Backlog.prototype.patchWatchingListItem = function (watchId, note) {
-        return this.patch("watchings/" + watchId, { note: note });
+        return this.patch("watchings/".concat(watchId), { note: note });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-watching
      */
     Backlog.prototype.deletehWatchingListItem = function (watchId) {
-        return this.delete("watchings/" + watchId);
+        return this.delete("watchings/".concat(watchId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
      */
     Backlog.prototype.resetWatchingListItemAsRead = function (watchId) {
-        return this.post("watchings/" + watchId + "/markAsRead");
+        return this.post("watchings/".concat(watchId, "/markAsRead"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
@@ -856,7 +856,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.getProjectGroupList = function (projectIdOrKey) {
         console.warn("Deprecated: Use getProjectTeams instead.");
-        return this.get("projects/" + projectIdOrKey + "/groups");
+        return this.get("projects/".concat(projectIdOrKey, "/groups"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-group
@@ -864,7 +864,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.postProjectGroup = function (projectIdOrKey, params) {
         console.warn("Deprecated: Use postProjectTeam instead.");
-        return this.post("projects/" + projectIdOrKey + "/groups", params);
+        return this.post("projects/".concat(projectIdOrKey, "/groups"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
@@ -872,7 +872,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.deleteProjectGroup = function (projectIdOrKey) {
         console.warn("Deprecated: Use deleteProjectTeam instead.");
-        return this.delete("projects/" + projectIdOrKey + "/groups");
+        return this.delete("projects/".concat(projectIdOrKey, "/groups"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
@@ -880,7 +880,7 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.getGroupIcon = function (groupId) {
         console.warn("Deprecated: Use getTeamIcon instead.");
-        return this.download("groups/" + groupId + "/icon");
+        return this.download("groups/".concat(groupId, "/icon"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-licence
@@ -904,43 +904,43 @@ var Backlog = /** @class */ (function (_super) {
      * https://developer.nulab.com/docs/backlog/api/2/get-team/
      */
     Backlog.prototype.getTeam = function (teamId) {
-        return this.get("teams/" + teamId);
+        return this.get("teams/".concat(teamId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-team/
      */
     Backlog.prototype.patchTeam = function (teamId, params) {
-        return this.patch("teams/" + teamId, params);
+        return this.patch("teams/".concat(teamId), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-team/
      */
     Backlog.prototype.deleteTeam = function (teamId) {
-        return this.delete("teams/" + teamId);
+        return this.delete("teams/".concat(teamId));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
      */
     Backlog.prototype.getTeamIcon = function (teamId) {
-        return this.download("teams/" + teamId + "/icon");
+        return this.download("teams/".concat(teamId, "/icon"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
      */
     Backlog.prototype.getProjectTeams = function (projectIdOrKey) {
-        return this.get("projects/" + projectIdOrKey + "/teams");
+        return this.get("projects/".concat(projectIdOrKey, "/teams"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
      */
     Backlog.prototype.postProjectTeam = function (projectIdOrKey, teamId) {
-        return this.post("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
+        return this.post("projects/".concat(projectIdOrKey, "/teams"), { teamId: teamId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
      */
     Backlog.prototype.deleteProjectTeam = function (projectIdOrKey, teamId) {
-        return this.delete("projects/" + projectIdOrKey + "/teams", { teamId: teamId });
+        return this.delete("projects/".concat(projectIdOrKey, "/teams"), { teamId: teamId });
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
@@ -1107,9 +1107,9 @@ var OAuth2 = /** @class */ (function () {
             redirect_uri: options.redirectUri,
             state: options.state
         };
-        return "https://" + options.host + "/OAuth2AccessRequest.action?" +
+        return "https://".concat(options.host, "/OAuth2AccessRequest.action?") +
             Object.keys(params)
-                .map(function (key) { return params[key] ? key + "=" + params[key] : ''; })
+                .map(function (key) { return params[key] ? "".concat(key, "=").concat(params[key]) : ''; })
                 .filter(function (x) { return x.length > 0; })
                 .join('&');
     };
@@ -1256,7 +1256,7 @@ var Request = /** @class */ (function () {
             Object.keys(params).forEach(function (key) { return query[key] = params[key]; });
         }
         var queryStr = this.toQueryString(query);
-        var url = this.restBaseURL + "/" + path + (queryStr.length > 0 ? "?" + queryStr : '');
+        var url = "".concat(this.restBaseURL, "/").concat(path) + (queryStr.length > 0 ? "?".concat(queryStr) : '');
         return fetch(url, init).then(this.checkStatus);
     };
     Request.prototype.checkStatus = function (response) {
@@ -1284,14 +1284,14 @@ var Request = /** @class */ (function () {
     };
     Object.defineProperty(Request.prototype, "webAppBaseURL", {
         get: function () {
-            return "https://" + this.configure.host;
+            return "https://".concat(this.configure.host);
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(Request.prototype, "restBaseURL", {
         get: function () {
-            return this.webAppBaseURL + "/api/v2";
+            return "".concat(this.webAppBaseURL, "/api/v2");
         },
         enumerable: false,
         configurable: true
@@ -2405,7 +2405,7 @@ var parseObject = function (chain, val, options, valuesParsed) {
             ) {
                 obj = [];
                 obj[index] = leaf;
-            } else {
+            } else if (cleanRoot !== '__proto__') {
                 obj[cleanRoot] = leaf;
             }
         }
@@ -2553,6 +2553,7 @@ var arrayPrefixGenerators = {
 };
 
 var isArray = Array.isArray;
+var split = String.prototype.split;
 var push = Array.prototype.push;
 var pushToArray = function (arr, valueOrArray) {
     push.apply(arr, isArray(valueOrArray) ? valueOrArray : [valueOrArray]);
@@ -2589,6 +2590,8 @@ var isNonNullishPrimitive = function isNonNullishPrimitive(v) {
         || typeof v === 'bigint';
 };
 
+var sentinel = {};
+
 var stringify = function stringify(
     object,
     prefix,
@@ -2608,8 +2611,23 @@ var stringify = function stringify(
 ) {
     var obj = object;
 
-    if (sideChannel.has(object)) {
-        throw new RangeError('Cyclic object value');
+    var tmpSc = sideChannel;
+    var step = 0;
+    var findFlag = false;
+    while ((tmpSc = tmpSc.get(sentinel)) !== void undefined && !findFlag) {
+        // Where object last appeared in the ref tree
+        var pos = tmpSc.get(object);
+        step += 1;
+        if (typeof pos !== 'undefined') {
+            if (pos === step) {
+                throw new RangeError('Cyclic object value');
+            } else {
+                findFlag = true; // Break while
+            }
+        }
+        if (typeof tmpSc.get(sentinel) === 'undefined') {
+            step = 0;
+        }
     }
 
     if (typeof filter === 'function') {
@@ -2636,6 +2654,14 @@ var stringify = function stringify(
     if (isNonNullishPrimitive(obj) || utils.isBuffer(obj)) {
         if (encoder) {
             var keyValue = encodeValuesOnly ? prefix : encoder(prefix, defaults.encoder, charset, 'key', format);
+            if (generateArrayPrefix === 'comma' && encodeValuesOnly) {
+                var valuesArray = split.call(String(obj), ',');
+                var valuesJoined = '';
+                for (var i = 0; i < valuesArray.length; ++i) {
+                    valuesJoined += (i === 0 ? '' : ',') + formatter(encoder(valuesArray[i], defaults.encoder, charset, 'value', format));
+                }
+                return [formatter(keyValue) + '=' + valuesJoined];
+            }
             return [formatter(keyValue) + '=' + formatter(encoder(obj, defaults.encoder, charset, 'value', format))];
         }
         return [formatter(prefix) + '=' + formatter(String(obj))];
@@ -2650,7 +2676,7 @@ var stringify = function stringify(
     var objKeys;
     if (generateArrayPrefix === 'comma' && isArray(obj)) {
         // we need to join elements in
-        objKeys = [{ value: obj.length > 0 ? obj.join(',') || null : undefined }];
+        objKeys = [{ value: obj.length > 0 ? obj.join(',') || null : void undefined }];
     } else if (isArray(filter)) {
         objKeys = filter;
     } else {
@@ -2658,9 +2684,9 @@ var stringify = function stringify(
         objKeys = sort ? keys.sort(sort) : keys;
     }
 
-    for (var i = 0; i < objKeys.length; ++i) {
-        var key = objKeys[i];
-        var value = typeof key === 'object' && key.value !== undefined ? key.value : obj[key];
+    for (var j = 0; j < objKeys.length; ++j) {
+        var key = objKeys[j];
+        var value = typeof key === 'object' && typeof key.value !== 'undefined' ? key.value : obj[key];
 
         if (skipNulls && value === null) {
             continue;
@@ -2670,8 +2696,9 @@ var stringify = function stringify(
             ? typeof generateArrayPrefix === 'function' ? generateArrayPrefix(prefix, key) : prefix
             : prefix + (allowDots ? '.' + key : '[' + key + ']');
 
-        sideChannel.set(object, true);
+        sideChannel.set(object, step);
         var valueSideChannel = getSideChannel();
+        valueSideChannel.set(sentinel, sideChannel);
         pushToArray(values, stringify(
             value,
             keyPrefix,
@@ -2699,7 +2726,7 @@ var normalizeStringifyOptions = function normalizeStringifyOptions(opts) {
         return defaults;
     }
 
-    if (opts.encoder !== null && opts.encoder !== undefined && typeof opts.encoder !== 'function') {
+    if (opts.encoder !== null && typeof opts.encoder !== 'undefined' && typeof opts.encoder !== 'function') {
         throw new TypeError('Encoder has to be a function.');
     }
 
@@ -3003,6 +3030,7 @@ var encode = function encode(str, defaultEncoder, charset, kind, format) {
 
         i += 1;
         c = 0x10000 + (((c & 0x3FF) << 10) | (string.charCodeAt(i) & 0x3FF));
+        /* eslint operator-linebreak: [2, "before"] */
         out += hexTable[0xF0 | (c >> 18)]
             + hexTable[0x80 | ((c >> 12) & 0x3F)]
             + hexTable[0x80 | ((c >> 6) & 0x3F)]
