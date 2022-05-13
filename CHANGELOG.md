@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.6](https://github.com/nulab/backlog-js/compare/0.12.5...0.12.6) (2022-05-11)
+
+* Bump ansi-regex from 5.0.0 to 5.0.1 [#62](https://github.com/nulab/backlog-js/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Maintain CI's node versions [#64](https://github.com/nulab/backlog-js/pull/64) ([mmktomato](https://github.com/mmktomato))
+* Bump dependencies [#61](https://github.com/nulab/backlog-js/pull/61) ([mmktomato](https://github.com/mmktomato))
+* Distribute .d.ts files [#59](https://github.com/nulab/backlog-js/pull/59) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.12.5](https://github.com/nulab/backlog-js/compare/0.12.4...0.12.5) (2022-01-28)
 
 * Bump cached-path-relative from 1.0.2 to 1.1.0 [#56](https://github.com/nulab/backlog-js/pull/56) ([dependabot[bot]](https://github.com/apps/dependabot))
