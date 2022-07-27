@@ -9,7 +9,6 @@ import * as Fixtures from './fixtures/index';
 import 'isomorphic-form-data';
 import 'isomorphic-fetch';
 
-require('es6-promise').polyfill();
 dotenv.config();
 
 const host = process.env.BACKLOG_HOST || 'example.backlog.jp';

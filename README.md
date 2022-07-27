@@ -16,10 +16,7 @@ Append your "API Key" or "OAuth2 Access Token" to requests to the API to return 
 ``` javascript
 import 'isomorphic-form-data';
 import 'isomorphic-fetch';
-import * as es6promise from 'es6-promise';
 import * as backlogjs from 'backlog-js';
-
-es6promise.polyfill();
 
 // 'xxx.backlog.jp' or 'xxx.backlogtool.com' or 'your package host'
 const host = 'yourSpaceHost';
