@@ -1,13 +1,11 @@
 import * as assert from 'power-assert';
-import * as nock from 'nock';
-import * as fs from 'fs';
-import * as qs from 'qs';
-import * as stream from 'stream';
 import * as dotenv from 'dotenv';
 import * as backlogjs from '../src/index';
 import * as Fixtures from './fixtures/index';
+import { mockRequest, mockPrepare, mockCleanup } from './mock';
 import 'isomorphic-form-data';
 import 'isomorphic-fetch';
+import { before, after } from 'mocha';
 
 dotenv.config();
 
@@ -25,15 +23,14 @@ const configure = { host, apiKey }
 const credentials = { clientId, clientSecret }
 
 describe("OAuth2 API", () => {
+  let oauth2 = new backlogjs.OAuth2(credentials);
 
-  let oauth2: backlogjs.OAuth2;
-  beforeEach(() => {
-    oauth2 = new backlogjs.OAuth2(credentials);
+  before(() => {
+    mockPrepare(`https://${host}`);
   });
 
-  afterEach(() => {
-    oauth2 = null;
-    nock.cleanAll();
+  after(() => {
+    mockCleanup();
   })
 
   it('should get web app base url.', done => {
@@ -43,18 +40,23 @@ describe("OAuth2 API", () => {
   });
 
   it('should get access token.', done => {
-    nock(`https://${host}`)
-      .post("/api/v2/oauth2/token", body => {
+    mockRequest({
+      method: "POST",
+      path: "/api/v2/oauth2/token",
+      body: body => {
+        debugger;
         return JSON.stringify(body) === JSON.stringify({
-            grant_type: 'authorization_code',
-            code: code,
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_uri: redirectUri
-          })
-      })
-      .once()
-      .reply(200, Fixtures.access_token);
+          grant_type: 'authorization_code',
+          code: code,
+          client_id: clientId,
+          client_secret: clientSecret,
+          redirect_uri: redirectUri
+        });
+      },
+      status: 200,
+      data: Fixtures.access_token,
+      times: 1,
+    });
     oauth2.getAccessToken({
       host, code, redirectUri
     }).then(data => {
@@ -66,17 +68,19 @@ describe("OAuth2 API", () => {
   });
 
   it('should refresh access token.', done => {
-    nock(`https://${host}`)
-      .post("/api/v2/oauth2/token", body => {
-        return JSON.stringify(body) === JSON.stringify({
-            grant_type: 'refresh_token',
-            client_id: clientId,
-            client_secret: clientSecret,
-            refresh_token: refreshToken
-          })
-      })
-      .once()
-      .reply(200, Fixtures.access_token);
+    mockRequest({
+      method: "POST",
+      path: "/api/v2/oauth2/token",
+      body: body => JSON.stringify(body) === JSON.stringify({
+        grant_type: 'refresh_token',
+        client_id: clientId,
+        client_secret: clientSecret,
+        refresh_token: refreshToken
+      }),
+      status: 200,
+      data: Fixtures.access_token,
+      times: 1,
+    });
     oauth2.refreshAccessToken({
       host, refreshToken
     }).then(data => {
@@ -89,16 +93,14 @@ describe("OAuth2 API", () => {
 });
 
 describe("Backlog API", () => {
+  let backlog = new backlogjs.Backlog(configure);
 
-  let backlog: backlogjs.Backlog;
-
-  beforeEach(() => {
-    backlog = new backlogjs.Backlog(configure);
+  before(() => {
+    mockPrepare(`https://${host}`);
   });
 
-  afterEach(() => {
-    backlog = null;
-    nock.cleanAll();
+  after(() => {
+    mockCleanup();
   })
 
   it('should get web app base url.', (done) => {
@@ -140,11 +142,14 @@ describe("Backlog API", () => {
   });
 
   it('should get space.', (done) => {
-    nock(`https://${host}`)
-      .get("/api/v2/space")
-      .query({ apiKey })
-      .once()
-      .reply(200, Fixtures.space);
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/space",
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.space,
+      times: 1,
+    });
     backlog.getSpace().then(data => {
       assert.deepEqual(data, Fixtures.space);
       done();
@@ -154,11 +159,14 @@ describe("Backlog API", () => {
   });
 
   it('should get projects.', (done) => {
-    nock(`https://${host}`)
-      .get("/api/v2/projects")
-      .query({ apiKey })
-      .once()
-      .reply(200, Fixtures.projects);
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/projects",
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.projects,
+      times: 1,
+    });
     backlog.getProjects().then(data => {
       assert.deepEqual(data, Fixtures.projects);
       done();
@@ -168,7 +176,8 @@ describe("Backlog API", () => {
   });
 
   it('should get space activities.', (done) => {
-    const query: backlogjs.Option.Space.GetActivitiesParams = {
+    const query: backlogjs.Option.Space.GetActivitiesParams & { apiKey: string } = {
+      apiKey,
       activityTypeId: [
         backlogjs.Option.ActivityType.IssueCreated,
         backlogjs.Option.ActivityType.IssueUpdated,
@@ -177,23 +186,16 @@ describe("Backlog API", () => {
       minId: 1,
       maxId: 10,
       count: 5,
-      order: "desc"
+      order: "desc",
     };
-    query['apiKey'] = apiKey;
-    nock(`https://${host}`)
-      .get("/api/v2/space/activities")
-      .query(queryObj => {
-        return queryObj["activityTypeId[]"].length === 3
-          && queryObj["activityTypeId[]"][0] === "1"
-          && queryObj["activityTypeId[]"][1] === "2"
-          && queryObj["activityTypeId[]"][2] === "3"
-          && queryObj.minId === "1"
-          && queryObj.maxId === "10"
-          && queryObj.count === "5"
-          && queryObj.order === "desc";
-      })
-      .once()
-      .reply(200, []);
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/space/activities",
+      query,
+      status: 200,
+      data: [],
+      times: 1,
+    });
     backlog.getSpaceActivities(query).then(data => {
       done();
     }).catch(err => {
