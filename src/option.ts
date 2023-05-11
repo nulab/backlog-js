@@ -1,30 +1,6 @@
+  import * as Types from "./types";
 
   export type Order = "asc" | "desc";
-
-  export enum ActivityType {
-    Undefined = -1,
-    IssueCreated = 1,
-    IssueUpdated = 2,
-    IssueCommented = 3,
-    IssueDeleted = 4,
-    WikiCreated = 5,
-    WikiUpdated = 6,
-    WikiDeleted = 7,
-    FileAdded = 8,
-    FileUpdated = 9,
-    FileDeleted = 10,
-    SvnCommitted = 11,
-    GitPushed = 12,
-    GitRepositoryCreated = 13,
-    IssueMultiUpdated = 14,
-    ProjectUserAdded = 15,
-    ProjectUserRemoved = 16,
-    NotifyAdded = 17,
-    PullRequestAdded = 18,
-    PullRequestUpdated = 19,
-    PullRequestCommented = 20,
-    PullRequestMerged = 21
-  }
 
   export namespace Notification {
 
@@ -45,7 +21,7 @@
   export namespace Space {
 
     export interface GetActivitiesParams {
-      activityTypeId?: ActivityType[];
+      activityTypeId?: Types.ActivityType[];
       minId?: number;
       maxId?: number;
       count?: number;
@@ -65,27 +41,18 @@
       password: string;
       name: string;
       mailAddress: string;
-      roleType: RoleType;
+      roleType: Types.RoleType;
     }
 
     export interface PatchUserParams {
       password?: string;
       name?: string;
       mailAddress?: string;
-      roleType?: RoleType;
-    }
-
-    export enum RoleType {
-      Admin = 1,
-      User = 2,
-      Reporter = 3,
-      Viewer = 4,
-      GuestReporter = 5,
-      GuestViewer = 6
+      roleType?: Types.RoleType;
     }
 
     export interface GetUserActivitiesParams {
-      activityTypeId?: ActivityType[];
+      activityTypeId?: Types.ActivityType[];
       minId?: number;
       maxId?: number;
       count?: number;
@@ -149,15 +116,13 @@
 
   export namespace Project {
 
-    export type TextFormattingRule = "backlog" | "markdown";
-
     export interface PostProjectParams {
       name: string;
       key: string;
       chartEnabled: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
       subtaskingEnabled: boolean;
-      textFormattingRule: TextFormattingRule;
+      textFormattingRule: Types.TextFormattingRule;
     }
 
     export interface PatchProjectParams {
@@ -166,7 +131,7 @@
       chartEnabled?: boolean;
       subtaskingEnabled?: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
-      textFormattingRule?: TextFormattingRule;
+      textFormattingRule?: Types.TextFormattingRule;
       archived?: boolean;
     }
 

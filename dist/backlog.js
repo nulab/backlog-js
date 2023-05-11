@@ -1079,7 +1079,7 @@ exports.UnexpectedError = UnexpectedError;
 },{}],4:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Error = exports.Entity = exports.Option = exports.OAuth2 = exports.Backlog = void 0;
+exports.Error = exports.Types = exports.Entity = exports.Option = exports.OAuth2 = exports.Backlog = void 0;
 var backlog_1 = require("./backlog");
 exports.Backlog = backlog_1.default;
 var oauth2_1 = require("./oauth2");
@@ -1088,10 +1088,12 @@ var Option = require("./option");
 exports.Option = Option;
 var Entity = require("./entity");
 exports.Entity = Entity;
+var Types = require("./types");
+exports.Types = Types;
 var Error = require("./error");
 exports.Error = Error;
 
-},{"./backlog":1,"./entity":2,"./error":3,"./oauth2":5,"./option":6}],5:[function(require,module,exports){
+},{"./backlog":1,"./entity":2,"./error":3,"./oauth2":5,"./option":6,"./types":8}],5:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var request_1 = require("./request");
@@ -1141,44 +1143,7 @@ exports.default = OAuth2;
 },{"./request":7}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Issue = exports.Project = exports.User = exports.ActivityType = void 0;
-var ActivityType;
-(function (ActivityType) {
-    ActivityType[ActivityType["Undefined"] = -1] = "Undefined";
-    ActivityType[ActivityType["IssueCreated"] = 1] = "IssueCreated";
-    ActivityType[ActivityType["IssueUpdated"] = 2] = "IssueUpdated";
-    ActivityType[ActivityType["IssueCommented"] = 3] = "IssueCommented";
-    ActivityType[ActivityType["IssueDeleted"] = 4] = "IssueDeleted";
-    ActivityType[ActivityType["WikiCreated"] = 5] = "WikiCreated";
-    ActivityType[ActivityType["WikiUpdated"] = 6] = "WikiUpdated";
-    ActivityType[ActivityType["WikiDeleted"] = 7] = "WikiDeleted";
-    ActivityType[ActivityType["FileAdded"] = 8] = "FileAdded";
-    ActivityType[ActivityType["FileUpdated"] = 9] = "FileUpdated";
-    ActivityType[ActivityType["FileDeleted"] = 10] = "FileDeleted";
-    ActivityType[ActivityType["SvnCommitted"] = 11] = "SvnCommitted";
-    ActivityType[ActivityType["GitPushed"] = 12] = "GitPushed";
-    ActivityType[ActivityType["GitRepositoryCreated"] = 13] = "GitRepositoryCreated";
-    ActivityType[ActivityType["IssueMultiUpdated"] = 14] = "IssueMultiUpdated";
-    ActivityType[ActivityType["ProjectUserAdded"] = 15] = "ProjectUserAdded";
-    ActivityType[ActivityType["ProjectUserRemoved"] = 16] = "ProjectUserRemoved";
-    ActivityType[ActivityType["NotifyAdded"] = 17] = "NotifyAdded";
-    ActivityType[ActivityType["PullRequestAdded"] = 18] = "PullRequestAdded";
-    ActivityType[ActivityType["PullRequestUpdated"] = 19] = "PullRequestUpdated";
-    ActivityType[ActivityType["PullRequestCommented"] = 20] = "PullRequestCommented";
-    ActivityType[ActivityType["PullRequestMerged"] = 21] = "PullRequestMerged";
-})(ActivityType = exports.ActivityType || (exports.ActivityType = {}));
-var User;
-(function (User) {
-    var RoleType;
-    (function (RoleType) {
-        RoleType[RoleType["Admin"] = 1] = "Admin";
-        RoleType[RoleType["User"] = 2] = "User";
-        RoleType[RoleType["Reporter"] = 3] = "Reporter";
-        RoleType[RoleType["Viewer"] = 4] = "Viewer";
-        RoleType[RoleType["GuestReporter"] = 5] = "GuestReporter";
-        RoleType[RoleType["GuestViewer"] = 6] = "GuestViewer";
-    })(RoleType = User.RoleType || (User.RoleType = {}));
-})(User = exports.User || (exports.User = {}));
+exports.Issue = exports.Project = void 0;
 var Project;
 (function (Project) {
     var FieldType;
@@ -1300,9 +1265,60 @@ var Request = /** @class */ (function () {
 }());
 exports.default = Request;
 
-},{"./error":3,"qs":19}],8:[function(require,module,exports){
+},{"./error":3,"qs":20}],8:[function(require,module,exports){
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ActivityType = exports.NormalRoleType = exports.ClassicRoleType = void 0;
+var ClassicRoleType;
+(function (ClassicRoleType) {
+    ClassicRoleType[ClassicRoleType["Admin"] = 1] = "Admin";
+    ClassicRoleType[ClassicRoleType["User"] = 2] = "User";
+    ClassicRoleType[ClassicRoleType["Reporter"] = 3] = "Reporter";
+    ClassicRoleType[ClassicRoleType["Viewer"] = 4] = "Viewer";
+    ClassicRoleType[ClassicRoleType["GuestReporter"] = 5] = "GuestReporter";
+    ClassicRoleType[ClassicRoleType["GuestViewer"] = 6] = "GuestViewer";
+})(ClassicRoleType = exports.ClassicRoleType || (exports.ClassicRoleType = {}));
+var NormalRoleType;
+(function (NormalRoleType) {
+    NormalRoleType[NormalRoleType["Admin"] = 1] = "Admin";
+    NormalRoleType[NormalRoleType["MemberOrGuest"] = 2] = "MemberOrGuest";
+    NormalRoleType[NormalRoleType["MemberOrGuestForAddIssues"] = 3] = "MemberOrGuestForAddIssues";
+    NormalRoleType[NormalRoleType["MemberOrGuestForViewIssues"] = 4] = "MemberOrGuestForViewIssues";
+})(NormalRoleType = exports.NormalRoleType || (exports.NormalRoleType = {}));
+var ActivityType;
+(function (ActivityType) {
+    ActivityType[ActivityType["Undefined"] = -1] = "Undefined";
+    ActivityType[ActivityType["IssueCreated"] = 1] = "IssueCreated";
+    ActivityType[ActivityType["IssueUpdated"] = 2] = "IssueUpdated";
+    ActivityType[ActivityType["IssueCommented"] = 3] = "IssueCommented";
+    ActivityType[ActivityType["IssueDeleted"] = 4] = "IssueDeleted";
+    ActivityType[ActivityType["WikiCreated"] = 5] = "WikiCreated";
+    ActivityType[ActivityType["WikiUpdated"] = 6] = "WikiUpdated";
+    ActivityType[ActivityType["WikiDeleted"] = 7] = "WikiDeleted";
+    ActivityType[ActivityType["FileAdded"] = 8] = "FileAdded";
+    ActivityType[ActivityType["FileUpdated"] = 9] = "FileUpdated";
+    ActivityType[ActivityType["FileDeleted"] = 10] = "FileDeleted";
+    ActivityType[ActivityType["SvnCommitted"] = 11] = "SvnCommitted";
+    ActivityType[ActivityType["GitPushed"] = 12] = "GitPushed";
+    ActivityType[ActivityType["GitRepositoryCreated"] = 13] = "GitRepositoryCreated";
+    ActivityType[ActivityType["IssueMultiUpdated"] = 14] = "IssueMultiUpdated";
+    ActivityType[ActivityType["ProjectUserAdded"] = 15] = "ProjectUserAdded";
+    ActivityType[ActivityType["ProjectUserRemoved"] = 16] = "ProjectUserRemoved";
+    ActivityType[ActivityType["NotifyAdded"] = 17] = "NotifyAdded";
+    ActivityType[ActivityType["PullRequestAdded"] = 18] = "PullRequestAdded";
+    ActivityType[ActivityType["PullRequestUpdated"] = 19] = "PullRequestUpdated";
+    ActivityType[ActivityType["PullRequestCommented"] = 20] = "PullRequestCommented";
+    ActivityType[ActivityType["PullRequestMerged"] = 21] = "PullRequestMerged";
+    ActivityType[ActivityType["MilestoneCreated"] = 22] = "MilestoneCreated";
+    ActivityType[ActivityType["MilestoneUpdated"] = 23] = "MilestoneUpdated";
+    ActivityType[ActivityType["MilestoneDeleted"] = 24] = "MilestoneDeleted";
+    ActivityType[ActivityType["ProjectGroupAdded"] = 25] = "ProjectGroupAdded";
+    ActivityType[ActivityType["ProjectGroupDeleted"] = 26] = "ProjectGroupDeleted";
+})(ActivityType = exports.ActivityType || (exports.ActivityType = {}));
 
 },{}],9:[function(require,module,exports){
+
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var GetIntrinsic = require('get-intrinsic');
@@ -1319,7 +1335,7 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 	return intrinsic;
 };
 
-},{"./":10,"get-intrinsic":13}],10:[function(require,module,exports){
+},{"./":11,"get-intrinsic":14}],11:[function(require,module,exports){
 'use strict';
 
 var bind = require('function-bind');
@@ -1368,7 +1384,7 @@ if ($defineProperty) {
 	module.exports.apply = applyBind;
 }
 
-},{"function-bind":12,"get-intrinsic":13}],11:[function(require,module,exports){
+},{"function-bind":13,"get-intrinsic":14}],12:[function(require,module,exports){
 'use strict';
 
 /* eslint no-invalid-this: 1 */
@@ -1422,14 +1438,14 @@ module.exports = function bind(that) {
     return bound;
 };
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
 var implementation = require('./implementation');
 
 module.exports = Function.prototype.bind || implementation;
 
-},{"./implementation":11}],13:[function(require,module,exports){
+},{"./implementation":12}],14:[function(require,module,exports){
 'use strict';
 
 var undefined;
@@ -1761,7 +1777,7 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return value;
 };
 
-},{"function-bind":12,"has":16,"has-symbols":14}],14:[function(require,module,exports){
+},{"function-bind":13,"has":17,"has-symbols":15}],15:[function(require,module,exports){
 'use strict';
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
@@ -1776,7 +1792,7 @@ module.exports = function hasNativeSymbols() {
 	return hasSymbolSham();
 };
 
-},{"./shams":15}],15:[function(require,module,exports){
+},{"./shams":16}],16:[function(require,module,exports){
 'use strict';
 
 /* eslint complexity: [2, 18], max-statements: [2, 33] */
@@ -1820,14 +1836,14 @@ module.exports = function hasSymbols() {
 	return true;
 };
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 var bind = require('function-bind');
 
 module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
-},{"function-bind":12}],17:[function(require,module,exports){
+},{"function-bind":13}],18:[function(require,module,exports){
 var hasMap = typeof Map === 'function' && Map.prototype;
 var mapSizeDescriptor = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
 var mapSize = hasMap && mapSizeDescriptor && typeof mapSizeDescriptor.get === 'function' ? mapSizeDescriptor.get : null;
@@ -2228,7 +2244,7 @@ function arrObjKeys(obj, inspect) {
     return xs;
 }
 
-},{"./util.inspect":8}],18:[function(require,module,exports){
+},{"./util.inspect":9}],19:[function(require,module,exports){
 'use strict';
 
 var replace = String.prototype.replace;
@@ -2253,7 +2269,7 @@ module.exports = {
     RFC3986: Format.RFC3986
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var stringify = require('./stringify');
@@ -2266,7 +2282,7 @@ module.exports = {
     stringify: stringify
 };
 
-},{"./formats":18,"./parse":20,"./stringify":21}],20:[function(require,module,exports){
+},{"./formats":19,"./parse":21,"./stringify":22}],21:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -2531,7 +2547,7 @@ module.exports = function (str, opts) {
     return utils.compact(obj);
 };
 
-},{"./utils":22}],21:[function(require,module,exports){
+},{"./utils":23}],22:[function(require,module,exports){
 'use strict';
 
 var getSideChannel = require('side-channel');
@@ -2850,7 +2866,7 @@ module.exports = function (object, opts) {
     return joined.length > 0 ? prefix + joined : '';
 };
 
-},{"./formats":18,"./utils":22,"side-channel":23}],22:[function(require,module,exports){
+},{"./formats":19,"./utils":23,"side-channel":24}],23:[function(require,module,exports){
 'use strict';
 
 var formats = require('./formats');
@@ -3104,7 +3120,7 @@ module.exports = {
     merge: merge
 };
 
-},{"./formats":18}],23:[function(require,module,exports){
+},{"./formats":19}],24:[function(require,module,exports){
 'use strict';
 
 var GetIntrinsic = require('get-intrinsic');
@@ -3230,5 +3246,5 @@ module.exports = function getSideChannel() {
 	return channel;
 };
 
-},{"call-bind/callBound":9,"get-intrinsic":13,"object-inspect":17}]},{},[4])(4)
+},{"call-bind/callBound":10,"get-intrinsic":14,"object-inspect":18}]},{},[4])(4)
 });

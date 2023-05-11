@@ -11,11 +11,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space/
      */
-    getSpace(): Promise<any>;
+    getSpace(): Promise<Entity.Space.Space>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-recent-updates/
      */
-    getSpaceActivities(params: Option.Space.GetActivitiesParams): Promise<any>;
+    getSpaceActivities(params: Option.Space.GetActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-logo/
      */
@@ -39,27 +39,27 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-list/
      */
-    getUsers(): Promise<any>;
+    getUsers(): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user/
      */
-    getUser(userId: number): Promise<any>;
+    getUser(userId: number): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-user/
      */
-    postUser(params: Option.User.PostUserParams): Promise<any>;
+    postUser(params: Option.User.PostUserParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-user/
      */
-    patchUser(userId: number, params: Option.User.PatchUserParams): Promise<any>;
+    patchUser(userId: number, params: Option.User.PatchUserParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-user/
      */
-    deleteUser(userId: number): Promise<any>;
+    deleteUser(userId: number): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-own-user/
      */
-    getMyself(): Promise<any>;
+    getMyself(): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
      */
@@ -67,7 +67,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-recent-updates/
      */
-    getUserActivities(userId: number, params: Option.User.GetUserActivitiesParams): Promise<any>;
+    getUserActivities(userId: number, params: Option.User.GetUserActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-received-star-list/
      */
@@ -133,23 +133,23 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-list/
      */
-    getProjects(params?: Option.Project.GetProjectsParams): Promise<any>;
+    getProjects(params?: Option.Project.GetProjectsParams): Promise<Entity.Project.Project[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project/
      */
-    postProject(params: Option.Project.PostProjectParams): Promise<any>;
+    postProject(params: Option.Project.PostProjectParams): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project/
      */
-    getProject(projectIdOrKey: string | number): Promise<any>;
+    getProject(projectIdOrKey: string | number): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-project/
      */
-    patchProject(projectIdOrKey: string | number, params: Option.Project.PatchProjectParams): Promise<any>;
+    patchProject(projectIdOrKey: string | number, params: Option.Project.PatchProjectParams): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project/
      */
-    deleteProject(projectIdOrKey: string | number): Promise<any>;
+    deleteProject(projectIdOrKey: string | number): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-icon/
      */
@@ -157,7 +157,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-recent-updates/
      */
-    getProjectActivities(projectIdOrKey: string | number, params: Option.Space.GetActivitiesParams): Promise<any>;
+    getProjectActivities(projectIdOrKey: string | number, params: Option.Space.GetActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
      */

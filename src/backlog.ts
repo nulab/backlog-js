@@ -13,7 +13,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-space/
    */
-  public getSpace(): Promise<any> {
+  public getSpace(): Promise<Entity.Space.Space> {
     return this.get('space');
   }
 
@@ -22,7 +22,7 @@ export default class Backlog extends Request {
    */
   public getSpaceActivities(
     params: Option.Space.GetActivitiesParams
-  ): Promise<any> {
+  ): Promise<Entity.Activity.Activity[]> {
     return this.get('space/activities', params);
   }
 
@@ -66,21 +66,21 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-user-list/
    */
-  public getUsers(): Promise<any> {
+  public getUsers(): Promise<Entity.User.User[]> {
     return this.get(`users`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-user/
    */
-  public getUser(userId: number): Promise<any> {
+  public getUser(userId: number): Promise<Entity.User.User> {
     return this.get(`users/${userId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-user/
    */
-  public postUser(params: Option.User.PostUserParams): Promise<any> {
+  public postUser(params: Option.User.PostUserParams): Promise<Entity.User.User> {
     return this.post(`users`, params);
   }
 
@@ -89,21 +89,21 @@ export default class Backlog extends Request {
    */
   public patchUser(
     userId: number, params: Option.User.PatchUserParams
-  ): Promise<any> {
+  ): Promise<Entity.User.User> {
     return this.patch(`users/${userId}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-user/
    */
-  public deleteUser(userId: number): Promise<any> {
+  public deleteUser(userId: number): Promise<Entity.User.User> {
     return this.delete(`users/${userId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-own-user/
    */
-  public getMyself(): Promise<any> {
+  public getMyself(): Promise<Entity.User.User> {
     return this.get('users/myself');
   }
 
@@ -119,7 +119,7 @@ export default class Backlog extends Request {
    */
   public getUserActivities(
     userId: number, params: Option.User.GetUserActivitiesParams
-  ): Promise<any> {
+  ): Promise<Entity.Activity.Activity[]> {
     return this.get(`users/${userId}/activities`, params);
   }
 
@@ -248,21 +248,21 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-project-list/
    */
-  public getProjects(params?: Option.Project.GetProjectsParams): Promise<any> {
+  public getProjects(params?: Option.Project.GetProjectsParams): Promise<Entity.Project.Project[]> {
     return this.get('projects', params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-project/
    */
-  public postProject(params: Option.Project.PostProjectParams): Promise<any> {
+  public postProject(params: Option.Project.PostProjectParams): Promise<Entity.Project.Project> {
     return this.post('projects', params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-project/
    */
-  public getProject(projectIdOrKey: string | number): Promise<any> {
+  public getProject(projectIdOrKey: string | number): Promise<Entity.Project.Project> {
     return this.get(`projects/${projectIdOrKey}`);
   }
 
@@ -271,14 +271,14 @@ export default class Backlog extends Request {
    */
   public patchProject(
     projectIdOrKey: string | number, params: Option.Project.PatchProjectParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.Project> {
     return this.patch(`projects/${projectIdOrKey}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-project/
    */
-  public deleteProject(projectIdOrKey: string | number): Promise<any> {
+  public deleteProject(projectIdOrKey: string | number): Promise<Entity.Project.Project> {
     return this.delete(`projects/${projectIdOrKey}`);
   }
   /**
@@ -293,7 +293,7 @@ export default class Backlog extends Request {
    */
   public getProjectActivities(
     projectIdOrKey: string | number, params: Option.Space.GetActivitiesParams
-  ): Promise<any> {
+  ): Promise<Entity.Activity.Activity[]> {
     return this.get(`projects/${projectIdOrKey}/activities`, params);
   }
 
