@@ -52,14 +52,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-space-disk-usage/
    */
-  public getSpaceDiskUsage(): Promise<any> {
+  public getSpaceDiskUsage(): Promise<Entity.DiskUsage.SpaceDiskUsage> {
     return this.get('space/diskUsage');
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/post-attachment-file/
    */
-  public postSpaceAttachment(form: FormData) {
+  public postSpaceAttachment(form: FormData): Promise<Entity.File.FileInfo> {
     return this.upload("space/attachment", form);
   }
 
@@ -568,7 +568,7 @@ export default class Backlog extends Request {
    */
   public getProjectsDiskUsage(
     projectIdOrKey: string | number
-  ): Promise<any> {
+  ): Promise<Entity.DiskUsage.ProjectDiskUsage> {
     return this.get(`projects/${projectIdOrKey}/diskUsage`);
   }
 
@@ -731,7 +731,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
    */
-  public getIssueAttachments(issueIdOrKey: string | number): Promise<any> {
+  public getIssueAttachments(issueIdOrKey: string | number): Promise<Entity.File.IssueFileInfo[]> {
     return this.get(`issues/${issueIdOrKey}/attachments`);
   }
 
@@ -745,7 +745,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
    */
-  public deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<any> {
+  public deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<Entity.File.IssueFileInfo> {
     return this.delete(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
   }
 
@@ -833,14 +833,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
    */
-  public getWikisAttachments(wikiId: number): Promise<any> {
+  public getWikisAttachments(wikiId: number): Promise<Entity.File.WikiFileInfo[]> {
     return this.get(`wikis/${wikiId}/attachments`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
    */
-  public postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any> {
+  public postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<Entity.File.WikiFileInfo[]> {
     return this.post(`wikis/${wikiId}/attachments`, { attachmentId });
   }
 
@@ -854,7 +854,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
    */
-  public deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<any> {
+  public deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<Entity.File.WikiFileInfo> {
     return this.delete(`wikis/${wikiId}/attachments/${attachmentId}`);
   }
 
@@ -1055,7 +1055,7 @@ export default class Backlog extends Request {
    */
   public getPullRequestAttachments(
     projectIdOrKey: string | number, repoIdOrName: string, number: number
-  ): Promise<any> {
+  ): Promise<Entity.File.PullRequestFileInfo[]> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments`);
   }
 
@@ -1073,7 +1073,7 @@ export default class Backlog extends Request {
    */
   public deletePullRequestAttachment(
     projectIdOrKey: string | number, repoIdOrName: string, number: number, attachmentId: number
-  ): Promise<any> {
+  ): Promise<Entity.File.PullRequestFileInfo> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`);
   }
 

@@ -13,6 +13,23 @@ export declare namespace File {
         url: string;
         blob?: () => Promise<Blob>;
     }
+    interface FileInfo {
+        id: number;
+        name: string;
+        size: number;
+    }
+    interface IssueFileInfo extends FileInfo {
+        createdUser: User.User;
+        created: string;
+    }
+    interface WikiFileInfo extends FileInfo {
+        createdUser: User.User;
+        created: string;
+    }
+    interface PullRequestFileInfo extends FileInfo {
+        createdUser: User.User;
+        created: string;
+    }
 }
 export declare namespace OAuth2 {
     interface AccessToken {
@@ -76,5 +93,22 @@ export declare namespace Activity {
         notifications: [];
         createdUser: User.User;
         created: string;
+    }
+}
+export declare namespace DiskUsage {
+    interface DiskUsage {
+        issue: number;
+        wiki: number;
+        file: number;
+        subversion: number;
+        git: number;
+        gitLFS: number;
+    }
+    interface ProjectDiskUsage extends DiskUsage {
+        projectId: number;
+    }
+    interface SpaceDiskUsage extends DiskUsage {
+        capacity: number;
+        details: ProjectDiskUsage[];
     }
 }

@@ -16,6 +16,27 @@ export namespace File {
     url: string,
     blob?: () => Promise<Blob>
   }
+
+  export interface FileInfo {
+    id: number;
+    name: string;
+    size: number;
+  }
+
+  export interface IssueFileInfo extends FileInfo {
+    createdUser: User.User;
+    created: string;
+  }
+
+  export interface WikiFileInfo extends FileInfo {
+    createdUser: User.User;
+    created: string;
+  }
+
+  export interface PullRequestFileInfo extends FileInfo {
+    createdUser: User.User;
+    created: string;
+  }
 }
 
 export namespace OAuth2 {
@@ -86,5 +107,25 @@ export namespace Activity {
     notifications: []; // Always an empty array. https://nulab.com/release-notes/backlog/backlog-will-changes-to-the-get-recent-updates-apis/
     createdUser: User.User;
     created: string;
+  }
+}
+
+export namespace DiskUsage {
+  export interface DiskUsage {
+    issue: number; 
+    wiki: number;
+    file: number;
+    subversion: number;
+    git: number;
+    gitLFS: number;
+  }
+
+  export interface ProjectDiskUsage extends DiskUsage {
+    projectId: number;
+  }
+
+  export interface SpaceDiskUsage extends DiskUsage {
+    capacity: number;
+    details: ProjectDiskUsage[];
   }
 }

@@ -31,11 +31,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-disk-usage/
      */
-    getSpaceDiskUsage(): Promise<any>;
+    getSpaceDiskUsage(): Promise<Entity.DiskUsage.SpaceDiskUsage>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/post-attachment-file/
      */
-    postSpaceAttachment(form: FormData): Promise<any>;
+    postSpaceAttachment(form: FormData): Promise<Entity.File.FileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-list/
      */
@@ -285,7 +285,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-disk-usage/
      */
-    getProjectsDiskUsage(projectIdOrKey: string | number): Promise<any>;
+    getProjectsDiskUsage(projectIdOrKey: string | number): Promise<Entity.DiskUsage.ProjectDiskUsage>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
      */
@@ -365,7 +365,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
      */
-    getIssueAttachments(issueIdOrKey: string | number): Promise<any>;
+    getIssueAttachments(issueIdOrKey: string | number): Promise<Entity.File.IssueFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-attachment/
      */
@@ -373,7 +373,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
      */
-    deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<any>;
+    deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<Entity.File.IssueFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
      */
@@ -421,11 +421,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
      */
-    getWikisAttachments(wikiId: number): Promise<any>;
+    getWikisAttachments(wikiId: number): Promise<Entity.File.WikiFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
      */
-    postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any>;
+    postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<Entity.File.WikiFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-attachment/
      */
@@ -433,7 +433,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
      */
-    deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<any>;
+    deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<Entity.File.WikiFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
      */
@@ -521,7 +521,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
      */
-    getPullRequestAttachments(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<any>;
+    getPullRequestAttachments(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<Entity.File.PullRequestFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/download-pull-request-attachment/
      */
@@ -529,7 +529,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-pull-request-attachments/
      */
-    deletePullRequestAttachment(projectIdOrKey: string | number, repoIdOrName: string, number: number, attachmentId: number): Promise<any>;
+    deletePullRequestAttachment(projectIdOrKey: string | number, repoIdOrName: string, number: number, attachmentId: number): Promise<Entity.File.PullRequestFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
      */
