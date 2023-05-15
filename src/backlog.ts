@@ -128,7 +128,7 @@ export default class Backlog extends Request {
    */
   public getUserStars(
     userId: number, params: Option.User.GetUserStarsParams
-  ): Promise<any> {
+  ): Promise<Entity.Star.Star[]> {
     return this.get(`users/${userId}/stars`, params);
   }
 
@@ -137,7 +137,7 @@ export default class Backlog extends Request {
    */
   public getUserStarsCount(
     userId: number, params: Option.User.GetUserStarsCountParams
-  ): Promise<any> {
+  ): Promise<Entity.Star.StarCount> {
     return this.get(`users/${userId}/stars/count`, params);
   }
 
@@ -234,14 +234,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-resolution-list/
    */
-  public getResolutions(): Promise<any> {
+  public getResolutions(): Promise<Entity.Issue.Resolution[]> {
     return this.get('resolutions');
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-priority-list/
    */
-  public getPriorities(): Promise<any> {
+  public getPriorities(): Promise<Entity.Issue.Priority[]> {
     return this.get('priorities');
   }
 
@@ -384,7 +384,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
    */
-  public getIssueTypes(projectIdOrKey: string | number): Promise<any> {
+  public getIssueTypes(projectIdOrKey: string | number): Promise<Entity.Issue.IssueType[]> {
     return this.get(`projects/${projectIdOrKey}/issueTypes`);
   }
 
@@ -393,7 +393,7 @@ export default class Backlog extends Request {
    */
   public postIssueType(
     projectIdOrKey: string | number, params: Option.Project.PostIssueTypeParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.IssueType> {
     return this.post(`projects/${projectIdOrKey}/issueTypes`, params);
   }
 
@@ -402,7 +402,7 @@ export default class Backlog extends Request {
    */
   public patchIssueType(
     projectIdOrKey: string | number, id: number, params: Option.Project.PatchIssueTypeParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.IssueType> {
     return this.patch(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
   }
 
@@ -411,7 +411,7 @@ export default class Backlog extends Request {
    */
   public deleteIssueType(
     projectIdOrKey: string | number, id: number, params: Option.Project.DeleteIssueTypeParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.IssueType> {
     return this.delete(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
   }
 
@@ -891,14 +891,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
    */
-  public getWikisStars(wikiId: number): Promise<any> {
+  public getWikisStars(wikiId: number): Promise<Entity.Star.Star[]> {
     return this.get(`wikis/${wikiId}/stars`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-star/
    */
-  public postStar(params: Option.Project.PostStarParams): Promise<any> {
+  public postStar(params: Option.Project.PostStarParams): Promise<void> {
     return this.post('stars', params);
   }
 

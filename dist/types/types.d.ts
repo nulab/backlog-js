@@ -44,3 +44,4 @@ export declare enum ActivityType {
     ProjectGroupAdded = 25,
     ProjectGroupDeleted = 26
 }
+export declare type IssueTypeColor = "#e30000" | "#990000" | "#934981" | "#814fbc" | "#2779ca" | "#007e9a" | "#7ea800" | "#ff9200" | "#ff3265" | "#666665";

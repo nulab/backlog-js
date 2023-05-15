@@ -129,3 +129,40 @@ export namespace DiskUsage {
     details: ProjectDiskUsage[];
   }
 }
+
+export namespace Issue {
+  export interface IssueType {
+    id: number;
+    projectId: number;
+    name: string;
+    color: Types.IssueTypeColor;
+    displayOrder: number;
+    templateSummary?: string;
+    templateDescription?: string;
+  }
+
+  export interface Priority {
+    id: number;
+    name: string;
+  }
+
+  export interface Resolution {
+    id: number;
+    name: string;
+  }
+}
+
+export namespace Star {
+  export interface Star {
+    id: number;
+    comment?: string;
+    url: string;
+    title: string;
+    presenter: User.User;
+    created: string;
+  }
+
+  export interface StarCount {
+    count: number;
+  }
+}

@@ -152,26 +152,14 @@
       userId: number;
     }
 
-    export type IssueTypeColor =
-      "#e30000" |
-      "#990000" |
-      "#934981" |
-      "#814fbc" |
-      "#2779ca" |
-      "#007e9a" |
-      "#7ea800" |
-      "#ff9200" |
-      "#ff3265" |
-      "#666665";
-
     export interface PostIssueTypeParams {
       name: string;
-      color: IssueTypeColor;
+      color: Types.IssueTypeColor;
     }
 
     export interface PatchIssueTypeParams {
       name?: string;
-      color?: IssueTypeColor;
+      color?: Types.IssueTypeColor;
     }
 
     export interface DeleteIssueTypeParams {

@@ -118,14 +118,13 @@ export declare namespace Project {
     interface DeleteProjectAdministrators {
         userId: number;
     }
-    type IssueTypeColor = "#e30000" | "#990000" | "#934981" | "#814fbc" | "#2779ca" | "#007e9a" | "#7ea800" | "#ff9200" | "#ff3265" | "#666665";
     interface PostIssueTypeParams {
         name: string;
-        color: IssueTypeColor;
+        color: Types.IssueTypeColor;
     }
     interface PatchIssueTypeParams {
         name?: string;
-        color?: IssueTypeColor;
+        color?: Types.IssueTypeColor;
     }
     interface DeleteIssueTypeParams {
         substituteIssueTypeId: number;
