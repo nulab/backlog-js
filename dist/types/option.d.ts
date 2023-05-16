@@ -137,9 +137,9 @@ export declare namespace Project {
     }
     interface PostVersionsParams {
         name: string;
-        description: string;
-        startDate: string;
-        releaseDueDate: string;
+        description?: string;
+        startDate?: string;
+        releaseDueDate?: string;
     }
     interface PatchVersionsParams {
         name: string;
@@ -239,14 +239,13 @@ export declare namespace Project {
         pullRequestId?: number;
         pullRequestCommentId?: number;
     }
-    type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" | "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
     interface PostStatusParams {
         name: string;
-        color: ProjectStatusColor;
+        color: Types.ProjectStatusColor;
     }
     interface PatchStatusParams {
         name?: string;
-        color?: ProjectStatusColor;
+        color?: Types.ProjectStatusColor;
     }
 }
 export declare namespace Issue {

@@ -117,11 +117,11 @@ export default class Backlog extends Request {
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
      * @deprecated
      */
-    getStatuses(): Promise<any>;
+    getStatuses(): Promise<Entity.Project.Status[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
      */
-    getProjectStatuses(projectIdOrKey: string | number): Promise<any>;
+    getProjectStatuses(projectIdOrKey: string | number): Promise<Entity.Project.ProjectStatus[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-resolution-list/
      */
@@ -185,19 +185,19 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-status/
      */
-    postProjectStatus(projectIdOrKey: string | number, params: Option.Project.PostStatusParams): Promise<any>;
+    postProjectStatus(projectIdOrKey: string | number, params: Option.Project.PostStatusParams): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-status/
      */
-    patchProjectStatus(projectIdOrKey: string | number, id: number, params: Option.Project.PatchStatusParams): Promise<any>;
+    patchProjectStatus(projectIdOrKey: string | number, id: number, params: Option.Project.PatchStatusParams): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-status/
      */
-    deleteProjectStatus(projectIdOrKey: string | number, id: number, substituteStatusId: number): Promise<any>;
+    deleteProjectStatus(projectIdOrKey: string | number, id: number, substituteStatusId: number): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-order-of-status/
      */
-    patchProjectStatusOrder(projectIdOrKey: string | number, statusId: number[]): Promise<any>;
+    patchProjectStatusOrder(projectIdOrKey: string | number, statusId: number[]): Promise<Entity.Project.ProjectStatus[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
      */
@@ -217,35 +217,35 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-category-list/
      */
-    getCategories(projectIdOrKey: string | number): Promise<any>;
+    getCategories(projectIdOrKey: string | number): Promise<Entity.Project.Category[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-category/
      */
-    postCategories(projectIdOrKey: string | number, params: Option.Project.PostCategoriesParams): Promise<any>;
+    postCategories(projectIdOrKey: string | number, params: Option.Project.PostCategoriesParams): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-category/
      */
-    patchCategories(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCategoriesParams): Promise<any>;
+    patchCategories(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCategoriesParams): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-category/
      */
-    deleteCategories(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteCategories(projectIdOrKey: string | number, id: number): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-version-milestone-list/
      */
-    getVersions(projectIdOrKey: string | number): Promise<any>;
+    getVersions(projectIdOrKey: string | number): Promise<Entity.Project.Version[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-version-milestone/
      */
-    postVersions(projectIdOrKey: string | number, params: Option.Project.PostVersionsParams): Promise<any>;
+    postVersions(projectIdOrKey: string | number, params: Option.Project.PostVersionsParams): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-version-milestone/
      */
-    patchVersions(projectIdOrKey: string | number, id: number, params: Option.Project.PatchVersionsParams): Promise<any>;
+    patchVersions(projectIdOrKey: string | number, id: number, params: Option.Project.PatchVersionsParams): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-version/
      */
-    deleteVersions(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteVersions(projectIdOrKey: string | number, id: number): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
      */

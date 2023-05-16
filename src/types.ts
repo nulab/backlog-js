@@ -61,3 +61,15 @@ export type IssueTypeColor =
   "#ff9200" |
   "#ff3265" |
   "#666665";
+
+export type ProjectStatusColor =
+  "#ea2c00" |
+  "#e87758" |
+  "#e07b9a" |
+  "#868cb7" |
+  "#3b9dbd" |
+  "#4caf93" |
+  "#b0be3c" |
+  "#eda62a" |
+  "#f42858" |
+  "#393939";

@@ -72,6 +72,33 @@ export declare namespace Project {
         displayOrder: number;
         useDevAttributes: boolean;
     }
+    interface Status {
+        id: number;
+        name: string;
+    }
+    interface ProjectStatus {
+        id: number;
+        projectId: number;
+        name: string;
+        color: Types.ProjectStatusColor;
+        displayOrder: number;
+    }
+    interface Category {
+        id: number;
+        projectId: number;
+        name: string;
+        displayOrder: number;
+    }
+    interface Version {
+        id: number;
+        projectId: number;
+        name: string;
+        description?: string;
+        startDate?: string;
+        releaseDueDate?: string;
+        archived: boolean;
+        displayOrder: number;
+    }
 }
 export declare namespace User {
     interface User {

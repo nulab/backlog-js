@@ -84,6 +84,40 @@ export namespace Project {
     displayOrder: number;
     useDevAttributes: boolean;
   }
+
+  /*
+   * @deprecated
+   */
+  export interface Status {
+    id: number;
+    name: string;
+  }
+
+  export interface ProjectStatus {
+    id: number;
+    projectId: number;
+    name: string;
+    color: Types.ProjectStatusColor;
+    displayOrder: number;
+  }
+
+  export interface Category {
+    id: number;
+    projectId: number;
+    name: string;
+    displayOrder: number;
+  }
+
+  export interface Version {
+    id: number;
+    projectId: number;
+    name: string;
+    description?: string;
+    startDate?: string;
+    releaseDueDate?: string;
+    archived: boolean;
+    displayOrder: number; 
+  }
 }
 
 export namespace User {

@@ -176,9 +176,9 @@
 
     export interface PostVersionsParams {
       name: string;
-      description: string;
-      startDate: string;
-      releaseDueDate: string;
+      description?: string;
+      startDate?: string;
+      releaseDueDate?: string;
     }
 
     export interface PatchVersionsParams {
@@ -295,17 +295,14 @@
       pullRequestCommentId?: number;
     }
 
-    export type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" |
-      "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
-
     export interface PostStatusParams {
       name: string;
-      color: ProjectStatusColor;
+      color: Types.ProjectStatusColor;
     }
 
     export interface PatchStatusParams {
       name?: string;
-      color?: ProjectStatusColor;
+      color?: Types.ProjectStatusColor;
     }
 
   }
