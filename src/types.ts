@@ -73,3 +73,14 @@ export type ProjectStatusColor =
   "#eda62a" |
   "#f42858" |
   "#393939";
+
+export enum CustomFieldType {
+  Text = 1,
+  TextArea = 2,
+  Numeric = 3,
+  Date = 4,
+  SingleList = 5,
+  MultipleList = 6,
+  CheckBox = 7,
+  Radio = 8
+}

@@ -99,6 +99,28 @@ export declare namespace Project {
         archived: boolean;
         displayOrder: number;
     }
+    interface CustomField {
+        id: number;
+        projectId: number;
+        typeId: Types.CustomFieldType;
+        name: string;
+        description: string;
+        required: boolean;
+        applicableIssueTypes: number[];
+        [key: string]: any;
+    }
+    interface SharedFile {
+        id: number;
+        projectId: number;
+        type: string;
+        dir: string;
+        name: string;
+        size: number;
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+    }
 }
 export declare namespace User {
     interface User {
@@ -156,6 +178,38 @@ export declare namespace Issue {
     interface Resolution {
         id: number;
         name: string;
+    }
+    interface Issue {
+        id: number;
+        projectId: number;
+        issueKey: string;
+        keyId: 1;
+        issueType: IssueType;
+        summary: string;
+        description: string;
+        resolution: Resolution;
+        priority: Priority;
+        status: Project.ProjectStatus;
+        assignee: User.User;
+        category: Project.Category[];
+        versions: Project.Version[];
+        milestone: Project.Version[];
+        startDate?: string;
+        dueDate?: string;
+        estimatedHours?: number;
+        actualHours?: number;
+        parentIssueId?: number;
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+        customFields: Project.CustomField[];
+        attachments: File.IssueFileInfo[];
+        sharedFiles: Project.SharedFile[];
+        stars: Star.Star[];
+    }
+    interface IssueCount {
+        count: number;
     }
 }
 export declare namespace Star {

@@ -190,7 +190,7 @@
     }
 
     export interface PostCustomFieldParams {
-      typeId: FieldType;
+      typeId: Types.CustomFieldType;
       name: string;
       applicableIssueTypes?: number[];
       description?: string;
@@ -274,17 +274,6 @@
       hookUrl?: string;
       allEvent?: boolean;
       activityTypeIds?: number[];
-    }
-
-    export enum FieldType {
-      Text = 1,
-      TextArea = 2,
-      Numeric = 3,
-      Date = 4,
-      SingleList = 5,
-      MultipleList = 6,
-      CheckBox = 7,
-      Radio = 8
     }
 
     export interface PostStarParams {

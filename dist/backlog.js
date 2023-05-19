@@ -1143,21 +1143,7 @@ exports.default = OAuth2;
 },{"./request":7}],6:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Issue = exports.Project = void 0;
-var Project;
-(function (Project) {
-    var FieldType;
-    (function (FieldType) {
-        FieldType[FieldType["Text"] = 1] = "Text";
-        FieldType[FieldType["TextArea"] = 2] = "TextArea";
-        FieldType[FieldType["Numeric"] = 3] = "Numeric";
-        FieldType[FieldType["Date"] = 4] = "Date";
-        FieldType[FieldType["SingleList"] = 5] = "SingleList";
-        FieldType[FieldType["MultipleList"] = 6] = "MultipleList";
-        FieldType[FieldType["CheckBox"] = 7] = "CheckBox";
-        FieldType[FieldType["Radio"] = 8] = "Radio";
-    })(FieldType = Project.FieldType || (Project.FieldType = {}));
-})(Project = exports.Project || (exports.Project = {}));
+exports.Issue = void 0;
 var Issue;
 (function (Issue) {
     var ParentChildType;
@@ -1268,7 +1254,7 @@ exports.default = Request;
 },{"./error":3,"qs":20}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ActivityType = exports.NormalRoleType = exports.ClassicRoleType = void 0;
+exports.CustomFieldType = exports.ActivityType = exports.NormalRoleType = exports.ClassicRoleType = void 0;
 var ClassicRoleType;
 (function (ClassicRoleType) {
     ClassicRoleType[ClassicRoleType["Admin"] = 1] = "Admin";
@@ -1315,6 +1301,17 @@ var ActivityType;
     ActivityType[ActivityType["ProjectGroupAdded"] = 25] = "ProjectGroupAdded";
     ActivityType[ActivityType["ProjectGroupDeleted"] = 26] = "ProjectGroupDeleted";
 })(ActivityType = exports.ActivityType || (exports.ActivityType = {}));
+var CustomFieldType;
+(function (CustomFieldType) {
+    CustomFieldType[CustomFieldType["Text"] = 1] = "Text";
+    CustomFieldType[CustomFieldType["TextArea"] = 2] = "TextArea";
+    CustomFieldType[CustomFieldType["Numeric"] = 3] = "Numeric";
+    CustomFieldType[CustomFieldType["Date"] = 4] = "Date";
+    CustomFieldType[CustomFieldType["SingleList"] = 5] = "SingleList";
+    CustomFieldType[CustomFieldType["MultipleList"] = 6] = "MultipleList";
+    CustomFieldType[CustomFieldType["CheckBox"] = 7] = "CheckBox";
+    CustomFieldType[CustomFieldType["Radio"] = 8] = "Radio";
+})(CustomFieldType = exports.CustomFieldType || (exports.CustomFieldType = {}));
 
 },{}],9:[function(require,module,exports){
 

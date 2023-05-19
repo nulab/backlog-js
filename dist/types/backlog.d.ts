@@ -79,7 +79,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-issues/
      */
-    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Issue.Issue[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-projects/
      */
@@ -249,35 +249,35 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
      */
-    getCustomFields(projectIdOrKey: string | number): Promise<any>;
+    getCustomFields(projectIdOrKey: string | number): Promise<Entity.Project.CustomField[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-custom-field/
      */
-    postCustomField(projectIdOrKey: string | number, params: Option.Project.PostCustomFieldParams | Option.Project.PostCustomFieldWithNumericParams | Option.Project.PostCustomFieldWithDateParams | Option.Project.PostCustomFieldWithListParams): Promise<any>;
+    postCustomField(projectIdOrKey: string | number, params: Option.Project.PostCustomFieldParams | Option.Project.PostCustomFieldWithNumericParams | Option.Project.PostCustomFieldWithDateParams | Option.Project.PostCustomFieldWithListParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-custom-field/
      */
-    patchCustomField(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCustomFieldParams | Option.Project.PatchCustomFieldWithNumericParams | Option.Project.PatchCustomFieldWithDateParams | Option.Project.PatchCustomFieldWithListParams): Promise<any>;
+    patchCustomField(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCustomFieldParams | Option.Project.PatchCustomFieldWithNumericParams | Option.Project.PatchCustomFieldWithDateParams | Option.Project.PatchCustomFieldWithListParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
      */
-    deleteCustomField(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteCustomField(projectIdOrKey: string | number, id: number): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
      */
-    postCustomFieldItem(projectIdOrKey: string | number, id: number, params: Option.Project.PostCustomFieldItemParams): Promise<any>;
+    postCustomFieldItem(projectIdOrKey: string | number, id: number, params: Option.Project.PostCustomFieldItemParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
      */
-    patchCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams): Promise<any>;
+    patchCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
      */
-    deleteCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number): Promise<any>;
+    deleteCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files/
      */
-    getSharedFiles(projectIdOrKey: string | number, path: string, params: Option.Project.GetSharedFilesParams): Promise<any>;
+    getSharedFiles(projectIdOrKey: string | number, path: string, params: Option.Project.GetSharedFilesParams): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-file/
      */
@@ -309,27 +309,27 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
      */
-    getIssues(params?: Option.Issue.GetIssuesParams): Promise<any>;
+    getIssues(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.Issue[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-issue/
      */
-    getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any>;
+    getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.IssueCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-issue/
      */
-    postIssue(params: Option.Issue.PostIssueParams): Promise<any>;
+    postIssue(params: Option.Issue.PostIssueParams): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-issue/
      */
-    patchIssue(issueIdOrKey: string | number, params: Option.Issue.PatchIssueParams): Promise<any>;
+    patchIssue(issueIdOrKey: string | number, params: Option.Issue.PatchIssueParams): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue/
      */
-    getIssue(issueIdOrKey: string | number): Promise<any>;
+    getIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
      */
-    deleteIssuesCount(issueIdOrKey: string | number): Promise<any>;
+    deleteIssuesCount(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
      */
@@ -381,15 +381,15 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
      */
-    getIssueSharedFiles(issueIdOrKey: string | number): Promise<any>;
+    getIssueSharedFiles(issueIdOrKey: string | number): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-issue/
      */
-    linkIssueSharedFiles(issueIdOrKey: string | number, params: Option.Issue.LinkIssueSharedFilesParams): Promise<any>;
+    linkIssueSharedFiles(issueIdOrKey: string | number, params: Option.Issue.LinkIssueSharedFilesParams): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
      */
-    unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<any>;
+    unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<Entity.Project.SharedFile>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
      */
@@ -437,15 +437,15 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
      */
-    getWikisSharedFiles(wikiId: number): Promise<any>;
+    getWikisSharedFiles(wikiId: number): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
      */
-    linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<any>;
+    linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
      */
-    unlinkWikisSharedFiles(wikiId: number, id: number): Promise<any>;
+    unlinkWikisSharedFiles(wikiId: number, id: number): Promise<Entity.Project.SharedFile>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */

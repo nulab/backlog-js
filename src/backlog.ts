@@ -146,7 +146,7 @@ export default class Backlog extends Request {
    */
   public getRecentlyViewedIssues(
     params: Option.User.GetRecentlyViewedParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Issue[]> {
     return this.get('users/myself/recentlyViewedIssues', params);
   }
 
@@ -482,7 +482,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
    */
-  public getCustomFields(projectIdOrKey: string | number): Promise<any> {
+  public getCustomFields(projectIdOrKey: string | number): Promise<Entity.Project.CustomField[]> {
     return this.get(`projects/${projectIdOrKey}/customFields`);
   }
 
@@ -495,7 +495,7 @@ export default class Backlog extends Request {
       | Option.Project.PostCustomFieldWithNumericParams
       | Option.Project.PostCustomFieldWithDateParams
       | Option.Project.PostCustomFieldWithListParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.CustomField> {
     return this.post(`projects/${projectIdOrKey}/customFields`, params);
   }
 
@@ -509,14 +509,14 @@ export default class Backlog extends Request {
       | Option.Project.PatchCustomFieldWithNumericParams
       | Option.Project.PatchCustomFieldWithDateParams
       | Option.Project.PatchCustomFieldWithListParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.CustomField> {
     return this.patch(`projects/${projectIdOrKey}/customFields/${id}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
    */
-  public deleteCustomField(projectIdOrKey: string | number, id: number): Promise<any> {
+  public deleteCustomField(projectIdOrKey: string | number, id: number): Promise<Entity.Project.CustomField> {
     return this.delete(`projects/${projectIdOrKey}/customFields/${id}`);
   }
 
@@ -525,7 +525,7 @@ export default class Backlog extends Request {
    */
   public postCustomFieldItem(
     projectIdOrKey: string | number, id: number, params: Option.Project.PostCustomFieldItemParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.CustomField> {
     return this.post(`projects/${projectIdOrKey}/customFields/${id}/items`, params);
   }
 
@@ -534,7 +534,7 @@ export default class Backlog extends Request {
    */
   public patchCustomFieldItem(
     projectIdOrKey: string | number, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.CustomField> {
     return this.patch(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`, params);
   }
 
@@ -543,7 +543,7 @@ export default class Backlog extends Request {
    */
   public deleteCustomFieldItem(
     projectIdOrKey: string | number, id: number, itemId: number
-  ): Promise<any> {
+  ): Promise<Entity.Project.CustomField> {
     return this.delete(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`);
   }
 
@@ -552,7 +552,7 @@ export default class Backlog extends Request {
    */
   public getSharedFiles(
     projectIdOrKey: string | number, path: string, params: Option.Project.GetSharedFilesParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.SharedFile[]> {
     return this.get(`projects/${projectIdOrKey}/files/metadata/${path}`, params);
   }
 
@@ -620,21 +620,21 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
    */
-  public getIssues(params?: Option.Issue.GetIssuesParams): Promise<any> {
+  public getIssues(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.Issue[]> {
     return this.get('issues', params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/count-issue/
    */
-  public getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any> {
+  public getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.IssueCount> {
     return this.get('issues/count', params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-issue/
    */
-  public postIssue(params: Option.Issue.PostIssueParams): Promise<any> {
+  public postIssue(params: Option.Issue.PostIssueParams): Promise<Entity.Issue.Issue> {
     return this.post('issues', params);
   }
 
@@ -643,14 +643,14 @@ export default class Backlog extends Request {
    */
   public patchIssue(
     issueIdOrKey: string | number, params: Option.Issue.PatchIssueParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Issue> {
     return this.patch(`issues/${issueIdOrKey}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-issue/
    */
-  public getIssue(issueIdOrKey: string | number): Promise<any> {
+  public getIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue> {
     return this.get(`issues/${issueIdOrKey}`);
   }
 
@@ -658,7 +658,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
    */
-  public deleteIssuesCount(issueIdOrKey: string | number): Promise<any> {
+  public deleteIssuesCount(issueIdOrKey: string | number): Promise<Entity.Issue.Issue> {
     return this.delete(`issues/${issueIdOrKey}`);
   }
 
@@ -759,7 +759,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
    */
-  public getIssueSharedFiles(issueIdOrKey: string | number): Promise<any> {
+  public getIssueSharedFiles(issueIdOrKey: string | number): Promise<Entity.Project.SharedFile[]> {
     return this.get(`issues/${issueIdOrKey}/sharedFiles`);
   }
 
@@ -768,14 +768,14 @@ export default class Backlog extends Request {
    */
   public linkIssueSharedFiles(
     issueIdOrKey: string | number, params: Option.Issue.LinkIssueSharedFilesParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.SharedFile[]> {
     return this.post(`issues/${issueIdOrKey}/sharedFiles`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
    */
-  public unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<any> {
+  public unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<Entity.Project.SharedFile> {
     return this.delete(`issues/${issueIdOrKey}/sharedFiles/${id}`);
   }
 
@@ -861,21 +861,21 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
    */
-  public getWikisSharedFiles(wikiId: number): Promise<any> {
+  public getWikisSharedFiles(wikiId: number): Promise<Entity.Project.SharedFile[]> {
     return this.get(`wikis/${wikiId}/sharedFiles`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
    */
-  public linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<any> {
+  public linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<Entity.Project.SharedFile[]> {
     return this.post(`wikis/${wikiId}/sharedFiles`, { fileId });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
    */
-  public unlinkWikisSharedFiles(wikiId: number, id: number): Promise<any> {
+  public unlinkWikisSharedFiles(wikiId: number, id: number): Promise<Entity.Project.SharedFile> {
     return this.delete(`wikis/${wikiId}/sharedFiles/${id}`);
   }
 

@@ -149,7 +149,7 @@ export declare namespace Project {
         archived?: boolean;
     }
     interface PostCustomFieldParams {
-        typeId: FieldType;
+        typeId: Types.CustomFieldType;
         name: string;
         applicableIssueTypes?: number[];
         description?: string;
@@ -221,16 +221,6 @@ export declare namespace Project {
         hookUrl?: string;
         allEvent?: boolean;
         activityTypeIds?: number[];
-    }
-    enum FieldType {
-        Text = 1,
-        TextArea = 2,
-        Numeric = 3,
-        Date = 4,
-        SingleList = 5,
-        MultipleList = 6,
-        CheckBox = 7,
-        Radio = 8
     }
     interface PostStarParams {
         issueId?: number;
