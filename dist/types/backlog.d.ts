@@ -397,11 +397,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-wiki-page/
      */
-    getWikisCount(projectIdOrKey: string | number): Promise<any>;
+    getWikisCount(projectIdOrKey: string | number): Promise<Entity.Wiki.WikiCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-tag-list/
      */
-    getWikisTags(projectIdOrKey: string | number): Promise<any>;
+    getWikisTags(projectIdOrKey: string | number): Promise<Entity.Wiki.Tag[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-wiki-page/
      */
@@ -449,7 +449,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
-    getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<any>;
+    getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<Entity.Wiki.History[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
      */

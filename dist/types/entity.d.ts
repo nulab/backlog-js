@@ -225,3 +225,20 @@ export declare namespace Star {
         count: number;
     }
 }
+export declare namespace Wiki {
+    interface Tag {
+        id: number;
+        name: string;
+    }
+    interface History {
+        pageId: number;
+        version: number;
+        name: string;
+        content: string;
+        createdUser: User.User;
+        created: string;
+    }
+    interface WikiCount {
+        count: number;
+    }
+}

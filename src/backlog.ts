@@ -789,14 +789,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/count-wiki-page/
    */
-  public getWikisCount(projectIdOrKey: string | number): Promise<any> {
+  public getWikisCount(projectIdOrKey: string | number): Promise<Entity.Wiki.WikiCount> {
     return this.get(`wikis/count`, { projectIdOrKey });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-tag-list/
    */
-  public getWikisTags(projectIdOrKey: string | number): Promise<any> {
+  public getWikisTags(projectIdOrKey: string | number): Promise<Entity.Wiki.Tag[]> {
     return this.get(`wikis/tags`, { projectIdOrKey });
   }
 
@@ -884,7 +884,7 @@ export default class Backlog extends Request {
    */
   public getWikisHistory(
     wikiId: number, params: Option.Wiki.GetWikisHistoryParams
-  ): Promise<any> {
+  ): Promise<Entity.Wiki.History[]> {
     return this.get(`wikis/${wikiId}/history`, params);
   }
 

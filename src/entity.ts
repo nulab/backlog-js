@@ -259,3 +259,23 @@ export namespace Star {
     count: number;
   }
 }
+
+export namespace Wiki {
+  export interface Tag {
+    id: number;
+    name: string;
+  }
+
+  export interface History {
+    pageId: number;
+    version: number;
+    name: string;
+    content: string;
+    createdUser: User.User;
+    created: string;
+  }
+
+  export interface WikiCount {
+    count: number;
+  }
+}
