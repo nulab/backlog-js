@@ -85,6 +85,11 @@ export namespace Project {
     useDevAttributes: boolean;
   }
 
+  export interface RecentlyViewedProject {
+    project: Project;
+    updated: string;
+  }
+
   /*
    * @deprecated
    */
@@ -240,6 +245,11 @@ export namespace Issue {
     stars: Star.Star[];
   }
 
+  export interface RecentlyViewedIssue {
+    issue: Issue;
+    updated: string;
+  }
+
   export interface IssueCount {
     count: number;
   }
@@ -273,6 +283,37 @@ export namespace Wiki {
     content: string;
     createdUser: User.User;
     created: string;
+  }
+
+  export interface WikiListItem {
+    id: number;
+    projectId: number;
+    name: string;
+    tags: Tag[];
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+
+  export interface Wiki {
+    id: number;
+    projectId: number;
+    name: string;
+    content: string;
+    tags: Tag[];
+    attachments: File.WikiFileInfo[];
+    sharedFiles: Project.SharedFile[];
+    stars: Star.Star[];
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+
+  export interface RecentlyViewedWiki {
+    page: WikiListItem;
+    updated: string;
   }
 
   export interface WikiCount {

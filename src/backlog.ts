@@ -146,7 +146,7 @@ export default class Backlog extends Request {
    */
   public getRecentlyViewedIssues(
     params: Option.User.GetRecentlyViewedParams
-  ): Promise<Entity.Issue.Issue[]> {
+  ): Promise<Entity.Issue.RecentlyViewedIssue[]> {
     return this.get('users/myself/recentlyViewedIssues', params);
   }
 
@@ -155,7 +155,7 @@ export default class Backlog extends Request {
    */
   public getRecentlyViewedProjects(
     params: Option.User.GetRecentlyViewedParams
-  ): Promise<any> {
+  ): Promise<Entity.Project.RecentlyViewedProject[]> {
     return this.get('users/myself/recentlyViewedProjects', params);
   }
 
@@ -164,7 +164,7 @@ export default class Backlog extends Request {
    */
   public getRecentlyViewedWikis(
     params: Option.User.GetRecentlyViewedParams
-  ): Promise<any> {
+  ): Promise<Entity.Wiki.RecentlyViewedWiki[]> {
     return this.get('users/myself/recentlyViewedWikis', params);
   }
 
@@ -782,7 +782,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
    */
-  public getWikis(params: Option.Wiki.GetWikiParams): Promise<any> {
+  public getWikis(params: Option.Wiki.GetWikiParams): Promise<Entity.Wiki.WikiListItem[]> {
     return this.get(`wikis`, params);
   }
 
@@ -803,14 +803,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-wiki-page/
    */
-  public postWiki(params: Option.Wiki.PostWikiParams): Promise<any> {
+  public postWiki(params: Option.Wiki.PostWikiParams): Promise<Entity.Wiki.Wiki> {
     return this.post(`wikis`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
    */
-  public getWiki(wikiId: number): Promise<any> {
+  public getWiki(wikiId: number): Promise<Entity.Wiki.Wiki> {
     return this.get(`wikis/${wikiId}`);
   }
 
@@ -819,14 +819,14 @@ export default class Backlog extends Request {
    */
   public patchWiki(
     wikiId: number, params: Option.Wiki.PatchWikiParams
-  ): Promise<any> {
+  ): Promise<Entity.Wiki.Wiki> {
     return this.patch(`wikis/${wikiId}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
    */
-  public deleteWiki(wikiId: number, mailNotify: boolean): Promise<any> {
+  public deleteWiki(wikiId: number, mailNotify: boolean): Promise<Entity.Wiki.Wiki> {
     return this.delete(`wikis/${wikiId}`, { mailNotify });
   }
 

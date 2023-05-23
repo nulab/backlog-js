@@ -72,6 +72,10 @@ export declare namespace Project {
         displayOrder: number;
         useDevAttributes: boolean;
     }
+    interface RecentlyViewedProject {
+        project: Project;
+        updated: string;
+    }
     interface Status {
         id: number;
         name: string;
@@ -208,6 +212,10 @@ export declare namespace Issue {
         sharedFiles: Project.SharedFile[];
         stars: Star.Star[];
     }
+    interface RecentlyViewedIssue {
+        issue: Issue;
+        updated: string;
+    }
     interface IssueCount {
         count: number;
     }
@@ -237,6 +245,34 @@ export declare namespace Wiki {
         content: string;
         createdUser: User.User;
         created: string;
+    }
+    interface WikiListItem {
+        id: number;
+        projectId: number;
+        name: string;
+        tags: Tag[];
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+    }
+    interface Wiki {
+        id: number;
+        projectId: number;
+        name: string;
+        content: string;
+        tags: Tag[];
+        attachments: File.WikiFileInfo[];
+        sharedFiles: Project.SharedFile[];
+        stars: Star.Star[];
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+    }
+    interface RecentlyViewedWiki {
+        page: WikiListItem;
+        updated: string;
     }
     interface WikiCount {
         count: number;

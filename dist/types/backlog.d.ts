@@ -79,15 +79,15 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-issues/
      */
-    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Issue.Issue[]>;
+    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Issue.RecentlyViewedIssue[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-projects/
      */
-    getRecentlyViewedProjects(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedProjects(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Project.RecentlyViewedProject[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-wikis/
      */
-    getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Wiki.RecentlyViewedWiki[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
      * @deprecated
@@ -393,7 +393,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
      */
-    getWikis(params: Option.Wiki.GetWikiParams): Promise<any>;
+    getWikis(params: Option.Wiki.GetWikiParams): Promise<Entity.Wiki.WikiListItem[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-wiki-page/
      */
@@ -405,19 +405,19 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-wiki-page/
      */
-    postWiki(params: Option.Wiki.PostWikiParams): Promise<any>;
+    postWiki(params: Option.Wiki.PostWikiParams): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
      */
-    getWiki(wikiId: number): Promise<any>;
+    getWiki(wikiId: number): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-wiki-page/
      */
-    patchWiki(wikiId: number, params: Option.Wiki.PatchWikiParams): Promise<any>;
+    patchWiki(wikiId: number, params: Option.Wiki.PatchWikiParams): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
      */
-    deleteWiki(wikiId: number, mailNotify: boolean): Promise<any>;
+    deleteWiki(wikiId: number, mailNotify: boolean): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
      */
