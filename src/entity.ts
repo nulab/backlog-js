@@ -62,6 +62,11 @@ export namespace Space {
     created: string;
     updated: string;
   } 
+
+  export interface Notification {
+    content: string;
+    updated: string;
+  }
 }
 
 export namespace Project {
@@ -252,6 +257,14 @@ export namespace Issue {
 
   export interface IssueCount {
     count: number;
+  }
+
+  export interface CommentNotification {
+    id: number;
+    alreadyRead: boolean;
+    reason: number;
+    user: User.User;
+    resourceAlreadyRead: boolean;
   }
 }
 

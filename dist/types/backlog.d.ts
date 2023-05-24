@@ -23,11 +23,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-notification/
      */
-    getSpaceNotification(): Promise<any>;
+    getSpaceNotification(): Promise<Entity.Space.Notification>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-space-notification/
      */
-    putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<any>;
+    putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<Entity.Space.Notification>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-disk-usage/
      */
@@ -357,7 +357,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
      */
-    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.CommentNotification[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
      */

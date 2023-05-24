@@ -36,7 +36,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-space-notification/
    */
-  public getSpaceNotification(): Promise<any> {
+  public getSpaceNotification(): Promise<Entity.Space.Notification> {
     return this.get('space/notification');
   }
 
@@ -45,7 +45,7 @@ export default class Backlog extends Request {
    */
   public putSpaceNotification(
     params: Option.Space.PutSpaceNotificationParams
-  ): Promise<any> {
+  ): Promise<Entity.Space.Notification> {
     return this.put('space/notification', params);
   }
 
@@ -715,7 +715,7 @@ export default class Backlog extends Request {
    */
   public getIssueCommentNotifications(
     issueIdOrKey: string | number, commentId: number
-  ): Promise<any> {
+  ): Promise<Entity.Issue.CommentNotification[]> {
     return this.get(`issues/${issueIdOrKey}/comments/${commentId}/notifications`);
   }
 
