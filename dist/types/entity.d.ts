@@ -169,6 +169,15 @@ export declare namespace DiskUsage {
         details: ProjectDiskUsage[];
     }
 }
+export declare namespace CommentNotification {
+    interface CommentNotification {
+        id: number;
+        alreadyRead: boolean;
+        reason: number;
+        user: User.User;
+        resourceAlreadyRead: boolean;
+    }
+}
 export declare namespace Issue {
     interface IssueType {
         id: number;
@@ -223,12 +232,20 @@ export declare namespace Issue {
     interface IssueCount {
         count: number;
     }
-    interface CommentNotification {
+    interface IssueCommentCount {
+        count: number;
+    }
+    interface Comment {
         id: number;
-        alreadyRead: boolean;
-        reason: number;
-        user: User.User;
-        resourceAlreadyRead: boolean;
+        projectId: number;
+        issueId: number;
+        content: string;
+        changeLog: ChangeLog.IssueChangeLog[];
+        createdUser: User.User;
+        created: string;
+        updated: string;
+        stars: Star.Star[];
+        notifications: CommentNotification.CommentNotification[];
     }
 }
 export declare namespace Star {
@@ -288,4 +305,43 @@ export declare namespace Wiki {
     interface WikiCount {
         count: number;
     }
+}
+export declare namespace PullRequest {
+    interface Comment {
+        id: number;
+        content: string;
+        changeLog: ChangeLog.PullRequestChangeLog[];
+        createdUser: User.User;
+        created: string;
+        updated: string;
+        stars: Star.Star[];
+        notifications: CommentNotification.CommentNotification[];
+    }
+    interface PullRequestCommentCount {
+        count: number;
+    }
+}
+export declare namespace ChangeLog {
+    interface ChangeLog {
+        field: string;
+        newValue: string;
+        originalValue: string;
+    }
+    interface AttachmentInfo {
+        id: number;
+        type: string;
+    }
+    interface AttributeInfo {
+        id: number;
+        typeId: number;
+    }
+    interface NotificationInfo {
+        type: string;
+    }
+    interface IssueChangeLog extends ChangeLog {
+        attachmentInfo: AttachmentInfo;
+        attributeInfo: AttributeInfo;
+        notificationInfo: NotificationInfo;
+    }
+    type PullRequestChangeLog = ChangeLog;
 }

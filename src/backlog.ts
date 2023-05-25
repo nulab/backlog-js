@@ -667,7 +667,7 @@ export default class Backlog extends Request {
    */
   public getIssueComments(
     issueIdOrKey: string | number, params: Option.Issue.GetIssueCommentsParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Comment[]> {
     return this.get(`issues/${issueIdOrKey}/comments`, params);
   }
 
@@ -676,28 +676,28 @@ export default class Backlog extends Request {
    */
   public postIssueComments(
     issueIdOrKey: string | number, params: Option.Issue.PostIssueCommentsParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Comment> {
     return this.post(`issues/${issueIdOrKey}/comments`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/count-comment/
    */
-  public getIssueCommentsCount(issueIdOrKey: string | number): Promise<any> {
+  public getIssueCommentsCount(issueIdOrKey: string | number): Promise<Entity.Issue.IssueCommentCount> {
     return this.get(`issues/${issueIdOrKey}/comments/count`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-comment/
    */
-  public getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any> {
+  public getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment> {
     return this.get(`issues/${issueIdOrKey}/comments/${commentId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
    */
-  public deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any> {
+  public deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment> {
     return this.delete(`issues/${issueIdOrKey}/comments/${commentId}`);
   }
 
@@ -706,7 +706,7 @@ export default class Backlog extends Request {
    */
   public patchIssueComment(
     issueIdOrKey: string | number, commentId: number, params: Option.Issue.PatchIssueCommentParams
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Comment> {
     return this.patch(`issues/${issueIdOrKey}/comments/${commentId}`, params);
   }
 
@@ -715,7 +715,7 @@ export default class Backlog extends Request {
    */
   public getIssueCommentNotifications(
     issueIdOrKey: string | number, commentId: number
-  ): Promise<Entity.Issue.CommentNotification[]> {
+  ): Promise<Entity.CommentNotification.CommentNotification[]> {
     return this.get(`issues/${issueIdOrKey}/comments/${commentId}/notifications`);
   }
 
@@ -724,7 +724,7 @@ export default class Backlog extends Request {
    */
   public postIssueCommentNotifications(
     issueIdOrKey: string | number, commentId: number, prams: Option.Issue.IssueCommentNotifications
-  ): Promise<any> {
+  ): Promise<Entity.Issue.Comment> {
     return this.post(`issues/${issueIdOrKey}/comments/${commentId}/notifications`, prams);
   }
 
@@ -1012,7 +1012,7 @@ export default class Backlog extends Request {
     repoIdOrName: string,
     number: number,
     params: Option.PullRequest.GetPullRequestCommentsParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.Comment[]> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`, params);
   }
 
@@ -1024,7 +1024,7 @@ export default class Backlog extends Request {
     repoIdOrName: string,
     number: number,
     params: Option.PullRequest.PostPullRequestCommentsParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.Comment> {
     return this.post(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`, params);
   }
 
@@ -1033,7 +1033,7 @@ export default class Backlog extends Request {
    */
   public getPullRequestCommentsCount(
     projectIdOrKey: string | number, repoIdOrName: string, number: number
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequestCommentCount> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/count`);
   }
 
@@ -1046,7 +1046,7 @@ export default class Backlog extends Request {
     number: number,
     commentId: number,
     params: Option.PullRequest.PatchPullRequestCommentsParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.Comment> {
     return this.patch(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/${commentId}`, params);
   }
 

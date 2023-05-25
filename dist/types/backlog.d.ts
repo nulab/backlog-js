@@ -333,35 +333,35 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
      */
-    getIssueComments(issueIdOrKey: string | number, params: Option.Issue.GetIssueCommentsParams): Promise<any>;
+    getIssueComments(issueIdOrKey: string | number, params: Option.Issue.GetIssueCommentsParams): Promise<Entity.Issue.Comment[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment/
      */
-    postIssueComments(issueIdOrKey: string | number, params: Option.Issue.PostIssueCommentsParams): Promise<any>;
+    postIssueComments(issueIdOrKey: string | number, params: Option.Issue.PostIssueCommentsParams): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-comment/
      */
-    getIssueCommentsCount(issueIdOrKey: string | number): Promise<any>;
+    getIssueCommentsCount(issueIdOrKey: string | number): Promise<Entity.Issue.IssueCommentCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment/
      */
-    getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
      */
-    deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-comment/
      */
-    patchIssueComment(issueIdOrKey: string | number, commentId: number, params: Option.Issue.PatchIssueCommentParams): Promise<any>;
+    patchIssueComment(issueIdOrKey: string | number, commentId: number, params: Option.Issue.PatchIssueCommentParams): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
      */
-    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.CommentNotification[]>;
+    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<Entity.CommentNotification.CommentNotification[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
      */
-    postIssueCommentNotifications(issueIdOrKey: string | number, commentId: number, prams: Option.Issue.IssueCommentNotifications): Promise<any>;
+    postIssueCommentNotifications(issueIdOrKey: string | number, commentId: number, prams: Option.Issue.IssueCommentNotifications): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
      */
@@ -505,19 +505,19 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-comment/
      */
-    getPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.GetPullRequestCommentsParams): Promise<any>;
+    getPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.GetPullRequestCommentsParams): Promise<Entity.PullRequest.Comment[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-pull-request-comment/
      */
-    postPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PostPullRequestCommentsParams): Promise<any>;
+    postPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PostPullRequestCommentsParams): Promise<Entity.PullRequest.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-request-comments/
      */
-    getPullRequestCommentsCount(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<any>;
+    getPullRequestCommentsCount(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<Entity.PullRequest.PullRequestCommentCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-pull-request-comment-information/
      */
-    patchPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, commentId: number, params: Option.PullRequest.PatchPullRequestCommentsParams): Promise<any>;
+    patchPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, commentId: number, params: Option.PullRequest.PatchPullRequestCommentsParams): Promise<Entity.PullRequest.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
      */

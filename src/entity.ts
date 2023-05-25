@@ -199,6 +199,16 @@ export namespace DiskUsage {
   }
 }
 
+export namespace CommentNotification {
+  export interface CommentNotification {
+    id: number;
+    alreadyRead: boolean;
+    reason: number;
+    user: User.User;
+    resourceAlreadyRead: boolean;
+  }
+}
+
 export namespace Issue {
   export interface IssueType {
     id: number;
@@ -259,12 +269,21 @@ export namespace Issue {
     count: number;
   }
 
-  export interface CommentNotification {
+  export interface IssueCommentCount {
+    count: number;
+  }
+
+  export interface Comment {
     id: number;
-    alreadyRead: boolean;
-    reason: number;
-    user: User.User;
-    resourceAlreadyRead: boolean;
+    projectId: number;
+    issueId: number;
+    content: string;
+    changeLog: ChangeLog.IssueChangeLog[];
+    createdUser: User.User;
+    created: string;
+    updated: string;
+    stars: Star.Star[];
+    notifications: CommentNotification.CommentNotification[];
   }
 }
 
@@ -332,4 +351,51 @@ export namespace Wiki {
   export interface WikiCount {
     count: number;
   }
+}
+
+export namespace PullRequest {
+  export interface Comment {
+    id: number;
+    content: string;
+    changeLog: ChangeLog.PullRequestChangeLog[]
+    createdUser: User.User;
+    created: string;
+    updated: string;
+    stars: Star.Star[];
+    notifications: CommentNotification.CommentNotification[];
+  }
+
+  export interface PullRequestCommentCount {
+    count: number;
+  }
+}
+
+export namespace ChangeLog {
+  export interface ChangeLog {
+    field: string;
+    newValue: string;
+    originalValue: string;
+  }
+
+  export interface AttachmentInfo {
+    id: number;
+    type: string;
+  }
+
+  export interface AttributeInfo {
+    id: number;
+    typeId: number;
+  }
+
+  export interface NotificationInfo {
+    type: string;
+  }
+
+  export interface IssueChangeLog extends ChangeLog {
+    attachmentInfo: AttachmentInfo;
+    attributeInfo: AttributeInfo;
+    notificationInfo: NotificationInfo;
+  }
+
+  export type PullRequestChangeLog = ChangeLog;
 }
