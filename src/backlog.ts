@@ -937,7 +937,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
    */
-  public getGitRepositories(projectIdOrKey: string | number): Promise<any> {
+  public getGitRepositories(projectIdOrKey: string | number): Promise<Entity.Git.GitRepository[]> {
     return this.get(`projects/${projectIdOrKey}/git/repositories`);
   }
 
@@ -946,7 +946,7 @@ export default class Backlog extends Request {
    */
   public getGitRepository(
     projectIdOrKey: string | number, repoIdOrName: string
-  ): Promise<any> {
+  ): Promise<Entity.Git.GitRepository> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}`);
   }
 
@@ -957,7 +957,7 @@ export default class Backlog extends Request {
     projectIdOrKey: string | number,
     repoIdOrName: string,
     params: Option.PullRequest.GetPullRequestsParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequest[]> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`, params);
   }
 
@@ -968,7 +968,7 @@ export default class Backlog extends Request {
     projectIdOrKey: string | number,
     repoIdOrName: string,
     params: Option.PullRequest.GetPullRequestsParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequestCount> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/count`, params);
   }
 
@@ -979,7 +979,7 @@ export default class Backlog extends Request {
     projectIdOrKey: string | number,
     repoIdOrName: string,
     params: Option.PullRequest.PostPullRequestParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequest> {
     return this.post(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`, params);
   }
 
@@ -988,7 +988,7 @@ export default class Backlog extends Request {
    */
   public getPullRequest(
     projectIdOrKey: string | number, repoIdOrName: string, number: number
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequest> {
     return this.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`);
   }
 
@@ -1000,7 +1000,7 @@ export default class Backlog extends Request {
     repoIdOrName: string,
     number: number,
     params: Option.PullRequest.PatchPullRequestParams
-  ): Promise<any> {
+  ): Promise<Entity.PullRequest.PullRequest> {
     return this.patch(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`, params);
   }
 
@@ -1080,49 +1080,49 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
    */
-  public getWatchingListItems(userId: number): Promise<any> {
+  public getWatchingListItems(userId: number): Promise<Entity.WatchingList.WatchingListItem[]> {
     return this.get(`users/${userId}/watchings`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/count-watching
    */
-  public getWatchingListCount(userId: number): Promise<any> {
+  public getWatchingListCount(userId: number): Promise<Entity.WatchingList.WatchingListCount> {
     return this.get(`users/${userId}/watchings/count`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-watching
    */
-  public getWatchingListItem(watchId: number): Promise<any> {
+  public getWatchingListItem(watchId: number): Promise<Entity.WatchingList.WatchingListItem> {
     return this.get(`watchings/${watchId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-watching
    */
-  public postWatchingListItem(params: any): Promise<any> {
+  public postWatchingListItem(params: any): Promise<Entity.WatchingList.WatchingListItem> {
     return this.post(`watchings`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/update-watching
    */
-  public patchWatchingListItem(watchId: number, note: string): Promise<any> {
+  public patchWatchingListItem(watchId: number, note: string): Promise<Entity.WatchingList.WatchingListItem> {
     return this.patch(`watchings/${watchId}`, { note });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-watching
    */
-  public deletehWatchingListItem(watchId: number): Promise<any> {
+  public deletehWatchingListItem(watchId: number): Promise<Entity.WatchingList.WatchingListItem> {
     return this.delete(`watchings/${watchId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
    */
-  public resetWatchingListItemAsRead(watchId: number): Promise<undefined> {
+  public resetWatchingListItemAsRead(watchId: number): Promise<void> {
     return this.post(`watchings/${watchId}/markAsRead`);
   }
 

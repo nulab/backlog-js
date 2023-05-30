@@ -354,6 +354,36 @@ export namespace Wiki {
 }
 
 export namespace PullRequest {
+  export interface Status {
+    id: number;
+    name: string;
+  }
+
+  export interface PullRequest {
+    id: number;
+    projectId: number;
+    repositoryId: number;
+    number: number;
+    summary: string;
+    description: string;
+    base: string;
+    branch: string;
+    status: Status;
+    assignee: User.User;
+    issue: Issue.Issue;
+    baseCommit?: string;
+    branchCommit?: string;
+    mergeCommit?: string;
+    closeAt?: string;
+    mergeAt?: string;
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+    attachments: File.PullRequestFileInfo[];
+    stars: Star.Star[]; 
+  }
+
   export interface Comment {
     id: number;
     content: string;
@@ -363,6 +393,10 @@ export namespace PullRequest {
     updated: string;
     stars: Star.Star[];
     notifications: CommentNotification.CommentNotification[];
+  }
+
+  export interface PullRequestCount {
+    count: number;
   }
 
   export interface PullRequestCommentCount {
@@ -398,4 +432,39 @@ export namespace ChangeLog {
   }
 
   export type PullRequestChangeLog = ChangeLog;
+}
+
+export namespace Git {
+  export interface GitRepository {
+    id: number;
+    projectId: number;
+    name: string;
+    description: string;
+    hookUrl?: string;
+    httpUrl: string;
+    sshUrl: string;
+    displayOrder: number;
+    pushedAt?: string;
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+}
+
+export namespace WatchingList {
+  export interface WatchingListItem {
+    id: number;
+    resourceAlreadyRead: boolean;
+    note: string;
+    type: string;
+    issue: Issue.Issue;
+    lastContentUpdated: string;
+    created: string;
+    updated: string;
+  }
+
+  export interface WatchingListCount {
+    count: number;
+  }
 }
