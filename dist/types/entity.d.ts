@@ -80,6 +80,9 @@ export declare namespace Project {
         project: Project;
         updated: string;
     }
+    /**
+     * @deprecated
+     */
     interface Status {
         id: number;
         name: string;
@@ -406,5 +409,23 @@ export declare namespace WatchingList {
     }
     interface WatchingListCount {
         count: number;
+    }
+}
+/**
+ * @deprecated
+ */
+export declare namespace Group {
+    /**
+     * @deprecated
+     */
+    interface Group {
+        id: number;
+        name: string;
+        members: User.User[];
+        displayOrder?: number;
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
     }
 }

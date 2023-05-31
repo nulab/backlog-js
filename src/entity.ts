@@ -95,7 +95,7 @@ export namespace Project {
     updated: string;
   }
 
-  /*
+  /**
    * @deprecated
    */
   export interface Status {
@@ -467,4 +467,24 @@ export namespace WatchingList {
   export interface WatchingListCount {
     count: number;
   }
+}
+
+/**
+ * @deprecated
+ */
+export namespace Group {
+  /**
+   * @deprecated
+   */
+  export interface Group {
+    id: number;
+    name: string;
+    members: User.User[];
+    displayOrder?: number;
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+
 }
