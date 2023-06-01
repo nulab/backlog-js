@@ -300,14 +300,14 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
    */
-  public postProjectUser(projectIdOrKey: string | number, userId: string): Promise<any> {
+  public postProjectUser(projectIdOrKey: string | number, userId: string): Promise<Entity.User.User> {
     return this.post(`projects/${projectIdOrKey}/users`, { userId });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
    */
-  public getProjectUsers(projectIdOrKey: string | number): Promise<any> {
+  public getProjectUsers(projectIdOrKey: string | number): Promise<Entity.User.User[]> {
     return this.get(`projects/${projectIdOrKey}/users`);
   }
 
@@ -316,7 +316,7 @@ export default class Backlog extends Request {
    */
   public deleteProjectUsers(
     projectIdOrKey: string | number, params: Option.Project.DeleteProjectUsersParams
-  ): Promise<any> {
+  ): Promise<Entity.User.User> {
     return this.delete(`projects/${projectIdOrKey}/users`, params);
   }
 
@@ -325,14 +325,14 @@ export default class Backlog extends Request {
    */
   public postProjectAdministrators(
     projectIdOrKey: string | number, params: Option.Project.PostProjectAdministrators
-  ): Promise<any> {
+  ): Promise<Entity.User.User> {
     return this.post(`projects/${projectIdOrKey}/administrators`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
    */
-  public getProjectAdministrators(projectIdOrKey: string | number): Promise<any> {
+  public getProjectAdministrators(projectIdOrKey: string | number): Promise<Entity.User.User[]> {
     return this.get(`projects/${projectIdOrKey}/administrators`);
   }
 
@@ -341,7 +341,7 @@ export default class Backlog extends Request {
    */
   public deleteProjectAdministrators(
     projectIdOrKey: string | number, params: Option.Project.DeleteProjectAdministrators
-  ): Promise<any> {
+  ): Promise<Entity.User.User> {
     return this.delete(`projects/${projectIdOrKey}/administrators`, params);
   }
 
@@ -1172,35 +1172,35 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-list-of-teams/
    */
-  public getTeams(params?: Option.Team.GetTeamsParams): Promise<any> {
+  public getTeams(params?: Option.Team.GetTeamsParams): Promise<Entity.Team.Team[]> {
     return this.get(`teams`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-team/
    */
-  public postTeam(members: number[]): Promise<any> {
+  public postTeam(members: number[]): Promise<Entity.Team.Team> {
     return this.post(`teams`, { members });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-team/
    */
-  public getTeam(teamId: number): Promise<any> {
+  public getTeam(teamId: number): Promise<Entity.Team.Team> {
     return this.get(`teams/${teamId}`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/update-team/
    */
-  public patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<any> {
+  public patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<Entity.Team.Team> {
     return this.patch(`teams/${teamId}`, params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-team/
    */
-  public deleteTeam(teamId: number): Promise<any> {
+  public deleteTeam(teamId: number): Promise<Entity.Team.Team> {
     return this.delete(`teams/${teamId}`);
   }
 
@@ -1214,21 +1214,21 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
    */
-  public getProjectTeams(projectIdOrKey: string | number): Promise<any> {
+  public getProjectTeams(projectIdOrKey: string | number): Promise<Entity.Team.Team[]> {
     return this.get(`projects/${projectIdOrKey}/teams`);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
    */
-  public postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any> {
+  public postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team> {
     return this.post(`projects/${projectIdOrKey}/teams`, { teamId });
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
    */
-  public deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any> {
+  public deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team> {
     return this.delete(`projects/${projectIdOrKey}/teams`, { teamId });
   }
 

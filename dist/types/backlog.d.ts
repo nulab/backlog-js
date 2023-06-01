@@ -161,27 +161,27 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
      */
-    postProjectUser(projectIdOrKey: string | number, userId: string): Promise<any>;
+    postProjectUser(projectIdOrKey: string | number, userId: string): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
      */
-    getProjectUsers(projectIdOrKey: string | number): Promise<any>;
+    getProjectUsers(projectIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-user/
      */
-    deleteProjectUsers(projectIdOrKey: string | number, params: Option.Project.DeleteProjectUsersParams): Promise<any>;
+    deleteProjectUsers(projectIdOrKey: string | number, params: Option.Project.DeleteProjectUsersParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-administrator/
      */
-    postProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.PostProjectAdministrators): Promise<any>;
+    postProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.PostProjectAdministrators): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
      */
-    getProjectAdministrators(projectIdOrKey: string | number): Promise<any>;
+    getProjectAdministrators(projectIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-administrator/
      */
-    deleteProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.DeleteProjectAdministrators): Promise<any>;
+    deleteProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.DeleteProjectAdministrators): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-status/
      */
@@ -585,23 +585,23 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-teams/
      */
-    getTeams(params?: Option.Team.GetTeamsParams): Promise<any>;
+    getTeams(params?: Option.Team.GetTeamsParams): Promise<Entity.Team.Team[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-team/
      */
-    postTeam(members: number[]): Promise<any>;
+    postTeam(members: number[]): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team/
      */
-    getTeam(teamId: number): Promise<any>;
+    getTeam(teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-team/
      */
-    patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<any>;
+    patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-team/
      */
-    deleteTeam(teamId: number): Promise<any>;
+    deleteTeam(teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
      */
@@ -609,15 +609,15 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
      */
-    getProjectTeams(projectIdOrKey: string | number): Promise<any>;
+    getProjectTeams(projectIdOrKey: string | number): Promise<Entity.Team.Team[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
      */
-    postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any>;
+    postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
      */
-    deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any>;
+    deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
      */

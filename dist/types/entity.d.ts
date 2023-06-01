@@ -418,7 +418,10 @@ export declare namespace Group {
     /**
      * @deprecated
      */
-    interface Group {
+    type Group = Team.Team;
+}
+export declare namespace Team {
+    interface Team {
         id: number;
         name: string;
         members: User.User[];

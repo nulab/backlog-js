@@ -476,7 +476,11 @@ export namespace Group {
   /**
    * @deprecated
    */
-  export interface Group {
+  export type Group = Team.Team;
+}
+
+export namespace Team {
+  export interface Team {
     id: number;
     name: string;
     members: User.User[];
@@ -486,5 +490,4 @@ export namespace Group {
     updatedUser: User.User;
     updated: string;
   }
-
 }
