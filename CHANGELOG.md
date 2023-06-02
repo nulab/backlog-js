@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.13.0](https://github.com/nulab/backlog-js/compare/0.12.6...0.13.0) (2023-06-02)
+
+* add type annotation for response [#77](https://github.com/nulab/backlog-js/pull/77) ([mmktomato](https://github.com/mmktomato))
+* Bump json-schema and jsprim [#76](https://github.com/nulab/backlog-js/pull/76) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump minimist and mkdirp [#75](https://github.com/nulab/backlog-js/pull/75) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump undici from 5.8.1 to 5.19.1 [#74](https://github.com/nulab/backlog-js/pull/74) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump minimatch from 3.0.4 to 3.1.2 [#72](https://github.com/nulab/backlog-js/pull/72) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Add Node.js v18 support to CI [#70](https://github.com/nulab/backlog-js/pull/70) ([mmktomato](https://github.com/mmktomato))
+* Remove es6-promise [#69](https://github.com/nulab/backlog-js/pull/69) ([mmktomato](https://github.com/mmktomato))
+* Bump shell-quote from 1.7.2 to 1.7.3 [#68](https://github.com/nulab/backlog-js/pull/68) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Removed DefinitelyTyped badge [#67](https://github.com/nulab/backlog-js/pull/67) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.12.6](https://github.com/nulab/backlog-js/compare/0.12.5...0.12.6) (2022-05-11)
 
 * Bump ansi-regex from 5.0.0 to 5.0.1 [#62](https://github.com/nulab/backlog-js/pull/62) ([dependabot[bot]](https://github.com/apps/dependabot))
