@@ -289,23 +289,23 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
      */
-    getWebhooks(projectIdOrKey: string | number): Promise<any>;
+    getWebhooks(projectIdOrKey: string | number): Promise<Entity.Webhook.Webhook[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-webhook/
      */
-    postWebhook(projectIdOrKey: string | number, params: Option.Project.PostWebhookParams): Promise<any>;
+    postWebhook(projectIdOrKey: string | number, params: Option.Project.PostWebhookParams): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-webhook/
      */
-    getWebhook(projectIdOrKey: string | number, webhookId: string): Promise<any>;
+    getWebhook(projectIdOrKey: string | number, webhookId: string): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-webhook/
      */
-    patchWebhook(projectIdOrKey: string | number, webhookId: string, params: Option.Project.PatchWebhookParams): Promise<any>;
+    patchWebhook(projectIdOrKey: string | number, webhookId: string, params: Option.Project.PatchWebhookParams): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-webhook/
      */
-    deleteWebhook(projectIdOrKey: string | number, webhookId: string): Promise<any>;
+    deleteWebhook(projectIdOrKey: string | number, webhookId: string): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
      */
@@ -377,7 +377,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
      */
-    getIssueParticipants(issueIdOrKey: string | number): Promise<any>;
+    getIssueParticipants(issueIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
      */
@@ -461,19 +461,19 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-notification/
      */
-    getNotifications(params: Option.Notification.GetNotificationsParams): Promise<any>;
+    getNotifications(params: Option.Notification.GetNotificationsParams): Promise<Entity.Notification.Notification[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-notification/
      */
-    getNotificationsCount(params: Option.Notification.GetNotificationsCountParams): Promise<any>;
+    getNotificationsCount(params: Option.Notification.GetNotificationsCountParams): Promise<Entity.Notification.NotificationCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/reset-unread-notification-count/
      */
-    resetNotificationsMarkAsRead(): Promise<any>;
+    resetNotificationsMarkAsRead(): Promise<Entity.Notification.NotificationCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/read-notification/
      */
-    markAsReadNotification(id: number): Promise<any>;
+    markAsReadNotification(id: number): Promise<void>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
      */
@@ -581,7 +581,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-licence
      */
-    getLicence(): Promise<any>;
+    getLicence(): Promise<Entity.License.License>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-teams/
      */
@@ -621,7 +621,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
      */
-    getRateLimit(): Promise<any>;
+    getRateLimit(): Promise<Entity.RateLimit.RateLimit>;
     private download;
     private upload;
     private parseFileData;

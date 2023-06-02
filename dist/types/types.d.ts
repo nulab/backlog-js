@@ -56,3 +56,4 @@ export declare enum CustomFieldType {
     CheckBox = 7,
     Radio = 8
 }
+export declare type WebhookActivityId = number;

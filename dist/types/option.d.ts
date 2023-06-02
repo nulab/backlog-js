@@ -213,7 +213,7 @@ export declare namespace Project {
         description?: string;
         hookUrl?: string;
         allEvent?: boolean;
-        activityTypeIds?: number[];
+        activityTypeIds?: Types.WebhookActivityId[];
     }
     interface PatchWebhookParams {
         name?: string;

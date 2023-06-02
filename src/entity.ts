@@ -491,3 +491,94 @@ export namespace Team {
     updated: string;
   }
 }
+
+export namespace Notification {
+  export interface Notification {
+    id: number;
+    alreadyRead: boolean;
+    reason: number;
+    resourceAlreadyRead: boolean;
+    project: Project.Project;
+    issue?: Issue.Issue;
+    comment?: Issue.Comment;
+    pullRequest?: PullRequest.PullRequest;
+    pullRequestComment?: PullRequest.Comment;
+    sender: User.User;
+    created: string;
+  }
+
+  export interface NotificationCount {
+    count: number;
+  }
+}
+
+export namespace Webhook {
+  export interface Webhook {
+    id: number;
+    name: string;
+    description: string;
+    hookUrl: string;
+    allEvent: boolean;
+    activityTypeIds: Types.WebhookActivityId[];
+    createdUser: User.User; 
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+}
+
+export namespace License {
+  export interface License {
+    active: boolean;
+    attachmentLimit: number;
+    attachmentLimitPerFile: number;
+    attachmentNumLimit: number;
+    attribute: boolean;
+    attributeLimit: number;
+    burndown: boolean;
+    commentLimit: number;
+    componentLimit: number;
+    fileSharing: boolean;
+    gantt: boolean;
+    git: boolean;
+    issueLimit: number;
+    licenceTypeId: number;
+    limitDate: string;
+    nulabAccount: boolean;
+    parentChildIssue: boolean;
+    postIssueByMail: boolean;
+    projectLimit: number;
+    pullRequestAttachmentLimitPerFile: number;
+    pullRequestAttachmentNumLimit: number;
+    remoteAddress: boolean;
+    remoteAddressLimit: number;
+    startedOn: string;
+    storageLimit: number;
+    subversion: boolean;
+    subversionExternal: boolean;
+    userLimit: number;
+    versionLimit: number;
+    wikiAttachment: boolean;
+    wikiAttachmentLimitPerFile: number;
+    wikiAttachmentNumLimit: number;
+  }
+}
+
+export namespace RateLimit {
+  export interface RateLimit {
+    rateLimit: ApiRateLimits;
+  }
+
+  export interface ApiRateLimits {
+    read: ApiRateLimit;
+    update: ApiRateLimit;
+    search: ApiRateLimit;
+    icon: ApiRateLimit;
+  }
+
+  export interface ApiRateLimit {
+    limit: number;
+    remaining: number;
+    reset: number;
+  }
+}

@@ -577,7 +577,7 @@ export default class Backlog extends Request {
    */
   public getWebhooks(
     projectIdOrKey: string | number
-  ): Promise<any> {
+  ): Promise<Entity.Webhook.Webhook[]> {
     return this.get(`projects/${projectIdOrKey}/webhooks`);
   }
 
@@ -586,7 +586,7 @@ export default class Backlog extends Request {
    */
   public postWebhook(
     projectIdOrKey: string | number, params: Option.Project.PostWebhookParams
-  ): Promise<any> {
+  ): Promise<Entity.Webhook.Webhook> {
     return this.post(`projects/${projectIdOrKey}/webhooks`, params);
   }
 
@@ -595,7 +595,7 @@ export default class Backlog extends Request {
    */
   public getWebhook(
     projectIdOrKey: string | number, webhookId: string
-  ): Promise<any> {
+  ): Promise<Entity.Webhook.Webhook> {
     return this.get(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
   }
 
@@ -604,7 +604,7 @@ export default class Backlog extends Request {
    */
   public patchWebhook(
     projectIdOrKey: string | number, webhookId: string, params: Option.Project.PatchWebhookParams
-  ): Promise<any> {
+  ): Promise<Entity.Webhook.Webhook> {
     return this.patch(`projects/${projectIdOrKey}/webhooks/${webhookId}`, params);
   }
 
@@ -613,7 +613,7 @@ export default class Backlog extends Request {
    */
   public deleteWebhook(
     projectIdOrKey: string | number, webhookId: string
-  ): Promise<any> {
+  ): Promise<Entity.Webhook.Webhook> {
     return this.delete(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
   }
 
@@ -752,7 +752,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
    */
-  public getIssueParticipants(issueIdOrKey: string | number): Promise<any> {
+  public getIssueParticipants(issueIdOrKey: string | number): Promise<Entity.User.User[]> {
     return this.get(`issues/${issueIdOrKey}/participants`);
   }
 
@@ -907,7 +907,7 @@ export default class Backlog extends Request {
    */
   public getNotifications(
     params: Option.Notification.GetNotificationsParams
-  ): Promise<any> {
+  ): Promise<Entity.Notification.Notification[]> {
     return this.get('notifications', params);
   }
 
@@ -916,21 +916,21 @@ export default class Backlog extends Request {
    */
   public getNotificationsCount(
     params: Option.Notification.GetNotificationsCountParams
-  ): Promise<any> {
+  ): Promise<Entity.Notification.NotificationCount> {
     return this.get('notifications/count', params);
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/reset-unread-notification-count/
    */
-  public resetNotificationsMarkAsRead(): Promise<any> {
+  public resetNotificationsMarkAsRead(): Promise<Entity.Notification.NotificationCount> {
     return this.post('notifications/markAsRead');
   }
 
   /**
    * https://developer.nulab.com/docs/backlog/api/2/read-notification/
    */
-  public markAsReadNotification(id: number): Promise<any> {
+  public markAsReadNotification(id: number): Promise<void> {
     return this.post(`notifications/${id}/markAsRead`);
   }
 
@@ -1165,7 +1165,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-licence
    */
-  public getLicence(): Promise<any> {
+  public getLicence(): Promise<Entity.License.License> {
     return this.get(`space/licence`);
   }
 
@@ -1235,7 +1235,7 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
    */
-  public getRateLimit(): Promise<any> {
+  public getRateLimit(): Promise<Entity.RateLimit.RateLimit> {
     return this.get("rateLimit");
   }
 

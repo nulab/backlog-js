@@ -265,7 +265,7 @@
       description?: string;
       hookUrl?: string;
       allEvent?: boolean;
-      activityTypeIds?: number[];
+      activityTypeIds?: Types.WebhookActivityId[];
     }
 
     export interface PatchWebhookParams {
