@@ -1,30 +1,6 @@
+  import * as Types from "./types";
 
   export type Order = "asc" | "desc";
-
-  export enum ActivityType {
-    Undefined = -1,
-    IssueCreated = 1,
-    IssueUpdated = 2,
-    IssueCommented = 3,
-    IssueDeleted = 4,
-    WikiCreated = 5,
-    WikiUpdated = 6,
-    WikiDeleted = 7,
-    FileAdded = 8,
-    FileUpdated = 9,
-    FileDeleted = 10,
-    SvnCommitted = 11,
-    GitPushed = 12,
-    GitRepositoryCreated = 13,
-    IssueMultiUpdated = 14,
-    ProjectUserAdded = 15,
-    ProjectUserRemoved = 16,
-    NotifyAdded = 17,
-    PullRequestAdded = 18,
-    PullRequestUpdated = 19,
-    PullRequestCommented = 20,
-    PullRequestMerged = 21
-  }
 
   export namespace Notification {
 
@@ -45,7 +21,7 @@
   export namespace Space {
 
     export interface GetActivitiesParams {
-      activityTypeId?: ActivityType[];
+      activityTypeId?: Types.ActivityType[];
       minId?: number;
       maxId?: number;
       count?: number;
@@ -65,27 +41,18 @@
       password: string;
       name: string;
       mailAddress: string;
-      roleType: RoleType;
+      roleType: Types.RoleType;
     }
 
     export interface PatchUserParams {
       password?: string;
       name?: string;
       mailAddress?: string;
-      roleType?: RoleType;
-    }
-
-    export enum RoleType {
-      Admin = 1,
-      User = 2,
-      Reporter = 3,
-      Viewer = 4,
-      GuestReporter = 5,
-      GuestViewer = 6
+      roleType?: Types.RoleType;
     }
 
     export interface GetUserActivitiesParams {
-      activityTypeId?: ActivityType[];
+      activityTypeId?: Types.ActivityType[];
       minId?: number;
       maxId?: number;
       count?: number;
@@ -149,15 +116,13 @@
 
   export namespace Project {
 
-    export type TextFormattingRule = "backlog" | "markdown";
-
     export interface PostProjectParams {
       name: string;
       key: string;
       chartEnabled: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
       subtaskingEnabled: boolean;
-      textFormattingRule: TextFormattingRule;
+      textFormattingRule: Types.TextFormattingRule;
     }
 
     export interface PatchProjectParams {
@@ -166,7 +131,7 @@
       chartEnabled?: boolean;
       subtaskingEnabled?: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
-      textFormattingRule?: TextFormattingRule;
+      textFormattingRule?: Types.TextFormattingRule;
       archived?: boolean;
     }
 
@@ -187,26 +152,14 @@
       userId: number;
     }
 
-    export type IssueTypeColor =
-      "#e30000" |
-      "#990000" |
-      "#934981" |
-      "#814fbc" |
-      "#2779ca" |
-      "#007e9a" |
-      "#7ea800" |
-      "#ff9200" |
-      "#ff3265" |
-      "#666665";
-
     export interface PostIssueTypeParams {
       name: string;
-      color: IssueTypeColor;
+      color: Types.IssueTypeColor;
     }
 
     export interface PatchIssueTypeParams {
       name?: string;
-      color?: IssueTypeColor;
+      color?: Types.IssueTypeColor;
     }
 
     export interface DeleteIssueTypeParams {
@@ -223,9 +176,9 @@
 
     export interface PostVersionsParams {
       name: string;
-      description: string;
-      startDate: string;
-      releaseDueDate: string;
+      description?: string;
+      startDate?: string;
+      releaseDueDate?: string;
     }
 
     export interface PatchVersionsParams {
@@ -237,7 +190,7 @@
     }
 
     export interface PostCustomFieldParams {
-      typeId: FieldType;
+      typeId: Types.CustomFieldType;
       name: string;
       applicableIssueTypes?: number[];
       description?: string;
@@ -312,7 +265,7 @@
       description?: string;
       hookUrl?: string;
       allEvent?: boolean;
-      activityTypeIds?: number[];
+      activityTypeIds?: Types.WebhookActivityId[];
     }
 
     export interface PatchWebhookParams {
@@ -323,17 +276,6 @@
       activityTypeIds?: number[];
     }
 
-    export enum FieldType {
-      Text = 1,
-      TextArea = 2,
-      Numeric = 3,
-      Date = 4,
-      SingleList = 5,
-      MultipleList = 6,
-      CheckBox = 7,
-      Radio = 8
-    }
-
     export interface PostStarParams {
       issueId?: number;
       commentId?: number;
@@ -342,17 +284,14 @@
       pullRequestCommentId?: number;
     }
 
-    export type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" |
-      "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
-
     export interface PostStatusParams {
       name: string;
-      color: ProjectStatusColor;
+      color: Types.ProjectStatusColor;
     }
 
     export interface PatchStatusParams {
       name?: string;
-      color?: ProjectStatusColor;
+      color?: Types.ProjectStatusColor;
     }
 
   }

@@ -11,11 +11,11 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space/
      */
-    getSpace(): Promise<any>;
+    getSpace(): Promise<Entity.Space.Space>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-recent-updates/
      */
-    getSpaceActivities(params: Option.Space.GetActivitiesParams): Promise<any>;
+    getSpaceActivities(params: Option.Space.GetActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-logo/
      */
@@ -23,43 +23,43 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-notification/
      */
-    getSpaceNotification(): Promise<any>;
+    getSpaceNotification(): Promise<Entity.Space.Notification>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-space-notification/
      */
-    putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<any>;
+    putSpaceNotification(params: Option.Space.PutSpaceNotificationParams): Promise<Entity.Space.Notification>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space-disk-usage/
      */
-    getSpaceDiskUsage(): Promise<any>;
+    getSpaceDiskUsage(): Promise<Entity.DiskUsage.SpaceDiskUsage>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/post-attachment-file/
      */
-    postSpaceAttachment(form: FormData): Promise<any>;
+    postSpaceAttachment(form: FormData): Promise<Entity.File.FileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-list/
      */
-    getUsers(): Promise<any>;
+    getUsers(): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user/
      */
-    getUser(userId: number): Promise<any>;
+    getUser(userId: number): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-user/
      */
-    postUser(params: Option.User.PostUserParams): Promise<any>;
+    postUser(params: Option.User.PostUserParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-user/
      */
-    patchUser(userId: number, params: Option.User.PatchUserParams): Promise<any>;
+    patchUser(userId: number, params: Option.User.PatchUserParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-user/
      */
-    deleteUser(userId: number): Promise<any>;
+    deleteUser(userId: number): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-own-user/
      */
-    getMyself(): Promise<any>;
+    getMyself(): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
      */
@@ -67,89 +67,89 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-user-recent-updates/
      */
-    getUserActivities(userId: number, params: Option.User.GetUserActivitiesParams): Promise<any>;
+    getUserActivities(userId: number, params: Option.User.GetUserActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-received-star-list/
      */
-    getUserStars(userId: number, params: Option.User.GetUserStarsParams): Promise<any>;
+    getUserStars(userId: number, params: Option.User.GetUserStarsParams): Promise<Entity.Star.Star[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-user-received-stars/
      */
-    getUserStarsCount(userId: number, params: Option.User.GetUserStarsCountParams): Promise<any>;
+    getUserStarsCount(userId: number, params: Option.User.GetUserStarsCountParams): Promise<Entity.Star.StarCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-issues/
      */
-    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedIssues(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Issue.RecentlyViewedIssue[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-projects/
      */
-    getRecentlyViewedProjects(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedProjects(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Project.RecentlyViewedProject[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-recently-viewed-wikis/
      */
-    getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<any>;
+    getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Wiki.RecentlyViewedWiki[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
      * @deprecated
      */
-    getGroups(params: Option.Group.GetGroupsParams): Promise<any>;
+    getGroups(params: Option.Group.GetGroupsParams): Promise<Entity.Group.Group[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-group/
      * @deprecated
      */
-    postGroups(params: Option.Group.PostGroupsParams): Promise<any>;
+    postGroups(params: Option.Group.PostGroupsParams): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-group/
      * @deprecated
      */
-    getGroup(groupId: number): Promise<any>;
+    getGroup(groupId: number): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-group/
      * @deprecated
      */
-    patchGroup(groupId: number, params: Option.Group.PatchGroupParams): Promise<any>;
+    patchGroup(groupId: number, params: Option.Group.PatchGroupParams): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-group/
      * @deprecated
      */
-    deleteGroup(groupId: number): Promise<any>;
+    deleteGroup(groupId: number): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
      * @deprecated
      */
-    getStatuses(): Promise<any>;
+    getStatuses(): Promise<Entity.Project.Status[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
      */
-    getProjectStatuses(projectIdOrKey: string | number): Promise<any>;
+    getProjectStatuses(projectIdOrKey: string | number): Promise<Entity.Project.ProjectStatus[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-resolution-list/
      */
-    getResolutions(): Promise<any>;
+    getResolutions(): Promise<Entity.Issue.Resolution[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-priority-list/
      */
-    getPriorities(): Promise<any>;
+    getPriorities(): Promise<Entity.Issue.Priority[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-list/
      */
-    getProjects(params?: Option.Project.GetProjectsParams): Promise<any>;
+    getProjects(params?: Option.Project.GetProjectsParams): Promise<Entity.Project.Project[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project/
      */
-    postProject(params: Option.Project.PostProjectParams): Promise<any>;
+    postProject(params: Option.Project.PostProjectParams): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project/
      */
-    getProject(projectIdOrKey: string | number): Promise<any>;
+    getProject(projectIdOrKey: string | number): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-project/
      */
-    patchProject(projectIdOrKey: string | number, params: Option.Project.PatchProjectParams): Promise<any>;
+    patchProject(projectIdOrKey: string | number, params: Option.Project.PatchProjectParams): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project/
      */
-    deleteProject(projectIdOrKey: string | number): Promise<any>;
+    deleteProject(projectIdOrKey: string | number): Promise<Entity.Project.Project>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-icon/
      */
@@ -157,127 +157,127 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-recent-updates/
      */
-    getProjectActivities(projectIdOrKey: string | number, params: Option.Space.GetActivitiesParams): Promise<any>;
+    getProjectActivities(projectIdOrKey: string | number, params: Option.Space.GetActivitiesParams): Promise<Entity.Activity.Activity[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
      */
-    postProjectUser(projectIdOrKey: string | number, userId: string): Promise<any>;
+    postProjectUser(projectIdOrKey: string | number, userId: string): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
      */
-    getProjectUsers(projectIdOrKey: string | number): Promise<any>;
+    getProjectUsers(projectIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-user/
      */
-    deleteProjectUsers(projectIdOrKey: string | number, params: Option.Project.DeleteProjectUsersParams): Promise<any>;
+    deleteProjectUsers(projectIdOrKey: string | number, params: Option.Project.DeleteProjectUsersParams): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-administrator/
      */
-    postProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.PostProjectAdministrators): Promise<any>;
+    postProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.PostProjectAdministrators): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
      */
-    getProjectAdministrators(projectIdOrKey: string | number): Promise<any>;
+    getProjectAdministrators(projectIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-administrator/
      */
-    deleteProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.DeleteProjectAdministrators): Promise<any>;
+    deleteProjectAdministrators(projectIdOrKey: string | number, params: Option.Project.DeleteProjectAdministrators): Promise<Entity.User.User>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-status/
      */
-    postProjectStatus(projectIdOrKey: string | number, params: Option.Project.PostStatusParams): Promise<any>;
+    postProjectStatus(projectIdOrKey: string | number, params: Option.Project.PostStatusParams): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-status/
      */
-    patchProjectStatus(projectIdOrKey: string | number, id: number, params: Option.Project.PatchStatusParams): Promise<any>;
+    patchProjectStatus(projectIdOrKey: string | number, id: number, params: Option.Project.PatchStatusParams): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-status/
      */
-    deleteProjectStatus(projectIdOrKey: string | number, id: number, substituteStatusId: number): Promise<any>;
+    deleteProjectStatus(projectIdOrKey: string | number, id: number, substituteStatusId: number): Promise<Entity.Project.ProjectStatus>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-order-of-status/
      */
-    patchProjectStatusOrder(projectIdOrKey: string | number, statusId: number[]): Promise<any>;
+    patchProjectStatusOrder(projectIdOrKey: string | number, statusId: number[]): Promise<Entity.Project.ProjectStatus[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
      */
-    getIssueTypes(projectIdOrKey: string | number): Promise<any>;
+    getIssueTypes(projectIdOrKey: string | number): Promise<Entity.Issue.IssueType[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-issue-type/
      */
-    postIssueType(projectIdOrKey: string | number, params: Option.Project.PostIssueTypeParams): Promise<any>;
+    postIssueType(projectIdOrKey: string | number, params: Option.Project.PostIssueTypeParams): Promise<Entity.Issue.IssueType>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-issue-type/
      */
-    patchIssueType(projectIdOrKey: string | number, id: number, params: Option.Project.PatchIssueTypeParams): Promise<any>;
+    patchIssueType(projectIdOrKey: string | number, id: number, params: Option.Project.PatchIssueTypeParams): Promise<Entity.Issue.IssueType>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue-type/
      */
-    deleteIssueType(projectIdOrKey: string | number, id: number, params: Option.Project.DeleteIssueTypeParams): Promise<any>;
+    deleteIssueType(projectIdOrKey: string | number, id: number, params: Option.Project.DeleteIssueTypeParams): Promise<Entity.Issue.IssueType>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-category-list/
      */
-    getCategories(projectIdOrKey: string | number): Promise<any>;
+    getCategories(projectIdOrKey: string | number): Promise<Entity.Project.Category[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-category/
      */
-    postCategories(projectIdOrKey: string | number, params: Option.Project.PostCategoriesParams): Promise<any>;
+    postCategories(projectIdOrKey: string | number, params: Option.Project.PostCategoriesParams): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-category/
      */
-    patchCategories(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCategoriesParams): Promise<any>;
+    patchCategories(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCategoriesParams): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-category/
      */
-    deleteCategories(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteCategories(projectIdOrKey: string | number, id: number): Promise<Entity.Project.Category>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-version-milestone-list/
      */
-    getVersions(projectIdOrKey: string | number): Promise<any>;
+    getVersions(projectIdOrKey: string | number): Promise<Entity.Project.Version[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-version-milestone/
      */
-    postVersions(projectIdOrKey: string | number, params: Option.Project.PostVersionsParams): Promise<any>;
+    postVersions(projectIdOrKey: string | number, params: Option.Project.PostVersionsParams): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-version-milestone/
      */
-    patchVersions(projectIdOrKey: string | number, id: number, params: Option.Project.PatchVersionsParams): Promise<any>;
+    patchVersions(projectIdOrKey: string | number, id: number, params: Option.Project.PatchVersionsParams): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-version/
      */
-    deleteVersions(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteVersions(projectIdOrKey: string | number, id: number): Promise<Entity.Project.Version>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
      */
-    getCustomFields(projectIdOrKey: string | number): Promise<any>;
+    getCustomFields(projectIdOrKey: string | number): Promise<Entity.Project.CustomField[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-custom-field/
      */
-    postCustomField(projectIdOrKey: string | number, params: Option.Project.PostCustomFieldParams | Option.Project.PostCustomFieldWithNumericParams | Option.Project.PostCustomFieldWithDateParams | Option.Project.PostCustomFieldWithListParams): Promise<any>;
+    postCustomField(projectIdOrKey: string | number, params: Option.Project.PostCustomFieldParams | Option.Project.PostCustomFieldWithNumericParams | Option.Project.PostCustomFieldWithDateParams | Option.Project.PostCustomFieldWithListParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-custom-field/
      */
-    patchCustomField(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCustomFieldParams | Option.Project.PatchCustomFieldWithNumericParams | Option.Project.PatchCustomFieldWithDateParams | Option.Project.PatchCustomFieldWithListParams): Promise<any>;
+    patchCustomField(projectIdOrKey: string | number, id: number, params: Option.Project.PatchCustomFieldParams | Option.Project.PatchCustomFieldWithNumericParams | Option.Project.PatchCustomFieldWithDateParams | Option.Project.PatchCustomFieldWithListParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
      */
-    deleteCustomField(projectIdOrKey: string | number, id: number): Promise<any>;
+    deleteCustomField(projectIdOrKey: string | number, id: number): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
      */
-    postCustomFieldItem(projectIdOrKey: string | number, id: number, params: Option.Project.PostCustomFieldItemParams): Promise<any>;
+    postCustomFieldItem(projectIdOrKey: string | number, id: number, params: Option.Project.PostCustomFieldItemParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
      */
-    patchCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams): Promise<any>;
+    patchCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number, params: Option.Project.PatchCustomFieldItemParams): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
      */
-    deleteCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number): Promise<any>;
+    deleteCustomFieldItem(projectIdOrKey: string | number, id: number, itemId: number): Promise<Entity.Project.CustomField>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files/
      */
-    getSharedFiles(projectIdOrKey: string | number, path: string, params: Option.Project.GetSharedFilesParams): Promise<any>;
+    getSharedFiles(projectIdOrKey: string | number, path: string, params: Option.Project.GetSharedFilesParams): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-file/
      */
@@ -285,87 +285,87 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-disk-usage/
      */
-    getProjectsDiskUsage(projectIdOrKey: string | number): Promise<any>;
+    getProjectsDiskUsage(projectIdOrKey: string | number): Promise<Entity.DiskUsage.ProjectDiskUsage>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
      */
-    getWebhooks(projectIdOrKey: string | number): Promise<any>;
+    getWebhooks(projectIdOrKey: string | number): Promise<Entity.Webhook.Webhook[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-webhook/
      */
-    postWebhook(projectIdOrKey: string | number, params: Option.Project.PostWebhookParams): Promise<any>;
+    postWebhook(projectIdOrKey: string | number, params: Option.Project.PostWebhookParams): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-webhook/
      */
-    getWebhook(projectIdOrKey: string | number, webhookId: string): Promise<any>;
+    getWebhook(projectIdOrKey: string | number, webhookId: string): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-webhook/
      */
-    patchWebhook(projectIdOrKey: string | number, webhookId: string, params: Option.Project.PatchWebhookParams): Promise<any>;
+    patchWebhook(projectIdOrKey: string | number, webhookId: string, params: Option.Project.PatchWebhookParams): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-webhook/
      */
-    deleteWebhook(projectIdOrKey: string | number, webhookId: string): Promise<any>;
+    deleteWebhook(projectIdOrKey: string | number, webhookId: string): Promise<Entity.Webhook.Webhook>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
      */
-    getIssues(params?: Option.Issue.GetIssuesParams): Promise<any>;
+    getIssues(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.Issue[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-issue/
      */
-    getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<any>;
+    getIssuesCount(params?: Option.Issue.GetIssuesParams): Promise<Entity.Issue.IssueCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-issue/
      */
-    postIssue(params: Option.Issue.PostIssueParams): Promise<any>;
+    postIssue(params: Option.Issue.PostIssueParams): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-issue/
      */
-    patchIssue(issueIdOrKey: string | number, params: Option.Issue.PatchIssueParams): Promise<any>;
+    patchIssue(issueIdOrKey: string | number, params: Option.Issue.PatchIssueParams): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue/
      */
-    getIssue(issueIdOrKey: string | number): Promise<any>;
+    getIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
      */
-    deleteIssuesCount(issueIdOrKey: string | number): Promise<any>;
+    deleteIssuesCount(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
      */
-    getIssueComments(issueIdOrKey: string | number, params: Option.Issue.GetIssueCommentsParams): Promise<any>;
+    getIssueComments(issueIdOrKey: string | number, params: Option.Issue.GetIssueCommentsParams): Promise<Entity.Issue.Comment[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment/
      */
-    postIssueComments(issueIdOrKey: string | number, params: Option.Issue.PostIssueCommentsParams): Promise<any>;
+    postIssueComments(issueIdOrKey: string | number, params: Option.Issue.PostIssueCommentsParams): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-comment/
      */
-    getIssueCommentsCount(issueIdOrKey: string | number): Promise<any>;
+    getIssueCommentsCount(issueIdOrKey: string | number): Promise<Entity.Issue.IssueCommentCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-comment/
      */
-    getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    getIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
      */
-    deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    deleteIssueComment(issueIdOrKey: string | number, commentId: number): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-comment/
      */
-    patchIssueComment(issueIdOrKey: string | number, commentId: number, params: Option.Issue.PatchIssueCommentParams): Promise<any>;
+    patchIssueComment(issueIdOrKey: string | number, commentId: number, params: Option.Issue.PatchIssueCommentParams): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
      */
-    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<any>;
+    getIssueCommentNotifications(issueIdOrKey: string | number, commentId: number): Promise<Entity.CommentNotification.CommentNotification[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
      */
-    postIssueCommentNotifications(issueIdOrKey: string | number, commentId: number, prams: Option.Issue.IssueCommentNotifications): Promise<any>;
+    postIssueCommentNotifications(issueIdOrKey: string | number, commentId: number, prams: Option.Issue.IssueCommentNotifications): Promise<Entity.Issue.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
      */
-    getIssueAttachments(issueIdOrKey: string | number): Promise<any>;
+    getIssueAttachments(issueIdOrKey: string | number): Promise<Entity.File.IssueFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-attachment/
      */
@@ -373,59 +373,59 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
      */
-    deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<any>;
+    deleteIssueAttachment(issueIdOrKey: string | number, attachmentId: string): Promise<Entity.File.IssueFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
      */
-    getIssueParticipants(issueIdOrKey: string | number): Promise<any>;
+    getIssueParticipants(issueIdOrKey: string | number): Promise<Entity.User.User[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
      */
-    getIssueSharedFiles(issueIdOrKey: string | number): Promise<any>;
+    getIssueSharedFiles(issueIdOrKey: string | number): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-issue/
      */
-    linkIssueSharedFiles(issueIdOrKey: string | number, params: Option.Issue.LinkIssueSharedFilesParams): Promise<any>;
+    linkIssueSharedFiles(issueIdOrKey: string | number, params: Option.Issue.LinkIssueSharedFilesParams): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
      */
-    unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<any>;
+    unlinkIssueSharedFile(issueIdOrKey: string | number, id: number): Promise<Entity.Project.SharedFile>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
      */
-    getWikis(params: Option.Wiki.GetWikiParams): Promise<any>;
+    getWikis(params: Option.Wiki.GetWikiParams): Promise<Entity.Wiki.WikiListItem[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-wiki-page/
      */
-    getWikisCount(projectIdOrKey: string | number): Promise<any>;
+    getWikisCount(projectIdOrKey: string | number): Promise<Entity.Wiki.WikiCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-tag-list/
      */
-    getWikisTags(projectIdOrKey: string | number): Promise<any>;
+    getWikisTags(projectIdOrKey: string | number): Promise<Entity.Wiki.Tag[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-wiki-page/
      */
-    postWiki(params: Option.Wiki.PostWikiParams): Promise<any>;
+    postWiki(params: Option.Wiki.PostWikiParams): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
      */
-    getWiki(wikiId: number): Promise<any>;
+    getWiki(wikiId: number): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-wiki-page/
      */
-    patchWiki(wikiId: number, params: Option.Wiki.PatchWikiParams): Promise<any>;
+    patchWiki(wikiId: number, params: Option.Wiki.PatchWikiParams): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
      */
-    deleteWiki(wikiId: number, mailNotify: boolean): Promise<any>;
+    deleteWiki(wikiId: number, mailNotify: boolean): Promise<Entity.Wiki.Wiki>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
      */
-    getWikisAttachments(wikiId: number): Promise<any>;
+    getWikisAttachments(wikiId: number): Promise<Entity.File.WikiFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
      */
-    postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<any>;
+    postWikisAttachments(wikiId: number, attachmentId: number[]): Promise<Entity.File.WikiFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-attachment/
      */
@@ -433,95 +433,95 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
      */
-    deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<any>;
+    deleteWikisAttachments(wikiId: number, attachmentId: number): Promise<Entity.File.WikiFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
      */
-    getWikisSharedFiles(wikiId: number): Promise<any>;
+    getWikisSharedFiles(wikiId: number): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
      */
-    linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<any>;
+    linkWikisSharedFiles(wikiId: number, fileId: number[]): Promise<Entity.Project.SharedFile[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
      */
-    unlinkWikisSharedFiles(wikiId: number, id: number): Promise<any>;
+    unlinkWikisSharedFiles(wikiId: number, id: number): Promise<Entity.Project.SharedFile>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
-    getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<any>;
+    getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<Entity.Wiki.History[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
      */
-    getWikisStars(wikiId: number): Promise<any>;
+    getWikisStars(wikiId: number): Promise<Entity.Star.Star[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-star/
      */
-    postStar(params: Option.Project.PostStarParams): Promise<any>;
+    postStar(params: Option.Project.PostStarParams): Promise<void>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-notification/
      */
-    getNotifications(params: Option.Notification.GetNotificationsParams): Promise<any>;
+    getNotifications(params: Option.Notification.GetNotificationsParams): Promise<Entity.Notification.Notification[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-notification/
      */
-    getNotificationsCount(params: Option.Notification.GetNotificationsCountParams): Promise<any>;
+    getNotificationsCount(params: Option.Notification.GetNotificationsCountParams): Promise<Entity.Notification.NotificationCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/reset-unread-notification-count/
      */
-    resetNotificationsMarkAsRead(): Promise<any>;
+    resetNotificationsMarkAsRead(): Promise<Entity.Notification.NotificationCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/read-notification/
      */
-    markAsReadNotification(id: number): Promise<any>;
+    markAsReadNotification(id: number): Promise<void>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
      */
-    getGitRepositories(projectIdOrKey: string | number): Promise<any>;
+    getGitRepositories(projectIdOrKey: string | number): Promise<Entity.Git.GitRepository[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-git-repository/
      */
-    getGitRepository(projectIdOrKey: string | number, repoIdOrName: string): Promise<any>;
+    getGitRepository(projectIdOrKey: string | number, repoIdOrName: string): Promise<Entity.Git.GitRepository>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-list/
      */
-    getPullRequests(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.GetPullRequestsParams): Promise<any>;
+    getPullRequests(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.GetPullRequestsParams): Promise<Entity.PullRequest.PullRequest[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-requests/
      */
-    getPullRequestsCount(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.GetPullRequestsParams): Promise<any>;
+    getPullRequestsCount(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.GetPullRequestsParams): Promise<Entity.PullRequest.PullRequestCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-pull-request/
      */
-    postPullRequest(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.PostPullRequestParams): Promise<any>;
+    postPullRequest(projectIdOrKey: string | number, repoIdOrName: string, params: Option.PullRequest.PostPullRequestParams): Promise<Entity.PullRequest.PullRequest>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request/
      */
-    getPullRequest(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<any>;
+    getPullRequest(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<Entity.PullRequest.PullRequest>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-pull-request/
      */
-    patchPullRequest(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PatchPullRequestParams): Promise<any>;
+    patchPullRequest(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PatchPullRequestParams): Promise<Entity.PullRequest.PullRequest>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-comment/
      */
-    getPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.GetPullRequestCommentsParams): Promise<any>;
+    getPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.GetPullRequestCommentsParams): Promise<Entity.PullRequest.Comment[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-pull-request-comment/
      */
-    postPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PostPullRequestCommentsParams): Promise<any>;
+    postPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, params: Option.PullRequest.PostPullRequestCommentsParams): Promise<Entity.PullRequest.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-request-comments/
      */
-    getPullRequestCommentsCount(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<any>;
+    getPullRequestCommentsCount(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<Entity.PullRequest.PullRequestCommentCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-pull-request-comment-information/
      */
-    patchPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, commentId: number, params: Option.PullRequest.PatchPullRequestCommentsParams): Promise<any>;
+    patchPullRequestComments(projectIdOrKey: string | number, repoIdOrName: string, number: number, commentId: number, params: Option.PullRequest.PatchPullRequestCommentsParams): Promise<Entity.PullRequest.Comment>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
      */
-    getPullRequestAttachments(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<any>;
+    getPullRequestAttachments(projectIdOrKey: string | number, repoIdOrName: string, number: number): Promise<Entity.File.PullRequestFileInfo[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/download-pull-request-attachment/
      */
@@ -529,79 +529,79 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-pull-request-attachments/
      */
-    deletePullRequestAttachment(projectIdOrKey: string | number, repoIdOrName: string, number: number, attachmentId: number): Promise<any>;
+    deletePullRequestAttachment(projectIdOrKey: string | number, repoIdOrName: string, number: number, attachmentId: number): Promise<Entity.File.PullRequestFileInfo>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
      */
-    getWatchingListItems(userId: number): Promise<any>;
+    getWatchingListItems(userId: number): Promise<Entity.WatchingList.WatchingListItem[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-watching
      */
-    getWatchingListCount(userId: number): Promise<any>;
+    getWatchingListCount(userId: number): Promise<Entity.WatchingList.WatchingListCount>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching
      */
-    getWatchingListItem(watchId: number): Promise<any>;
+    getWatchingListItem(watchId: number): Promise<Entity.WatchingList.WatchingListItem>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-watching
      */
-    postWatchingListItem(params: any): Promise<any>;
+    postWatchingListItem(params: any): Promise<Entity.WatchingList.WatchingListItem>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-watching
      */
-    patchWatchingListItem(watchId: number, note: string): Promise<any>;
+    patchWatchingListItem(watchId: number, note: string): Promise<Entity.WatchingList.WatchingListItem>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-watching
      */
-    deletehWatchingListItem(watchId: number): Promise<any>;
+    deletehWatchingListItem(watchId: number): Promise<Entity.WatchingList.WatchingListItem>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
      */
-    resetWatchingListItemAsRead(watchId: number): Promise<undefined>;
+    resetWatchingListItemAsRead(watchId: number): Promise<void>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
      * @deprecated
      */
-    getProjectGroupList(projectIdOrKey: string | number): Promise<any>;
+    getProjectGroupList(projectIdOrKey: string | number): Promise<Entity.Group.Group[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-group
      * @deprecated
      */
-    postProjectGroup(projectIdOrKey: string | number, params: any): Promise<any>;
+    postProjectGroup(projectIdOrKey: string | number, params: any): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
      * @deprecated
      */
-    deleteProjectGroup(projectIdOrKey: string | number): Promise<any>;
+    deleteProjectGroup(projectIdOrKey: string | number): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
      * @deprecated
      */
-    getGroupIcon(groupId: string): Promise<any>;
+    getGroupIcon(groupId: string): Promise<Entity.File.FileData>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-licence
      */
-    getLicence(): Promise<any>;
+    getLicence(): Promise<Entity.License.License>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-list-of-teams/
      */
-    getTeams(params?: Option.Team.GetTeamsParams): Promise<any>;
+    getTeams(params?: Option.Team.GetTeamsParams): Promise<Entity.Team.Team[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-team/
      */
-    postTeam(members: number[]): Promise<any>;
+    postTeam(members: number[]): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team/
      */
-    getTeam(teamId: number): Promise<any>;
+    getTeam(teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-team/
      */
-    patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<any>;
+    patchTeam(teamId: number, params: Option.Team.PatchTeamParams): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-team/
      */
-    deleteTeam(teamId: number): Promise<any>;
+    deleteTeam(teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
      */
@@ -609,19 +609,19 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
      */
-    getProjectTeams(projectIdOrKey: string | number): Promise<any>;
+    getProjectTeams(projectIdOrKey: string | number): Promise<Entity.Team.Team[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
      */
-    postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any>;
+    postProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
      */
-    deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<any>;
+    deleteProjectTeam(projectIdOrKey: string | number, teamId: number): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-rate-limit/
      */
-    getRateLimit(): Promise<any>;
+    getRateLimit(): Promise<Entity.RateLimit.RateLimit>;
     private download;
     private upload;
     private parseFileData;

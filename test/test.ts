@@ -119,7 +119,7 @@ describe("Backlog API", () => {
       password: 'pazzword',
       name: 'testuser',
       mailAddress: 'testuser@example.com',
-      roleType: backlogjs.Option.User.RoleType.Admin
+      roleType: backlogjs.Types.NormalRoleType.Admin
     });
     assert('userId=test01&password=pazzword&name=testuser&mailAddress=testuser%40example.com&roleType=1' === query);
     done();
@@ -128,9 +128,9 @@ describe("Backlog API", () => {
   it('should convert object(array) to query string.', (done) => {
     const query = (<any>backlog).toQueryString({
       activityTypeId: [
-        backlogjs.Option.ActivityType.IssueCreated,
-        backlogjs.Option.ActivityType.IssueUpdated,
-        backlogjs.Option.ActivityType.IssueCommented
+        backlogjs.Types.ActivityType.IssueCreated,
+        backlogjs.Types.ActivityType.IssueUpdated,
+        backlogjs.Types.ActivityType.IssueCommented
       ],
       minId: 1,
       maxId: 2,
@@ -179,9 +179,9 @@ describe("Backlog API", () => {
     const query: backlogjs.Option.Space.GetActivitiesParams & { apiKey: string } = {
       apiKey,
       activityTypeId: [
-        backlogjs.Option.ActivityType.IssueCreated,
-        backlogjs.Option.ActivityType.IssueUpdated,
-        backlogjs.Option.ActivityType.IssueCommented
+        backlogjs.Types.ActivityType.IssueCreated,
+        backlogjs.Types.ActivityType.IssueUpdated,
+        backlogjs.Types.ActivityType.IssueCommented
       ],
       minId: 1,
       maxId: 10,
