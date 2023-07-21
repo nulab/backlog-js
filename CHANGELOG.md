@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.1](https://github.com/nulab/backlog-js/compare/0.13.0...0.13.1) (2023-07-21)
+
+* Fix Issue and PullRequest type #79 [#80](https://github.com/nulab/backlog-js/pull/80) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.13.0](https://github.com/nulab/backlog-js/compare/0.12.6...0.13.0) (2023-06-02)
 
 * add type annotation for response [#77](https://github.com/nulab/backlog-js/pull/77) ([mmktomato](https://github.com/mmktomato))
