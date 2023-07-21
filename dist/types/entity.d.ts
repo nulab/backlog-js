@@ -203,14 +203,14 @@ export declare namespace Issue {
         id: number;
         projectId: number;
         issueKey: string;
-        keyId: 1;
+        keyId: number;
         issueType: IssueType;
         summary: string;
         description: string;
-        resolution: Resolution;
+        resolution?: Resolution;
         priority: Priority;
         status: Project.ProjectStatus;
-        assignee: User.User;
+        assignee?: User.User;
         category: Project.Category[];
         versions: Project.Version[];
         milestone: Project.Version[];
@@ -324,7 +324,7 @@ export declare namespace PullRequest {
         base: string;
         branch: string;
         status: Status;
-        assignee: User.User;
+        assignee?: User.User;
         issue: Issue.Issue;
         baseCommit?: string;
         branchCommit?: string;
