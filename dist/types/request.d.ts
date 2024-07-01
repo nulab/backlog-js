@@ -22,6 +22,6 @@ export default class Request {
     get webAppBaseURL(): string;
     get restBaseURL(): string;
 }
-export declare type Params = {
+export type Params = {
     [index: string]: number | string | number[] | string[];
 };

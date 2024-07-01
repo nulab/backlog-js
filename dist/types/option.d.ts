@@ -1,5 +1,5 @@
 import * as Types from "./types";
-export declare type Order = "asc" | "desc";
+export type Order = "asc" | "desc";
 export declare namespace Notification {
     interface GetNotificationsParams {
         minId?: number;

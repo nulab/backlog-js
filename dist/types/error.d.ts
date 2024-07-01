@@ -34,4 +34,4 @@ export interface BacklogErrorMessage {
     errorInfo: string;
     moreInfo: string;
 }
-export declare type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';
+export type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';

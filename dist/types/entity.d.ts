@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import { PassThrough } from 'stream';
 import * as Types from "./types";
 export declare namespace File {
