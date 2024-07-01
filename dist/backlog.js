@@ -504,8 +504,15 @@ var Backlog = /** @class */ (function (_super) {
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
+     * @deprecated Renamed to `deleteIssue`.
      */
     Backlog.prototype.deleteIssuesCount = function (issueIdOrKey) {
+        return this.deleteIssue(issueIdOrKey);
+    };
+    /**
+     * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
+     */
+    Backlog.prototype.deleteIssue = function (issueIdOrKey) {
         return this.delete("issues/".concat(issueIdOrKey));
     };
     /**
