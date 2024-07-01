@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.13.2](https://github.com/nulab/backlog-js/compare/0.13.1...0.13.2) (2024-07-01)
+
+* Rename `deleteIssuesCount` to `deleteIssue` [#91](https://github.com/nulab/backlog-js/pull/91) ([mmktomato](https://github.com/mmktomato))
+* Bump undici from 5.19.1 to 5.26.2 [#82](https://github.com/nulab/backlog-js/pull/82) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump browserify-sign from 4.2.1 to 4.2.2 [#83](https://github.com/nulab/backlog-js/pull/83) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.13.1](https://github.com/nulab/backlog-js/compare/0.13.0...0.13.1) (2023-07-21)
 
 * Fix Issue and PullRequest type #79 [#80](https://github.com/nulab/backlog-js/pull/80) ([mmktomato](https://github.com/mmktomato))
