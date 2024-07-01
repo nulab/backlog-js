@@ -1,4 +1,4 @@
-export declare type TextFormattingRule = "backlog" | "markdown";
+export type TextFormattingRule = "backlog" | "markdown";
 export declare enum ClassicRoleType {
     Admin = 1,
     User = 2,
@@ -13,8 +13,8 @@ export declare enum NormalRoleType {
     MemberOrGuestForAddIssues = 3,
     MemberOrGuestForViewIssues = 4
 }
-export declare type RoleType = ClassicRoleType | NormalRoleType;
-export declare type Language = "en" | "ja" | null;
+export type RoleType = ClassicRoleType | NormalRoleType;
+export type Language = "en" | "ja" | null;
 export declare enum ActivityType {
     Undefined = -1,
     IssueCreated = 1,
@@ -44,8 +44,8 @@ export declare enum ActivityType {
     ProjectGroupAdded = 25,
     ProjectGroupDeleted = 26
 }
-export declare type IssueTypeColor = "#e30000" | "#990000" | "#934981" | "#814fbc" | "#2779ca" | "#007e9a" | "#7ea800" | "#ff9200" | "#ff3265" | "#666665";
-export declare type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" | "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
+export type IssueTypeColor = "#e30000" | "#990000" | "#934981" | "#814fbc" | "#2779ca" | "#007e9a" | "#7ea800" | "#ff9200" | "#ff3265" | "#666665";
+export type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" | "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
 export declare enum CustomFieldType {
     Text = 1,
     TextArea = 2,
@@ -56,4 +56,4 @@ export declare enum CustomFieldType {
     CheckBox = 7,
     Radio = 8
 }
-export declare type WebhookActivityId = number;
+export type WebhookActivityId = number;
