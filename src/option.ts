@@ -79,6 +79,13 @@
 
   }
 
+  export namespace WatchingList {
+    export interface PostWatchingListItemParams {
+      issueIdOrKey: string | number;
+      note: string;
+    }
+  }
+
   export namespace Group {
 
     export interface GetGroupsParams {
@@ -97,6 +104,9 @@
       members?: string[];
     }
 
+    export interface PostProjectGroupParams {
+      groupId: number;
+    }
   }
 
   export namespace Team {

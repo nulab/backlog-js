@@ -61,6 +61,12 @@ export declare namespace User {
         count?: number;
     }
 }
+export declare namespace WatchingList {
+    interface PostWatchingListItemParams {
+        issueIdOrKey: string | number;
+        note: string;
+    }
+}
 export declare namespace Group {
     interface GetGroupsParams {
         order?: Order;
@@ -74,6 +80,9 @@ export declare namespace Group {
     interface PatchGroupParams {
         name?: string;
         members?: string[];
+    }
+    interface PostProjectGroupParams {
+        groupId: number;
     }
 }
 export declare namespace Team {
