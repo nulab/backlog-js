@@ -68,19 +68,31 @@ export declare namespace WatchingList {
     }
 }
 export declare namespace Group {
+    /**
+     * @deprecated
+     */
     interface GetGroupsParams {
         order?: Order;
         offset?: number;
         count?: number;
     }
+    /**
+     * @deprecated
+     */
     interface PostGroupsParams {
         name: string;
         members?: string[];
     }
+    /**
+     * @deprecated
+     */
     interface PatchGroupParams {
         name?: string;
         members?: string[];
     }
+    /**
+     * @deprecated
+     */
     interface PostProjectGroupParams {
         groupId: number;
     }

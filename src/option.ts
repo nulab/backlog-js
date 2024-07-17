@@ -87,23 +87,34 @@
   }
 
   export namespace Group {
-
+    /**
+     * @deprecated
+     */
     export interface GetGroupsParams {
       order?: Order;
       offset?: number;
       count?: number;
     }
 
+    /**
+     * @deprecated
+     */
     export interface PostGroupsParams {
       name: string;
       members?: string[];
     }
 
+    /**
+     * @deprecated
+     */
     export interface PatchGroupParams {
       name?: string;
       members?: string[];
     }
 
+    /**
+     * @deprecated
+     */
     export interface PostProjectGroupParams {
       groupId: number;
     }
