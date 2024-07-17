@@ -61,19 +61,40 @@ export declare namespace User {
         count?: number;
     }
 }
+export declare namespace WatchingList {
+    interface PostWatchingListItemParams {
+        issueIdOrKey: string | number;
+        note: string;
+    }
+}
 export declare namespace Group {
+    /**
+     * @deprecated
+     */
     interface GetGroupsParams {
         order?: Order;
         offset?: number;
         count?: number;
     }
+    /**
+     * @deprecated
+     */
     interface PostGroupsParams {
         name: string;
         members?: string[];
     }
+    /**
+     * @deprecated
+     */
     interface PatchGroupParams {
         name?: string;
         members?: string[];
+    }
+    /**
+     * @deprecated
+     */
+    interface PostProjectGroupParams {
+        groupId: number;
     }
 }
 export declare namespace Team {

@@ -550,7 +550,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-watching
      */
-    postWatchingListItem(params: any): Promise<Entity.WatchingList.WatchingListItem>;
+    postWatchingListItem(params: Option.WatchingList.PostWatchingListItemParams): Promise<Entity.WatchingList.WatchingListItem>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/update-watching
      */
@@ -572,7 +572,7 @@ export default class Backlog extends Request {
      * https://developer.nulab.com/docs/backlog/api/2/add-project-group
      * @deprecated
      */
-    postProjectGroup(projectIdOrKey: string | number, params: any): Promise<Entity.Group.Group>;
+    postProjectGroup(projectIdOrKey: string | number, params: Option.Group.PostProjectGroupParams): Promise<Entity.Group.Group>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
      * @deprecated
