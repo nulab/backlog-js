@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.3](https://github.com/nulab/backlog-js/compare/0.13.2...0.13.3) (2024-07-18)
+
+* Add type annotation for parameters [#93](https://github.com/nulab/backlog-js/pull/93) ([mmktomato](https://github.com/mmktomato))
+
 ## [0.13.2](https://github.com/nulab/backlog-js/compare/0.13.1...0.13.2) (2024-07-01)
 
 * Rename `deleteIssuesCount` to `deleteIssue` [#91](https://github.com/nulab/backlog-js/pull/91) ([mmktomato](https://github.com/mmktomato))
