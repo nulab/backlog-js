@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.13.4](https://github.com/nulab/backlog-js/compare/0.13.3...0.13.4) (2025-05-07)
+
+* Bump undici from 6.19.2 to 6.21.1 [#101](https://github.com/nulab/backlog-js/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump elliptic from 6.6.0 to 6.6.1 [#103](https://github.com/nulab/backlog-js/pull/103) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump serialize-javascript and mocha [#102](https://github.com/nulab/backlog-js/pull/102) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump elliptic from 6.5.4 to 6.6.0 [#98](https://github.com/nulab/backlog-js/pull/98) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Handle 204 No Content responses safely in parseJSON [#100](https://github.com/nulab/backlog-js/pull/100) ([trknhr](https://github.com/trknhr))
+
 ## [0.13.3](https://github.com/nulab/backlog-js/compare/0.13.2...0.13.3) (2024-07-18)
 
 * Add type annotation for parameters [#93](https://github.com/nulab/backlog-js/pull/93) ([mmktomato](https://github.com/mmktomato))
