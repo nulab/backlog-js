@@ -1235,6 +1235,9 @@ var Request = /** @class */ (function () {
         });
     };
     Request.prototype.parseJSON = function (response) {
+        if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+            return Promise.resolve(undefined);
+        }
         return response.json();
     };
     Request.prototype.toQueryString = function (params) {
