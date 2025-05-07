@@ -202,5 +202,24 @@ describe("Backlog API", () => {
       throw err;
     });
   });
-
+  it('should mark notification as read (204 No Content)', done => {
+    const notificationId = 1234;
+  
+    mockRequest({
+      method: "POST",
+      path: `/api/v2/notifications/${notificationId}/markAsRead`,
+      query: { apiKey },
+      status: 204, // No Content
+      data: [],
+      times: 1,
+    });
+  
+    backlog.markAsReadNotification(notificationId).then(data => {
+      // Should resolve without error and without any value
+      assert(data === undefined); 
+      done();
+    }).catch(err => {
+      throw err;
+    });
+  });
 });

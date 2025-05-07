@@ -77,6 +77,10 @@ export default class Request {
   }
 
   public parseJSON<T>(response: Response): Promise<T> {
+    if (response.status === 204 || response.headers.get("Content-Length") === "0") {
+      return Promise.resolve(undefined as unknown as T);
+    }
+
     return response.json();
   }
 
