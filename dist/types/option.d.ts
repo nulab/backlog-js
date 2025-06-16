@@ -62,6 +62,14 @@ export declare namespace User {
     }
 }
 export declare namespace WatchingList {
+    interface GetWatchingListParams {
+        order?: Order;
+        sort?: "created" | "updated" | "issueUpdated";
+        count?: number;
+        offset?: number;
+        resourceAlreadyRead?: boolean;
+        issueId?: number[];
+    }
     interface PostWatchingListItemParams {
         issueIdOrKey: string | number;
         note: string;

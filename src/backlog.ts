@@ -1088,8 +1088,8 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
    */
-  public getWatchingListItems(userId: number): Promise<Entity.WatchingList.WatchingListItem[]> {
-    return this.get(`users/${userId}/watchings`);
+  public getWatchingListItems(userId: number, params?: Option.WatchingList.GetWatchingListParams): Promise<Entity.WatchingList.WatchingListItem[]> {
+    return this.get(`users/${userId}/watchings`, params);
   }
 
   /**

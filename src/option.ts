@@ -80,6 +80,15 @@
   }
 
   export namespace WatchingList {
+    export interface GetWatchingListParams {
+      order?: Order;
+      sort?: "created" | "updated" | "issueUpdated";
+      count?: number;
+      offset?: number;
+      resourceAlreadyRead?: boolean;
+      issueId?: number[];
+    }
+
     export interface PostWatchingListItemParams {
       issueIdOrKey: string | number;
       note: string;
