@@ -1095,8 +1095,8 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/count-watching
    */
-  public getWatchingListCount(userId: number): Promise<Entity.WatchingList.WatchingListCount> {
-    return this.get(`users/${userId}/watchings/count`);
+  public getWatchingListCount(userId: number, params?: Option.WatchingList.GetWatchingListCountParams): Promise<Entity.WatchingList.WatchingListCount> {
+    return this.get(`users/${userId}/watchings/count`, params);
   }
 
   /**

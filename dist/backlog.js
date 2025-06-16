@@ -824,8 +824,8 @@ var Backlog = /** @class */ (function (_super) {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/count-watching
      */
-    Backlog.prototype.getWatchingListCount = function (userId) {
-        return this.get("users/".concat(userId, "/watchings/count"));
+    Backlog.prototype.getWatchingListCount = function (userId, params) {
+        return this.get("users/".concat(userId, "/watchings/count"), params);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-watching

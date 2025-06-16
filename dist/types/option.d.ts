@@ -70,6 +70,10 @@ export declare namespace WatchingList {
         resourceAlreadyRead?: boolean;
         issueId?: number[];
     }
+    interface GetWatchingListCountParams {
+        resourceAlreadyRead?: boolean;
+        alreadyRead?: boolean;
+    }
     interface PostWatchingListItemParams {
         issueIdOrKey: string | number;
         note: string;
