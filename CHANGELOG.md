@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.5](https://github.com/nulab/backlog-js/compare/0.13.4...0.13.5) (2025-06-17)
+
+* Add missing params for watching list [#106](https://github.com/nulab/backlog-js/pull/106) ([takuji](https://github.com/takuji))
+
 ## [0.13.4](https://github.com/nulab/backlog-js/compare/0.13.3...0.13.4) (2025-05-07)
 
 * Bump undici from 6.19.2 to 6.21.1 [#101](https://github.com/nulab/backlog-js/pull/101) ([dependabot[bot]](https://github.com/apps/dependabot))
