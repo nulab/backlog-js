@@ -180,6 +180,40 @@ export declare namespace CommentNotification {
         resourceAlreadyRead: boolean;
     }
 }
+export declare namespace Document {
+    interface Document {
+        id: string;
+        projectId: number;
+        title: string;
+        plain: string;
+        json: string;
+        statusId: number;
+        emoji: string | null;
+        attachments: Attachment[];
+        tags: Tag[];
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+    }
+    interface Attachment {
+        id: number;
+        name: string;
+        size: number;
+        createdUser: User.User;
+        created: string;
+    }
+    interface Tag {
+        id: number;
+        name: string;
+    }
+    interface DocumentTree {
+        id: string;
+        name: string;
+        documents: Document[];
+        children: DocumentTree[];
+    }
+}
 export declare namespace Issue {
     interface IssueType {
         id: number;
