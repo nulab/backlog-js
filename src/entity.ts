@@ -209,6 +209,44 @@ export namespace CommentNotification {
   }
 }
 
+export namespace Document {
+  export interface Document {
+    id: string;
+    projectId: number;
+    title: string;
+    plain: string;
+    json: string;
+    statusId: number;
+    emoji: string | null;
+    attachments: Attachment[];
+    tags: Tag[];
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+
+  export interface Attachment {
+    id: number;
+    name: string;
+    size: number;
+    createdUser: User.User;
+    created: string;
+  }
+
+  export interface Tag {
+    id: number;
+    name: string;
+  }
+
+  export interface DocumentTree {
+    id: string;
+    name: string;
+    documents: Document[];
+    children: DocumentTree[];
+  }
+}
+
 export namespace Issue {
   export interface IssueType {
     id: number;

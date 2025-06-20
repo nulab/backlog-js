@@ -16,11 +16,12 @@ interface MockParams {
   body?: BodyMatcher;
   status: number;
   data: any;
+  headers?: Record<string, any>;
   times: number;
 }
 
 export const mockRequest = ({
-  path, method, query, body, status, data, times
+  path, method, query, body, status, data, headers, times
 }: MockParams) => {
   const queryStr = qs.stringify(query, { arrayFormat: 'brackets' });
   const newPath = `${path}?${queryStr}`
@@ -32,7 +33,7 @@ export const mockRequest = ({
     });
 
     interceptor
-      .reply(status, data)
+      .reply(status, data, { headers })
       .times(times);
   } else {
     let interceptor: nock.Interceptor;
@@ -45,7 +46,7 @@ export const mockRequest = ({
 
     interceptor
       .times(times)
-      .reply(status, data);
+      .reply(status, data, headers);
   }
 };
 
