@@ -37,6 +37,11 @@ export namespace File {
     createdUser: User.User;
     created: string;
   }
+
+  export interface DocumentFileInfo extends FileInfo {
+    createdUser: User.User;
+    created: string;
+  }
 }
 
 export namespace OAuth2 {
@@ -218,7 +223,7 @@ export namespace Document {
     json: string;
     statusId: number;
     emoji: string | null;
-    attachments: Attachment[];
+    attachments: File.DocumentFileInfo[];
     tags: Tag[];
     createdUser: User.User;
     created: string;
@@ -226,24 +231,30 @@ export namespace Document {
     updated: string;
   }
 
-  export interface Attachment {
-    id: number;
-    name: string;
-    size: number;
-    createdUser: User.User;
-    created: string;
-  }
-
   export interface Tag {
     id: number;
     name: string;
   }
 
-  export interface DocumentTree {
+  export interface ActiveTrashTree {
     id: string;
-    name: string;
-    documents: Document[];
-    children: DocumentTree[];
+    children: DocumentTreeNode[];
+  }
+
+  export interface DocumentTreeNode {
+    id: string;
+    name?: string;
+    children: DocumentTreeNode[];
+    statusId?: number
+    emoji?: string;
+    emojiType?: string;
+    updated?: string;
+  }
+
+  export interface DocumentTree {
+    projectId: string;
+    activeTree?: ActiveTrashTree;
+    trashTree?: ActiveTrashTree;
   }
 }
 

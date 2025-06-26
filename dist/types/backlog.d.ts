@@ -464,7 +464,7 @@ export default class Backlog extends Request {
      */
     getDocument(documentId: string): Promise<Entity.Document.Document>;
     /**
-     * https://developer.nulab.com/docs/backlog/api/2/download-document-attachment/
+     * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
      */
     downloadDocumentAttachment(documentId: string, attachmentId: number): Promise<Entity.File.FileData>;
     /**

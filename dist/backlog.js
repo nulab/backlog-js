@@ -722,7 +722,7 @@ var Backlog = /** @class */ (function (_super) {
         return this.get("documents/".concat(documentId));
     };
     /**
-     * https://developer.nulab.com/docs/backlog/api/2/download-document-attachment/
+     * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
      */
     Backlog.prototype.downloadDocumentAttachment = function (documentId, attachmentId) {
         return this.download("documents/".concat(documentId, "/attachments/").concat(attachmentId));

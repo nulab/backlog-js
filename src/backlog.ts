@@ -913,7 +913,7 @@ export default class Backlog extends Request {
   }
 
   /**
-   * https://developer.nulab.com/docs/backlog/api/2/download-document-attachment/
+   * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
    */
   public downloadDocumentAttachment(documentId: string, attachmentId: number): Promise<Entity.File.FileData>  {
     return this.download(`documents/${documentId}/attachments/${attachmentId}`);
