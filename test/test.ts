@@ -232,7 +232,7 @@ describe("Backlog API", () => {
       data: Fixtures.documents,
       times: 1,
     });
-    backlog.getDocuments().then(data => {
+    backlog.getDocuments({ offset: 0 }).then(data => {
       assert.deepEqual(data, Fixtures.documents);
       done();
     }).catch(err => {

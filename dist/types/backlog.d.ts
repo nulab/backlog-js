@@ -454,7 +454,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/get-document-list/
      */
-    getDocuments(params?: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]>;
+    getDocuments(params: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]>;
     /**
      * https://developer.nulab.com/docs/backlog/api/get-document-tree/
      */

@@ -890,12 +890,8 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/get-document-list/
    */
-  public getDocuments(params?: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]> {
-    const defaultParams = {
-      offset: 0 
-    };
-
-    return this.get('documents', { ...defaultParams, ...(params ?? {}) });
+  public getDocuments(params: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]> {
+    return this.get('documents', params);
   }
 
   /**
