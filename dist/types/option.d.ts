@@ -12,6 +12,16 @@ export declare namespace Notification {
         resourceAlreadyRead: boolean;
     }
 }
+export declare namespace Document {
+    interface GetDocumentsParams {
+        projectId?: number[];
+        keyword?: string;
+        sort?: "created" | "updated";
+        order?: Order;
+        offset: number;
+        count?: number;
+    }
+}
 export declare namespace Space {
     interface GetActivitiesParams {
         activityTypeId?: Types.ActivityType[];

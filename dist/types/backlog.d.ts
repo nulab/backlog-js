@@ -452,6 +452,22 @@ export default class Backlog extends Request {
      */
     unlinkWikisSharedFiles(wikiId: number, id: number): Promise<Entity.Project.SharedFile>;
     /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-list/
+     */
+    getDocuments(params: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]>;
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-tree/
+     */
+    getDocumentTree(projectIdOrKey: string | number): Promise<Entity.Document.DocumentTree>;
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document/
+     */
+    getDocument(documentId: string): Promise<Entity.Document.Document>;
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
+     */
+    downloadDocumentAttachment(documentId: string, attachmentId: number): Promise<Entity.File.FileData>;
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
     getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<Entity.Wiki.History[]>;

@@ -888,6 +888,34 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/get-document-list/
+   */
+  public getDocuments(params: Option.Document.GetDocumentsParams): Promise<Entity.Document.Document[]> {
+    return this.get('documents', params);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/get-document-tree/
+   */
+  public getDocumentTree(projectIdOrKey: string | number): Promise<Entity.Document.DocumentTree> {
+    return this.get(`documents/tree`, { projectIdOrKey });
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/get-document/
+   */
+  public getDocument(documentId: string): Promise<Entity.Document.Document> {
+    return this.get(`documents/${documentId}`);
+  }
+
+  /**
+   * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
+   */
+  public downloadDocumentAttachment(documentId: string, attachmentId: number): Promise<Entity.File.FileData>  {
+    return this.download(`documents/${documentId}/attachments/${attachmentId}`);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
    */
   public getWikisHistory(

@@ -690,6 +690,30 @@ var Backlog = /** @class */ (function (_super) {
         return this.delete("wikis/".concat(wikiId, "/sharedFiles/").concat(id));
     };
     /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-list/
+     */
+    Backlog.prototype.getDocuments = function (params) {
+        return this.get('documents', params);
+    };
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-tree/
+     */
+    Backlog.prototype.getDocumentTree = function (projectIdOrKey) {
+        return this.get("documents/tree", { projectIdOrKey: projectIdOrKey });
+    };
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document/
+     */
+    Backlog.prototype.getDocument = function (documentId) {
+        return this.get("documents/".concat(documentId));
+    };
+    /**
+     * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
+     */
+    Backlog.prototype.downloadDocumentAttachment = function (documentId, attachmentId) {
+        return this.download("documents/".concat(documentId, "/attachments/").concat(attachmentId));
+    };
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
     Backlog.prototype.getWikisHistory = function (wikiId, params) {

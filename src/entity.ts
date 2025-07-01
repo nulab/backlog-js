@@ -37,6 +37,11 @@ export namespace File {
     createdUser: User.User;
     created: string;
   }
+
+  export interface DocumentFileInfo extends FileInfo {
+    createdUser: User.User;
+    created: string;
+  }
 }
 
 export namespace OAuth2 {
@@ -206,6 +211,50 @@ export namespace CommentNotification {
     reason: number;
     user: User.User;
     resourceAlreadyRead: boolean;
+  }
+}
+
+export namespace Document {
+  export interface Document {
+    id: string;
+    projectId: number;
+    title: string;
+    plain: string;
+    json: string;
+    statusId: number;
+    emoji: string | null;
+    attachments: File.DocumentFileInfo[];
+    tags: Tag[];
+    createdUser: User.User;
+    created: string;
+    updatedUser: User.User;
+    updated: string;
+  }
+
+  export interface Tag {
+    id: number;
+    name: string;
+  }
+
+  export interface ActiveTrashTree {
+    id: string;
+    children: DocumentTreeNode[];
+  }
+
+  export interface DocumentTreeNode {
+    id: string;
+    name?: string;
+    children: DocumentTreeNode[];
+    statusId?: number
+    emoji?: string;
+    emojiType?: string;
+    updated?: string;
+  }
+
+  export interface DocumentTree {
+    projectId: string;
+    activeTree?: ActiveTrashTree;
+    trashTree?: ActiveTrashTree;
   }
 }
 

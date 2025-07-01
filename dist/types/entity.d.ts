@@ -29,6 +29,10 @@ export declare namespace File {
         createdUser: User.User;
         created: string;
     }
+    interface DocumentFileInfo extends FileInfo {
+        createdUser: User.User;
+        created: string;
+    }
 }
 export declare namespace OAuth2 {
     interface AccessToken {
@@ -178,6 +182,45 @@ export declare namespace CommentNotification {
         reason: number;
         user: User.User;
         resourceAlreadyRead: boolean;
+    }
+}
+export declare namespace Document {
+    interface Document {
+        id: string;
+        projectId: number;
+        title: string;
+        plain: string;
+        json: string;
+        statusId: number;
+        emoji: string | null;
+        attachments: File.DocumentFileInfo[];
+        tags: Tag[];
+        createdUser: User.User;
+        created: string;
+        updatedUser: User.User;
+        updated: string;
+    }
+    interface Tag {
+        id: number;
+        name: string;
+    }
+    interface ActiveTrashTree {
+        id: string;
+        children: DocumentTreeNode[];
+    }
+    interface DocumentTreeNode {
+        id: string;
+        name?: string;
+        children: DocumentTreeNode[];
+        statusId?: number;
+        emoji?: string;
+        emojiType?: string;
+        updated?: string;
+    }
+    interface DocumentTree {
+        projectId: string;
+        activeTree?: ActiveTrashTree;
+        trashTree?: ActiveTrashTree;
     }
 }
 export declare namespace Issue {

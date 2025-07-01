@@ -18,6 +18,17 @@
 
   }
 
+  export declare namespace Document {
+    interface GetDocumentsParams {
+      projectId?: number[];
+      keyword?: string;
+      sort?: "created" | "updated";
+      order?: Order;
+      offset: number;
+      count?: number;
+    }
+  }
+
   export namespace Space {
 
     export interface GetActivitiesParams {

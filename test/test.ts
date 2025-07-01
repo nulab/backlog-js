@@ -222,4 +222,81 @@ describe("Backlog API", () => {
       throw err;
     });
   });
+
+  it('should get documents.', (done) => {
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/documents",
+      query: { apiKey, offset: 0 },
+      status: 200,
+      data: Fixtures.documents,
+      times: 1,
+    });
+    backlog.getDocuments({ offset: 0 }).then(data => {
+      assert.deepEqual(data, Fixtures.documents);
+      done();
+    }).catch(err => {
+      throw err
+    });
+  });
+
+  it('should get document tree.', (done) => {
+    const projectIdOrKey = '1';
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/documents/tree`,
+      query: { apiKey, projectIdOrKey },
+      status: 200,
+      data: Fixtures.documentTree,
+      times: 1,
+    });
+    backlog.getDocumentTree(projectIdOrKey).then(data => {
+      assert.deepEqual(data, Fixtures.documentTree);
+      done();
+    }).catch(err => {
+      throw err
+    });
+  });
+
+  it('should get a document.', (done) => {
+    const documentId = '01939983409c79d5a06a49859789e38f';
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/documents/${documentId}`,
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.document,
+      times: 1,
+    });
+    backlog.getDocument(documentId).then(data => {
+      assert.deepEqual(data, Fixtures.document);
+      done();
+    }).catch(err => {
+      throw err
+    });
+  });
+
+  it('should download a document attachment.', (done) => {
+    const documentId = '01939983409c79d5a06a49859789e38f';
+    const attachmentId = 22067;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/documents/${documentId}/attachments/${attachmentId}`,
+      query: { apiKey },
+      status: 200,
+      data: "dummy",
+      headers: {
+        "Content-Disposition": "attachment; filename*=UTF-8''test.png"
+      },
+      times: 1,
+    });
+    backlog.downloadDocumentAttachment(documentId, attachmentId).then(data => {
+      if ('filename' in data) {
+        assert.deepEqual(data.filename, "test.png");
+      }
+      done();
+    }).catch(err => {
+      throw err
+    });
+  });
 });
