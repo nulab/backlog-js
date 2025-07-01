@@ -18,7 +18,7 @@ export declare namespace Document {
         keyword?: string;
         sort?: "created" | "updated";
         order?: Order;
-        offset?: number;
+        offset: number;
         count?: number;
     }
 }
