@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.13.6](https://github.com/nulab/backlog-js/compare/0.13.5...0.13.6) (2025-07-01)
+
+* Bump pbkdf2 from 3.1.1 to 3.1.3 [#110](https://github.com/nulab/backlog-js/pull/110) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump undici from 6.21.1 to 6.21.2 [#105](https://github.com/nulab/backlog-js/pull/105) ([dependabot[bot]](https://github.com/apps/dependabot))
+* feat(api): add support for document-related endpoints [#109](https://github.com/nulab/backlog-js/pull/109) ([trknhr](https://github.com/trknhr))
+
 ## [0.13.5](https://github.com/nulab/backlog-js/compare/0.13.4...0.13.5) (2025-06-17)
 
 * Add missing params for watching list [#106](https://github.com/nulab/backlog-js/pull/106) ([takuji](https://github.com/takuji))
