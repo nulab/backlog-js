@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.13.7](https://github.com/nulab/backlog-js/compare/0.13.6...0.13.7) (2025-08-21)
+
+* Add hasDueDate params [#113](https://github.com/nulab/backlog-js/pull/113) ([katayama8000](https://github.com/katayama8000))
+
 ## [0.13.6](https://github.com/nulab/backlog-js/compare/0.13.5...0.13.6) (2025-07-01)
 
 * Bump pbkdf2 from 3.1.1 to 3.1.3 [#110](https://github.com/nulab/backlog-js/pull/110) ([dependabot[bot]](https://github.com/apps/dependabot))
