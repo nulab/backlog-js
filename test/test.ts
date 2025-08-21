@@ -104,17 +104,17 @@ describe("Backlog API", () => {
   })
 
   it('should get web app base url.', (done) => {
-    assert(`https://${configure.host}` === (<any>backlog).webAppBaseURL);
+    assert(`https://${configure.host}` === backlog.webAppBaseURL);
     done();
   });
 
   it('should get rest base url.', (done) => {
-    assert(`https://${configure.host}/api/v2` === (<any>backlog).restBaseURL);
+    assert(`https://${configure.host}/api/v2` === backlog.restBaseURL);
     done();
   });
 
   it('should convert object to query string.', (done) => {
-    const query = (<any>backlog).toQueryString({
+    const query = (backlog as any).toQueryString({
       userId: 'test01',
       password: 'pazzword',
       name: 'testuser',
@@ -126,7 +126,7 @@ describe("Backlog API", () => {
   });
 
   it('should convert object(array) to query string.', (done) => {
-    const query = (<any>backlog).toQueryString({
+    const query = (backlog as any).toQueryString({
       activityTypeId: [
         backlogjs.Types.ActivityType.IssueCreated,
         backlogjs.Types.ActivityType.IssueUpdated,
@@ -204,7 +204,7 @@ describe("Backlog API", () => {
   });
   it('should mark notification as read (204 No Content)', done => {
     const notificationId = 1234;
-  
+
     mockRequest({
       method: "POST",
       path: `/api/v2/notifications/${notificationId}/markAsRead`,
@@ -213,10 +213,10 @@ describe("Backlog API", () => {
       data: [],
       times: 1,
     });
-  
+
     backlog.markAsReadNotification(notificationId).then(data => {
       // Should resolve without error and without any value
-      assert(data === undefined); 
+      assert(data === undefined);
       done();
     }).catch(err => {
       throw err;
