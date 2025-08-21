@@ -413,6 +413,7 @@
       startDateUntil?: string;
       dueDateSince?: string;
       dueDateUntil?: string;
+      hasDueDate?: boolean;
       id?: number[];
       parentIssueId?: number[];
       keyword?: string;
