@@ -169,62 +169,6 @@ export default class Backlog extends Request {
   }
 
   /**
-   * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
-   * @deprecated
-   */
-  public getGroups(params: Option.Group.GetGroupsParams): Promise<Entity.Group.Group[]> {
-    console.warn("Deprecated: Use getTeams instead.");
-    return this.get('groups', params);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/add-group/
-   * @deprecated
-   */
-  public postGroups(params: Option.Group.PostGroupsParams): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use postTeam instead.");
-    return this.post('groups', params);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/get-group/
-   * @deprecated
-   */
-  public getGroup(groupId: number): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use getTeam instead.");
-    return this.get(`groups/${groupId}`);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/update-group/
-   * @deprecated
-   */
-  public patchGroup(
-    groupId: number, params: Option.Group.PatchGroupParams
-  ): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use patchTeam instead.");
-    return this.patch(`groups/${groupId}`, params);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/delete-group/
-   * @deprecated
-   */
-  public deleteGroup(groupId: number): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use deleteTeam instead.");
-    return this.delete(`groups/${groupId}`);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
-   * @deprecated
-   */
-  public getStatuses(): Promise<Entity.Project.Status[]> {
-    console.warn("Deprecated: Use getProjectStatuses instead.");
-    return this.get('statuses');
-  }
-
-  /**
    * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
    */
   public getProjectStatuses(projectIdOrKey: string | number): Promise<Entity.Project.ProjectStatus[]> {
@@ -1162,45 +1106,6 @@ export default class Backlog extends Request {
    */
   public resetWatchingListItemAsRead(watchId: number): Promise<void> {
     return this.post(`watchings/${watchId}/markAsRead`);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
-   * @deprecated
-   */
-  public getProjectGroupList(projectIdOrKey: string | number): Promise<Entity.Group.Group[]> {
-    console.warn("Deprecated: Use getProjectTeams instead.");
-    return this.get(`projects/${projectIdOrKey}/groups`)
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/add-project-group
-   * @deprecated
-   */
-  public postProjectGroup(
-    projectIdOrKey: string | number,
-    params: Option.Group.PostProjectGroupParams,
-  ): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use postProjectTeam instead.");
-    return this.post(`projects/${projectIdOrKey}/groups`, params);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
-   * @deprecated
-   */
-  public deleteProjectGroup(projectIdOrKey: string | number): Promise<Entity.Group.Group> {
-    console.warn("Deprecated: Use deleteProjectTeam instead.");
-    return this.delete(`projects/${projectIdOrKey}/groups`);
-  }
-
-  /**
-   * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
-   * @deprecated
-   */
-  public getGroupIcon(groupId: string): Promise<Entity.File.FileData> {
-    console.warn("Deprecated: Use getTeamIcon instead.");
-    return this.download(`groups/${groupId}/icon`);
   }
 
   /**

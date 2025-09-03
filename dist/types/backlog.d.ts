@@ -89,36 +89,6 @@ export default class Backlog extends Request {
      */
     getRecentlyViewedWikis(params: Option.User.GetRecentlyViewedParams): Promise<Entity.Wiki.RecentlyViewedWiki[]>;
     /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
-     * @deprecated
-     */
-    getGroups(params: Option.Group.GetGroupsParams): Promise<Entity.Group.Group[]>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/add-group/
-     * @deprecated
-     */
-    postGroups(params: Option.Group.PostGroupsParams): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-group/
-     * @deprecated
-     */
-    getGroup(groupId: number): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/update-group/
-     * @deprecated
-     */
-    patchGroup(groupId: number, params: Option.Group.PatchGroupParams): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-group/
-     * @deprecated
-     */
-    deleteGroup(groupId: number): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
-     * @deprecated
-     */
-    getStatuses(): Promise<Entity.Project.Status[]>;
-    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
      */
     getProjectStatuses(projectIdOrKey: string | number): Promise<Entity.Project.ProjectStatus[]>;
@@ -579,26 +549,6 @@ export default class Backlog extends Request {
      * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
      */
     resetWatchingListItemAsRead(watchId: number): Promise<void>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
-     * @deprecated
-     */
-    getProjectGroupList(projectIdOrKey: string | number): Promise<Entity.Group.Group[]>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/add-project-group
-     * @deprecated
-     */
-    postProjectGroup(projectIdOrKey: string | number, params: Option.Group.PostProjectGroupParams): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
-     * @deprecated
-     */
-    deleteProjectGroup(projectIdOrKey: string | number): Promise<Entity.Group.Group>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
-     * @deprecated
-     */
-    getGroupIcon(groupId: string): Promise<Entity.File.FileData>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-licence
      */
