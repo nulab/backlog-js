@@ -83,13 +83,6 @@ export declare namespace Project {
         project: Project;
         updated: string;
     }
-    /**
-     * @deprecated
-     */
-    interface Status {
-        id: number;
-        name: string;
-    }
     interface ProjectStatus {
         id: number;
         projectId: number;
@@ -452,15 +445,6 @@ export declare namespace WatchingList {
     interface WatchingListCount {
         count: number;
     }
-}
-/**
- * @deprecated
- */
-export declare namespace Group {
-    /**
-     * @deprecated
-     */
-    type Group = Team.Team;
 }
 export declare namespace Team {
     interface Team {
