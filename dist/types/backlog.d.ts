@@ -298,11 +298,6 @@ export default class Backlog extends Request {
     getIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
-     * @deprecated Renamed to `deleteIssue`.
-     */
-    deleteIssuesCount(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
      */
     deleteIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue>;
     /**
