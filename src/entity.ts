@@ -56,17 +56,17 @@ export namespace OAuth2 {
 
 export namespace Space {
 
-  export interface Space { 
+  export interface Space {
     spaceKey: string;
     name: string;
-    ownerId: number; 
+    ownerId: number;
     lang: string;
     timezone: string;
     reportSendTime: string;
     textFormattingRule: Types.TextFormattingRule;
     created: string;
     updated: string;
-  } 
+  }
 
   export interface Notification {
     content: string;
@@ -76,7 +76,7 @@ export namespace Space {
 
 export namespace Project {
   export interface Project {
-    id: number; 
+    id: number;
     projectKey: string;
     name: string;
     chartEnabled: boolean;
@@ -98,14 +98,6 @@ export namespace Project {
   export interface RecentlyViewedProject {
     project: Project;
     updated: string;
-  }
-
-  /**
-   * @deprecated
-   */
-  export interface Status {
-    id: number;
-    name: string;
   }
 
   export interface ProjectStatus {
@@ -131,7 +123,7 @@ export namespace Project {
     startDate?: string;
     releaseDueDate?: string;
     archived: boolean;
-    displayOrder: number; 
+    displayOrder: number;
   }
 
   export interface CustomField {
@@ -153,7 +145,7 @@ export namespace Project {
     dir: string;
     name: string;
     size: number;
-    createdUser: User.User; 
+    createdUser: User.User;
     created: string;
     updatedUser: User.User;
     updated: string;
@@ -162,7 +154,7 @@ export namespace Project {
 
 export namespace User {
   export interface User {
-    id: number; 
+    id: number;
     userId: string;
     name: string;
     roleType: Types.RoleType;
@@ -186,7 +178,7 @@ export namespace Activity {
 
 export namespace DiskUsage {
   export interface DiskUsage {
-    issue: number; 
+    issue: number;
     wiki: number;
     file: number;
     subversion: number;
@@ -430,7 +422,7 @@ export namespace PullRequest {
     updatedUser: User.User;
     updated: string;
     attachments: File.PullRequestFileInfo[];
-    stars: Star.Star[]; 
+    stars: Star.Star[];
   }
 
   export interface Comment {
@@ -518,16 +510,6 @@ export namespace WatchingList {
   }
 }
 
-/**
- * @deprecated
- */
-export namespace Group {
-  /**
-   * @deprecated
-   */
-  export type Group = Team.Team;
-}
-
 export namespace Team {
   export interface Team {
     id: number;
@@ -569,7 +551,7 @@ export namespace Webhook {
     hookUrl: string;
     allEvent: boolean;
     activityTypeIds: Types.WebhookActivityId[];
-    createdUser: User.User; 
+    createdUser: User.User;
     created: string;
     updatedUser: User.User;
     updated: string;

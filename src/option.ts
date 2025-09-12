@@ -91,7 +91,7 @@
   }
 
   export namespace WatchingList {
-    
+
     export interface GetWatchingListParams {
       order?: Order;
       sort?: "created" | "updated" | "issueUpdated";
@@ -109,40 +109,6 @@
     export interface PostWatchingListItemParams {
       issueIdOrKey: string | number;
       note: string;
-    }
-  }
-
-  export namespace Group {
-    /**
-     * @deprecated
-     */
-    export interface GetGroupsParams {
-      order?: Order;
-      offset?: number;
-      count?: number;
-    }
-
-    /**
-     * @deprecated
-     */
-    export interface PostGroupsParams {
-      name: string;
-      members?: string[];
-    }
-
-    /**
-     * @deprecated
-     */
-    export interface PatchGroupParams {
-      name?: string;
-      members?: string[];
-    }
-
-    /**
-     * @deprecated
-     */
-    export interface PostProjectGroupParams {
-      groupId: number;
     }
   }
 

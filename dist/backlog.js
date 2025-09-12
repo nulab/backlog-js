@@ -143,54 +143,6 @@ var Backlog = /** @class */ (function (_super) {
         return this.get('users/myself/recentlyViewedWikis', params);
     };
     /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-list-of-groups/
-     * @deprecated
-     */
-    Backlog.prototype.getGroups = function (params) {
-        console.warn("Deprecated: Use getTeams instead.");
-        return this.get('groups', params);
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/add-group/
-     * @deprecated
-     */
-    Backlog.prototype.postGroups = function (params) {
-        console.warn("Deprecated: Use postTeam instead.");
-        return this.post('groups', params);
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-group/
-     * @deprecated
-     */
-    Backlog.prototype.getGroup = function (groupId) {
-        console.warn("Deprecated: Use getTeam instead.");
-        return this.get("groups/".concat(groupId));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/update-group/
-     * @deprecated
-     */
-    Backlog.prototype.patchGroup = function (groupId, params) {
-        console.warn("Deprecated: Use patchTeam instead.");
-        return this.patch("groups/".concat(groupId), params);
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-group/
-     * @deprecated
-     */
-    Backlog.prototype.deleteGroup = function (groupId) {
-        console.warn("Deprecated: Use deleteTeam instead.");
-        return this.delete("groups/".concat(groupId));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-status-list/
-     * @deprecated
-     */
-    Backlog.prototype.getStatuses = function () {
-        console.warn("Deprecated: Use getProjectStatuses instead.");
-        return this.get('statuses');
-    };
-    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
      */
     Backlog.prototype.getProjectStatuses = function (projectIdOrKey) {
@@ -501,13 +453,6 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.getIssue = function (issueIdOrKey) {
         return this.get("issues/".concat(issueIdOrKey));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
-     * @deprecated Renamed to `deleteIssue`.
-     */
-    Backlog.prototype.deleteIssuesCount = function (issueIdOrKey) {
-        return this.deleteIssue(issueIdOrKey);
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
@@ -880,38 +825,6 @@ var Backlog = /** @class */ (function (_super) {
      */
     Backlog.prototype.resetWatchingListItemAsRead = function (watchId) {
         return this.post("watchings/".concat(watchId, "/markAsRead"));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-project-group-list
-     * @deprecated
-     */
-    Backlog.prototype.getProjectGroupList = function (projectIdOrKey) {
-        console.warn("Deprecated: Use getProjectTeams instead.");
-        return this.get("projects/".concat(projectIdOrKey, "/groups"));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/add-project-group
-     * @deprecated
-     */
-    Backlog.prototype.postProjectGroup = function (projectIdOrKey, params) {
-        console.warn("Deprecated: Use postProjectTeam instead.");
-        return this.post("projects/".concat(projectIdOrKey, "/groups"), params);
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/delete-project-group
-     * @deprecated
-     */
-    Backlog.prototype.deleteProjectGroup = function (projectIdOrKey) {
-        console.warn("Deprecated: Use deleteProjectTeam instead.");
-        return this.delete("projects/".concat(projectIdOrKey, "/groups"));
-    };
-    /**
-     * https://developer.nulab.com/docs/backlog/api/2/get-group-icon
-     * @deprecated
-     */
-    Backlog.prototype.getGroupIcon = function (groupId) {
-        console.warn("Deprecated: Use getTeamIcon instead.");
-        return this.download("groups/".concat(groupId, "/icon"));
     };
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-licence
