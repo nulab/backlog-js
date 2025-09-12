@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.14.0](https://github.com/nulab/backlog-js/compare/0.13.7...0.14.0) (2025-09-12)
+
+* Remove deprected methods [#117](https://github.com/nulab/backlog-js/pull/117) ([mmktomato](https://github.com/mmktomato))
+* Bump sha.js from 2.4.11 to 2.4.12 [#116](https://github.com/nulab/backlog-js/pull/116) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump cipher-base from 1.0.4 to 1.0.6 [#115](https://github.com/nulab/backlog-js/pull/115) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.13.7](https://github.com/nulab/backlog-js/compare/0.13.6...0.13.7) (2025-08-21)
 
 * Add hasDueDate params [#113](https://github.com/nulab/backlog-js/pull/113) ([katayama8000](https://github.com/katayama8000))
