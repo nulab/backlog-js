@@ -875,6 +875,14 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/remove-star/
+   */
+  public removeStar(starId: number): Promise<void> {
+    const endpoint = `stars/${starId}`;
+    return this.delete(endpoint);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/get-notification/
    */
   public getNotifications(
