@@ -10,7 +10,7 @@ let undiciInterceptable: Interceptable;
 type BodyMatcher = (body: string | Record<string, any>) => boolean;
 
 interface MockParams {
-  method: "GET" | "POST";
+  method: "GET" | "POST" | "DELETE";
   path: string;
   query?: Record<string, any>;
   body?: BodyMatcher;
@@ -42,6 +42,8 @@ export const mockRequest = ({
       interceptor = nockScope.get(newPath);
     } else if (method === "POST" ) {
       interceptor = nockScope.post(newPath, body);
+    } else if (method === "DELETE") {
+      interceptor = nockScope.delete(newPath);
     }
 
     interceptor

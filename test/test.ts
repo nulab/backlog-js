@@ -299,4 +299,23 @@ describe("Backlog API", () => {
       throw err
     });
   });
+
+  it('should remove star.', (done) => {
+    const starId = 123;
+    mockRequest({
+      method: "DELETE",
+      path: `/api/v2/stars/${starId}`,
+      query: { apiKey },
+      status: 204,
+      data: [],
+      times: 1,
+    });
+    backlog.removeStar(starId).then(data => {
+      // Should resolve without error and without any value
+      assert(data === undefined);
+      done();
+    }).catch(err => {
+      throw err;
+    });
+  });
 });
