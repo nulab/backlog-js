@@ -677,6 +677,13 @@ var Backlog = /** @class */ (function (_super) {
         return this.post('stars', params);
     };
     /**
+     * https://developer.nulab.com/docs/backlog/api/2/remove-star/
+     */
+    Backlog.prototype.removeStar = function (starId) {
+        var endpoint = "stars/".concat(starId);
+        return this.delete(endpoint);
+    };
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-notification/
      */
     Backlog.prototype.getNotifications = function (params) {

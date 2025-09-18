@@ -445,6 +445,10 @@ export default class Backlog extends Request {
      */
     postStar(params: Option.Project.PostStarParams): Promise<void>;
     /**
+     * https://developer.nulab.com/docs/backlog/api/2/remove-star/
+     */
+    removeStar(starId: number): Promise<void>;
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-notification/
      */
     getNotifications(params: Option.Notification.GetNotificationsParams): Promise<Entity.Notification.Notification[]>;
