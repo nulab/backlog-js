@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.1](https://github.com/nulab/backlog-js/compare/0.14.0...0.14.1) (2025-09-18)
+
+* Add `Remove star` [#119](https://github.com/nulab/backlog-js/pull/119) ([katayama8000](https://github.com/katayama8000))
+
 ## [0.14.0](https://github.com/nulab/backlog-js/compare/0.13.7...0.14.0) (2025-09-12)
 
 * Remove deprected methods [#117](https://github.com/nulab/backlog-js/pull/117) ([mmktomato](https://github.com/mmktomato))
