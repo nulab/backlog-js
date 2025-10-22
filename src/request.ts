@@ -85,7 +85,22 @@ export default class Request {
   }
 
   private toQueryString(params: Params): string {
-    return qs.stringify(params, { arrayFormat: 'brackets' });
+    const formatted: Params = {};
+
+    Object.keys(params).forEach((key) => {
+      const value = params[key];
+      if (key.startsWith('customField_') && Array.isArray(value)) {
+        // Backlog API doesn't apply bracket-array syntax for customField_* params,
+        // so we generate explicit indices: key[0], key[1], ...
+        value.forEach((v, i) => {
+          formatted[`${key}[${i}]`] = v;
+        });
+      } else {
+        formatted[key] = value;
+      }
+    });
+
+    return qs.stringify(formatted, { arrayFormat: 'brackets' });
   }
 
   public get webAppBaseURL(): string {

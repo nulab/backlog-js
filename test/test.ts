@@ -141,6 +141,30 @@ describe("Backlog API", () => {
     done();
   });
 
+  it('should convert custom field arrays to indexed query string.', (done) => {
+    const query = (backlog as any).toQueryString({
+      customField_123: ['value1', 'value2', 'value3'],
+      customField_456: ['option1', 'option2'],
+      customField_456_otherValue: 'option1',
+      normalField: 'normalValue',
+      customField_789: 'singleValue',
+      // The following arrays should remain in default bracket format
+      activityTypeId: [1, 2, 3],
+      statusId: ['open', 'in-progress'],
+      categoryId: [100, 200],
+      assigneeId: [5, 10],
+      // Close-but-not-quite prefixes must also use the default behavior
+      customFields: ['should', 'use', 'brackets'],
+      custom_field_999: ['not', 'indexed'],
+      customfield_lower: ['also', 'brackets']
+    });
+
+    // CustomField-prefixed arrays should use numbered indices; everything else keeps bracket format
+    const expected = 'customField_123%5B0%5D=value1&customField_123%5B1%5D=value2&customField_123%5B2%5D=value3&customField_456%5B0%5D=option1&customField_456%5B1%5D=option2&customField_456_otherValue=option1&normalField=normalValue&customField_789=singleValue&activityTypeId%5B%5D=1&activityTypeId%5B%5D=2&activityTypeId%5B%5D=3&statusId%5B%5D=open&statusId%5B%5D=in-progress&categoryId%5B%5D=100&categoryId%5B%5D=200&assigneeId%5B%5D=5&assigneeId%5B%5D=10&customFields%5B%5D=should&customFields%5B%5D=use&customFields%5B%5D=brackets&custom_field_999%5B%5D=not&custom_field_999%5B%5D=indexed&customfield_lower%5B%5D=also&customfield_lower%5B%5D=brackets';
+    assert(expected === query);
+    done();
+  });
+
   it('should get space.', (done) => {
     mockRequest({
       method: "GET",
