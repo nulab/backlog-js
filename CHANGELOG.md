@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.14.2](https://github.com/nulab/backlog-js/compare/0.14.1...0.14.2) (2025-10-23)
+
+*  Ensure custom-field query parameters use explicit indices [#121](https://github.com/nulab/backlog-js/pull/121) ([trknhr](https://github.com/trknhr))
+
 ## [0.14.1](https://github.com/nulab/backlog-js/compare/0.14.0...0.14.1) (2025-09-18)
 
 * Add `Remove star` [#119](https://github.com/nulab/backlog-js/pull/119) ([katayama8000](https://github.com/katayama8000))
