@@ -1185,7 +1185,21 @@ var Request = /** @class */ (function () {
         return response.json();
     };
     Request.prototype.toQueryString = function (params) {
-        return qs.stringify(params, { arrayFormat: 'brackets' });
+        var formatted = {};
+        Object.keys(params).forEach(function (key) {
+            var value = params[key];
+            if (key.startsWith('customField_') && Array.isArray(value)) {
+                // Backlog API doesn't apply bracket-array syntax for customField_* params,
+                // so we generate explicit indices: key[0], key[1], ...
+                value.forEach(function (v, i) {
+                    formatted["".concat(key, "[").concat(i, "]")] = v;
+                });
+            }
+            else {
+                formatted[key] = value;
+            }
+        });
+        return qs.stringify(formatted, { arrayFormat: 'brackets' });
     };
     Object.defineProperty(Request.prototype, "webAppBaseURL", {
         get: function () {
@@ -1205,7 +1219,7 @@ var Request = /** @class */ (function () {
 }());
 exports.default = Request;
 
-},{"./error":3,"qs":51}],8:[function(require,module,exports){
+},{"./error":3,"qs":32}],8:[function(require,module,exports){
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomFieldType = exports.ActivityType = exports.NormalRoleType = exports.ClassicRoleType = void 0;
@@ -1272,65 +1286,6 @@ var CustomFieldType;
 },{}],10:[function(require,module,exports){
 'use strict';
 
-var bind = require('function-bind');
-
-var $apply = require('./functionApply');
-var $call = require('./functionCall');
-var $reflectApply = require('./reflectApply');
-
-/** @type {import('./actualApply')} */
-module.exports = $reflectApply || bind.call($call, $apply);
-
-},{"./functionApply":12,"./functionCall":13,"./reflectApply":15,"function-bind":30}],11:[function(require,module,exports){
-'use strict';
-
-var bind = require('function-bind');
-var $apply = require('./functionApply');
-var actualApply = require('./actualApply');
-
-/** @type {import('./applyBind')} */
-module.exports = function applyBind() {
-	return actualApply(bind, $apply, arguments);
-};
-
-},{"./actualApply":10,"./functionApply":12,"function-bind":30}],12:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./functionApply')} */
-module.exports = Function.prototype.apply;
-
-},{}],13:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./functionCall')} */
-module.exports = Function.prototype.call;
-
-},{}],14:[function(require,module,exports){
-'use strict';
-
-var bind = require('function-bind');
-var $TypeError = require('es-errors/type');
-
-var $call = require('./functionCall');
-var $actualApply = require('./actualApply');
-
-/** @type {(args: [Function, thisArg?: unknown, ...args: unknown[]]) => Function} TODO FIXME, find a way to use import('.') */
-module.exports = function callBindBasic(args) {
-	if (args.length < 1 || typeof args[0] !== 'function') {
-		throw new $TypeError('a function is required');
-	}
-	return $actualApply(bind, $call, args);
-};
-
-},{"./actualApply":10,"./functionCall":13,"es-errors/type":26,"function-bind":30}],15:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./reflectApply')} */
-module.exports = typeof Reflect !== 'undefined' && Reflect && Reflect.apply;
-
-},{}],16:[function(require,module,exports){
-'use strict';
-
 var GetIntrinsic = require('get-intrinsic');
 
 var callBind = require('./');
@@ -1345,24 +1300,35 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 	return intrinsic;
 };
 
-},{"./":17,"get-intrinsic":31}],17:[function(require,module,exports){
+},{"./":11,"get-intrinsic":23}],11:[function(require,module,exports){
 'use strict';
 
+var bind = require('function-bind');
+var GetIntrinsic = require('get-intrinsic');
 var setFunctionLength = require('set-function-length');
 
-var $defineProperty = require('es-define-property');
+var $TypeError = require('es-errors/type');
+var $apply = GetIntrinsic('%Function.prototype.apply%');
+var $call = GetIntrinsic('%Function.prototype.call%');
+var $reflectApply = GetIntrinsic('%Reflect.apply%', true) || bind.call($call, $apply);
 
-var callBindBasic = require('call-bind-apply-helpers');
-var applyBind = require('call-bind-apply-helpers/applyBind');
+var $defineProperty = require('es-define-property');
+var $max = GetIntrinsic('%Math.max%');
 
 module.exports = function callBind(originalFunction) {
-	var func = callBindBasic(arguments);
-	var adjustedLength = originalFunction.length - (arguments.length - 1);
+	if (typeof originalFunction !== 'function') {
+		throw new $TypeError('a function is required');
+	}
+	var func = $reflectApply(bind, $call, arguments);
 	return setFunctionLength(
 		func,
-		1 + (adjustedLength > 0 ? adjustedLength : 0),
+		1 + $max(0, originalFunction.length - (arguments.length - 1)),
 		true
 	);
+};
+
+var applyBind = function applyBind() {
+	return $reflectApply(bind, $apply, arguments);
 };
 
 if ($defineProperty) {
@@ -1371,7 +1337,7 @@ if ($defineProperty) {
 	module.exports.apply = applyBind;
 }
 
-},{"call-bind-apply-helpers":14,"call-bind-apply-helpers/applyBind":11,"es-define-property":20,"set-function-length":55}],18:[function(require,module,exports){
+},{"es-define-property":13,"es-errors/type":19,"function-bind":22,"get-intrinsic":23,"set-function-length":36}],12:[function(require,module,exports){
 'use strict';
 
 var $defineProperty = require('es-define-property');
@@ -1429,43 +1395,13 @@ module.exports = function defineDataProperty(
 	}
 };
 
-},{"es-define-property":20,"es-errors/syntax":25,"es-errors/type":26,"gopd":36}],19:[function(require,module,exports){
+},{"es-define-property":13,"es-errors/syntax":18,"es-errors/type":19,"gopd":24}],13:[function(require,module,exports){
 'use strict';
 
-var callBind = require('call-bind-apply-helpers');
-var gOPD = require('gopd');
-
-var hasProtoAccessor;
-try {
-	// eslint-disable-next-line no-extra-parens, no-proto
-	hasProtoAccessor = /** @type {{ __proto__?: typeof Array.prototype }} */ ([]).__proto__ === Array.prototype;
-} catch (e) {
-	if (!e || typeof e !== 'object' || !('code' in e) || e.code !== 'ERR_PROTO_ACCESS') {
-		throw e;
-	}
-}
-
-// eslint-disable-next-line no-extra-parens
-var desc = !!hasProtoAccessor && gOPD && gOPD(Object.prototype, /** @type {keyof typeof Object.prototype} */ ('__proto__'));
-
-var $Object = Object;
-var $getPrototypeOf = $Object.getPrototypeOf;
-
-/** @type {import('./get')} */
-module.exports = desc && typeof desc.get === 'function'
-	? callBind([desc.get])
-	: typeof $getPrototypeOf === 'function'
-		? /** @type {import('./get')} */ function getDunder(value) {
-			// eslint-disable-next-line eqeqeq
-			return $getPrototypeOf(value == null ? value : $Object(value));
-		}
-		: false;
-
-},{"call-bind-apply-helpers":14,"gopd":36}],20:[function(require,module,exports){
-'use strict';
+var GetIntrinsic = require('get-intrinsic');
 
 /** @type {import('.')} */
-var $defineProperty = Object.defineProperty || false;
+var $defineProperty = GetIntrinsic('%Object.defineProperty%', true) || false;
 if ($defineProperty) {
 	try {
 		$defineProperty({}, 'a', { value: 1 });
@@ -1477,55 +1413,49 @@ if ($defineProperty) {
 
 module.exports = $defineProperty;
 
-},{}],21:[function(require,module,exports){
+},{"get-intrinsic":23}],14:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./eval')} */
 module.exports = EvalError;
 
-},{}],22:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 /** @type {import('.')} */
 module.exports = Error;
 
-},{}],23:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./range')} */
 module.exports = RangeError;
 
-},{}],24:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./ref')} */
 module.exports = ReferenceError;
 
-},{}],25:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./syntax')} */
 module.exports = SyntaxError;
 
-},{}],26:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./type')} */
 module.exports = TypeError;
 
-},{}],27:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 /** @type {import('./uri')} */
 module.exports = URIError;
 
-},{}],28:[function(require,module,exports){
-'use strict';
-
-/** @type {import('.')} */
-module.exports = Object;
-
-},{}],29:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 /* eslint no-invalid-this: 1 */
@@ -1611,19 +1541,17 @@ module.exports = function bind(that) {
     return bound;
 };
 
-},{}],30:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
 
 var implementation = require('./implementation');
 
 module.exports = Function.prototype.bind || implementation;
 
-},{"./implementation":29}],31:[function(require,module,exports){
+},{"./implementation":21}],23:[function(require,module,exports){
 'use strict';
 
 var undefined;
-
-var $Object = require('es-object-atoms');
 
 var $Error = require('es-errors');
 var $EvalError = require('es-errors/eval');
@@ -1632,14 +1560,6 @@ var $ReferenceError = require('es-errors/ref');
 var $SyntaxError = require('es-errors/syntax');
 var $TypeError = require('es-errors/type');
 var $URIError = require('es-errors/uri');
-
-var abs = require('math-intrinsics/abs');
-var floor = require('math-intrinsics/floor');
-var max = require('math-intrinsics/max');
-var min = require('math-intrinsics/min');
-var pow = require('math-intrinsics/pow');
-var round = require('math-intrinsics/round');
-var sign = require('math-intrinsics/sign');
 
 var $Function = Function;
 
@@ -1650,8 +1570,14 @@ var getEvalledConstructor = function (expressionSyntax) {
 	} catch (e) {}
 };
 
-var $gOPD = require('gopd');
-var $defineProperty = require('es-define-property');
+var $gOPD = Object.getOwnPropertyDescriptor;
+if ($gOPD) {
+	try {
+		$gOPD({}, '');
+	} catch (e) {
+		$gOPD = null; // this is IE 8, which has a broken gOPD
+	}
+}
 
 var throwTypeError = function () {
 	throw new $TypeError();
@@ -1674,13 +1600,13 @@ var ThrowTypeError = $gOPD
 	: throwTypeError;
 
 var hasSymbols = require('has-symbols')();
+var hasProto = require('has-proto')();
 
-var getProto = require('get-proto');
-var $ObjectGPO = require('get-proto/Object.getPrototypeOf');
-var $ReflectGPO = require('get-proto/Reflect.getPrototypeOf');
-
-var $apply = require('call-bind-apply-helpers/functionApply');
-var $call = require('call-bind-apply-helpers/functionCall');
+var getProto = Object.getPrototypeOf || (
+	hasProto
+		? function (x) { return x.__proto__; } // eslint-disable-line no-proto
+		: null
+);
 
 var needsEval = {};
 
@@ -1711,7 +1637,6 @@ var INTRINSICS = {
 	'%Error%': $Error,
 	'%eval%': eval, // eslint-disable-line no-eval
 	'%EvalError%': $EvalError,
-	'%Float16Array%': typeof Float16Array === 'undefined' ? undefined : Float16Array,
 	'%Float32Array%': typeof Float32Array === 'undefined' ? undefined : Float32Array,
 	'%Float64Array%': typeof Float64Array === 'undefined' ? undefined : Float64Array,
 	'%FinalizationRegistry%': typeof FinalizationRegistry === 'undefined' ? undefined : FinalizationRegistry,
@@ -1728,8 +1653,7 @@ var INTRINSICS = {
 	'%MapIteratorPrototype%': typeof Map === 'undefined' || !hasSymbols || !getProto ? undefined : getProto(new Map()[Symbol.iterator]()),
 	'%Math%': Math,
 	'%Number%': Number,
-	'%Object%': $Object,
-	'%Object.getOwnPropertyDescriptor%': $gOPD,
+	'%Object%': Object,
 	'%parseFloat%': parseFloat,
 	'%parseInt%': parseInt,
 	'%Promise%': typeof Promise === 'undefined' ? undefined : Promise,
@@ -1755,20 +1679,7 @@ var INTRINSICS = {
 	'%URIError%': $URIError,
 	'%WeakMap%': typeof WeakMap === 'undefined' ? undefined : WeakMap,
 	'%WeakRef%': typeof WeakRef === 'undefined' ? undefined : WeakRef,
-	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet,
-
-	'%Function.prototype.call%': $call,
-	'%Function.prototype.apply%': $apply,
-	'%Object.defineProperty%': $defineProperty,
-	'%Object.getPrototypeOf%': $ObjectGPO,
-	'%Math.abs%': abs,
-	'%Math.floor%': floor,
-	'%Math.max%': max,
-	'%Math.min%': min,
-	'%Math.pow%': pow,
-	'%Math.round%': round,
-	'%Math.sign%': sign,
-	'%Reflect.getPrototypeOf%': $ReflectGPO
+	'%WeakSet%': typeof WeakSet === 'undefined' ? undefined : WeakSet
 };
 
 if (getProto) {
@@ -1863,11 +1774,11 @@ var LEGACY_ALIASES = {
 
 var bind = require('function-bind');
 var hasOwn = require('hasown');
-var $concat = bind.call($call, Array.prototype.concat);
-var $spliceApply = bind.call($apply, Array.prototype.splice);
-var $replace = bind.call($call, String.prototype.replace);
-var $strSlice = bind.call($call, String.prototype.slice);
-var $exec = bind.call($call, RegExp.prototype.exec);
+var $concat = bind.call(Function.call, Array.prototype.concat);
+var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
+var $replace = bind.call(Function.call, String.prototype.replace);
+var $strSlice = bind.call(Function.call, String.prototype.slice);
+var $exec = bind.call(Function.call, RegExp.prototype.exec);
 
 /* adapted from https://github.com/lodash/lodash/blob/4.17.15/dist/lodash.js#L6735-L6744 */
 var rePropName = /[^%.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|%$))/g;
@@ -1998,60 +1909,12 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 	return value;
 };
 
-},{"call-bind-apply-helpers/functionApply":12,"call-bind-apply-helpers/functionCall":13,"es-define-property":20,"es-errors":22,"es-errors/eval":21,"es-errors/range":23,"es-errors/ref":24,"es-errors/syntax":25,"es-errors/type":26,"es-errors/uri":27,"es-object-atoms":28,"function-bind":30,"get-proto":34,"get-proto/Object.getPrototypeOf":32,"get-proto/Reflect.getPrototypeOf":33,"gopd":36,"has-symbols":38,"hasown":40,"math-intrinsics/abs":41,"math-intrinsics/floor":42,"math-intrinsics/max":44,"math-intrinsics/min":45,"math-intrinsics/pow":46,"math-intrinsics/round":47,"math-intrinsics/sign":48}],32:[function(require,module,exports){
+},{"es-errors":15,"es-errors/eval":14,"es-errors/range":16,"es-errors/ref":17,"es-errors/syntax":18,"es-errors/type":19,"es-errors/uri":20,"function-bind":22,"has-proto":26,"has-symbols":27,"hasown":29}],24:[function(require,module,exports){
 'use strict';
 
-var $Object = require('es-object-atoms');
+var GetIntrinsic = require('get-intrinsic');
 
-/** @type {import('./Object.getPrototypeOf')} */
-module.exports = $Object.getPrototypeOf || null;
-
-},{"es-object-atoms":28}],33:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./Reflect.getPrototypeOf')} */
-module.exports = (typeof Reflect !== 'undefined' && Reflect.getPrototypeOf) || null;
-
-},{}],34:[function(require,module,exports){
-'use strict';
-
-var reflectGetProto = require('./Reflect.getPrototypeOf');
-var originalGetProto = require('./Object.getPrototypeOf');
-
-var getDunderProto = require('dunder-proto/get');
-
-/** @type {import('.')} */
-module.exports = reflectGetProto
-	? function getProto(O) {
-		// @ts-expect-error TS can't narrow inside a closure, for some reason
-		return reflectGetProto(O);
-	}
-	: originalGetProto
-		? function getProto(O) {
-			if (!O || (typeof O !== 'object' && typeof O !== 'function')) {
-				throw new TypeError('getProto: not an object');
-			}
-			// @ts-expect-error TS can't narrow inside a closure, for some reason
-			return originalGetProto(O);
-		}
-		: getDunderProto
-			? function getProto(O) {
-				// @ts-expect-error TS can't narrow inside a closure, for some reason
-				return getDunderProto(O);
-			}
-			: null;
-
-},{"./Object.getPrototypeOf":32,"./Reflect.getPrototypeOf":33,"dunder-proto/get":19}],35:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./gOPD')} */
-module.exports = Object.getOwnPropertyDescriptor;
-
-},{}],36:[function(require,module,exports){
-'use strict';
-
-/** @type {import('.')} */
-var $gOPD = require('./gOPD');
+var $gOPD = GetIntrinsic('%Object.getOwnPropertyDescriptor%', true);
 
 if ($gOPD) {
 	try {
@@ -2064,7 +1927,7 @@ if ($gOPD) {
 
 module.exports = $gOPD;
 
-},{"./gOPD":35}],37:[function(require,module,exports){
+},{"get-intrinsic":23}],25:[function(require,module,exports){
 'use strict';
 
 var $defineProperty = require('es-define-property');
@@ -2088,13 +1951,29 @@ hasPropertyDescriptors.hasArrayLengthDefineBug = function hasArrayLengthDefineBu
 
 module.exports = hasPropertyDescriptors;
 
-},{"es-define-property":20}],38:[function(require,module,exports){
+},{"es-define-property":13}],26:[function(require,module,exports){
+'use strict';
+
+var test = {
+	__proto__: null,
+	foo: {}
+};
+
+var $Object = Object;
+
+/** @type {import('.')} */
+module.exports = function hasProto() {
+	// @ts-expect-error: TS errors on an inherited property for some reason
+	return { __proto__: test }.foo === test.foo
+		&& !(test instanceof $Object);
+};
+
+},{}],27:[function(require,module,exports){
 'use strict';
 
 var origSymbol = typeof Symbol !== 'undefined' && Symbol;
 var hasSymbolSham = require('./shams');
 
-/** @type {import('.')} */
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
 	if (typeof Symbol !== 'function') { return false; }
@@ -2104,16 +1983,14 @@ module.exports = function hasNativeSymbols() {
 	return hasSymbolSham();
 };
 
-},{"./shams":39}],39:[function(require,module,exports){
+},{"./shams":28}],28:[function(require,module,exports){
 'use strict';
 
-/** @type {import('./shams')} */
 /* eslint complexity: [2, 18], max-statements: [2, 33] */
 module.exports = function hasSymbols() {
 	if (typeof Symbol !== 'function' || typeof Object.getOwnPropertySymbols !== 'function') { return false; }
 	if (typeof Symbol.iterator === 'symbol') { return true; }
 
-	/** @type {{ [k in symbol]?: unknown }} */
 	var obj = {};
 	var sym = Symbol('test');
 	var symObj = Object(sym);
@@ -2132,7 +2009,7 @@ module.exports = function hasSymbols() {
 
 	var symVal = 42;
 	obj[sym] = symVal;
-	for (var _ in obj) { return false; } // eslint-disable-line no-restricted-syntax, no-unreachable-loop
+	for (sym in obj) { return false; } // eslint-disable-line no-restricted-syntax, no-unreachable-loop
 	if (typeof Object.keys === 'function' && Object.keys(obj).length !== 0) { return false; }
 
 	if (typeof Object.getOwnPropertyNames === 'function' && Object.getOwnPropertyNames(obj).length !== 0) { return false; }
@@ -2143,15 +2020,14 @@ module.exports = function hasSymbols() {
 	if (!Object.prototype.propertyIsEnumerable.call(obj, sym)) { return false; }
 
 	if (typeof Object.getOwnPropertyDescriptor === 'function') {
-		// eslint-disable-next-line no-extra-parens
-		var descriptor = /** @type {PropertyDescriptor} */ (Object.getOwnPropertyDescriptor(obj, sym));
+		var descriptor = Object.getOwnPropertyDescriptor(obj, sym);
 		if (descriptor.value !== symVal || descriptor.enumerable !== true) { return false; }
 	}
 
 	return true;
 };
 
-},{}],40:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 var call = Function.prototype.call;
@@ -2161,64 +2037,7 @@ var bind = require('function-bind');
 /** @type {import('.')} */
 module.exports = bind.call(call, $hasOwn);
 
-},{"function-bind":30}],41:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./abs')} */
-module.exports = Math.abs;
-
-},{}],42:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./floor')} */
-module.exports = Math.floor;
-
-},{}],43:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./isNaN')} */
-module.exports = Number.isNaN || function isNaN(a) {
-	return a !== a;
-};
-
-},{}],44:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./max')} */
-module.exports = Math.max;
-
-},{}],45:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./min')} */
-module.exports = Math.min;
-
-},{}],46:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./pow')} */
-module.exports = Math.pow;
-
-},{}],47:[function(require,module,exports){
-'use strict';
-
-/** @type {import('./round')} */
-module.exports = Math.round;
-
-},{}],48:[function(require,module,exports){
-'use strict';
-
-var $isNaN = require('./isNaN');
-
-/** @type {import('./sign')} */
-module.exports = function sign(number) {
-	if ($isNaN(number) || number === 0) {
-		return number;
-	}
-	return number < 0 ? -1 : +1;
-};
-
-},{"./isNaN":43}],49:[function(require,module,exports){
+},{"function-bind":22}],30:[function(require,module,exports){
 (function (global){(function (){
 var hasMap = typeof Map === 'function' && Map.prototype;
 var mapSizeDescriptor = Object.getOwnPropertyDescriptor && hasMap ? Object.getOwnPropertyDescriptor(Map.prototype, 'size') : null;
@@ -2749,7 +2568,7 @@ function arrObjKeys(obj, inspect) {
 }
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./util.inspect":9}],50:[function(require,module,exports){
+},{"./util.inspect":9}],31:[function(require,module,exports){
 'use strict';
 
 var replace = String.prototype.replace;
@@ -2774,7 +2593,7 @@ module.exports = {
     RFC3986: Format.RFC3986
 };
 
-},{}],51:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 var stringify = require('./stringify');
@@ -2787,7 +2606,7 @@ module.exports = {
     stringify: stringify
 };
 
-},{"./formats":50,"./parse":52,"./stringify":53}],52:[function(require,module,exports){
+},{"./formats":31,"./parse":33,"./stringify":34}],33:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -3077,7 +2896,7 @@ module.exports = function (str, opts) {
     return utils.compact(obj);
 };
 
-},{"./utils":54}],53:[function(require,module,exports){
+},{"./utils":35}],34:[function(require,module,exports){
 'use strict';
 
 var getSideChannel = require('side-channel');
@@ -3430,7 +3249,7 @@ module.exports = function (object, opts) {
     return joined.length > 0 ? prefix + joined : '';
 };
 
-},{"./formats":50,"./utils":54,"side-channel":56}],54:[function(require,module,exports){
+},{"./formats":31,"./utils":35,"side-channel":37}],35:[function(require,module,exports){
 'use strict';
 
 var formats = require('./formats');
@@ -3697,7 +3516,7 @@ module.exports = {
     merge: merge
 };
 
-},{"./formats":50}],55:[function(require,module,exports){
+},{"./formats":31}],36:[function(require,module,exports){
 'use strict';
 
 var GetIntrinsic = require('get-intrinsic');
@@ -3741,7 +3560,7 @@ module.exports = function setFunctionLength(fn, length) {
 	return fn;
 };
 
-},{"define-data-property":18,"es-errors/type":26,"get-intrinsic":31,"gopd":36,"has-property-descriptors":37}],56:[function(require,module,exports){
+},{"define-data-property":12,"es-errors/type":19,"get-intrinsic":23,"gopd":24,"has-property-descriptors":25}],37:[function(require,module,exports){
 'use strict';
 
 var GetIntrinsic = require('get-intrinsic');
@@ -3872,5 +3691,5 @@ module.exports = function getSideChannel() {
 	return channel;
 };
 
-},{"call-bind/callBound":16,"es-errors/type":26,"get-intrinsic":31,"object-inspect":49}]},{},[4])(4)
+},{"call-bind/callBound":10,"es-errors/type":19,"get-intrinsic":23,"object-inspect":30}]},{},[4])(4)
 });
