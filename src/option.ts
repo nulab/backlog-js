@@ -120,6 +120,11 @@
       count?: number;
     }
 
+    export interface PostTeamParams {
+      name: string;
+      members?: number[];
+    }
+
     export interface PatchTeamParams {
       name?: string;
       members?: number[];

@@ -95,6 +95,10 @@ export declare namespace Team {
         offset?: number;
         count?: number;
     }
+    interface PostTeamParams {
+        name: string;
+        members?: number[];
+    }
     interface PatchTeamParams {
         name?: string;
         members?: number[];
