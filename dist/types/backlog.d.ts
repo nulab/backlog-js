@@ -559,7 +559,7 @@ export default class Backlog extends Request {
     /**
      * https://developer.nulab.com/docs/backlog/api/2/add-team/
      */
-    postTeam(members: number[]): Promise<Entity.Team.Team>;
+    postTeam(params: Option.Team.PostTeamParams): Promise<Entity.Team.Team>;
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-team/
      */
