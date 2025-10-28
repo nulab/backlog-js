@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.15.0](https://github.com/nulab/backlog-js/compare/0.14.2...0.15.0) (2025-10-28)
+
+* Update parameters to add a team [#123](https://github.com/nulab/backlog-js/pull/123) ([gamisachi](https://github.com/gamisachi))
+
 ## [0.14.2](https://github.com/nulab/backlog-js/compare/0.14.1...0.14.2) (2025-10-23)
 
 *  Ensure custom-field query parameters use explicit indices [#121](https://github.com/nulab/backlog-js/pull/121) ([trknhr](https://github.com/trknhr))
