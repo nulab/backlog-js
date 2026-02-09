@@ -21,6 +21,14 @@ export declare namespace Document {
         offset: number;
         count?: number;
     }
+    interface AddDocumentParams {
+        projectId: number;
+        title?: string;
+        content?: string;
+        emoji?: string;
+        parentId?: string;
+        addLast?: boolean;
+    }
 }
 export declare namespace Space {
     interface GetActivitiesParams {

@@ -852,6 +852,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/add-document/
+   */
+  public addDocument(params: Option.Document.AddDocumentParams): Promise<Entity.Document.Document> {
+    return this.post('documents', params);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/delete-document/
    */
   public deleteDocument(documentId: string): Promise<Entity.Document.Document> {

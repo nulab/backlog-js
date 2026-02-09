@@ -659,6 +659,12 @@ var Backlog = /** @class */ (function (_super) {
         return this.download("documents/".concat(documentId, "/attachments/").concat(attachmentId));
     };
     /**
+     * https://developer.nulab.com/docs/backlog/api/2/add-document/
+     */
+    Backlog.prototype.addDocument = function (params) {
+        return this.post('documents', params);
+    };
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/delete-document/
      */
     Backlog.prototype.deleteDocument = function (documentId) {
