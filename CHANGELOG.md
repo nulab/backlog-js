@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/nulab/backlog-js/compare/0.15.0...0.16.0) (2026-02-09)
+
+* add document [#127](https://github.com/nulab/backlog-js/pull/127) ([katayama8000](https://github.com/katayama8000))
+* delete document [#128](https://github.com/nulab/backlog-js/pull/128) ([katayama8000](https://github.com/katayama8000))
+* Bump qs from 6.12.1 to 6.14.1 [#126](https://github.com/nulab/backlog-js/pull/126) ([dependabot[bot]](https://github.com/apps/dependabot))
+* Bump js-yaml [#125](https://github.com/nulab/backlog-js/pull/125) ([dependabot[bot]](https://github.com/apps/dependabot))
+
 ## [0.15.0](https://github.com/nulab/backlog-js/compare/0.14.2...0.15.0) (2025-10-28)
 
 * Update parameters to add a team [#123](https://github.com/nulab/backlog-js/pull/123) ([gamisachi](https://github.com/gamisachi))
