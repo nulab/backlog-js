@@ -437,6 +437,10 @@ export default class Backlog extends Request {
      */
     addDocument(params: Option.Document.AddDocumentParams): Promise<Entity.Document.Document>;
     /**
+     * https://developer.nulab.com/docs/backlog/api/2/delete-document/
+     */
+    deleteDocument(documentId: string): Promise<Entity.Document.Document>;
+    /**
      * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
      */
     getWikisHistory(wikiId: number, params: Option.Wiki.GetWikisHistoryParams): Promise<Entity.Wiki.History[]>;

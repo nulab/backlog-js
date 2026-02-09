@@ -345,6 +345,24 @@ describe("Backlog API", () => {
     });
   });
 
+  it('should delete a document.', (done) => {
+    const documentId = '01939983409c79d5a06a49859789e38f';
+    mockRequest({
+      method: "DELETE",
+      path: `/api/v2/documents/${documentId}`,
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.document,
+      times: 1,
+    });
+    backlog.deleteDocument(documentId).then(data => {
+      assert.deepEqual(data, Fixtures.document);
+      done();
+    }).catch(err => {
+      throw err
+    });
+  });
+
   it('should remove star.', (done) => {
     const starId = 123;
     mockRequest({

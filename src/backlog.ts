@@ -859,6 +859,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/delete-document/
+   */
+  public deleteDocument(documentId: string): Promise<Entity.Document.Document> {
+    return this.delete(`documents/${documentId}`);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
    */
   public getWikisHistory(
