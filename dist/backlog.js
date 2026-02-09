@@ -659,7 +659,7 @@ var Backlog = /** @class */ (function (_super) {
         return this.download("documents/".concat(documentId, "/attachments/").concat(attachmentId));
     };
     /**
-     * https://developer.nulab.com/docs/backlog/api/delete-document/
+     * https://developer.nulab.com/docs/backlog/api/2/delete-document/
      */
     Backlog.prototype.deleteDocument = function (documentId) {
         return this.delete("documents/".concat(documentId));

@@ -433,7 +433,7 @@ export default class Backlog extends Request {
      */
     downloadDocumentAttachment(documentId: string, attachmentId: number): Promise<Entity.File.FileData>;
     /**
-     * https://developer.nulab.com/docs/backlog/api/delete-document/
+     * https://developer.nulab.com/docs/backlog/api/2/delete-document/
      */
     deleteDocument(documentId: string): Promise<Entity.Document.Document>;
     /**
