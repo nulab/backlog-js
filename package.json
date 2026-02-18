@@ -28,7 +28,6 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/empower": "^1.2.35",
-    "@types/isomorphic-fetch": "0.0.39",
     "@types/mocha": "^10.0.7",
     "@types/nock": "^10.0.3",
     "@types/node": "^18",
@@ -39,8 +38,6 @@
     "coveralls": "^3.1.1",
     "dotenv": "^16.4.5",
     "espower-typescript": "^10.0.1",
-    "isomorphic-fetch": "^3.0.0",
-    "isomorphic-form-data": "^2.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^10.5.2",
     "nock": "^13.5.4",
