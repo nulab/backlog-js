@@ -542,3 +542,4 @@ export declare namespace RateLimit {
         reset: number;
     }
 }
+//# sourceMappingURL=entity.d.ts.map

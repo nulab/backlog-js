@@ -35,3 +35,4 @@ export interface BacklogErrorMessage {
     moreInfo: string;
 }
 export type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';
+//# sourceMappingURL=error.d.ts.map

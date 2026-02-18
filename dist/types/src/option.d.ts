@@ -435,3 +435,4 @@ export declare namespace OAuth2 {
         clientSecret: string;
     }
 }
+//# sourceMappingURL=option.d.ts.map
