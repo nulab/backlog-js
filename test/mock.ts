@@ -1,5 +1,5 @@
 import * as qs from "qs";
-import * as nock from "nock";
+import nock from "nock";
 import { setGlobalDispatcher, MockAgent, Interceptable } from "undici";
 
 const nodeVersion = Number(process.versions.node.split(".")[0]);
