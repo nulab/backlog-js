@@ -1,6 +1,6 @@
+import { default as Request } from './request';
 import * as Option from './option';
 import * as Entity from './entity';
-import Request from './request';
 export default class Backlog extends Request {
     constructor(configure: {
         host: string;
@@ -604,3 +604,4 @@ export default class Backlog extends Request {
     private upload;
     private parseFileData;
 }
+//# sourceMappingURL=backlog.d.ts.map

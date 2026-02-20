@@ -25,3 +25,4 @@ export default class Request {
 export type Params = {
     [index: string]: number | string | number[] | string[];
 };
+//# sourceMappingURL=request.d.ts.map

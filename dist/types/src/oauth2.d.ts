@@ -19,3 +19,4 @@ export default class OAuth2 {
         refreshToken: string;
     }): Promise<Entity.OAuth2.AccessToken>;
 }
+//# sourceMappingURL=oauth2.d.ts.map

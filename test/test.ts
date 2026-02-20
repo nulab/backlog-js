@@ -1,13 +1,7 @@
-import * as assert from 'power-assert';
-import * as dotenv from 'dotenv';
+import { describe, it, beforeEach, afterEach, expect } from 'vitest';
 import * as backlogjs from '../src/index';
 import * as Fixtures from './fixtures/index';
 import { mockRequest, mockPrepare, mockCleanup } from './mock';
-import 'isomorphic-form-data';
-import 'isomorphic-fetch';
-import { before, after } from 'mocha';
-
-dotenv.config();
 
 const host = process.env.BACKLOG_HOST || 'example.backlog.jp';
 const apiKey = process.env.BACKLOG_API_KEY || 'apiKey';
@@ -25,21 +19,20 @@ const credentials = { clientId, clientSecret }
 describe("OAuth2 API", () => {
   let oauth2 = new backlogjs.OAuth2(credentials);
 
-  before(() => {
+  beforeEach(() => {
     mockPrepare(`https://${host}`);
   });
 
-  after(() => {
+  afterEach(() => {
     mockCleanup();
   })
 
-  it('should get web app base url.', done => {
+  it('should get web app base url.', () => {
     const expected = `https://${host}/OAuth2AccessRequest.action?client_id=${clientId}&response_type=code&redirect_uri=${redirectUri}&state=${state}`;
-    assert(expected === oauth2.getAuthorizationURL({ host, redirectUri, state }));
-    done();
+    expect(oauth2.getAuthorizationURL({ host, redirectUri, state })).toBe(expected);
   });
 
-  it('should get access token.', done => {
+  it('should get access token.', async () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/oauth2/token",
@@ -57,17 +50,13 @@ describe("OAuth2 API", () => {
       data: Fixtures.access_token,
       times: 1,
     });
-    oauth2.getAccessToken({
+    const data = await oauth2.getAccessToken({
       host, code, redirectUri
-    }).then(data => {
-      assert.deepEqual(data, Fixtures.access_token);
-      done();
-    }).catch(err => {
-      throw err;
     });
+    expect(data).toEqual(Fixtures.access_token);
   });
 
-  it('should refresh access token.', done => {
+  it('should refresh access token.', async () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/oauth2/token",
@@ -81,39 +70,33 @@ describe("OAuth2 API", () => {
       data: Fixtures.access_token,
       times: 1,
     });
-    oauth2.refreshAccessToken({
+    const data = await oauth2.refreshAccessToken({
       host, refreshToken
-    }).then(data => {
-      assert.deepEqual(data, Fixtures.access_token);
-      done();
-    }).catch(err => {
-      throw err;
     });
+    expect(data).toEqual(Fixtures.access_token);
   });
 });
 
 describe("Backlog API", () => {
   let backlog = new backlogjs.Backlog(configure);
 
-  before(() => {
+  beforeEach(() => {
     mockPrepare(`https://${host}`);
   });
 
-  after(() => {
+  afterEach(() => {
     mockCleanup();
   })
 
-  it('should get web app base url.', (done) => {
-    assert(`https://${configure.host}` === backlog.webAppBaseURL);
-    done();
+  it('should get web app base url.', () => {
+    expect(backlog.webAppBaseURL).toBe(`https://${configure.host}`);
   });
 
-  it('should get rest base url.', (done) => {
-    assert(`https://${configure.host}/api/v2` === backlog.restBaseURL);
-    done();
+  it('should get rest base url.', () => {
+    expect(backlog.restBaseURL).toBe(`https://${configure.host}/api/v2`);
   });
 
-  it('should convert object to query string.', (done) => {
+  it('should convert object to query string.', () => {
     const query = (backlog as any).toQueryString({
       userId: 'test01',
       password: 'pazzword',
@@ -121,11 +104,10 @@ describe("Backlog API", () => {
       mailAddress: 'testuser@example.com',
       roleType: backlogjs.Types.NormalRoleType.Admin
     });
-    assert('userId=test01&password=pazzword&name=testuser&mailAddress=testuser%40example.com&roleType=1' === query);
-    done();
+    expect(query).toBe('userId=test01&password=pazzword&name=testuser&mailAddress=testuser%40example.com&roleType=1');
   });
 
-  it('should convert object(array) to query string.', (done) => {
+  it('should convert object(array) to query string.', () => {
     const query = (backlog as any).toQueryString({
       activityTypeId: [
         backlogjs.Types.ActivityType.IssueCreated,
@@ -137,11 +119,10 @@ describe("Backlog API", () => {
       count: 3,
       order: 'asc'
     });
-    assert('activityTypeId%5B%5D=1&activityTypeId%5B%5D=2&activityTypeId%5B%5D=3&minId=1&maxId=2&count=3&order=asc' === query);
-    done();
+    expect(query).toBe('activityTypeId%5B%5D=1&activityTypeId%5B%5D=2&activityTypeId%5B%5D=3&minId=1&maxId=2&count=3&order=asc');
   });
 
-  it('should convert custom field arrays to indexed query string.', (done) => {
+  it('should convert custom field arrays to indexed query string.', () => {
     const query = (backlog as any).toQueryString({
       customField_123: ['value1', 'value2', 'value3'],
       customField_456: ['option1', 'option2'],
@@ -161,11 +142,10 @@ describe("Backlog API", () => {
 
     // CustomField-prefixed arrays should use numbered indices; everything else keeps bracket format
     const expected = 'customField_123%5B0%5D=value1&customField_123%5B1%5D=value2&customField_123%5B2%5D=value3&customField_456%5B0%5D=option1&customField_456%5B1%5D=option2&customField_456_otherValue=option1&normalField=normalValue&customField_789=singleValue&activityTypeId%5B%5D=1&activityTypeId%5B%5D=2&activityTypeId%5B%5D=3&statusId%5B%5D=open&statusId%5B%5D=in-progress&categoryId%5B%5D=100&categoryId%5B%5D=200&assigneeId%5B%5D=5&assigneeId%5B%5D=10&customFields%5B%5D=should&customFields%5B%5D=use&customFields%5B%5D=brackets&custom_field_999%5B%5D=not&custom_field_999%5B%5D=indexed&customfield_lower%5B%5D=also&customfield_lower%5B%5D=brackets';
-    assert(expected === query);
-    done();
+    expect(query).toBe(expected);
   });
 
-  it('should get space.', (done) => {
+  it('should get space.', async () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/space",
@@ -174,15 +154,11 @@ describe("Backlog API", () => {
       data: Fixtures.space,
       times: 1,
     });
-    backlog.getSpace().then(data => {
-      assert.deepEqual(data, Fixtures.space);
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.getSpace();
+    expect(data).toEqual(Fixtures.space);
   });
 
-  it('should get projects.', (done) => {
+  it('should get projects.', async () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/projects",
@@ -191,15 +167,11 @@ describe("Backlog API", () => {
       data: Fixtures.projects,
       times: 1,
     });
-    backlog.getProjects().then(data => {
-      assert.deepEqual(data, Fixtures.projects);
-      done();
-    }).catch((err) => {
-      throw err;
-    });
+    const data = await backlog.getProjects();
+    expect(data).toEqual(Fixtures.projects);
   });
 
-  it('should get space activities.', (done) => {
+  it('should get space activities.', async () => {
     const query: backlogjs.Option.Space.GetActivitiesParams & { apiKey: string } = {
       apiKey,
       activityTypeId: [
@@ -220,13 +192,10 @@ describe("Backlog API", () => {
       data: [],
       times: 1,
     });
-    backlog.getSpaceActivities(query).then(data => {
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    await backlog.getSpaceActivities(query);
   });
-  it('should mark notification as read (204 No Content)', done => {
+
+  it('should mark notification as read (204 No Content)', async () => {
     const notificationId = 1234;
 
     mockRequest({
@@ -238,16 +207,12 @@ describe("Backlog API", () => {
       times: 1,
     });
 
-    backlog.markAsReadNotification(notificationId).then(data => {
-      // Should resolve without error and without any value
-      assert(data === undefined);
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    const data = await backlog.markAsReadNotification(notificationId);
+    // Should resolve without error and without any value
+    expect(data).toBeUndefined();
   });
 
-  it('should get documents.', (done) => {
+  it('should get documents.', async () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/documents",
@@ -256,15 +221,11 @@ describe("Backlog API", () => {
       data: Fixtures.documents,
       times: 1,
     });
-    backlog.getDocuments({ offset: 0 }).then(data => {
-      assert.deepEqual(data, Fixtures.documents);
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.getDocuments({ offset: 0 });
+    expect(data).toEqual(Fixtures.documents);
   });
 
-  it('should get document tree.', (done) => {
+  it('should get document tree.', async () => {
     const projectIdOrKey = '1';
     mockRequest({
       method: "GET",
@@ -274,15 +235,11 @@ describe("Backlog API", () => {
       data: Fixtures.documentTree,
       times: 1,
     });
-    backlog.getDocumentTree(projectIdOrKey).then(data => {
-      assert.deepEqual(data, Fixtures.documentTree);
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.getDocumentTree(projectIdOrKey);
+    expect(data).toEqual(Fixtures.documentTree);
   });
 
-  it('should get a document.', (done) => {
+  it('should get a document.', async () => {
     const documentId = '01939983409c79d5a06a49859789e38f';
     mockRequest({
       method: "GET",
@@ -292,15 +249,11 @@ describe("Backlog API", () => {
       data: Fixtures.document,
       times: 1,
     });
-    backlog.getDocument(documentId).then(data => {
-      assert.deepEqual(data, Fixtures.document);
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.getDocument(documentId);
+    expect(data).toEqual(Fixtures.document);
   });
 
-  it('should download a document attachment.', (done) => {
+  it('should download a document attachment.', async () => {
     const documentId = '01939983409c79d5a06a49859789e38f';
     const attachmentId = 22067;
     mockRequest({
@@ -314,17 +267,13 @@ describe("Backlog API", () => {
       },
       times: 1,
     });
-    backlog.downloadDocumentAttachment(documentId, attachmentId).then(data => {
-      if ('filename' in data) {
-        assert.deepEqual(data.filename, "test.png");
-      }
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.downloadDocumentAttachment(documentId, attachmentId);
+    if ('filename' in data) {
+      expect(data.filename).toBe("test.png");
+    }
   });
 
-  it('should add a document.', (done) => {
+  it('should add a document.', async () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/documents",
@@ -333,19 +282,15 @@ describe("Backlog API", () => {
       data: Fixtures.document,
       times: 1,
     });
-    backlog.addDocument({
+    const data = await backlog.addDocument({
       projectId: 1,
       title: "ドキュメント機能へようこそ",
       content: "hello"
-    }).then(data => {
-      assert.deepEqual(data, Fixtures.document);
-      done();
-    }).catch(err => {
-      throw err
     });
+    expect(data).toEqual(Fixtures.document);
   });
 
-  it('should delete a document.', (done) => {
+  it('should delete a document.', async () => {
     const documentId = '01939983409c79d5a06a49859789e38f';
     mockRequest({
       method: "DELETE",
@@ -355,15 +300,11 @@ describe("Backlog API", () => {
       data: Fixtures.document,
       times: 1,
     });
-    backlog.deleteDocument(documentId).then(data => {
-      assert.deepEqual(data, Fixtures.document);
-      done();
-    }).catch(err => {
-      throw err
-    });
+    const data = await backlog.deleteDocument(documentId);
+    expect(data).toEqual(Fixtures.document);
   });
 
-  it('should remove star.', (done) => {
+  it('should remove star.', async () => {
     const starId = 123;
     mockRequest({
       method: "DELETE",
@@ -373,12 +314,8 @@ describe("Backlog API", () => {
       data: [],
       times: 1,
     });
-    backlog.removeStar(starId).then(data => {
-      // Should resolve without error and without any value
-      assert(data === undefined);
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    const data = await backlog.removeStar(starId);
+    // Should resolve without error and without any value
+    expect(data).toBeUndefined();
   });
 });
