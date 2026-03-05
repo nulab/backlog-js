@@ -153,6 +153,13 @@ export namespace Project {
 }
 
 export namespace User {
+  export interface NulabAccount {
+    nulabId: string;
+    name: string | null;
+    uniqueId: string | null;
+    iconUrl: string;
+  }
+
   export interface User {
     id: number;
     userId: string;
@@ -160,6 +167,8 @@ export namespace User {
     roleType: Types.RoleType;
     lang: Types.Language;
     mailAddress: string;
+    nulabAccount: NulabAccount | null;
+    keyword: string;
     lastLoginTime: string;
   }
 }
@@ -184,6 +193,8 @@ export namespace DiskUsage {
     subversion: number;
     git: number;
     gitLFS: number;
+    document: number;
+    pullRequest: number;
   }
 
   export interface ProjectDiskUsage extends DiskUsage {
@@ -434,6 +445,10 @@ export namespace PullRequest {
     updated: string;
     stars: Star.Star[];
     notifications: CommentNotification.CommentNotification[];
+    oldBlobId: string | null;
+    newBlobId: string | null;
+    filePath: string | null;
+    position: number | null;
   }
 
   export interface PullRequestCount {
@@ -534,6 +549,7 @@ export namespace Notification {
     comment?: Issue.Comment;
     pullRequest?: PullRequest.PullRequest;
     pullRequestComment?: PullRequest.Comment;
+    repository: Git.GitRepository | null;
     sender: User.User;
     created: string;
   }
@@ -592,6 +608,19 @@ export namespace License {
     wikiAttachment: boolean;
     wikiAttachmentLimitPerFile: number;
     wikiAttachmentNumLimit: number;
+    nulabAppsIntegration: boolean;
+    issueTemplate: boolean;
+    paymentId?: number | null;
+    paymentMonth?: number | null;
+    subscribedOn?: string;
+    trialExpiryDate?: string | null;
+    initialCosts?: number;
+    price?: number;
+    licenceKey?: string | null;
+    createdUserId?: number | null;
+    created?: string;
+    updatedUserId?: number | null;
+    updated?: string;
   }
 }
 

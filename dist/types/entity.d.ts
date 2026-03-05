@@ -130,6 +130,12 @@ export declare namespace Project {
     }
 }
 export declare namespace User {
+    interface NulabAccount {
+        nulabId: string;
+        name: string | null;
+        uniqueId: string | null;
+        iconUrl: string;
+    }
     interface User {
         id: number;
         userId: string;
@@ -137,6 +143,8 @@ export declare namespace User {
         roleType: Types.RoleType;
         lang: Types.Language;
         mailAddress: string;
+        nulabAccount: NulabAccount | null;
+        keyword: string;
         lastLoginTime: string;
     }
 }
@@ -159,6 +167,8 @@ export declare namespace DiskUsage {
         subversion: number;
         git: number;
         gitLFS: number;
+        document: number;
+        pullRequest: number;
     }
     interface ProjectDiskUsage extends DiskUsage {
         projectId: number;
@@ -382,6 +392,10 @@ export declare namespace PullRequest {
         updated: string;
         stars: Star.Star[];
         notifications: CommentNotification.CommentNotification[];
+        oldBlobId: string | null;
+        newBlobId: string | null;
+        filePath: string | null;
+        position: number | null;
     }
     interface PullRequestCount {
         count: number;
@@ -469,6 +483,7 @@ export declare namespace Notification {
         comment?: Issue.Comment;
         pullRequest?: PullRequest.PullRequest;
         pullRequestComment?: PullRequest.Comment;
+        repository: Git.GitRepository | null;
         sender: User.User;
         created: string;
     }
@@ -524,6 +539,19 @@ export declare namespace License {
         wikiAttachment: boolean;
         wikiAttachmentLimitPerFile: number;
         wikiAttachmentNumLimit: number;
+        nulabAppsIntegration: boolean;
+        issueTemplate: boolean;
+        paymentId?: number | null;
+        paymentMonth?: number | null;
+        subscribedOn?: string;
+        trialExpiryDate?: string | null;
+        initialCosts?: number;
+        price?: number;
+        licenceKey?: string | null;
+        createdUserId?: number | null;
+        created?: string;
+        updatedUserId?: number | null;
+        updated?: string;
     }
 }
 export declare namespace RateLimit {
