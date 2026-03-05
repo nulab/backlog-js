@@ -2,8 +2,19 @@
   "name": "backlog-js",
   "version": "0.16.0",
   "description": "Backlog API v2 client for browser and node",
-  "main": "dist/backlog.min.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/nulab/backlog-js.git"
@@ -13,11 +24,7 @@
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
-    "build": "npm run clean && npm run build-tsc && npm run copy-dts && npm run build-dist && npm run build-minify",
-    "build-dist": "browserify --standalone Backlog dist/src/index.js -o dist/backlog.js",
-    "build-minify": "uglifyjs dist/backlog.js -o dist/backlog.min.js",
-    "build-tsc": "tsc --declaration",
-    "copy-dts": "mkdir -p dist/types && cp -r dist/src/*.d.ts dist/types",
+    "build": "npm run clean && tsup",
     "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
   "author": "vvatanabe",
