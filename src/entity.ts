@@ -355,7 +355,7 @@ export namespace Activity {
     description: string;
     comment: ActivityComment;
     changes: PullRequestChange[];
-    issue: PullRequestIssue;
+    issue: PullRequestIssue | null;
     repository: GitRepository;
   }
 
