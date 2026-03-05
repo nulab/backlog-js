@@ -35,7 +35,6 @@
     "@types/power-assert": "^1.5.12",
     "@types/power-assert-formatter": "^1.4.33",
     "@types/qs": "^6.9.15",
-    "browserify": "^17.0.0",
     "coveralls": "^3.1.1",
     "dotenv": "^16.4.5",
     "espower-typescript": "^10.0.1",
@@ -45,8 +44,8 @@
     "mocha": "^10.5.2",
     "nock": "^13.5.4",
     "power-assert": "^1.6.1",
+    "tsup": "^8.5.1",
     "typescript": "^5.5.2",
-    "uglify-js": "^3.18.0",
     "undici": "^6.19.2"
   },
   "keywords": [
