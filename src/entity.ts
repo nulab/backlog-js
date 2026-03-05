@@ -126,6 +126,18 @@ export namespace Project {
     displayOrder: number;
   }
 
+  export interface CustomFieldItem {
+    id: number;
+    name: string;
+    displayOrder: number;
+  }
+
+  export interface CustomFieldInitialDate {
+    id: number;
+    shift?: number;
+    date?: string;
+  }
+
   export interface CustomField {
     id: number;
     projectId: number;
@@ -133,9 +145,22 @@ export namespace Project {
     name: string;
     description: string;
     required: boolean;
+    useIssueType: boolean;
     applicableIssueTypes: number[];
-
-    [key: string]: any; // Depends on `typeId`.
+    displayOrder: number;
+    version: number;
+    // Numeric (typeId: 3)
+    min?: number | string | null;
+    max?: number | string | null;
+    initialValue?: number | null;
+    unit?: string | null;
+    // Date (typeId: 4)
+    initialDate?: CustomFieldInitialDate | null;
+    // SingleList (5), MultipleList (6), CheckBox (7), Radio (8)
+    items?: CustomFieldItem[];
+    allowAddItem?: boolean;
+    // CheckBox (7), Radio (8)
+    allowInput?: boolean;
   }
 
   export interface SharedFile {
@@ -153,13 +178,6 @@ export namespace Project {
 }
 
 export namespace User {
-  export interface NulabAccount {
-    nulabId: string;
-    name: string | null;
-    uniqueId: string | null;
-    iconUrl: string;
-  }
-
   export interface User {
     id: number;
     userId: string;
@@ -167,18 +185,249 @@ export namespace User {
     roleType: Types.RoleType;
     lang: Types.Language;
     mailAddress: string;
-    nulabAccount: NulabAccount | null;
-    keyword: string;
     lastLoginTime: string;
   }
 }
 
 export namespace Activity {
+
+  export interface ActivityChange {
+    field: string;
+    field_text: string;
+    new_value: string;
+    old_value: string;
+    type: string;
+  }
+
+  export interface ActivityAttachment {
+    id: number;
+    name: string;
+    size: number;
+  }
+
+  export interface ActivitySharedFile {
+    id: number;
+    dir: string;
+    name: string;
+    size: number;
+  }
+
+  export interface ActivityExternalFileLink {
+    name: string;
+    url: string;
+  }
+
+  export interface ActivityComment {
+    id: number;
+    content: string;
+  }
+
+  export interface IssueCreatedContent {
+    id: number;
+    key_id: number;
+    summary: string;
+    description: string;
+  }
+
+  export interface IssueContent {
+    id: number;
+    key_id: number;
+    summary: string;
+    description: string;
+    comment: ActivityComment;
+    changes: ActivityChange[];
+    attachments: ActivityAttachment[];
+    shared_files: ActivitySharedFile[];
+    external_file_links: ActivityExternalFileLink[];
+  }
+
+  export interface IssueDeletedContent {
+    id: number;
+    key_id: number;
+  }
+
+  export interface MultiUpdateLink {
+    id: number;
+    key_id: number;
+    title: string;
+    comment: ActivityComment;
+  }
+
+  export interface MultiUpdateChange {
+    field: string;
+    new_value: string;
+    type: string;
+  }
+
+  export interface IssueMultiUpdateContent {
+    tx_id: number;
+    comment: { content: string };
+    link: MultiUpdateLink[];
+    changes: MultiUpdateChange[];
+  }
+
+  export interface IssueMultiCreatedLink {
+    id: number;
+    key_id: number;
+    title: string;
+  }
+
+  export interface IssueMultiCreatedContent {
+    link: IssueMultiCreatedLink[];
+  }
+
+  export interface WikiAttachment {
+    id: number;
+    name: string;
+    size: number;
+  }
+
+  export interface WikiContent {
+    id: number;
+    name: string;
+    content: string;
+    diff: string;
+    version: number;
+    attachments: WikiAttachment[];
+    shared_files: ActivitySharedFile[];
+  }
+
+  export interface FileContent {
+    id: number;
+    dir: string;
+    name: string;
+    size: number;
+  }
+
+  export interface SvnContent {
+    rev: string;
+    comment: string;
+  }
+
+  export interface GitRevision {
+    rev: string;
+    comment: string;
+  }
+
+  export interface GitRepository {
+    id: number;
+    name: string;
+    description: string;
+  }
+
+  export interface GitPushedContent {
+    repository: GitRepository;
+    change_type: string;
+    revision_type: string;
+    ref: string;
+    revision_count: number;
+    revisions: GitRevision[];
+  }
+
+  export interface GitRepositoryCreatedContent {
+    repository: GitRepository;
+  }
+
+  export interface ProjectMemberUpdatedContent {
+    users: User.User[];
+    group_project_activities: { id: number; type: number }[];
+    comment: string;
+  }
+
+  export interface PullRequestChange {
+    field: string;
+    new_value: string;
+    old_value: string;
+  }
+
+  export interface PullRequestIssue {
+    id: number;
+    key_id: number;
+    issue_key?: string;
+    summary: string;
+    description: string;
+  }
+
+  export interface PullRequestContent {
+    id: number;
+    number: number;
+    summary: string;
+    description: string;
+    comment: ActivityComment;
+    changes: PullRequestChange[];
+    issue: PullRequestIssue;
+    repository: GitRepository;
+  }
+
+  export interface VersionContent {
+    id: number;
+    name: string;
+    start_date: string;
+    reference_date: string;
+    description: string;
+  }
+
+  export interface VersionChange {
+    field: string;
+    new_value: string;
+    old_value: string;
+  }
+
+  export interface VersionUpdatedContent {
+    id: number;
+    name: string;
+    changes: VersionChange[];
+  }
+
+  export interface TeamSnapshot {
+    id: number;
+    name: string;
+  }
+
+  export interface ProjectTeamContent {
+    parties: TeamSnapshot[];
+  }
+
+  export interface StatusDeletedContent {
+    deletedStatus: { name: string };
+    link: IssueMultiCreatedLink[];
+    change: MultiUpdateChange | null;
+  }
+
+  export interface DocumentContent {
+    id: string;
+    title: string;
+  }
+
+  export interface DocumentMultiContent {
+    documents: DocumentContent[];
+  }
+
+  export type ActivityContent =
+    | IssueCreatedContent
+    | IssueContent
+    | IssueDeletedContent
+    | IssueMultiUpdateContent
+    | IssueMultiCreatedContent
+    | WikiContent
+    | FileContent
+    | SvnContent
+    | GitPushedContent
+    | GitRepositoryCreatedContent
+    | ProjectMemberUpdatedContent
+    | PullRequestContent
+    | VersionContent
+    | VersionUpdatedContent
+    | ProjectTeamContent
+    | StatusDeletedContent
+    | DocumentContent
+    | DocumentMultiContent;
+
   export interface Activity {
     id: number;
     project: Project.Project;
     type: Types.ActivityType;
-    content: any; // Depends on `type`.
+    content: ActivityContent;
     notifications: []; // Always an empty array. https://nulab.com/release-notes/backlog/backlog-will-changes-to-the-get-recent-updates-apis/
     createdUser: User.User;
     created: string;
@@ -193,8 +442,6 @@ export namespace DiskUsage {
     subversion: number;
     git: number;
     gitLFS: number;
-    document: number;
-    pullRequest: number;
   }
 
   export interface ProjectDiskUsage extends DiskUsage {
@@ -261,6 +508,74 @@ export namespace Document {
   }
 }
 
+export namespace CustomFieldValue {
+  export interface CustomFieldValueItem {
+    id: number;
+    name: string;
+    displayOrder: number;
+  }
+
+  export interface TextCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.Text | Types.CustomFieldType.TextArea;
+    name: string;
+    value: string | null;
+  }
+
+  export interface NumericCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.Numeric;
+    name: string;
+    value: number | null;
+  }
+
+  export interface DateCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.Date;
+    name: string;
+    value: string | null;
+  }
+
+  export interface SingleListCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.SingleList;
+    name: string;
+    value: CustomFieldValueItem | null;
+  }
+
+  export interface MultipleListCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.MultipleList;
+    name: string;
+    value: CustomFieldValueItem[];
+  }
+
+  export interface CheckBoxCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.CheckBox;
+    name: string;
+    value: CustomFieldValueItem[];
+    otherValue: string | null;
+  }
+
+  export interface RadioCustomFieldValue {
+    id: number;
+    fieldTypeId: Types.CustomFieldType.Radio;
+    name: string;
+    value: CustomFieldValueItem | null;
+    otherValue: string | null;
+  }
+
+  export type CustomFieldValue =
+    | TextCustomFieldValue
+    | NumericCustomFieldValue
+    | DateCustomFieldValue
+    | SingleListCustomFieldValue
+    | MultipleListCustomFieldValue
+    | CheckBoxCustomFieldValue
+    | RadioCustomFieldValue;
+}
+
 export namespace Issue {
   export interface IssueType {
     id: number;
@@ -306,7 +621,7 @@ export namespace Issue {
     created: string;
     updatedUser: User.User;
     updated: string;
-    customFields: Project.CustomField[];
+    customFields: CustomFieldValue.CustomFieldValue[];
     attachments: File.IssueFileInfo[];
     sharedFiles: Project.SharedFile[];
     stars: Star.Star[];
@@ -445,10 +760,6 @@ export namespace PullRequest {
     updated: string;
     stars: Star.Star[];
     notifications: CommentNotification.CommentNotification[];
-    oldBlobId: string | null;
-    newBlobId: string | null;
-    filePath: string | null;
-    position: number | null;
   }
 
   export interface PullRequestCount {
@@ -549,7 +860,6 @@ export namespace Notification {
     comment?: Issue.Comment;
     pullRequest?: PullRequest.PullRequest;
     pullRequestComment?: PullRequest.Comment;
-    repository: Git.GitRepository | null;
     sender: User.User;
     created: string;
   }
@@ -608,19 +918,6 @@ export namespace License {
     wikiAttachment: boolean;
     wikiAttachmentLimitPerFile: number;
     wikiAttachmentNumLimit: number;
-    nulabAppsIntegration: boolean;
-    issueTemplate: boolean;
-    paymentId?: number | null;
-    paymentMonth?: number | null;
-    subscribedOn?: string;
-    trialExpiryDate?: string | null;
-    initialCosts?: number;
-    price?: number;
-    licenceKey?: string | null;
-    createdUserId?: number | null;
-    created?: string;
-    updatedUserId?: number | null;
-    updated?: string;
   }
 }
 
