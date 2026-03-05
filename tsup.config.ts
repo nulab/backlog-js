@@ -16,6 +16,7 @@ export default defineConfig([
     entry: { backlog: 'src/index.ts' },
     format: ['iife'],
     target: 'es2022',
+    platform: 'browser',
     globalName: 'Backlog',
     minify: false,
     outExtension() {
@@ -26,6 +27,7 @@ export default defineConfig([
     entry: { backlog: 'src/index.ts' },
     format: ['iife'],
     target: 'es2022',
+    platform: 'browser',
     globalName: 'Backlog',
     minify: true,
     outExtension() {

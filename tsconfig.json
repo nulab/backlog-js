@@ -9,6 +9,16 @@
         "esModuleInterop": true,
         "skipLibCheck": true
     },
+    "ts-node": {
+        "compilerOptions": {
+            "target": "es5",
+            "lib": ["dom", "es2016"],
+            "module": "commonjs",
+            "moduleResolution": "node",
+            "esModuleInterop": false,
+            "noEmit": false
+        }
+    },
     "include": [
         "src/**/*"
     ],
