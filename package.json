@@ -5,6 +5,7 @@
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "browser": "dist/backlog.iife.min.js",
   "exports": {
     ".": {
       "import": {
@@ -29,7 +30,8 @@
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec dist/test/**/test*.js",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
-    "build": "npm run clean && tsup",
+    "build": "npm run clean && tsdown",
+    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js",
     "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
   "author": "vvatanabe",
@@ -56,7 +58,7 @@
     "mocha": "^10.5.2",
     "nock": "^13.5.4",
     "power-assert": "^1.6.1",
-    "tsup": "^8.5.1",
+    "tsdown": "^0.21.1",
     "typescript": "^5.5.2",
     "undici": "^6.19.2"
   },

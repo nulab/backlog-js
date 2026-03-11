@@ -1,6 +1,6 @@
 import { PassThrough } from "stream";
 
-//#region src/types.d.ts
+//#region \0rolldown/runtime.js
 declare namespace types_d_exports {
   export { ActivityType, ClassicRoleType, CustomFieldType, IssueTypeColor, Language, NormalRoleType, ProjectStatusColor, RoleType, TextFormattingRule, WebhookActivityId };
 }

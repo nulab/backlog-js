@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from 'tsdown';
 
 export default defineConfig([
   {
@@ -6,11 +6,7 @@ export default defineConfig([
     format: ['cjs', 'esm'],
     target: 'es2022',
     dts: true,
-    outExtension({ format }) {
-      return {
-        js: format === 'cjs' ? '.cjs' : '.mjs',
-      };
-    },
+    fixedExtension: true,
   },
   {
     entry: { backlog: 'src/index.ts' },
@@ -18,8 +14,9 @@ export default defineConfig([
     target: 'es2022',
     platform: 'browser',
     globalName: 'Backlog',
+    deps: { alwaysBundle: ['qs'] },
     minify: false,
-    outExtension() {
+    outExtensions() {
       return { js: '.js' };
     },
   },
@@ -29,8 +26,9 @@ export default defineConfig([
     target: 'es2022',
     platform: 'browser',
     globalName: 'Backlog',
+    deps: { alwaysBundle: ['qs'] },
     minify: true,
-    outExtension() {
+    outExtensions() {
       return { js: '.min.js' };
     },
   },
