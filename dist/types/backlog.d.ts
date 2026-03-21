@@ -1,12 +1,14 @@
 import * as Option from './option';
 import * as Entity from './entity';
 import Request from './request';
+import type { Fetch } from './types';
 export default class Backlog extends Request {
     constructor(configure: {
         host: string;
         apiKey?: string;
         accessToken?: string;
         timeout?: number;
+        fetch?: Fetch;
     });
     /**
      * https://developer.nulab.com/docs/backlog/api/2/get-space/

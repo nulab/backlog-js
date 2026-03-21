@@ -57,3 +57,4 @@ export declare enum CustomFieldType {
     Radio = 8
 }
 export type WebhookActivityId = number;
+export type Fetch = typeof fetch;

@@ -1,9 +1,11 @@
 import * as Option from './option';
 import * as Entity from './entity';
+import type { Fetch } from './types';
 export default class OAuth2 {
     private credentials;
     private timeout?;
-    constructor(credentials: Option.OAuth2.Credentials, timeout?: number);
+    private fetch?;
+    constructor(credentials: Option.OAuth2.Credentials, timeout?: number, fetch?: Fetch);
     getAuthorizationURL(options: {
         host: string;
         redirectUri?: string;

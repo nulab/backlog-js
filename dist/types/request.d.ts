@@ -1,10 +1,13 @@
+import type { Fetch } from './types';
 export default class Request {
     private configure;
+    private readonly fetch;
     constructor(configure: {
         host: string;
         apiKey?: string;
         accessToken?: string;
         timeout?: number;
+        fetch?: Fetch;
     });
     get<T>(path: string, params?: any): Promise<T>;
     post<T>(path: string, params?: any): Promise<T>;
