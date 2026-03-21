@@ -1,7 +1,6 @@
 npm-debug.log
 node_modules
-dist/test/
-dist/src/
+dist/
 coverage
 *~
 *.swp
