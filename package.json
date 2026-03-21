@@ -4,7 +4,7 @@
   "description": "Backlog API v2 client for browser and node",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "types": "dist/index.d.cts",
   "browser": "dist/backlog.iife.min.js",
   "exports": {
     ".": {
@@ -13,7 +13,7 @@
         "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
     }
