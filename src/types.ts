@@ -48,6 +48,12 @@ export enum ActivityType {
   MilestoneDeleted = 24,
   ProjectGroupAdded = 25,
   ProjectGroupDeleted = 26,
+  StatusDeleted = 34,
+  DocumentCreated = 36,
+  DocumentUpdated = 37,
+  DocumentDeleted = 38,
+  IssueMultiCreated = 47,
+  DocumentMultiCreated = 48,
 }
 
 export type IssueTypeColor =

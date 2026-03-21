@@ -304,7 +304,7 @@ export declare namespace Activity {
         number: number;
         summary: string;
         description: string;
-        comment: ActivityComment;
+        comment: ActivityComment | null;
         changes: PullRequestChange[];
         issue: PullRequestIssue | null;
         repository: GitRepository;

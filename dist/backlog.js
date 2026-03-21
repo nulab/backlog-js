@@ -1280,6 +1280,12 @@ var ActivityType;
     ActivityType[ActivityType["MilestoneDeleted"] = 24] = "MilestoneDeleted";
     ActivityType[ActivityType["ProjectGroupAdded"] = 25] = "ProjectGroupAdded";
     ActivityType[ActivityType["ProjectGroupDeleted"] = 26] = "ProjectGroupDeleted";
+    ActivityType[ActivityType["StatusDeleted"] = 34] = "StatusDeleted";
+    ActivityType[ActivityType["DocumentCreated"] = 36] = "DocumentCreated";
+    ActivityType[ActivityType["DocumentUpdated"] = 37] = "DocumentUpdated";
+    ActivityType[ActivityType["DocumentDeleted"] = 38] = "DocumentDeleted";
+    ActivityType[ActivityType["IssueMultiCreated"] = 47] = "IssueMultiCreated";
+    ActivityType[ActivityType["DocumentMultiCreated"] = 48] = "DocumentMultiCreated";
 })(ActivityType || (exports.ActivityType = ActivityType = {}));
 var CustomFieldType;
 (function (CustomFieldType) {
