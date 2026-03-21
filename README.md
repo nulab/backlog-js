@@ -14,8 +14,6 @@ $ npm install --save backlog-js
 Append your "API Key" or "OAuth2 Access Token" to requests to the API to return data.
 
 ``` javascript
-import 'isomorphic-form-data';
-import 'isomorphic-fetch';
 import * as backlogjs from 'backlog-js';
 
 // 'xxx.backlog.jp' or 'xxx.backlogtool.com' or 'your package host'
