@@ -1280,6 +1280,7 @@ var ActivityType;
     ActivityType[ActivityType["MilestoneDeleted"] = 24] = "MilestoneDeleted";
     ActivityType[ActivityType["ProjectGroupAdded"] = 25] = "ProjectGroupAdded";
     ActivityType[ActivityType["ProjectGroupDeleted"] = 26] = "ProjectGroupDeleted";
+    ActivityType[ActivityType["IssuesDatesUpdated"] = 35] = "IssuesDatesUpdated";
     ActivityType[ActivityType["StatusDeleted"] = 34] = "StatusDeleted";
     ActivityType[ActivityType["DocumentCreated"] = 36] = "DocumentCreated";
     ActivityType[ActivityType["DocumentDeleted"] = 37] = "DocumentDeleted";

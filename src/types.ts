@@ -48,6 +48,7 @@ export enum ActivityType {
   MilestoneDeleted = 24,
   ProjectGroupAdded = 25,
   ProjectGroupDeleted = 26,
+  IssuesDatesUpdated = 35,
   StatusDeleted = 34,
   DocumentCreated = 36,
   DocumentDeleted = 37,
