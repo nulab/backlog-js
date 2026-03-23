@@ -1,7 +1,5 @@
 npm-debug.log
 node_modules
-dist/test/
-dist/src/
 coverage
 *~
 *.swp
@@ -9,9 +7,3 @@ coverage
 tmux-*.log
 .env
 typings
-src/**/*.js
-src/**/*.js.map
-src/**/*.d.ts
-test/**/*.js
-test/**/*.js.map
-test/**/*.d.ts
