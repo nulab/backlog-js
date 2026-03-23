@@ -6,8 +6,27 @@ on:
       - "**"
 
 jobs:
-  test:
+  build:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 22.x
+    - name: Run npm ci
+      run: npm ci
+    - name: Run build
+      run: npm run build
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/
+
+  test:
+    needs: build
     runs-on: ubuntu-latest
 
     strategy:
@@ -22,5 +41,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Run npm ci
       run: npm ci
+    - name: Download build artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist/
     - name: Run test
-      run: npm run build && npm test
+      run: npm test
