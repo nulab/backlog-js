@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - "**"
+      - master
   pull_request:
 
 jobs:
@@ -15,20 +15,14 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v6
       with:
-        node-version: lts/*
+        node-version: 22
         cache: npm
     - name: Run npm ci
       run: npm ci
     - name: Run build
       run: npm run build
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v7
-      with:
-        name: dist
-        path: dist/
 
   test:
-    needs: build
     runs-on: ubuntu-latest
 
     strategy:
@@ -44,10 +38,5 @@ jobs:
         cache: npm
     - name: Run npm ci
       run: npm ci
-    - name: Download build artifacts
-      uses: actions/download-artifact@v8
-      with:
-        name: dist
-        path: dist/
     - name: Run test
       run: npm test
