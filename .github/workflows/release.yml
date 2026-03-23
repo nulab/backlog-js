@@ -113,7 +113,7 @@ jobs:
 
       - name: Publish to npm
         run: |
-          flags="--provenance --access public --no-git-checks"
+          flags="--provenance --access public"
           if [ "$DRY_RUN" = "true" ]; then
             flags="$flags --dry-run"
           fi
