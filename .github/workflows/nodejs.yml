@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Use Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v6
       with:
         node-version: lts/*
     - name: Run npm ci
@@ -20,7 +20,7 @@ jobs:
     - name: Run build
       run: npm run build
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: dist
         path: dist/
@@ -34,15 +34,15 @@ jobs:
         node-version: [18.x, 20.x, 22.x, 24.x]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
     - name: Run npm ci
       run: npm ci
     - name: Download build artifacts
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v8
       with:
         name: dist
         path: dist/
