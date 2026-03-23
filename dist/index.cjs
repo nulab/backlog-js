@@ -1213,6 +1213,20 @@ let ActivityType = /* @__PURE__ */ function(ActivityType) {
 	ActivityType[ActivityType["MilestoneDeleted"] = 24] = "MilestoneDeleted";
 	ActivityType[ActivityType["ProjectGroupAdded"] = 25] = "ProjectGroupAdded";
 	ActivityType[ActivityType["ProjectGroupDeleted"] = 26] = "ProjectGroupDeleted";
+	ActivityType[ActivityType["IssuesDatesUpdated"] = 35] = "IssuesDatesUpdated";
+	ActivityType[ActivityType["StatusDeleted"] = 34] = "StatusDeleted";
+	ActivityType[ActivityType["DocumentCreated"] = 36] = "DocumentCreated";
+	ActivityType[ActivityType["DocumentDeleted"] = 37] = "DocumentDeleted";
+	ActivityType[ActivityType["DocumentTitleUpdated"] = 38] = "DocumentTitleUpdated";
+	ActivityType[ActivityType["DocumentCommentCreated"] = 40] = "DocumentCommentCreated";
+	ActivityType[ActivityType["DocumentCommentUpdated"] = 41] = "DocumentCommentUpdated";
+	ActivityType[ActivityType["DocumentCommentDeleted"] = 42] = "DocumentCommentDeleted";
+	ActivityType[ActivityType["DocumentCommentReplyCreated"] = 43] = "DocumentCommentReplyCreated";
+	ActivityType[ActivityType["DocumentCommentReplyUpdated"] = 44] = "DocumentCommentReplyUpdated";
+	ActivityType[ActivityType["DocumentCommentReplyDeleted"] = 45] = "DocumentCommentReplyDeleted";
+	ActivityType[ActivityType["DocumentAttachmentCreated"] = 46] = "DocumentAttachmentCreated";
+	ActivityType[ActivityType["IssueMultiCreated"] = 47] = "IssueMultiCreated";
+	ActivityType[ActivityType["DocumentMultiCreated"] = 48] = "DocumentMultiCreated";
 	return ActivityType;
 }({});
 let CustomFieldType = /* @__PURE__ */ function(CustomFieldType) {

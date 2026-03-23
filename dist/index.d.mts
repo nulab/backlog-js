@@ -48,7 +48,21 @@ declare enum ActivityType {
   MilestoneUpdated = 23,
   MilestoneDeleted = 24,
   ProjectGroupAdded = 25,
-  ProjectGroupDeleted = 26
+  ProjectGroupDeleted = 26,
+  IssuesDatesUpdated = 35,
+  StatusDeleted = 34,
+  DocumentCreated = 36,
+  DocumentDeleted = 37,
+  DocumentTitleUpdated = 38,
+  DocumentCommentCreated = 40,
+  DocumentCommentUpdated = 41,
+  DocumentCommentDeleted = 42,
+  DocumentCommentReplyCreated = 43,
+  DocumentCommentReplyUpdated = 44,
+  DocumentCommentReplyDeleted = 45,
+  DocumentAttachmentCreated = 46,
+  IssueMultiCreated = 47,
+  DocumentMultiCreated = 48
 }
 type IssueTypeColor = "#e30000" | "#990000" | "#934981" | "#814fbc" | "#2779ca" | "#007e9a" | "#7ea800" | "#ff9200" | "#ff3265" | "#666665";
 type ProjectStatusColor = "#ea2c00" | "#e87758" | "#e07b9a" | "#868cb7" | "#3b9dbd" | "#4caf93" | "#b0be3c" | "#eda62a" | "#f42858" | "#393939";
@@ -503,7 +517,7 @@ declare namespace OAuth2$2 {
   }
 }
 declare namespace entity_d_exports {
-  export { Activity, ChangeLog, CommentNotification, DiskUsage, Document, File, Git, Issue, License, Notification, OAuth2$1 as OAuth2, Project, PullRequest, RateLimit, Space, Star, Team, User, WatchingList, Webhook, Wiki };
+  export { Activity, ChangeLog, CommentNotification, CustomFieldValue, DiskUsage, Document, File, Git, Issue, License, Notification, OAuth2$1 as OAuth2, Project, PullRequest, RateLimit, Space, Star, Team, User, WatchingList, Webhook, Wiki };
 }
 declare namespace File {
   type FileData = NodeFileData | BrowserFileData;
@@ -611,6 +625,16 @@ declare namespace Project {
     archived: boolean;
     displayOrder: number;
   }
+  interface CustomFieldItem {
+    id: number;
+    name: string;
+    displayOrder: number;
+  }
+  interface CustomFieldInitialDate {
+    id: number;
+    shift?: number;
+    date?: string;
+  }
   interface CustomField {
     id: number;
     projectId: number;
@@ -618,8 +642,18 @@ declare namespace Project {
     name: string;
     description: string;
     required: boolean;
+    useIssueType: boolean;
     applicableIssueTypes: number[];
-    [key: string]: any;
+    displayOrder: number;
+    version: number;
+    min?: number | string | null;
+    max?: number | string | null;
+    initialValue?: number | null;
+    unit?: string | null;
+    initialDate?: CustomFieldInitialDate | null;
+    items?: CustomFieldItem[];
+    allowAddItem?: boolean;
+    allowInput?: boolean;
   }
   interface SharedFile {
     id: number;
@@ -646,11 +680,198 @@ declare namespace User {
   }
 }
 declare namespace Activity {
+  interface ActivityChange {
+    field: string;
+    field_text: string;
+    new_value: string;
+    old_value: string;
+    type: string;
+  }
+  interface ActivityAttachment {
+    id: number;
+    name: string;
+    size: number;
+  }
+  interface ActivitySharedFile {
+    id: number;
+    dir: string;
+    name: string;
+    size: number;
+  }
+  interface ActivityExternalFileLink {
+    name: string;
+    url: string;
+  }
+  interface ActivityComment {
+    id: number;
+    content: string;
+  }
+  interface IssueCreatedContent {
+    id: number;
+    key_id: number;
+    summary: string;
+    description: string;
+  }
+  interface IssueContent {
+    id: number;
+    key_id: number;
+    summary: string;
+    description: string;
+    comment: ActivityComment;
+    changes: ActivityChange[];
+    attachments: ActivityAttachment[];
+    shared_files: ActivitySharedFile[];
+    external_file_links: ActivityExternalFileLink[];
+  }
+  interface IssueDeletedContent {
+    id: number;
+    key_id: number;
+  }
+  interface MultiUpdateLink {
+    id: number;
+    key_id: number;
+    title: string;
+    comment: ActivityComment;
+  }
+  interface MultiUpdateChange {
+    field: string;
+    new_value: string;
+    type: string;
+  }
+  interface IssueMultiUpdateContent {
+    tx_id: number;
+    comment: {
+      content: string;
+    };
+    link: MultiUpdateLink[];
+    changes: MultiUpdateChange[];
+  }
+  interface IssueMultiCreatedLink {
+    id: number;
+    key_id: number;
+    title: string;
+  }
+  interface IssueMultiCreatedContent {
+    link: IssueMultiCreatedLink[];
+  }
+  interface WikiAttachment {
+    id: number;
+    name: string;
+    size: number;
+  }
+  interface WikiContent {
+    id: number;
+    name: string;
+    content: string;
+    diff: string;
+    version: number;
+    attachments: WikiAttachment[];
+    shared_files: ActivitySharedFile[];
+  }
+  interface FileContent {
+    id: number;
+    dir: string;
+    name: string;
+    size: number;
+  }
+  interface SvnContent {
+    rev: string;
+    comment: string;
+  }
+  interface GitRevision {
+    rev: string;
+    comment: string;
+  }
+  interface GitRepository {
+    id: number;
+    name: string;
+    description: string;
+  }
+  interface GitPushedContent {
+    repository: GitRepository;
+    change_type: string;
+    revision_type: string;
+    ref: string;
+    revision_count: number;
+    revisions: GitRevision[];
+  }
+  interface GitRepositoryCreatedContent {
+    repository: GitRepository;
+  }
+  interface ProjectMemberUpdatedContent {
+    users: User.User[];
+    group_project_activities: {
+      id: number;
+      type: number;
+    }[];
+    comment: string;
+  }
+  interface PullRequestChange {
+    field: string;
+    new_value: string;
+    old_value: string;
+  }
+  interface PullRequestIssue {
+    id: number;
+    key_id: number;
+    issue_key?: string;
+    summary: string;
+    description: string;
+  }
+  interface PullRequestContent {
+    id: number;
+    number: number;
+    summary: string;
+    description: string;
+    comment: ActivityComment | null;
+    changes: PullRequestChange[];
+    issue: PullRequestIssue | null;
+    repository: GitRepository;
+  }
+  interface VersionContent {
+    id: number;
+    name: string;
+    start_date: string;
+    reference_date: string;
+    description: string;
+  }
+  interface VersionChange {
+    field: string;
+    new_value: string;
+    old_value: string;
+  }
+  interface VersionUpdatedContent {
+    id: number;
+    name: string;
+    changes: VersionChange[];
+  }
+  interface TeamSnapshot {
+    id: number;
+    name: string;
+  }
+  interface ProjectTeamContent {
+    parties: TeamSnapshot[];
+  }
+  interface StatusDeletedContent {
+    deletedStatus: {
+      name: string;
+    };
+    link: IssueMultiCreatedLink[];
+    change: MultiUpdateChange | null;
+  }
+  interface DocumentContent {
+    id: string;
+    title: string;
+  }
+  interface DocumentMultiContent {
+    documents: DocumentContent[];
+  }
+  type ActivityContent = IssueCreatedContent | IssueContent | IssueDeletedContent | IssueMultiUpdateContent | IssueMultiCreatedContent | WikiContent | FileContent | SvnContent | GitPushedContent | GitRepositoryCreatedContent | ProjectMemberUpdatedContent | PullRequestContent | VersionContent | VersionUpdatedContent | ProjectTeamContent | StatusDeletedContent | DocumentContent | DocumentMultiContent;
   interface Activity {
     id: number;
     project: Project.Project;
     type: ActivityType;
-    content: any;
+    content: ActivityContent;
     notifications: [];
     createdUser: User.User;
     created: string;
@@ -721,6 +942,58 @@ declare namespace Document {
     trashTree?: ActiveTrashTree;
   }
 }
+declare namespace CustomFieldValue {
+  interface CustomFieldValueItem {
+    id: number;
+    name: string;
+    displayOrder: number;
+  }
+  interface TextCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.Text | CustomFieldType.TextArea;
+    name: string;
+    value: string | null;
+  }
+  interface NumericCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.Numeric;
+    name: string;
+    value: number | null;
+  }
+  interface DateCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.Date;
+    name: string;
+    value: string | null;
+  }
+  interface SingleListCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.SingleList;
+    name: string;
+    value: CustomFieldValueItem | null;
+  }
+  interface MultipleListCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.MultipleList;
+    name: string;
+    value: CustomFieldValueItem[];
+  }
+  interface CheckBoxCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.CheckBox;
+    name: string;
+    value: CustomFieldValueItem[];
+    otherValue: string | null;
+  }
+  interface RadioCustomFieldValue {
+    id: number;
+    fieldTypeId: CustomFieldType.Radio;
+    name: string;
+    value: CustomFieldValueItem | null;
+    otherValue: string | null;
+  }
+  type CustomFieldValue = TextCustomFieldValue | NumericCustomFieldValue | DateCustomFieldValue | SingleListCustomFieldValue | MultipleListCustomFieldValue | CheckBoxCustomFieldValue | RadioCustomFieldValue;
+}
 declare namespace Issue {
   interface IssueType {
     id: number;
@@ -763,7 +1036,7 @@ declare namespace Issue {
     created: string;
     updatedUser: User.User;
     updated: string;
-    customFields: Project.CustomField[];
+    customFields: CustomFieldValue.CustomFieldValue[];
     attachments: File.IssueFileInfo[];
     sharedFiles: Project.SharedFile[];
     stars: Star.Star[];
