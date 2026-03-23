@@ -55,8 +55,10 @@ var UnexpectedError = class extends BacklogError {
 //#endregion
 //#region src/request.ts
 var Request = class {
+	fetch;
 	constructor(configure) {
 		this.configure = configure;
+		this.fetch = configure.fetch ?? globalThis.fetch;
 	}
 	get(path, params) {
 		return this.request({
@@ -112,7 +114,7 @@ var Request = class {
 		else Object.keys(params).forEach((key) => query[key] = params[key]);
 		const queryStr = this.toQueryString(query);
 		const url = `${this.restBaseURL}/${path}` + (queryStr.length > 0 ? `?${queryStr}` : "");
-		return fetch(url, init).then(this.checkStatus);
+		return this.fetch(url, init).then(this.checkStatus);
 	}
 	checkStatus(response) {
 		return new Promise((resolve, reject) => {
@@ -1075,9 +1077,10 @@ var Backlog = class extends Request {
 //#endregion
 //#region src/oauth2.ts
 var OAuth2 = class {
-	constructor(credentials, timeout) {
+	constructor(credentials, timeout, fetch) {
 		this.credentials = credentials;
 		this.timeout = timeout;
+		this.fetch = fetch;
 	}
 	getAuthorizationURL(options) {
 		const params = {
@@ -1091,7 +1094,8 @@ var OAuth2 = class {
 	getAccessToken(options) {
 		return new Request({
 			host: options.host,
-			timeout: this.timeout
+			timeout: this.timeout,
+			fetch: this.fetch
 		}).post("oauth2/token", {
 			grant_type: "authorization_code",
 			code: options.code,
@@ -1103,7 +1107,8 @@ var OAuth2 = class {
 	refreshAccessToken(options) {
 		return new Request({
 			host: options.host,
-			timeout: this.timeout
+			timeout: this.timeout,
+			fetch: this.fetch
 		}).post("oauth2/token", {
 			grant_type: "refresh_token",
 			client_id: this.credentials.clientId,

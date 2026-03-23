@@ -1,12 +1,14 @@
 import Request from './request';
 import * as Option from './option';
 import * as Entity from './entity';
+import type { Fetch } from './types';
 
 export default class OAuth2 {
 
   public constructor(
     private credentials: Option.OAuth2.Credentials,
-    private timeout?: number
+    private timeout?: number,
+    private fetch?: Fetch
   ) { }
 
   public getAuthorizationURL(options: {
@@ -29,7 +31,7 @@ export default class OAuth2 {
     host: string, code: string, redirectUri?: string
   }): Promise<Entity.OAuth2.AccessToken> {
     return new Request({
-      host: options.host, timeout: this.timeout
+      host: options.host, timeout: this.timeout, fetch: this.fetch
     }).post<Entity.OAuth2.AccessToken>('oauth2/token', {
       grant_type: 'authorization_code',
       code: options.code,
@@ -43,7 +45,7 @@ export default class OAuth2 {
     host: string, refreshToken: string
   }): Promise<Entity.OAuth2.AccessToken> {
     return new Request({
-      host: options.host, timeout: this.timeout
+      host: options.host, timeout: this.timeout, fetch: this.fetch
     }).post<Entity.OAuth2.AccessToken>('oauth2/token', {
         grant_type: "refresh_token",
         client_id: this.credentials.clientId,
