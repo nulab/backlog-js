@@ -3,8 +3,8 @@ import * as dotenv from 'dotenv';
 import * as backlogjs from '../src/index';
 import * as Fixtures from './fixtures/index';
 import { mockRequest, mockPrepare, mockCleanup } from './mock';
-import 'isomorphic-form-data';
-import 'isomorphic-fetch';
+
+
 import { before, after } from 'mocha';
 
 dotenv.config();
