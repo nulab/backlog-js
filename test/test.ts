@@ -382,3 +382,68 @@ describe("Backlog API", () => {
     });
   });
 });
+
+describe("Custom fetch option", () => {
+  it('should use the provided fetch function instead of global fetch', done => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.space), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
+    client.getSpace().then(data => {
+      assert(capturedUrl !== undefined);
+      assert(capturedUrl!.includes('/api/v2/space'));
+      assert.deepEqual(data, Fixtures.space);
+      done();
+    }).catch(err => {
+      throw err;
+    });
+  });
+
+  it('should use the provided fetch function in OAuth2.getAccessToken', done => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.access_token), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
+    oauth2.getAccessToken({ host, code }).then(data => {
+      assert(capturedUrl !== undefined);
+      assert(capturedUrl!.includes('/api/v2/oauth2/token'));
+      assert.deepEqual(data, Fixtures.access_token);
+      done();
+    }).catch(err => {
+      throw err;
+    });
+  });
+
+  it('should use the provided fetch function in OAuth2.refreshAccessToken', done => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.access_token), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
+    oauth2.refreshAccessToken({ host, refreshToken }).then(data => {
+      assert(capturedUrl !== undefined);
+      assert(capturedUrl!.includes('/api/v2/oauth2/token'));
+      assert.deepEqual(data, Fixtures.access_token);
+      done();
+    }).catch(err => {
+      throw err;
+    });
+  });
+});
