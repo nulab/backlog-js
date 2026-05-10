@@ -141,6 +141,24 @@ app.listen(3000);
 console.log('Express server started on port 3000');
 ````
 
+## HTTP proxy support
+
+You can route requests through an HTTP proxy by injecting a custom `fetch` function
+into `Backlog` and `OAuth2` constructors.
+
+```javascript
+import { Backlog } from 'backlog-js';
+import { ProxyAgent, fetch as undiciFetch } from 'undici';
+
+const dispatcher = new ProxyAgent('https://proxy.example.com:8080');
+
+const backlog = new Backlog({
+  host: 'example.backlog.com',
+  apiKey: 'YOUR_API_KEY',
+  fetch: (input, init) => undiciFetch(input, { ...init, dispatcher }),
+});
+```
+
 ## License
 
 MIT License
