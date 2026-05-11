@@ -1,24 +1,16 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
-        "module": "ESNext",
-        "lib": ["DOM", "ES2020"],
+        "target": "es2022",
+        "lib": ["dom", "es2022"],
+        "module": "es2022",
         "moduleResolution": "bundler",
-        "outDir": "dist",
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": false,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "strict": false,
+        "noEmit": true,
         "noImplicitAny": false,
-        "noEmitOnError": false,
-        "types": ["vitest/globals", "node"]
+        "esModuleInterop": true,
+        "skipLibCheck": true
     },
     "include": [
-        "src/**/*",
-        "test/**/*"
+        "src/**/*"
     ],
     "exclude": [
         "node_modules",

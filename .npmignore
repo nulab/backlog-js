@@ -1,7 +1,0 @@
-*
-!/package.json
-!/README.md
-!/CHANGELOG.md
-!/dist/backlog.js
-!/dist/backlog.min.js
-!/dist/types/*

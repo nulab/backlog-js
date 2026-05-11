@@ -2,15 +2,20 @@
   "name": "backlog-js",
   "version": "0.16.0",
   "description": "Backlog API v2 client for browser and node",
-  "type": "module",
-  "main": "dist/backlog.cjs",
-  "module": "dist/backlog.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.cts",
+  "browser": "dist/backlog.iife.min.js",
   "exports": {
     ".": {
-      "types": "./dist/types/index.d.ts",
-      "import": "./dist/backlog.js",
-      "require": "./dist/backlog.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
@@ -25,10 +30,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "clean": "rm -rf dist",
-    "build": "vite build",
-    "dev": "vite build --watch",
-    "typecheck": "tsc --noEmit",
+    "clean": "/bin/rm -rf dist",
+    "build": "npm run clean && tsdown",
+    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js",
     "changelog": "ghch -w -F markdown -N ${VERSION}"
   },
   "author": "vvatanabe",
@@ -38,19 +42,15 @@
   },
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
-    "@types/isomorphic-fetch": "0.0.39",
     "@types/nock": "^10.0.3",
     "@types/node": "^25.2.3",
     "@types/qs": "^6.9.15",
     "coveralls": "^3.1.1",
     "dotenv": "^16.4.5",
-    "isomorphic-fetch": "^3.0.0",
-    "isomorphic-form-data": "^2.0.0",
     "nock": "^13.5.4",
+    "tsdown": "^0.21.1",
     "typescript": "^5.5.2",
     "undici": "^6.19.2",
-    "vite": "^7.3.1",
-    "vite-plugin-dts": "^4.5.4",
     "vitest": "^4.0.18"
   },
   "keywords": [

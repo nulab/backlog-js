@@ -3,24 +3,40 @@ name: CI
 on:
   push:
     branches:
-      - "**"
+      - master
+  pull_request:
 
 jobs:
-  test:
+  build:
+    runs-on: ubuntu-latest
 
+    steps:
+    - uses: actions/checkout@v6
+    - name: Use Node.js
+      uses: actions/setup-node@v6
+      with:
+        node-version: 22
+        cache: npm
+    - name: Run npm ci
+      run: npm ci
+    - name: Run build
+      run: npm run build
+
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [18.x, 20.x, 22.x, 24.x]
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
+        cache: npm
     - name: Run npm ci
       run: npm ci
     - name: Run test
-      run: npm run build && npm test
+      run: npm test
