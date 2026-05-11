@@ -37,7 +37,6 @@ describe("OAuth2 API", () => {
       method: "POST",
       path: "/api/v2/oauth2/token",
       body: body => {
-        debugger;
         return JSON.stringify(body) === JSON.stringify({
           grant_type: 'authorization_code',
           code: code,
@@ -268,9 +267,7 @@ describe("Backlog API", () => {
       times: 1,
     });
     const data = await backlog.downloadDocumentAttachment(documentId, attachmentId);
-    if ('filename' in data) {
-      expect(data.filename).toBe("test.png");
-    }
+    expect(data).toHaveProperty('filename', 'test.png');
   });
 
   it('should add a document.', async () => {

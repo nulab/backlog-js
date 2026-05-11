@@ -41,7 +41,6 @@
     "qs": "^6.12.1"
   },
   "devDependencies": {
-    "@types/dotenv": "^6.1.1",
     "@types/nock": "^10.0.3",
     "@types/node": "^25.2.3",
     "@types/qs": "^6.9.15",
