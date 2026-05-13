@@ -1,4 +1,5 @@
 import { describe, it, beforeEach, afterEach, expect } from 'vitest';
+import * as qs from 'qs';
 import * as backlogjs from '../src/index';
 import * as Fixtures from './fixtures/index';
 import { mockRequest, mockPrepare, mockCleanup } from './mock';
@@ -37,18 +38,13 @@ describe('OAuth2 API', () => {
     mockRequest({
       method: 'POST',
       path: '/api/v2/oauth2/token',
-      body: (body) => {
-        return (
-          JSON.stringify(body) ===
-          JSON.stringify({
-            grant_type: 'authorization_code',
-            code: code,
-            client_id: clientId,
-            client_secret: clientSecret,
-            redirect_uri: redirectUri,
-          })
-        );
-      },
+      body: qs.stringify({
+        grant_type: 'authorization_code',
+        code: code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: redirectUri,
+      }),
       status: 200,
       data: Fixtures.access_token,
       times: 1,
@@ -65,14 +61,12 @@ describe('OAuth2 API', () => {
     mockRequest({
       method: 'POST',
       path: '/api/v2/oauth2/token',
-      body: (body) =>
-        JSON.stringify(body) ===
-        JSON.stringify({
-          grant_type: 'refresh_token',
-          client_id: clientId,
-          client_secret: clientSecret,
-          refresh_token: refreshToken,
-        }),
+      body: qs.stringify({
+        grant_type: 'refresh_token',
+        client_id: clientId,
+        client_secret: clientSecret,
+        refresh_token: refreshToken,
+      }),
       status: 200,
       data: Fixtures.access_token,
       times: 1,

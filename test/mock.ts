@@ -1,15 +1,15 @@
 import * as qs from "qs";
-import { setGlobalDispatcher, MockAgent, Interceptable } from "undici";
+import { setGlobalDispatcher, getGlobalDispatcher, MockAgent, Interceptable, Dispatcher } from "undici";
 
 let undiciInterceptable: Interceptable;
-
-type BodyMatcher = (body: string | Record<string, any>) => boolean;
+let mockAgent: MockAgent;
+let previousDispatcher: Dispatcher;
 
 interface MockParams {
   method: "GET" | "POST" | "DELETE";
   path: string;
   query?: Record<string, any>;
-  body?: BodyMatcher;
+  body?: string;
   status: number;
   data: any;
   headers?: Record<string, any>;
@@ -17,14 +17,15 @@ interface MockParams {
 }
 
 export const mockRequest = ({
-  path, method, query, status, data, headers, times
+  path, method, query, body, status, data, headers, times
 }: MockParams) => {
   const queryStr = qs.stringify(query, { arrayFormat: 'brackets' });
-  const newPath = `${path}?${queryStr}`
+  const newPath = queryStr ? `${path}?${queryStr}` : path;
 
   const interceptor = undiciInterceptable.intercept({
     method,
     path: newPath,
+    ...(body !== undefined && { body }),
   });
 
   interceptor
@@ -33,11 +34,14 @@ export const mockRequest = ({
 };
 
 export const mockPrepare = (host: string) => {
-  const mockAgent = new MockAgent();
+  previousDispatcher = getGlobalDispatcher();
+  mockAgent = new MockAgent();
   setGlobalDispatcher(mockAgent);
   undiciInterceptable = mockAgent.get(host);
 };
 
 export const mockCleanup = () => {
   undiciInterceptable.close();
+  mockAgent.close();
+  setGlobalDispatcher(previousDispatcher);
 };
