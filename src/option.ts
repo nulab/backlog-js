@@ -149,6 +149,7 @@
       chartEnabled: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
       subtaskingEnabled: boolean;
+      grandchildIssueEnabled?: boolean;
       textFormattingRule: Types.TextFormattingRule;
     }
 
@@ -157,6 +158,7 @@
       key?: string;
       chartEnabled?: boolean;
       subtaskingEnabled?: boolean;
+      grandchildIssueEnabled?: boolean;
       projectLeaderCanEditProjectLeader?: boolean;
       textFormattingRule?: Types.TextFormattingRule;
       archived?: boolean;
@@ -385,6 +387,7 @@
       order?: Order;
       offset?: number;
       count?: number;
+      expand?: IssueExpand[];
       createdSince?: string;
       createdUntil?: string;
       updatedSince?: string;
@@ -401,8 +404,20 @@
     }
 
     export enum ParentChildType {
-      All = 0, NotChild = 1, Child = 2, NotChildNotParent = 3, Parent = 4
+      All = 0,
+      NotChild = 1,
+      Child = 2,
+      NotChildNotParent = 3,
+      Parent = 4,
+      GrandchildIssue = 5,
+      ChildIssue = 6,
+      ParentIssue = 7,
+      ExcludeGrandchild = 8,
+      ExcludeGrandparent = 9,
+      LeafIssue = 10
     }
+
+    export type IssueExpand = "childIssueSummary";
 
     export type SortKey =
       "issueType" |

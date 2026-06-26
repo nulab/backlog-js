@@ -200,6 +200,7 @@ declare namespace Project$1 {
     chartEnabled: boolean;
     projectLeaderCanEditProjectLeader?: boolean;
     subtaskingEnabled: boolean;
+    grandchildIssueEnabled?: boolean;
     textFormattingRule: TextFormattingRule;
   }
   interface PatchProjectParams {
@@ -207,6 +208,7 @@ declare namespace Project$1 {
     key?: string;
     chartEnabled?: boolean;
     subtaskingEnabled?: boolean;
+    grandchildIssueEnabled?: boolean;
     projectLeaderCanEditProjectLeader?: boolean;
     textFormattingRule?: TextFormattingRule;
     archived?: boolean;
@@ -403,6 +405,7 @@ declare namespace Issue$1 {
     order?: Order;
     offset?: number;
     count?: number;
+    expand?: IssueExpand[];
     createdSince?: string;
     createdUntil?: string;
     updatedSince?: string;
@@ -422,8 +425,15 @@ declare namespace Issue$1 {
     NotChild = 1,
     Child = 2,
     NotChildNotParent = 3,
-    Parent = 4
+    Parent = 4,
+    GrandchildIssue = 5,
+    ChildIssue = 6,
+    ParentIssue = 7,
+    ExcludeGrandchild = 8,
+    ExcludeGrandparent = 9,
+    LeafIssue = 10
   }
+  type IssueExpand = "childIssueSummary";
   type SortKey = "issueType" | "category" | "version" | "milestone" | "summary" | "status" | "priority" | "attachment" | "sharedFile" | "created" | "createdUser" | "updated" | "updatedUser" | "assignee" | "startDate" | "dueDate" | "estimatedHours" | "actualHours" | "childIssue";
   interface GetIssueCommentsParams {
     minId?: number;
@@ -597,6 +607,7 @@ declare namespace Project {
     archived: boolean;
     displayOrder: number;
     useDevAttributes: boolean;
+    grandchildIssueEnabled: boolean;
   }
   interface RecentlyViewedProject {
     project: Project;
@@ -1040,6 +1051,11 @@ declare namespace Issue {
     attachments: File.IssueFileInfo[];
     sharedFiles: Project.SharedFile[];
     stars: Star.Star[];
+    childIssueSummary?: ChildIssueSummary;
+  }
+  interface ChildIssueSummary {
+    total: number;
+    closed: number;
   }
   interface RecentlyViewedIssue {
     issue: Issue;
@@ -1282,6 +1298,7 @@ declare namespace License {
     fileSharing: boolean;
     gantt: boolean;
     git: boolean;
+    grandchildIssueEnabled: boolean;
     issueLimit: number;
     licenceTypeId: number;
     limitDate: string;

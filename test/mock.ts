@@ -6,7 +6,7 @@ let mockAgent: MockAgent;
 let previousDispatcher: Dispatcher;
 
 interface MockParams {
-  method: "GET" | "POST" | "DELETE";
+  method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   path: string;
   query?: Record<string, any>;
   body?: string;

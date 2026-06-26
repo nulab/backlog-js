@@ -93,6 +93,7 @@ export namespace Project {
     archived: boolean;
     displayOrder: number;
     useDevAttributes: boolean;
+    grandchildIssueEnabled: boolean;
   }
 
   export interface RecentlyViewedProject {
@@ -625,6 +626,12 @@ export namespace Issue {
     attachments: File.IssueFileInfo[];
     sharedFiles: Project.SharedFile[];
     stars: Star.Star[];
+    childIssueSummary?: ChildIssueSummary;
+  }
+
+  export interface ChildIssueSummary {
+    total: number;
+    closed: number;
   }
 
   export interface RecentlyViewedIssue {
@@ -898,6 +905,7 @@ export namespace License {
     fileSharing: boolean;
     gantt: boolean;
     git: boolean;
+    grandchildIssueEnabled: boolean;
     issueLimit: number;
     licenceTypeId: number;
     limitDate: string;

@@ -178,6 +178,110 @@ describe('Backlog API', () => {
     expect(data).toEqual(Fixtures.projects);
   });
 
+  it('should add a project with grandchildIssueEnabled.', async () => {
+    const params: backlogjs.Option.Project.PostProjectParams = {
+      name: 'test',
+      key: 'TEST',
+      chartEnabled: false,
+      subtaskingEnabled: true,
+      grandchildIssueEnabled: true,
+      textFormattingRule: 'markdown',
+    };
+    mockRequest({
+      method: 'POST',
+      path: '/api/v2/projects',
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.project,
+      times: 1,
+    });
+    const data = await backlog.postProject(params);
+    expect(data).toEqual(Fixtures.project);
+    expect(data.grandchildIssueEnabled).toBe(true);
+  });
+
+  it('should update a project with grandchildIssueEnabled.', async () => {
+    const params: backlogjs.Option.Project.PatchProjectParams = {
+      grandchildIssueEnabled: true,
+    };
+    mockRequest({
+      method: 'PATCH',
+      path: '/api/v2/projects/TEST',
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.project,
+      times: 1,
+    });
+    const data = await backlog.patchProject('TEST', params);
+    expect(data.grandchildIssueEnabled).toBe(true);
+  });
+
+  it('should get a project with grandchildIssueEnabled.', async () => {
+    mockRequest({
+      method: 'GET',
+      path: '/api/v2/projects/TEST',
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.project,
+      times: 1,
+    });
+    const data = await backlog.getProject('TEST');
+    expect(data).toEqual(Fixtures.project);
+    expect(data.grandchildIssueEnabled).toBe(true);
+  });
+
+  it('should get the licence with grandchildIssueEnabled.', async () => {
+    mockRequest({
+      method: 'GET',
+      path: '/api/v2/space/licence',
+      query: { apiKey },
+      status: 200,
+      data: Fixtures.license,
+      times: 1,
+    });
+    const data = await backlog.getLicence();
+    expect(data).toEqual(Fixtures.license);
+    expect(data.grandchildIssueEnabled).toBe(true);
+  });
+
+  it('should get issues with childIssueSummary expand and grandchild parentChild type.', async () => {
+    const query = {
+      apiKey,
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      expand: ['childIssueSummary'],
+    };
+    const issue = {
+      id: 1,
+      projectId: 1,
+      issueKey: 'TEST-1',
+      keyId: 1,
+      summary: 'grandchild',
+      childIssueSummary: { total: 3, closed: 1 },
+    };
+    mockRequest({
+      method: 'GET',
+      path: '/api/v2/issues',
+      query,
+      status: 200,
+      data: [issue],
+      times: 1,
+    });
+    const data = await backlog.getIssues({
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      expand: ['childIssueSummary'],
+    });
+    expect(data).toEqual([issue]);
+    expect(data[0].childIssueSummary).toEqual({ total: 3, closed: 1 });
+  });
+
+  it('should serialize the expand parameter using bracket array format.', () => {
+    const query = (backlog as any).toQueryString({
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      expand: ['childIssueSummary'],
+    });
+    expect(query).toBe('parentChild=5&expand%5B%5D=childIssueSummary');
+  });
+
   it('should get space activities.', async () => {
     const query: backlogjs.Option.Space.GetActivitiesParams & {
       apiKey: string;
