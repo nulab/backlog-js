@@ -2,7 +2,7 @@ import { PassThrough } from "stream";
 
 //#region \0rolldown/runtime.js
 declare namespace types_d_exports {
-  export { ActivityType, ClassicRoleType, CustomFieldType, IssueTypeColor, Language, NormalRoleType, ProjectStatusColor, RoleType, TextFormattingRule, WebhookActivityId };
+  export { ActivityType, ClassicRoleType, CustomFieldType, Fetch, IssueTypeColor, Language, NormalRoleType, ProjectStatusColor, RoleType, TextFormattingRule, WebhookActivityId };
 }
 type TextFormattingRule = "backlog" | "markdown";
 declare enum ClassicRoleType {
@@ -77,6 +77,7 @@ declare enum CustomFieldType {
   Radio = 8
 }
 type WebhookActivityId = number;
+type Fetch = typeof globalThis.fetch;
 declare namespace option_d_exports {
   export { Document$1 as Document, Issue$1 as Issue, Notification$1 as Notification, OAuth2$2 as OAuth2, Order, Project$1 as Project, PullRequest$1 as PullRequest, Space$1 as Space, Team$1 as Team, User$1 as User, WatchingList$1 as WatchingList, Wiki$1 as Wiki };
 }
@@ -1324,11 +1325,13 @@ declare namespace RateLimit {
 //#region src/request.d.ts
 declare class Request {
   private configure;
+  private readonly fetch;
   constructor(configure: {
     host: string;
     apiKey?: string;
     accessToken?: string;
     timeout?: number;
+    fetch?: Fetch;
   });
   get<T>(path: string, params?: any): Promise<T>;
   post<T>(path: string, params?: any): Promise<T>;
@@ -1357,6 +1360,7 @@ declare class Backlog extends Request {
     apiKey?: string;
     accessToken?: string;
     timeout?: number;
+    fetch?: Fetch;
   });
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-space/
@@ -1959,7 +1963,8 @@ declare class Backlog extends Request {
 declare class OAuth2 {
   private credentials;
   private timeout?;
-  constructor(credentials: OAuth2$2.Credentials, timeout?: number);
+  private fetch?;
+  constructor(credentials: OAuth2$2.Credentials, timeout?: number, fetch?: Fetch);
   getAuthorizationURL(options: {
     host: string;
     redirectUri?: string;
