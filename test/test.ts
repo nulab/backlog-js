@@ -331,7 +331,7 @@ describe('Backlog API', () => {
 });
 
 describe("Custom fetch option", () => {
-  it('should use the provided fetch function instead of global fetch', done => {
+  it('should use the provided fetch function instead of global fetch', async () => {
     let capturedUrl: string | undefined;
     const customFetch: typeof globalThis.fetch = (input, _init) => {
       capturedUrl = input as string;
@@ -342,17 +342,13 @@ describe("Custom fetch option", () => {
     };
 
     const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
-    client.getSpace().then(data => {
-      assert(capturedUrl !== undefined);
-      assert(capturedUrl!.includes('/api/v2/space'));
-      assert.deepEqual(data, Fixtures.space);
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    const data = await client.getSpace();
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/space')).toBe(true);
+    expect(data).toEqual(Fixtures.space);
   });
 
-  it('should use the provided fetch function in OAuth2.getAccessToken', done => {
+  it('should use the provided fetch function in OAuth2.getAccessToken', async () => {
     let capturedUrl: string | undefined;
     const customFetch: typeof globalThis.fetch = (input, _init) => {
       capturedUrl = input as string;
@@ -363,17 +359,13 @@ describe("Custom fetch option", () => {
     };
 
     const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
-    oauth2.getAccessToken({ host, code }).then(data => {
-      assert(capturedUrl !== undefined);
-      assert(capturedUrl!.includes('/api/v2/oauth2/token'));
-      assert.deepEqual(data, Fixtures.access_token);
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    const data = await oauth2.getAccessToken({ host, code });
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/oauth2/token')).toBe(true);
+    expect(data).toEqual(Fixtures.access_token);
   });
 
-  it('should use the provided fetch function in OAuth2.refreshAccessToken', done => {
+  it('should use the provided fetch function in OAuth2.refreshAccessToken', async () => {
     let capturedUrl: string | undefined;
     const customFetch: typeof globalThis.fetch = (input, _init) => {
       capturedUrl = input as string;
@@ -384,13 +376,9 @@ describe("Custom fetch option", () => {
     };
 
     const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
-    oauth2.refreshAccessToken({ host, refreshToken }).then(data => {
-      assert(capturedUrl !== undefined);
-      assert(capturedUrl!.includes('/api/v2/oauth2/token'));
-      assert.deepEqual(data, Fixtures.access_token);
-      done();
-    }).catch(err => {
-      throw err;
-    });
+    const data = await oauth2.refreshAccessToken({ host, refreshToken });
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/oauth2/token')).toBe(true);
+    expect(data).toEqual(Fixtures.access_token);
   });
 });
