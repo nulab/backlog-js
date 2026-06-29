@@ -14,8 +14,6 @@ $ npm install --save backlog-js
 Append your "API Key" or "OAuth2 Access Token" to requests to the API to return data.
 
 ``` javascript
-import 'isomorphic-form-data';
-import 'isomorphic-fetch';
 import * as backlogjs from 'backlog-js';
 
 // 'xxx.backlog.jp' or 'xxx.backlogtool.com' or 'your package host'
@@ -142,6 +140,24 @@ app.listen(3000);
 
 console.log('Express server started on port 3000');
 ````
+
+## HTTP proxy support
+
+You can route requests through an HTTP proxy by injecting a custom `fetch` function
+into `Backlog` and `OAuth2` constructors.
+
+```javascript
+import { Backlog } from 'backlog-js';
+import { ProxyAgent, fetch as undiciFetch } from 'undici';
+
+const dispatcher = new ProxyAgent('https://proxy.example.com:8080');
+
+const backlog = new Backlog({
+  host: 'example.backlog.com',
+  apiKey: 'YOUR_API_KEY',
+  fetch: (input, init) => undiciFetch(input, { ...init, dispatcher }),
+});
+```
 
 ## License
 
