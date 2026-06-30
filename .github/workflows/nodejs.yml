@@ -19,6 +19,8 @@ jobs:
         cache: npm
     - name: Run npm ci
       run: npm ci
+    - name: Run typecheck
+      run: npm run typecheck
     - name: Run build
       run: npm run build
 

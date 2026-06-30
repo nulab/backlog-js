@@ -2,7 +2,7 @@ export class BacklogError extends Error {
   private _name: BacklogErrorNameType;
   private _url: string;
   private _status: number;
-  private _body: { errors: BacklogErrorMessage[] };
+  private _body?: { errors: BacklogErrorMessage[] };
   private _response: Response;
   constructor(
     name: BacklogErrorNameType,
@@ -25,7 +25,7 @@ export class BacklogError extends Error {
   get status(): number {
     return this._status;
   }
-  get body(): { errors: BacklogErrorMessage[] } {
+  get body(): { errors: BacklogErrorMessage[] } | undefined {
     return this._body;
   }
   get response(): Response {

@@ -41,12 +41,13 @@ export default class Request {
     const { method, path, params = <Params>{} } = options;
     const { apiKey, accessToken, timeout } = this.configure;
     const query: Params = apiKey ? { apiKey: apiKey } : {};
-    const init: RequestInit = { method: method, headers: {} };
+    const headers: Record<string, string> = {};
+    const init: RequestInit = { method: method, headers };
     if (timeout) {
       init['timeout'] = timeout;
     }
     if (!apiKey && accessToken) {
-      init.headers['Authorization'] = 'Bearer ' + accessToken;
+      headers['Authorization'] = 'Bearer ' + accessToken;
     }
     if (typeof window !== 'undefined') {
       init.mode = 'cors';
@@ -55,7 +56,7 @@ export default class Request {
       if (params instanceof FormData) {
         init.body = <FormData>params
       } else {
-        init.headers['Content-type'] = 'application/x-www-form-urlencoded';
+        headers['Content-type'] = 'application/x-www-form-urlencoded';
         init.body = this.toQueryString(params);
       }
     } else {
