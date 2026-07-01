@@ -26,6 +26,8 @@
     "url": "git://github.com/nulab/backlog-js.git"
   },
   "scripts": {
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -44,6 +46,7 @@
     "@types/node": "^25.2.3",
     "@types/qs": "^6.9.15",
     "dotenv": "^16.4.5",
+    "oxlint": "^1.72.0",
     "tsdown": "^0.21.1",
     "typescript": "^5.5.2",
     "undici": "^6.19.2",

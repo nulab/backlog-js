@@ -78,7 +78,7 @@ export default class Request {
           } else {
             reject(new Error.BacklogApiError(response, data));
           }
-        }).catch(err => reject(new Error.UnexpectedError(response)));
+        }).catch(() => reject(new Error.UnexpectedError(response)));
       }
     });
   }

@@ -4,6 +4,7 @@
 
 * Create your branch from master branch. And your pull requests should head to master branch in general.
 * `dist/*` is generated during the release workflow and is **not** committed to the repository.
+* Run `npm run lint` ([oxlint](https://oxc.rs/docs/guide/usage/linter)), `npm run typecheck`, and `npm test` locally. All three run in CI. Use `npm run lint:fix` to auto-fix lint issues.
 
 # For repository owners
 
