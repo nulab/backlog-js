@@ -1,11 +1,10 @@
-import { PassThrough } from "stream";
 import * as Types from "./types";
 
 export namespace File {
   export type FileData = NodeFileData | BrowserFileData;
 
   export interface NodeFileData {
-    body: PassThrough;
+    body: ReadableStream;
     url: string;
     filename: string;
   }
