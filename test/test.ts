@@ -274,6 +274,30 @@ describe('Backlog API', () => {
     expect(data[0].childIssueSummary).toEqual({ total: 3, closed: 1 });
   });
 
+  it('should get a single issue with childIssueSummary expand.', async () => {
+    const issue = {
+      id: 1,
+      projectId: 1,
+      issueKey: 'TEST-1',
+      keyId: 1,
+      summary: 'grandchild',
+      childIssueSummary: { total: 3, closed: 1 },
+    };
+    mockRequest({
+      method: 'GET',
+      path: '/api/v2/issues/TEST-1',
+      query: { apiKey, expand: ['childIssueSummary'] },
+      status: 200,
+      data: issue,
+      times: 1,
+    });
+    const data = await backlog.getIssue('TEST-1', {
+      expand: ['childIssueSummary'],
+    });
+    expect(data).toEqual(issue);
+    expect(data.childIssueSummary).toEqual({ total: 3, closed: 1 });
+  });
+
   it('should serialize the expand parameter using bracket array format.', () => {
     const query = (backlog as any).toQueryString({
       parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,

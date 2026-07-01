@@ -419,6 +419,10 @@
 
     export type IssueExpand = "childIssueSummary";
 
+    export interface GetIssueParams {
+      expand?: IssueExpand[];
+    }
+
     export type SortKey =
       "issueType" |
       "category" |

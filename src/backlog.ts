@@ -596,8 +596,10 @@ export default class Backlog extends Request {
   /**
    * https://developer.nulab.com/docs/backlog/api/2/get-issue/
    */
-  public getIssue(issueIdOrKey: string | number): Promise<Entity.Issue.Issue> {
-    return this.get(`issues/${issueIdOrKey}`);
+  public getIssue(
+    issueIdOrKey: string | number, params?: Option.Issue.GetIssueParams
+  ): Promise<Entity.Issue.Issue> {
+    return this.get(`issues/${issueIdOrKey}`, params);
   }
 
 
