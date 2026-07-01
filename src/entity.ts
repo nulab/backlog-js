@@ -1,4 +1,4 @@
-import * as Types from './types';
+import * as Types from "./types";
 
 export namespace File {
   export type FileData = NodeFileData | BrowserFileData;
