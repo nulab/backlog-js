@@ -7,6 +7,64 @@ export const projects = [
       subtaskingEnabled: false,
       projectLeaderCanEditProjectLeader: false,
       textFormattingRule: "markdown",
-    	archived: false
+    	archived: false,
+      grandchildIssueEnabled: false
   }
 ]
+
+export const project = {
+  id: 1,
+  projectKey: "TEST",
+  name: "test",
+  chartEnabled: false,
+  useResolvedForChart: false,
+  subtaskingEnabled: true,
+  projectLeaderCanEditProjectLeader: false,
+  useWiki: true,
+  useFileSharing: true,
+  useWikiTreeView: true,
+  useOriginalImageSizeAtWiki: false,
+  useSubversion: false,
+  useGit: true,
+  textFormattingRule: "markdown",
+  archived: false,
+  displayOrder: 0,
+  useDevAttributes: false,
+  grandchildIssueEnabled: true
+}
+
+export const license = {
+  active: true,
+  attachmentLimit: 0,
+  attachmentLimitPerFile: 0,
+  attachmentNumLimit: 0,
+  attribute: true,
+  attributeLimit: 0,
+  burndown: true,
+  commentLimit: 0,
+  componentLimit: 0,
+  fileSharing: true,
+  gantt: true,
+  git: true,
+  grandchildIssueEnabled: true,
+  issueLimit: 0,
+  licenceTypeId: 0,
+  limitDate: "2099-12-31T00:00:00Z",
+  nulabAccount: true,
+  parentChildIssue: true,
+  postIssueByMail: true,
+  projectLimit: 0,
+  pullRequestAttachmentLimitPerFile: 0,
+  pullRequestAttachmentNumLimit: 0,
+  remoteAddress: false,
+  remoteAddressLimit: 0,
+  startedOn: "2020-01-01T00:00:00Z",
+  storageLimit: 0,
+  subversion: false,
+  subversionExternal: false,
+  userLimit: 0,
+  versionLimit: 0,
+  wikiAttachment: true,
+  wikiAttachmentLimitPerFile: 0,
+  wikiAttachmentNumLimit: 0
+}
