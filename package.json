@@ -34,7 +34,6 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
     "build": "npm run clean && tsdown",
     "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js"
