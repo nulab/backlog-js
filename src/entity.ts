@@ -1,20 +1,19 @@
-import { PassThrough } from 'stream';
+import { PassThrough } from "stream";
 import * as Types from "./types";
 
 export namespace File {
-
   export type FileData = NodeFileData | BrowserFileData;
 
   export interface NodeFileData {
-    body: PassThrough,
-    url: string,
-    filename: string
+    body: PassThrough;
+    url: string;
+    filename: string;
   }
 
   export interface BrowserFileData {
-    body: any,
-    url: string,
-    blob?: () => Promise<Blob>
+    body: any;
+    url: string;
+    blob?: () => Promise<Blob>;
   }
 
   export interface FileInfo {
@@ -45,7 +44,6 @@ export namespace File {
 }
 
 export namespace OAuth2 {
-
   export interface AccessToken {
     access_token: string;
     token_type: string;
@@ -55,7 +53,6 @@ export namespace OAuth2 {
 }
 
 export namespace Space {
-
   export interface Space {
     spaceKey: string;
     name: string;
@@ -191,7 +188,6 @@ export namespace User {
 }
 
 export namespace Activity {
-
   export interface ActivityChange {
     field: string;
     field_text: string;
@@ -496,7 +492,7 @@ export namespace Document {
     id: string;
     name?: string;
     children: DocumentTreeNode[];
-    statusId?: number
+    statusId?: number;
     emoji?: string;
     emojiType?: string;
     updated?: string;
@@ -761,7 +757,7 @@ export namespace PullRequest {
   export interface Comment {
     id: number;
     content: string;
-    changeLog: ChangeLog.PullRequestChangeLog[]
+    changeLog: ChangeLog.PullRequestChangeLog[];
     createdUser: User.User;
     created: string;
     updated: string;

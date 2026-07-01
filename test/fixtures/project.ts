@@ -1,16 +1,16 @@
 export const projects = [
   {
-      id: 1,
-      projectKey: "TEST",
-      name: "test",
-      chartEnabled: false,
-      subtaskingEnabled: false,
-      projectLeaderCanEditProjectLeader: false,
-      textFormattingRule: "markdown",
-    	archived: false,
-      grandchildIssueEnabled: false
-  }
-]
+    id: 1,
+    projectKey: "TEST",
+    name: "test",
+    chartEnabled: false,
+    subtaskingEnabled: false,
+    projectLeaderCanEditProjectLeader: false,
+    textFormattingRule: "markdown",
+    archived: false,
+    grandchildIssueEnabled: false,
+  },
+];
 
 export const project = {
   id: 1,
@@ -30,8 +30,8 @@ export const project = {
   archived: false,
   displayOrder: 0,
   useDevAttributes: false,
-  grandchildIssueEnabled: true
-}
+  grandchildIssueEnabled: true,
+};
 
 export const license = {
   active: true,
@@ -66,5 +66,5 @@ export const license = {
   versionLimit: 0,
   wikiAttachment: true,
   wikiAttachmentLimitPerFile: 0,
-  wikiAttachmentNumLimit: 0
-}
+  wikiAttachmentNumLimit: 0,
+};

@@ -7,7 +7,7 @@ export class BacklogError extends Error {
   constructor(
     name: BacklogErrorNameType,
     response: Response,
-    body?: { errors: BacklogErrorMessage[] }
+    body?: { errors: BacklogErrorMessage[] },
   ) {
     super(response.statusText);
     this._name = name;
@@ -34,28 +34,20 @@ export class BacklogError extends Error {
 }
 
 export class BacklogApiError extends BacklogError {
-  constructor(
-    response: Response,
-    body?: { errors: BacklogErrorMessage[] }
-  ) {
-    super('BacklogApiError', response, body);
+  constructor(response: Response, body?: { errors: BacklogErrorMessage[] }) {
+    super("BacklogApiError", response, body);
   }
 }
 
 export class BacklogAuthError extends BacklogError {
-  constructor(
-    response: Response,
-    body?: { errors: BacklogErrorMessage[] }
-  ) {
-    super('BacklogAuthError', response, body);
+  constructor(response: Response, body?: { errors: BacklogErrorMessage[] }) {
+    super("BacklogAuthError", response, body);
   }
 }
 
 export class UnexpectedError extends BacklogError {
-  constructor(
-    response: Response
-  ) {
-    super('UnexpectedError', response);
+  constructor(response: Response) {
+    super("UnexpectedError", response);
   }
 }
 
@@ -66,4 +58,4 @@ export interface BacklogErrorMessage {
   moreInfo: string;
 }
 
-export type BacklogErrorNameType = 'BacklogApiError' | 'BacklogAuthError' | 'UnexpectedError';
+export type BacklogErrorNameType = "BacklogApiError" | "BacklogAuthError" | "UnexpectedError";

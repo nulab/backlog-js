@@ -1,42 +1,46 @@
-import * as Error from './error';
-import * as qs from 'qs';
-import type { Fetch } from './types';
+import * as Error from "./error";
+import * as qs from "qs";
+import type { Fetch } from "./types";
 
 export default class Request {
-
   private readonly fetch: Fetch;
 
-  constructor(private configure: {
-    host: string, apiKey?: string, accessToken?: string, timeout?: number,
-    fetch?: Fetch
-  }) {
+  constructor(
+    private configure: {
+      host: string;
+      apiKey?: string;
+      accessToken?: string;
+      timeout?: number;
+      fetch?: Fetch;
+    },
+  ) {
     this.fetch = configure.fetch ?? globalThis.fetch;
   }
 
   public get<T>(path: string, params?: any): Promise<T> {
-    return this.request({ method: 'GET', path, params }).then<T>(this.parseJSON);
+    return this.request({ method: "GET", path, params }).then<T>(this.parseJSON);
   }
 
   public post<T>(path: string, params?: any): Promise<T> {
-    return this.request({ method: 'POST', path, params }).then<T>(this.parseJSON);
+    return this.request({ method: "POST", path, params }).then<T>(this.parseJSON);
   }
 
   public put<T>(path: string, params: any): Promise<T> {
-    return this.request({ method: 'PUT', path, params }).then<T>(this.parseJSON);
+    return this.request({ method: "PUT", path, params }).then<T>(this.parseJSON);
   }
 
   public patch<T>(path: string, params: any): Promise<T> {
-    return this.request({ method: 'PATCH', path, params }).then<T>(this.parseJSON);
+    return this.request({ method: "PATCH", path, params }).then<T>(this.parseJSON);
   }
 
   public delete<T>(path: string, params?: any): Promise<T> {
-    return this.request({ method: 'DELETE', path, params }).then<T>(this.parseJSON);
+    return this.request({ method: "DELETE", path, params }).then<T>(this.parseJSON);
   }
 
   public request(options: {
-    method: string,
-    path: string,
-    params?: Params | FormData
+    method: string;
+    path: string;
+    params?: Params | FormData;
   }): Promise<Response> {
     const { method, path, params = <Params>{} } = options;
     const { apiKey, accessToken, timeout } = this.configure;
@@ -44,26 +48,26 @@ export default class Request {
     const headers: Record<string, string> = {};
     const init: RequestInit = { method: method, headers };
     if (timeout) {
-      init['timeout'] = timeout;
+      init["timeout"] = timeout;
     }
     if (!apiKey && accessToken) {
-      headers['Authorization'] = 'Bearer ' + accessToken;
+      headers["Authorization"] = "Bearer " + accessToken;
     }
-    if (typeof window !== 'undefined') {
-      init.mode = 'cors';
+    if (typeof window !== "undefined") {
+      init.mode = "cors";
     }
-    if (method !== 'GET') {
+    if (method !== "GET") {
       if (params instanceof FormData) {
-        init.body = <FormData>params
+        init.body = <FormData>params;
       } else {
-        headers['Content-type'] = 'application/x-www-form-urlencoded';
+        headers["Content-type"] = "application/x-www-form-urlencoded";
         init.body = this.toQueryString(params);
       }
     } else {
-      Object.keys(params).forEach(key => query[key] = params[key]);
+      Object.keys(params).forEach((key) => (query[key] = params[key]));
     }
     const queryStr = this.toQueryString(query);
-    const url = `${this.restBaseURL}/${path}` + (queryStr.length > 0 ? `?${queryStr}` : '');
+    const url = `${this.restBaseURL}/${path}` + (queryStr.length > 0 ? `?${queryStr}` : "");
     return this.fetch(url, init).then(this.checkStatus);
   }
 
@@ -72,13 +76,16 @@ export default class Request {
       if (200 <= response.status && response.status < 300) {
         resolve(response);
       } else {
-        response.json().then(data => {
-          if (response.status === 401) {
-            reject(new Error.BacklogAuthError(response, data));
-          } else {
-            reject(new Error.BacklogApiError(response, data));
-          }
-        }).catch(() => reject(new Error.UnexpectedError(response)));
+        response
+          .json()
+          .then((data) => {
+            if (response.status === 401) {
+              reject(new Error.BacklogAuthError(response, data));
+            } else {
+              reject(new Error.BacklogApiError(response, data));
+            }
+          })
+          .catch(() => reject(new Error.UnexpectedError(response)));
       }
     });
   }
@@ -96,7 +103,7 @@ export default class Request {
 
     Object.keys(params).forEach((key) => {
       const value = params[key];
-      if (key.startsWith('customField_') && Array.isArray(value)) {
+      if (key.startsWith("customField_") && Array.isArray(value)) {
         // Backlog API doesn't apply bracket-array syntax for customField_* params,
         // so we generate explicit indices: key[0], key[1], ...
         value.forEach((v, i) => {
@@ -107,7 +114,7 @@ export default class Request {
       }
     });
 
-    return qs.stringify(formatted, { arrayFormat: 'brackets' });
+    return qs.stringify(formatted, { arrayFormat: "brackets" });
   }
 
   public get webAppBaseURL(): string {
@@ -117,7 +124,6 @@ export default class Request {
   public get restBaseURL(): string {
     return `${this.webAppBaseURL}/api/v2`;
   }
-
 }
 
-export type Params = { [index: string]: number|string|number[]|string[]; };
+export type Params = { [index: string]: number | string | number[] | string[] };
