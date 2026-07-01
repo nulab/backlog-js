@@ -1212,7 +1212,7 @@ export default class Backlog extends Request {
   }
 
   private parseFileData(response: Response): Promise<Entity.File.FileData> {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       if (typeof window !== 'undefined') {
         resolve({
           body: (<any>response).body,
