@@ -1,11 +1,13 @@
 import * as Option from './option';
 import * as Entity from './entity';
 import Request from './request';
+import type { Fetch } from './types';
 
 export default class Backlog extends Request {
 
   constructor(configure: {
-    host: string, apiKey?: string, accessToken?: string, timeout?: number
+    host: string, apiKey?: string, accessToken?: string, timeout?: number,
+    fetch?: Fetch
   }) {
     super(configure);
   }

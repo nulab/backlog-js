@@ -26,14 +26,14 @@
     "url": "git://github.com/nulab/backlog-js.git"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
     "build": "npm run clean && tsdown",
-    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js",
-    "changelog": "ghch -w -F markdown -N ${VERSION}"
+    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js"
   },
   "author": "vvatanabe",
   "license": "MIT",
@@ -43,7 +43,6 @@
   "devDependencies": {
     "@types/node": "^25.2.3",
     "@types/qs": "^6.9.15",
-    "coveralls": "^3.1.1",
     "dotenv": "^16.4.5",
     "tsdown": "^0.21.1",
     "typescript": "^5.5.2",

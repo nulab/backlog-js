@@ -100,3 +100,5 @@ export enum CustomFieldType {
 }
 
 export type WebhookActivityId = number;
+
+export type Fetch = typeof globalThis.fetch;

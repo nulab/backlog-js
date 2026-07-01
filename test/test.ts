@@ -433,3 +433,56 @@ describe('Backlog API', () => {
     expect(data).toBeUndefined();
   });
 });
+
+describe("Custom fetch option", () => {
+  it('should use the provided fetch function instead of global fetch', async () => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.space), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
+    const data = await client.getSpace();
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/space')).toBe(true);
+    expect(data).toEqual(Fixtures.space);
+  });
+
+  it('should use the provided fetch function in OAuth2.getAccessToken', async () => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.access_token), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
+    const data = await oauth2.getAccessToken({ host, code });
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/oauth2/token')).toBe(true);
+    expect(data).toEqual(Fixtures.access_token);
+  });
+
+  it('should use the provided fetch function in OAuth2.refreshAccessToken', async () => {
+    let capturedUrl: string | undefined;
+    const customFetch: typeof globalThis.fetch = (input, _init) => {
+      capturedUrl = input as string;
+      return Promise.resolve(new Response(JSON.stringify(Fixtures.access_token), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }));
+    };
+
+    const oauth2 = new backlogjs.OAuth2(credentials, undefined, customFetch);
+    const data = await oauth2.refreshAccessToken({ host, refreshToken });
+    expect(capturedUrl).not.toBeUndefined();
+    expect(capturedUrl!.includes('/api/v2/oauth2/token')).toBe(true);
+    expect(data).toEqual(Fixtures.access_token);
+  });
+});

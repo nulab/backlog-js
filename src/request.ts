@@ -1,11 +1,17 @@
 import * as Error from './error';
 import * as qs from 'qs';
+import type { Fetch } from './types';
 
 export default class Request {
 
+  private readonly fetch: Fetch;
+
   constructor(private configure: {
-    host: string, apiKey?: string, accessToken?: string, timeout?: number
-  }) { }
+    host: string, apiKey?: string, accessToken?: string, timeout?: number,
+    fetch?: Fetch
+  }) {
+    this.fetch = configure.fetch ?? globalThis.fetch;
+  }
 
   public get<T>(path: string, params?: any): Promise<T> {
     return this.request({ method: 'GET', path, params }).then<T>(this.parseJSON);
@@ -35,12 +41,13 @@ export default class Request {
     const { method, path, params = <Params>{} } = options;
     const { apiKey, accessToken, timeout } = this.configure;
     const query: Params = apiKey ? { apiKey: apiKey } : {};
-    const init: RequestInit = { method: method, headers: {} };
+    const headers: Record<string, string> = {};
+    const init: RequestInit = { method: method, headers };
     if (timeout) {
       init['timeout'] = timeout;
     }
     if (!apiKey && accessToken) {
-      init.headers['Authorization'] = 'Bearer ' + accessToken;
+      headers['Authorization'] = 'Bearer ' + accessToken;
     }
     if (typeof window !== 'undefined') {
       init.mode = 'cors';
@@ -49,7 +56,7 @@ export default class Request {
       if (params instanceof FormData) {
         init.body = <FormData>params
       } else {
-        init.headers['Content-type'] = 'application/x-www-form-urlencoded';
+        headers['Content-type'] = 'application/x-www-form-urlencoded';
         init.body = this.toQueryString(params);
       }
     } else {
@@ -57,7 +64,7 @@ export default class Request {
     }
     const queryStr = this.toQueryString(query);
     const url = `${this.restBaseURL}/${path}` + (queryStr.length > 0 ? `?${queryStr}` : '');
-    return fetch(url, init).then(this.checkStatus);
+    return this.fetch(url, init).then(this.checkStatus);
   }
 
   public checkStatus(response: Response): Promise<Response> {
