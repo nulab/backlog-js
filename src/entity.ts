@@ -93,7 +93,7 @@ export namespace Project {
     archived: boolean;
     displayOrder: number;
     useDevAttributes: boolean;
-    grandchildIssueEnabled: boolean;
+    grandchildIssueEnabled?: boolean;
   }
 
   export interface RecentlyViewedProject {
@@ -905,7 +905,7 @@ export namespace License {
     fileSharing: boolean;
     gantt: boolean;
     git: boolean;
-    grandchildIssueEnabled: boolean;
+    grandchildIssueEnabled?: boolean;
     issueLimit: number;
     licenceTypeId: number;
     limitDate: string;
