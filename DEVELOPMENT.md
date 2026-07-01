@@ -3,46 +3,37 @@
 ## Before you commit
 
 * Create your branch from master branch. And your pull requests should head to master branch in general.
-* Run `npm run build` to build `dist/*` and commit them. They are **not** `.gitignore`d.
+* `dist/*` is generated during the release workflow and is **not** committed to the repository.
 
 # For repository owners
 
 ## Release procedure
 
-### 0. Requirements
+Releases are published from GitHub Actions via the [Release workflow](./.github/workflows/release.yml).
 
-* [ghch](https://github.com/Songmu/ghch)
+1. Open the [Release workflow](https://github.com/nulab/backlog-js/actions/workflows/release.yml) on the Actions tab.
+1. Click **Run workflow** and select the version bump (`patch` / `minor` / `major`).
+1. Approve the deployment to the `production` environment when prompted.
 
-### 1. Create new tag
+The workflow runs CI, bumps the version, builds the package, then:
 
-**Be sure your local master branch is up-to-date.**
+* Publishes to npm using [Trusted Publishing (OIDC)](https://docs.npmjs.com/trusted-publishers/) and [provenance](https://docs.npmjs.com/generating-provenance-statements).
+* Pushes the new version tag.
+* Pushes the bumped `package.json` and `package-lock.json` back to the master branch.
+* Creates a GitHub Release with auto-generated release notes.
 
-1. Create a release branch from master branch.
-    1. `git switch master && git pull`
-    1. `git switch -c <BRANCH_NAME>`
-1. Update the change log.
-    1. `VERSION=<TAG> npm run changelog`
-1. Update versions in `package.json` and `package-lock.json`.
-    1. Manually 😜
-1. Commit and push. Create a pull request.
-    1. `git commit -m "<TAG>"`
-    1. `git push`
-    1. Create a pull request in your favourite way.
-1. After the PR is merged, add new tag to the HEAD of master branch.
-    1. `git switch master && git pull`
-    1. `git tag <TAG>`
-    1. `git push origin <TAG>`
+### Required setup
 
-### 2. Publish to npm
+#### npm: Trusted Publishing
 
-1. `npm login`
-    1. Be sure you are logging in to the `nulab` account.
-1. `npm publish --dry-run`
-1. `npm publish`
-1. `npm logout`
+Allow OIDC publishing from GitHub Actions on the [package access settings](https://www.npmjs.com/package/backlog-js/access):
 
-### 3. Create a release in GitHub
+* **Publisher**: `GitHub Actions`
+* **Organization or user**: `nulab`
+* **Repository**: `backlog-js`
+* **Workflow filename**: `release.yml`
+* **Environment name**: `production`
 
-1. Push `Draft a new release` button in https://github.com/nulab/backlog-js/releases .
-1. Paste a URL which links to the `CHANGELOG.md`.
-    1. e.g. https://github.com/nulab/backlog-js/blob/master/CHANGELOG.md#0120-2021-01-08
+#### GitHub: `production` environment
+
+Create a `production` environment on the [Environment settings page](https://github.com/nulab/backlog-js/settings/environments). Adding a maintainer to **Required reviewers** lets you require approval before the `publish` step runs.

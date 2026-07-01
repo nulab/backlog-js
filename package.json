@@ -33,8 +33,7 @@
     "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
     "clean": "/bin/rm -rf dist",
     "build": "npm run clean && tsdown",
-    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js",
-    "changelog": "ghch -w -F markdown -N ${VERSION}"
+    "postbuild": "cp dist/backlog.iife.js dist/backlog.js && cp dist/backlog.iife.min.js dist/backlog.min.js"
   },
   "author": "vvatanabe",
   "license": "MIT",
