@@ -391,18 +391,67 @@ export namespace Issue {
     [customField_: string]: any;
   }
 
+  /**
+   * Filter for the `parentChild` search parameter of the issue list API.
+   *
+   * The hierarchy has up to three levels: top-level (1st) > child (2nd) > grandchild (3rd).
+   * Values 5-10 are only meaningful after the grandchild issue feature is released.
+   *
+   * @see https://developer.nulab.com/docs/backlog/api/2/get-issue-list/
+   */
   export enum ParentChildType {
+    /** All issues, regardless of hierarchy. */
     All = 0,
+
+    /** Issues that are not a child, i.e. issues with no parent (top-level or standalone). */
     NotChild = 1,
-    Child = 2,
+
+    /**
+     * Issues that have a parent, i.e. both 2nd-level (child) and 3rd-level (grandchild) issues.
+     *
+     * @deprecated The name `Child` is misleading because it also includes grandchildren.
+     * Use {@link ChildOrGrandchild} instead. `ChildOnly` (=6) matches 2nd-level issues only.
+     */
+    Child = 2, // oxlint-disable-line no-duplicate-enum-values -- intentional alias `ChildOrGrandchild`
+    /** Issues that have a parent, i.e. both 2nd-level (child) and 3rd-level (grandchild) issues. */
+    ChildOrGrandchild = 2,
+
+    /** Standalone issues with no hierarchy (neither a parent nor a child). */
     NotChildNotParent = 3,
-    Parent = 4,
-    GrandchildIssue = 5,
-    ChildIssue = 6,
-    ParentIssue = 7,
+
+    /**
+     * Issues that have children, i.e. any issue with at least one child.
+     * This is broader than {@link TopLevelOnly} (=7): it also includes a 2nd-level
+     * child that itself has grandchildren.
+     *
+     * @deprecated The name `Parent` is misleading; the official label is "has child issues"
+     * and it is not limited to top-level parents. Use {@link HasChildren} instead. For
+     * top-level parents only, use `TopLevelOnly` (=7).
+     */
+    Parent = 4, // oxlint-disable-line no-duplicate-enum-values -- intentional alias `HasChildren`
+    /**
+     * Issues that have children, i.e. any issue with at least one child.
+     * Broader than {@link TopLevelOnly} (=7): includes a 2nd-level child that has grandchildren.
+     */
+    HasChildren = 4,
+
+    /** 3rd-level issues only (grandchildren). */
+    GrandchildOnly = 5,
+
+    /** 2nd-level issues only (children, excluding grandchildren). */
+    ChildOnly = 6,
+
+    /** Top-level (1st-level) parent issues only. */
+    TopLevelOnly = 7,
+
+    /** Exclude 3rd-level issues (grandchildren). */
     ExcludeGrandchild = 8,
-    ExcludeGrandparent = 9,
-    LeafIssue = 10,
+
+    /** Exclude the top-level issue of a three-level hierarchy (the grandparent). */
+    ExcludeTopLevel = 9,
+
+    /** Leaf issues (the lowest level of their branch: a childless child or a grandchild). */
+    LeafOnly = 10,
   }
 
   export type IssueExpand = "childIssueSummary";
