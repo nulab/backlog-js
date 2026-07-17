@@ -1,6 +1,6 @@
 {
   "name": "backlog-js",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "Backlog API v2 client for browser and node",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
