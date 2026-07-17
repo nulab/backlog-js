@@ -473,6 +473,41 @@ describe("Custom fetch option", () => {
     expect(data).toEqual(Fixtures.space);
   });
 
+  it("should send the provided userAgent as the User-Agent header", async () => {
+    let capturedHeaders: HeadersInit | undefined;
+    const customFetch: typeof globalThis.fetch = (_input, init) => {
+      capturedHeaders = init?.headers;
+      return Promise.resolve(
+        new Response(JSON.stringify(Fixtures.space), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    };
+
+    const userAgent = "backlog-mcp-server/1.2.3";
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch, userAgent });
+    await client.getSpace();
+    expect((capturedHeaders as Record<string, string>)["User-Agent"]).toBe(userAgent);
+  });
+
+  it("should not set a User-Agent header when userAgent is not provided", async () => {
+    let capturedHeaders: HeadersInit | undefined;
+    const customFetch: typeof globalThis.fetch = (_input, init) => {
+      capturedHeaders = init?.headers;
+      return Promise.resolve(
+        new Response(JSON.stringify(Fixtures.space), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
+    await client.getSpace();
+    expect((capturedHeaders as Record<string, string>)["User-Agent"]).toBeUndefined();
+  });
+
   it("should use the provided fetch function in OAuth2.getAccessToken", async () => {
     let capturedUrl: string | undefined;
     const customFetch: typeof globalThis.fetch = (input, _init) => {

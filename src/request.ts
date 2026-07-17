@@ -12,6 +12,7 @@ export default class Request {
       accessToken?: string;
       timeout?: number;
       fetch?: Fetch;
+      userAgent?: string;
     },
   ) {
     this.fetch = configure.fetch ?? globalThis.fetch;
@@ -43,7 +44,7 @@ export default class Request {
     params?: Params | FormData;
   }): Promise<Response> {
     const { method, path, params = <Params>{} } = options;
-    const { apiKey, accessToken, timeout } = this.configure;
+    const { apiKey, accessToken, timeout, userAgent } = this.configure;
     const query: Params = apiKey ? { apiKey: apiKey } : {};
     const headers: Record<string, string> = {};
     const init: RequestInit = { method: method, headers };
@@ -52,6 +53,11 @@ export default class Request {
     }
     if (!apiKey && accessToken) {
       headers["Authorization"] = "Bearer " + accessToken;
+    }
+    // `User-Agent` is a forbidden header name in browsers and will be ignored there,
+    // so it is only applied when explicitly provided (e.g. from Node.js clients).
+    if (userAgent) {
+      headers["User-Agent"] = userAgent;
     }
     if (typeof window !== "undefined") {
       init.mode = "cors";

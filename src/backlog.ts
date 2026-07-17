@@ -10,6 +10,7 @@ export default class Backlog extends Request {
     accessToken?: string;
     timeout?: number;
     fetch?: Fetch;
+    userAgent?: string;
   }) {
     super(configure);
   }
