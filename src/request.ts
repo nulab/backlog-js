@@ -3,7 +3,9 @@ import * as qs from "qs";
 import type { Fetch } from "./types";
 
 // Matches ASCII control characters (C0 range 0x00-0x1F and DEL 0x7F),
-// including CR (0x0D) and LF (0x0A).
+// including CR (0x0D) and LF (0x0A). Matching control characters is the intent
+// here (rejecting them), so the lint rule is disabled for this line.
+// eslint-disable-next-line no-control-regex
 const CONTROL_CHARACTER = /[\x00-\x1f\x7f]/;
 
 export default class Request {
