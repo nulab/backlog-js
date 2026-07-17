@@ -4,5 +4,13 @@
   "categories": {
     "correctness": "error"
   },
-  "ignorePatterns": ["dist", "node_modules", "coverage"]
+  "ignorePatterns": ["dist", "node_modules", "coverage"],
+  "overrides": [
+    {
+      "files": ["src/option.ts"],
+      "rules": {
+        "no-duplicate-enum-values": "off"
+      }
+    }
+  ]
 }

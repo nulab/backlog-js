@@ -394,15 +394,19 @@ export namespace Issue {
   export enum ParentChildType {
     All = 0,
     NotChild = 1,
+    /** @deprecated Use {@link ChildOrGrandchild}. */
     Child = 2,
+    ChildOrGrandchild = 2,
     NotChildNotParent = 3,
+    /** @deprecated Use {@link HasChildren}. */
     Parent = 4,
-    GrandchildIssue = 5,
-    ChildIssue = 6,
-    ParentIssue = 7,
+    HasChildren = 4,
+    GrandchildOnly = 5,
+    ChildOnly = 6,
+    TopLevelOnly = 7,
     ExcludeGrandchild = 8,
-    ExcludeGrandparent = 9,
-    LeafIssue = 10,
+    ExcludeTopLevel = 9,
+    LeafOnly = 10,
   }
 
   export type IssueExpand = "childIssueSummary";

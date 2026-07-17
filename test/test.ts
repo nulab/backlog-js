@@ -245,7 +245,7 @@ describe("Backlog API", () => {
   it("should get issues with childIssueSummary expand and grandchild parentChild type.", async () => {
     const query = {
       apiKey,
-      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,
       expand: ["childIssueSummary"],
     };
     const issue = {
@@ -265,7 +265,7 @@ describe("Backlog API", () => {
       times: 1,
     });
     const data = await backlog.getIssues({
-      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,
       expand: ["childIssueSummary"],
     });
     expect(data).toEqual([issue]);
@@ -298,7 +298,7 @@ describe("Backlog API", () => {
 
   it("should serialize the expand parameter using bracket array format.", () => {
     const query = (backlog as any).toQueryString({
-      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildIssue,
+      parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,
       expand: ["childIssueSummary"],
     });
     expect(query).toBe("parentChild=5&expand%5B%5D=childIssueSummary");
@@ -544,5 +544,25 @@ describe("Custom fetch option", () => {
     expect(capturedUrl).not.toBeUndefined();
     expect(capturedUrl!.includes("/api/v2/oauth2/token")).toBe(true);
     expect(data).toEqual(Fixtures.access_token);
+  });
+});
+
+describe("ParentChildType", () => {
+  const { ParentChildType } = backlogjs.Option.Issue;
+
+  it("keeps the deprecated aliases pointing at the same values", () => {
+    expect(ParentChildType.ChildOrGrandchild).toBe(ParentChildType.Child);
+    expect(ParentChildType.ChildOrGrandchild).toBe(2);
+    expect(ParentChildType.HasChildren).toBe(ParentChildType.Parent);
+    expect(ParentChildType.HasChildren).toBe(4);
+  });
+
+  it("maps the grandchild-related values to the documented numbers", () => {
+    expect(ParentChildType.GrandchildOnly).toBe(5);
+    expect(ParentChildType.ChildOnly).toBe(6);
+    expect(ParentChildType.TopLevelOnly).toBe(7);
+    expect(ParentChildType.ExcludeGrandchild).toBe(8);
+    expect(ParentChildType.ExcludeTopLevel).toBe(9);
+    expect(ParentChildType.LeafOnly).toBe(10);
   });
 });
