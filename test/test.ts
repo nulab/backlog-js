@@ -508,6 +508,21 @@ describe("Custom fetch option", () => {
     expect((capturedHeaders as Record<string, string>)["User-Agent"]).toBeUndefined();
   });
 
+  it("should reject a userAgent containing control characters (CR/LF)", () => {
+    expect(
+      () => new backlogjs.Backlog({ host, apiKey, userAgent: "evil\r\nX-Injected: 1" }),
+    ).toThrow(/Invalid userAgent/);
+    expect(() => new backlogjs.Backlog({ host, apiKey, userAgent: "bad\x00nul" })).toThrow(
+      /Invalid userAgent/,
+    );
+  });
+
+  it("should accept a normal userAgent", () => {
+    expect(
+      () => new backlogjs.Backlog({ host, apiKey, userAgent: "backlog-mcp-server/1.2.3" }),
+    ).not.toThrow();
+  });
+
   it("should use the provided fetch function in OAuth2.getAccessToken", async () => {
     let capturedUrl: string | undefined;
     const customFetch: typeof globalThis.fetch = (input, _init) => {
