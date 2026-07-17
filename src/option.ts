@@ -412,7 +412,7 @@ export namespace Issue {
      * @deprecated The name `Child` is misleading because it also includes grandchildren.
      * Use {@link ChildOrGrandchild} instead. `ChildOnly` (=6) matches 2nd-level issues only.
      */
-    Child = 2, // oxlint-disable-line no-duplicate-enum-values -- intentional alias `ChildOrGrandchild`
+    Child = 2,
     /** Issues that have a parent, i.e. both 2nd-level (child) and 3rd-level (grandchild) issues. */
     ChildOrGrandchild = 2,
 
@@ -428,7 +428,7 @@ export namespace Issue {
      * and it is not limited to top-level parents. Use {@link HasChildren} instead. For
      * top-level parents only, use `TopLevelOnly` (=7).
      */
-    Parent = 4, // oxlint-disable-line no-duplicate-enum-values -- intentional alias `HasChildren`
+    Parent = 4,
     /**
      * Issues that have children, i.e. any issue with at least one child.
      * Broader than {@link TopLevelOnly} (=7): includes a 2nd-level child that has grandchildren.
