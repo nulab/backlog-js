@@ -555,6 +555,8 @@ describe("ParentChildType", () => {
     expect(ParentChildType.ChildOrGrandchild).toBe(2);
     expect(ParentChildType.HasChildren).toBe(ParentChildType.Parent);
     expect(ParentChildType.HasChildren).toBe(4);
+    expect(ParentChildType.Standalone).toBe(ParentChildType.NotChildNotParent);
+    expect(ParentChildType.Standalone).toBe(3);
   });
 
   it("maps the grandchild-related values to the documented numbers", () => {

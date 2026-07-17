@@ -397,7 +397,9 @@ export namespace Issue {
     /** @deprecated Use {@link ChildOrGrandchild}. */
     Child = 2,
     ChildOrGrandchild = 2,
+    /** @deprecated Use {@link Standalone}. */
     NotChildNotParent = 3,
+    Standalone = 3,
     /** @deprecated Use {@link HasChildren}. */
     Parent = 4,
     HasChildren = 4,
