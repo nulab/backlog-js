@@ -306,6 +306,41 @@ describe("Backlog API", () => {
     expect(data.childIssueSummary).toEqual({ total: 3, closed: 1 });
   });
 
+  it("should get a single issue with externalFileLinks.", async () => {
+    const externalFileLink = {
+      id: 10,
+      serviceType: "googledrive",
+      name: "spec.pdf",
+      url: "https://drive.google.com/file/d/xxxx/view",
+      createdUser: null,
+      created: "2026-07-28T00:00:00Z",
+      updatedUser: null,
+      updated: "2026-07-28T00:00:00Z",
+    };
+    const issue = {
+      id: 1,
+      projectId: 1,
+      issueKey: "TEST-1",
+      keyId: 1,
+      summary: "with external file link",
+      sharedFiles: [],
+      externalFileLinks: [externalFileLink],
+    };
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/issues/TEST-1",
+      query: { apiKey },
+      status: 200,
+      data: issue,
+      times: 1,
+    });
+    const data = await backlog.getIssue("TEST-1");
+    expect(data).toEqual(issue);
+    expect(data.externalFileLinks).toHaveLength(1);
+    expect(data.externalFileLinks[0].serviceType).toBe("googledrive");
+    expect(data.externalFileLinks[0].url).toBe(externalFileLink.url);
+  });
+
   it("should serialize the expand parameter using bracket array format.", () => {
     const query = (backlog as any).toQueryString({
       parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,
