@@ -24,7 +24,7 @@ export default class OAuth2 {
     return (
       `https://${options.host}/OAuth2AccessRequest.action?` +
       Object.keys(params)
-        .map((key) => (params[key] ? `${key}=${params[key]}` : ""))
+        .map((key) => (params[key] ? `${key}=${encodeURIComponent(params[key])}` : ""))
         .filter((x) => x.length > 0)
         .join("&")
     );

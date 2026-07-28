@@ -32,6 +32,16 @@ describe("OAuth2 API", () => {
     expect(oauth2.getAuthorizationURL({ host, redirectUri, state })).toBe(expected);
   });
 
+  it("should encode parameter values in the authorization url.", () => {
+    const redirectUri = "https://app.example.com/callback?tenant=acme&lang=ja";
+    const state = "ab+cd/ef==";
+    const params = new URL(oauth2.getAuthorizationURL({ host, redirectUri, state })).searchParams;
+
+    expect(params.get("redirect_uri")).toBe(redirectUri);
+    expect(params.get("state")).toBe(state);
+    expect([...params.keys()]).toEqual(["client_id", "response_type", "redirect_uri", "state"]);
+  });
+
   it("should get access token.", async () => {
     mockRequest({
       method: "POST",
