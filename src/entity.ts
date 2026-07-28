@@ -624,6 +624,10 @@ export namespace Issue {
     childIssueSummary?: ChildIssueSummary;
   }
 
+  export interface RelatedIssue extends Issue {
+    type: Types.IssueRelationType;
+  }
+
   export interface ChildIssueSummary {
     total: number;
     closed: number;

@@ -811,6 +811,39 @@ export default class Backlog extends Request {
   }
 
   /**
+   * Get the list of issues related to the specified issue.
+   *
+   * GET /api/v2/issues/:issueIdOrKey/relatedIssues
+   */
+  public getRelatedIssues(issueIdOrKey: string | number): Promise<Entity.Issue.RelatedIssue[]> {
+    return this.get(`issues/${issueIdOrKey}/relatedIssues`);
+  }
+
+  /**
+   * Add a related issue to the specified issue.
+   *
+   * POST /api/v2/issues/:issueIdOrKey/relatedIssues
+   */
+  public addRelatedIssue(
+    issueIdOrKey: string | number,
+    params: Option.Issue.AddRelatedIssueParams,
+  ): Promise<Entity.Issue.RelatedIssue> {
+    return this.post(`issues/${issueIdOrKey}/relatedIssues`, params);
+  }
+
+  /**
+   * Remove a related issue from the specified issue.
+   *
+   * DELETE /api/v2/issues/:issueIdOrKey/relatedIssues/:relatedIssueId
+   */
+  public removeRelatedIssue(
+    issueIdOrKey: string | number,
+    relatedIssueId: number,
+  ): Promise<Entity.Issue.RelatedIssue> {
+    return this.delete(`issues/${issueIdOrKey}/relatedIssues/${relatedIssueId}`);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-list/
    */
   public getWikis(params: Option.Wiki.GetWikiParams): Promise<Entity.Wiki.WikiListItem[]> {
