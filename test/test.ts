@@ -306,6 +306,81 @@ describe("Backlog API", () => {
     expect(data.childIssueSummary).toEqual({ total: 3, closed: 1 });
   });
 
+  it("should get related issues.", async () => {
+    const relatedIssues = [
+      {
+        id: 2,
+        projectId: 1,
+        issueKey: "TEST-2",
+        keyId: 2,
+        summary: "related",
+        type: "RELATES",
+      },
+      {
+        id: 3,
+        projectId: 1,
+        issueKey: "TEST-3",
+        keyId: 3,
+        summary: "related too",
+        type: "RELATES",
+      },
+    ];
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/issues/TEST-1/relatedIssues",
+      query: { apiKey },
+      status: 200,
+      data: relatedIssues,
+      times: 1,
+    });
+    const data = await backlog.getRelatedIssues("TEST-1");
+    expect(data).toEqual(relatedIssues);
+    expect(data[0].type).toBe("RELATES");
+  });
+
+  it("should add a related issue.", async () => {
+    const relatedIssue = {
+      id: 2,
+      projectId: 1,
+      issueKey: "TEST-2",
+      keyId: 2,
+      summary: "related",
+      type: "RELATES",
+    };
+    mockRequest({
+      method: "POST",
+      path: "/api/v2/issues/TEST-1/relatedIssues",
+      query: { apiKey },
+      body: qs.stringify({ targetIssueId: 2 }),
+      status: 200,
+      data: relatedIssue,
+      times: 1,
+    });
+    const data = await backlog.addRelatedIssue("TEST-1", { targetIssueId: 2 });
+    expect(data).toEqual(relatedIssue);
+  });
+
+  it("should remove a related issue.", async () => {
+    const relatedIssue = {
+      id: 2,
+      projectId: 1,
+      issueKey: "TEST-2",
+      keyId: 2,
+      summary: "related",
+      type: "RELATES",
+    };
+    mockRequest({
+      method: "DELETE",
+      path: "/api/v2/issues/TEST-1/relatedIssues/2",
+      query: { apiKey },
+      status: 200,
+      data: relatedIssue,
+      times: 1,
+    });
+    const data = await backlog.removeRelatedIssue("TEST-1", 2);
+    expect(data).toEqual(relatedIssue);
+  });
+
   it("should serialize the expand parameter using bracket array format.", () => {
     const query = (backlog as any).toQueryString({
       parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,

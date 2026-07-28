@@ -462,6 +462,10 @@ export namespace Issue {
   export interface LinkIssueSharedFilesParams {
     fileId: number[];
   }
+
+  export interface AddRelatedIssueParams {
+    targetIssueId: number;
+  }
 }
 
 export namespace PullRequest {
