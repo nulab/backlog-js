@@ -620,8 +620,20 @@ export namespace Issue {
     customFields: CustomFieldValue.CustomFieldValue[];
     attachments: File.IssueFileInfo[];
     sharedFiles: Project.SharedFile[];
+    externalFileLinks: ExternalFileLink[];
     stars: Star.Star[];
     childIssueSummary?: ChildIssueSummary;
+  }
+
+  export interface ExternalFileLink {
+    id: number;
+    serviceType: string;
+    name: string;
+    url: string;
+    createdUser?: User.User;
+    created: string;
+    updatedUser?: User.User;
+    updated: string;
   }
 
   export interface ChildIssueSummary {
