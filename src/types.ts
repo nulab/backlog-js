@@ -99,8 +99,8 @@ export enum CustomFieldType {
   Radio = 8,
 }
 
-/** Relation type of a related issue. `PRECEDES` is reserved for future use. */
-export type IssueRelationType = "RELATES" | "PRECEDES";
+/** Relation type of a related issue. Only the undirected `RELATES` link is available. */
+export type IssueRelationType = "RELATES";
 
 export type WebhookActivityId = number;
 
