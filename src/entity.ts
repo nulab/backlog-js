@@ -498,7 +498,7 @@ export namespace Document {
   }
 
   export interface DocumentTree {
-    projectId: string;
+    projectId: number;
     activeTree?: ActiveTrashTree;
     trashTree?: ActiveTrashTree;
   }
