@@ -457,6 +457,8 @@ describe("Backlog API", () => {
     });
     const data = await backlog.getDocumentTree(projectIdOrKey);
     expect(data).toEqual(Fixtures.documentTree);
+    // The API returns projectId as a number, not a string.
+    expect(typeof data.projectId).toBe("number");
   });
 
   it("should get a document.", async () => {
