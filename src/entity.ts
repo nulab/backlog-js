@@ -475,6 +475,35 @@ export namespace Document {
     created: string;
     updatedUser: User.User;
     updated: string;
+    childDocumentIds: string[];
+  }
+
+  export interface DocumentComment {
+    id: string;
+    documentId: string;
+    statusId: number;
+    content: string;
+    plain: string;
+    commentType: string;
+    createdUserId: number;
+    created: string;
+    updatedUserId: number;
+    updated: string;
+    createdUser: User.User;
+    replies: DocumentCommentReply[];
+  }
+
+  export interface DocumentCommentReply {
+    id: string;
+    documentId: string;
+    commentId: string;
+    content: string;
+    plain: string;
+    createdUserId: number;
+    created: string;
+    updatedUserId: number;
+    updated: string;
+    createdUser: User.User;
   }
 
   export interface Tag {
@@ -866,6 +895,9 @@ export namespace Notification {
     comment?: Issue.Comment;
     pullRequest?: PullRequest.PullRequest;
     pullRequestComment?: PullRequest.Comment;
+    document?: Document.Document;
+    documentComment?: Document.DocumentComment;
+    documentCommentReply?: Document.DocumentCommentReply;
     sender: User.User;
     created: string;
   }
