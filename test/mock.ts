@@ -42,7 +42,8 @@ export const mockRequest = ({
 };
 
 /**
- * The fetch implementation the tests inject via `configure.fetch`.
+ * The fetch implementation the suite installs as `globalThis.fetch` in setup.ts,
+ * so clients exercise the default `configure.fetch ?? globalThis.fetch` path.
  *
  * It binds undici's own `fetch` to the current `MockAgent` explicitly instead of
  * relying on `setGlobalDispatcher()`. The global dispatcher is not a reliable
