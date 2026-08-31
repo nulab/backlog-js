@@ -588,6 +588,73 @@ describe("Custom fetch option", () => {
     expect(() => new backlogjs.Backlog({ host, apiKey: "bad\x00nul" })).toThrow(/Invalid apiKey/);
   });
 
+  it("should abort the request when the configured timeout elapses", async () => {
+    // A fetch that only settles when the caller aborts it, so the assertion below
+    // proves the abort came from the configured timeout.
+    const hangingFetch: typeof globalThis.fetch = (_input, init) =>
+      new Promise<Response>((_resolve, reject) => {
+        init?.signal?.addEventListener("abort", () => reject(init.signal!.reason));
+      });
+
+    const client = new backlogjs.Backlog({ host, apiKey, timeout: 20, fetch: hangingFetch });
+
+    await expect(client.getSpace()).rejects.toMatchObject({ name: "TimeoutError" });
+  });
+
+  it("should pass the timeout to fetch as an AbortSignal", async () => {
+    let capturedSignal: AbortSignal | null | undefined;
+    const customFetch: typeof globalThis.fetch = (_input, init) => {
+      capturedSignal = init?.signal;
+      return Promise.resolve(
+        new Response(JSON.stringify(Fixtures.space), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, timeout: 20, fetch: customFetch });
+    await client.getSpace();
+
+    expect(capturedSignal).toBeInstanceOf(AbortSignal);
+    expect(capturedSignal!.aborted).toBe(false);
+  });
+
+  it("should not set a signal when no timeout is configured", async () => {
+    let capturedSignal: AbortSignal | null | undefined;
+    const customFetch: typeof globalThis.fetch = (_input, init) => {
+      capturedSignal = init?.signal;
+      return Promise.resolve(
+        new Response(JSON.stringify(Fixtures.space), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
+    await client.getSpace();
+
+    expect(capturedSignal).toBeUndefined();
+  });
+
+  it("should resolve normally when the response arrives before the timeout", async () => {
+    const client = new backlogjs.Backlog({
+      host,
+      apiKey,
+      timeout: 1000,
+      fetch: () =>
+        Promise.resolve(
+          new Response(JSON.stringify(Fixtures.space), {
+            status: 200,
+            headers: { "Content-Type": "application/json" },
+          }),
+        ),
+    });
+
+    expect(await client.getSpace()).toEqual(Fixtures.space);
+  });
+
   it("should send the provided userAgent as the User-Agent header", async () => {
     let capturedHeaders: HeadersInit | undefined;
     const customFetch: typeof globalThis.fetch = (_input, init) => {

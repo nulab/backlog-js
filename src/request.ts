@@ -68,7 +68,10 @@ export default class Request {
     const headers: Record<string, string> = {};
     const init: RequestInit = { method: method, headers };
     if (timeout) {
-      init["timeout"] = timeout;
+      // `timeout` used to be a node-fetch v2 specific option. The client now uses the
+      // standard fetch, which ignores unknown init properties, so the request has to be
+      // aborted through a signal instead.
+      init.signal = AbortSignal.timeout(timeout);
     }
     if (apiKey) {
       headers["Backlog-API-Key"] = apiKey;
