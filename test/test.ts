@@ -2,7 +2,7 @@ import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import * as qs from "qs";
 import * as backlogjs from "../src/index";
 import * as Fixtures from "./fixtures/index";
-import { mockRequest, mockPrepare, mockCleanup } from "./mock";
+import { mockRequest, mockPrepare, mockCleanup, mockFetch } from "./mock";
 
 const host = process.env.BACKLOG_HOST || "example.backlog.jp";
 const apiKey = process.env.BACKLOG_API_KEY || "apiKey";
@@ -13,11 +13,11 @@ const state = process.env.BACKLOG_STATE || "state";
 const code = process.env.BACKLOG_CODE || "code";
 const refreshToken = process.env.BACKLOG_REFRESH_TOKEN || "refreshToken";
 
-const configure = { host, apiKey };
+const configure = { host, apiKey, fetch: mockFetch };
 const credentials = { clientId, clientSecret };
 
 describe("OAuth2 API", () => {
-  let oauth2 = new backlogjs.OAuth2(credentials);
+  let oauth2 = new backlogjs.OAuth2(credentials, undefined, mockFetch);
 
   beforeEach(() => {
     mockPrepare(`https://${host}`);
