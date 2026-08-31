@@ -593,7 +593,13 @@ describe("Custom fetch option", () => {
     // proves the abort came from the configured timeout.
     const hangingFetch: typeof globalThis.fetch = (_input, init) =>
       new Promise<Response>((_resolve, reject) => {
-        init?.signal?.addEventListener("abort", () => reject(init.signal!.reason));
+        // Fail fast and loudly rather than hanging until the test runner's own
+        // timeout, which would report an unrelated "Test timed out" error.
+        if (!init?.signal) {
+          reject(new Error("fetch was called without an AbortSignal"));
+          return;
+        }
+        init.signal.addEventListener("abort", () => reject(init.signal!.reason));
       });
 
     const client = new backlogjs.Backlog({ host, apiKey, timeout: 20, fetch: hangingFetch });
