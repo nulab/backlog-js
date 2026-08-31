@@ -164,7 +164,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/space",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.space,
       times: 1,
@@ -177,7 +177,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/projects",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.projects,
       times: 1,
@@ -198,7 +198,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/projects",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.project,
       times: 1,
@@ -215,7 +215,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "PATCH",
       path: "/api/v2/projects/TEST",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.project,
       times: 1,
@@ -228,7 +228,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/projects/TEST",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.project,
       times: 1,
@@ -242,7 +242,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/space/licence",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.license,
       times: 1,
@@ -254,7 +254,6 @@ describe("Backlog API", () => {
 
   it("should get issues with childIssueSummary expand and grandchild parentChild type.", async () => {
     const query = {
-      apiKey,
       parentChild: backlogjs.Option.Issue.ParentChildType.GrandchildOnly,
       expand: ["childIssueSummary"],
     };
@@ -270,6 +269,7 @@ describe("Backlog API", () => {
       method: "GET",
       path: "/api/v2/issues",
       query,
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: [issue],
       times: 1,
@@ -294,7 +294,8 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/issues/TEST-1",
-      query: { apiKey, expand: ["childIssueSummary"] },
+      query: { expand: ["childIssueSummary"] },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: issue,
       times: 1,
@@ -328,7 +329,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/issues/TEST-1/relatedIssues",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: relatedIssues,
       times: 1,
@@ -350,7 +351,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/issues/TEST-1/relatedIssues",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       body: qs.stringify({ targetIssueId: 2 }),
       status: 200,
       data: relatedIssue,
@@ -372,7 +373,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "DELETE",
       path: "/api/v2/issues/TEST-1/relatedIssues/2",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: relatedIssue,
       times: 1,
@@ -390,10 +391,7 @@ describe("Backlog API", () => {
   });
 
   it("should get space activities.", async () => {
-    const query: backlogjs.Option.Space.GetActivitiesParams & {
-      apiKey: string;
-    } = {
-      apiKey,
+    const query: backlogjs.Option.Space.GetActivitiesParams = {
       activityTypeId: [
         backlogjs.Types.ActivityType.IssueCreated,
         backlogjs.Types.ActivityType.IssueUpdated,
@@ -408,6 +406,7 @@ describe("Backlog API", () => {
       method: "GET",
       path: "/api/v2/space/activities",
       query,
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: [],
       times: 1,
@@ -421,7 +420,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "POST",
       path: `/api/v2/notifications/${notificationId}/markAsRead`,
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 204, // No Content
       data: [],
       times: 1,
@@ -436,7 +435,8 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: "/api/v2/documents",
-      query: { apiKey, offset: 0 },
+      query: { offset: 0 },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.documents,
       times: 1,
@@ -450,7 +450,8 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: `/api/v2/documents/tree`,
-      query: { apiKey, projectIdOrKey },
+      query: { projectIdOrKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.documentTree,
       times: 1,
@@ -466,7 +467,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: `/api/v2/documents/${documentId}`,
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.document,
       times: 1,
@@ -481,7 +482,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "GET",
       path: `/api/v2/documents/${documentId}/attachments/${attachmentId}`,
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: "dummy",
       headers: {
@@ -497,7 +498,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "POST",
       path: "/api/v2/documents",
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.document,
       times: 1,
@@ -515,7 +516,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "DELETE",
       path: `/api/v2/documents/${documentId}`,
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: Fixtures.document,
       times: 1,
@@ -529,7 +530,7 @@ describe("Backlog API", () => {
     mockRequest({
       method: "DELETE",
       path: `/api/v2/stars/${starId}`,
-      query: { apiKey },
+      reqHeaders: { "Backlog-API-Key": apiKey },
       status: 204,
       data: [],
       times: 1,
@@ -558,6 +559,33 @@ describe("Custom fetch option", () => {
     expect(capturedUrl).not.toBeUndefined();
     expect(capturedUrl!.includes("/api/v2/space")).toBe(true);
     expect(data).toEqual(Fixtures.space);
+  });
+
+  it("should send the apiKey as the Backlog-API-Key header, not in the query string", async () => {
+    let capturedUrl: string | undefined;
+    let capturedHeaders: HeadersInit | undefined;
+    const customFetch: typeof globalThis.fetch = (input, init) => {
+      capturedUrl = input as string;
+      capturedHeaders = init?.headers;
+      return Promise.resolve(
+        new Response(JSON.stringify(Fixtures.space), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }),
+      );
+    };
+
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: customFetch });
+    await client.getSpace();
+    expect((capturedHeaders as Record<string, string>)["Backlog-API-Key"]).toBe(apiKey);
+    expect(capturedUrl!.includes("apiKey=")).toBe(false);
+  });
+
+  it("should reject an apiKey containing control characters (CR/LF)", () => {
+    expect(() => new backlogjs.Backlog({ host, apiKey: "evil\r\nX-Injected: 1" })).toThrow(
+      /Invalid apiKey/,
+    );
+    expect(() => new backlogjs.Backlog({ host, apiKey: "bad\x00nul" })).toThrow(/Invalid apiKey/);
   });
 
   it("should send the provided userAgent as the User-Agent header", async () => {

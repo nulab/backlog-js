@@ -29,6 +29,12 @@ export default class Request {
         "Invalid userAgent: control characters (including CR/LF) are not allowed.",
       );
     }
+    // apiKey is sent as the Backlog-API-Key header, so it needs the same guard.
+    if (configure.apiKey !== undefined && CONTROL_CHARACTER.test(configure.apiKey)) {
+      throw new globalThis.Error(
+        "Invalid apiKey: control characters (including CR/LF) are not allowed.",
+      );
+    }
   }
 
   public get<T>(path: string, params?: any): Promise<T> {
@@ -58,13 +64,15 @@ export default class Request {
   }): Promise<Response> {
     const { method, path, params = <Params>{} } = options;
     const { apiKey, accessToken, timeout, userAgent } = this.configure;
-    const query: Params = apiKey ? { apiKey: apiKey } : {};
+    const query: Params = {};
     const headers: Record<string, string> = {};
     const init: RequestInit = { method: method, headers };
     if (timeout) {
       init["timeout"] = timeout;
     }
-    if (!apiKey && accessToken) {
+    if (apiKey) {
+      headers["Backlog-API-Key"] = apiKey;
+    } else if (accessToken) {
       headers["Authorization"] = "Bearer " + accessToken;
     }
     // `User-Agent` is a forbidden header name in browsers and will be ignored there,

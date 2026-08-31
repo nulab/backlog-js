@@ -19,6 +19,7 @@ interface MockParams {
   status: number;
   data: any;
   headers?: Record<string, any>;
+  reqHeaders?: Record<string, string>;
   times: number;
 }
 
@@ -30,6 +31,7 @@ export const mockRequest = ({
   status,
   data,
   headers,
+  reqHeaders,
   times,
 }: MockParams) => {
   const queryStr = qs.stringify(query, { arrayFormat: "brackets" });
@@ -39,6 +41,7 @@ export const mockRequest = ({
     method,
     path: newPath,
     ...(body !== undefined && { body }),
+    ...(reqHeaders !== undefined && { headers: reqHeaders }),
   });
 
   interceptor.reply(status, data, { headers }).times(times);
@@ -47,6 +50,9 @@ export const mockRequest = ({
 export const mockPrepare = (host: string) => {
   previousDispatcher = getGlobalDispatcher();
   mockAgent = new MockAgent();
+  // Fail fast with MockNotMatchedError on unmatched requests instead of
+  // letting them escape to the real network.
+  mockAgent.disableNetConnect();
   setGlobalDispatcher(mockAgent);
   undiciInterceptable = mockAgent.get(host);
 };
