@@ -52,8 +52,16 @@ export const mockRequest = ({
  * backlog.jp. Passing the dispatcher per request keeps mocking independent of
  * which undici the running Node.js happens to bundle.
  */
-export const mockFetch: Fetch = (input, init) =>
-  <any>undiciFetch(<any>input, { ...(<any>init), dispatcher: mockAgent });
+export const mockFetch: Fetch = (input, init) => {
+  // `dispatcher: undefined` makes undici fall back to its global dispatcher and
+  // hit the real network, which is exactly what this module exists to prevent.
+  // Reaching here without a live MockAgent means mockPrepare() was not called,
+  // or mockCleanup() already ran -- fail instead of leaking a request.
+  if (!mockAgent) {
+    throw new Error("mockFetch was called without an active MockAgent. Call mockPrepare() first.");
+  }
+  return <any>undiciFetch(<any>input, { ...(<any>init), dispatcher: mockAgent });
+};
 
 export const mockPrepare = (host: string) => {
   mockAgent = new MockAgent();
@@ -66,4 +74,5 @@ export const mockPrepare = (host: string) => {
 export const mockCleanup = () => {
   undiciInterceptable.close();
   mockAgent.close();
+  mockAgent = undefined as unknown as MockAgent;
 };
