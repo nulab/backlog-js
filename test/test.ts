@@ -553,6 +553,46 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", expected);
   });
 
+  // Measured against a live space: Backlog sends a bare media type, with no
+  // charset parameter, so the value compares directly.
+  it.each([
+    ["image/png", "shot.png"],
+    ["text/csv", "data.csv"],
+  ])("should expose the %j Content-Type", async (contentType, name) => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 4;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: {
+        "Content-Type": contentType,
+        "Content-Disposition": `attachment; filename*=UTF-8''${name}`,
+      },
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("contentType", contentType);
+    expect(data).toHaveProperty("filename", name);
+  });
+
+  it("should return an empty contentType when the header is absent.", async () => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 5;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("contentType", "");
+  });
+
   it("should return an empty filename when the header is absent.", async () => {
     const issueIdOrKey = "BLG-1";
     const attachmentId = 2;
