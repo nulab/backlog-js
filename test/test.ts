@@ -494,9 +494,37 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", "test.png");
   });
 
-  // Every shape Backlog can send. The extended notation without any
-  // percent-encoding, covered above, is the one the previous `substring`
-  // implementation happened to get right.
+  // Headers measured against a live Backlog space, one attachment each. Backlog
+  // always uses the extended notation and percent-encodes everything that needs
+  // it, so these are the shapes this client actually meets — the group below
+  // covers what RFC 6266 permits more generally.
+  it.each([
+    ["attachment; filename*=UTF-8''shot.png", "shot.png"],
+    ["attachment; filename*=UTF-8''%E5%9B%B3%E9%9D%A2.png", "図面.png"],
+    // A space is `%20`, so a perfectly ordinary filename arrives encoded.
+    ["attachment; filename*=UTF-8''a%20b.csv", "a b.csv"],
+    // `;` inside a name is `%3B`, never a literal delimiter.
+    ["attachment; filename*=UTF-8''q1%3Bsummary.csv", "q1;summary.csv"],
+    // A `%` in the name is itself encoded, so decoding once is correct.
+    ["attachment; filename*=UTF-8''20%2530report.csv", "20%30report.csv"],
+  ])("should read the filename Backlog sends in %j", async (disposition, expected) => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 3;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: { "Content-Disposition": disposition },
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", expected);
+  });
+
+  // Shapes RFC 6266 permits that Backlog does not currently send. Parsing them
+  // costs nothing and stops the client from depending on one server's habits.
   it.each([
     ['attachment; filename="report.png"', "report.png"],
     ["attachment; filename=report.png", "report.png"],
