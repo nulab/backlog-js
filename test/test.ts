@@ -507,6 +507,13 @@ describe("Backlog API", () => {
     ['attachment; filename="quarter;summary.pdf"', "quarter;summary.pdf"],
     // A plain value is not percent-encoded, so `%30` is two literal characters.
     ['attachment; filename="20%30report.pdf"', "20%30report.pdf"],
+    // RFC 5987 does not allow a quoted ext-value, but servers send one.
+    ["attachment; filename*=\"UTF-8''%E5%9B%B3.png\"", "図.png"],
+    // A quoted value keeps its inner whitespace; an unquoted one is trimmed.
+    ['attachment; filename="  spaced.png  "', "  spaced.png  "],
+    ["attachment; filename=  spaced.png  ", "spaced.png"],
+    ['attachment; filename="a\\"b.png"', 'a"b.png'],
+    ["attachment;filename=nospace.png", "nospace.png"],
     ["attachment", ""],
   ])("should read the filename from %j", async (disposition, expected) => {
     const issueIdOrKey = "BLG-1";

@@ -12,7 +12,16 @@ import type { Fetch } from "./types";
  * is dropped and the rest is decoded. A plain `filename` is never
  * percent-encoded and is returned as written, with the quoted form unescaped.
  *
+ * Only UTF-8 percent-encoding is decoded, which is what the charset token
+ * carries in practice; anything that does not decode is returned as it
+ * arrived rather than throwing.
+ *
  * Returns an empty string when the header is absent or carries no filename.
+ *
+ * The result is whatever the server put in the header, now actually decoded —
+ * so a caller that turns it into a path must sanitise it first. Before this
+ * parsed the header, `%2E%2E%2F` came back encoded and `..` could not reach a
+ * caller by that route; it can now.
  */
 const parseContentDispositionFilename = (disposition: string | null): string => {
   if (!disposition) {
@@ -21,7 +30,10 @@ const parseContentDispositionFilename = (disposition: string | null): string => 
 
   const extended = /(?:^|;)\s*filename\*\s*=\s*([^;]+)/i.exec(disposition);
   if (extended) {
-    const encoded = /^[^']*'[^']*'(.*)$/.exec(extended[1].trim());
+    // RFC 5987 does not allow a quoted ext-value, but servers send one, and
+    // leaving the quotes in makes them part of the name.
+    const value = extended[1].trim().replace(/^"(.*)"$/, "$1");
+    const encoded = /^[^']*'[^']*'(.*)$/.exec(value);
     if (encoded) {
       try {
         return decodeURIComponent(encoded[1]);
