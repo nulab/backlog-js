@@ -4,24 +4,12 @@ import Request from "./request";
 import type { Fetch } from "./types";
 
 /**
- * Extracts the filename from a `Content-Disposition` header.
+ * Extracts the filename from a `Content-Disposition` header, or `""` when it
+ * carries none.
  *
- * Per RFC 6266, `filename*` (the RFC 5987 extended notation, used for
- * non-ASCII names) takes precedence over `filename` when a header carries
- * both. Its value is `<charset>'<language>'<percent-encoded>`, so the prefix
- * is dropped and the rest is decoded. A plain `filename` is never
- * percent-encoded and is returned as written, with the quoted form unescaped.
- *
- * Only UTF-8 percent-encoding is decoded, which is what the charset token
- * carries in practice; anything that does not decode is returned as it
- * arrived rather than throwing.
- *
- * Returns an empty string when the header is absent or carries no filename.
- *
- * The result is whatever the server put in the header, now actually decoded —
- * so a caller that turns it into a path must sanitise it first. Before this
- * parsed the header, `%2E%2E%2F` came back encoded and `..` could not reach a
- * caller by that route; it can now.
+ * Per RFC 6266 the `filename*` extended notation wins over plain `filename`;
+ * its `<charset>'<language>'` prefix is dropped and the rest percent-decoded.
+ * The value is the server's, so sanitise it before using it as a path.
  */
 const parseContentDispositionFilename = (disposition: string | null): string => {
   if (!disposition) {
@@ -30,22 +18,19 @@ const parseContentDispositionFilename = (disposition: string | null): string => 
 
   const extended = /(?:^|;)\s*filename\*\s*=\s*([^;]+)/i.exec(disposition);
   if (extended) {
-    // RFC 5987 does not allow a quoted ext-value, but servers send one, and
-    // leaving the quotes in makes them part of the name.
+    // Servers send a quoted ext-value even though RFC 5987 forbids it.
     const value = extended[1].trim().replace(/^"(.*)"$/, "$1");
     const encoded = /^[^']*'[^']*'(.*)$/.exec(value);
     if (encoded) {
       try {
         return decodeURIComponent(encoded[1]);
       } catch {
-        // Malformed percent-encoding: better the raw value than nothing.
         return encoded[1];
       }
     }
   }
 
-  // A quoted value may contain `;`, so it has to be matched before the
-  // unquoted form, which ends at the first one.
+  // Before the unquoted form: a quoted value may contain the `;` that ends one.
   const quoted = /(?:^|;)\s*filename\s*=\s*"((?:[^"\\]|\\.)*)"/i.exec(disposition);
   if (quoted) {
     return quoted[1].replace(/\\(.)/g, "$1");

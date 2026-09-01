@@ -494,18 +494,14 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", "test.png");
   });
 
-  // Headers measured against a live Backlog space, one attachment each. Backlog
-  // always uses the extended notation and percent-encodes everything that needs
-  // it, so these are the shapes this client actually meets — the group below
-  // covers what RFC 6266 permits more generally.
+  // Measured against a live Backlog space: it always uses the extended notation
+  // and percent-encodes anything that needs it, so `%20`, `%3B` and `%2530` are
+  // what an ordinary filename arrives as.
   it.each([
     ["attachment; filename*=UTF-8''shot.png", "shot.png"],
     ["attachment; filename*=UTF-8''%E5%9B%B3%E9%9D%A2.png", "図面.png"],
-    // A space is `%20`, so a perfectly ordinary filename arrives encoded.
     ["attachment; filename*=UTF-8''a%20b.csv", "a b.csv"],
-    // `;` inside a name is `%3B`, never a literal delimiter.
     ["attachment; filename*=UTF-8''q1%3Bsummary.csv", "q1;summary.csv"],
-    // A `%` in the name is itself encoded, so decoding once is correct.
     ["attachment; filename*=UTF-8''20%2530report.csv", "20%30report.csv"],
   ])("should read the filename Backlog sends in %j", async (disposition, expected) => {
     const issueIdOrKey = "BLG-1";
@@ -523,8 +519,8 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", expected);
   });
 
-  // Shapes RFC 6266 permits that Backlog does not currently send. Parsing them
-  // costs nothing and stops the client from depending on one server's habits.
+  // Shapes RFC 6266 permits that Backlog does not send, so the client does not
+  // depend on one server's habits.
   it.each([
     ['attachment; filename="report.png"', "report.png"],
     ["attachment; filename=report.png", "report.png"],
@@ -533,11 +529,9 @@ describe("Backlog API", () => {
     ["attachment; filename=\"fallback.png\"; filename*=UTF-8''%E5%9B%B3.png", "図.png"],
     // A quoted value may contain the delimiter.
     ['attachment; filename="quarter;summary.pdf"', "quarter;summary.pdf"],
-    // A plain value is not percent-encoded, so `%30` is two literal characters.
     ['attachment; filename="20%30report.pdf"', "20%30report.pdf"],
     // RFC 5987 does not allow a quoted ext-value, but servers send one.
     ["attachment; filename*=\"UTF-8''%E5%9B%B3.png\"", "図.png"],
-    // A quoted value keeps its inner whitespace; an unquoted one is trimmed.
     ['attachment; filename="  spaced.png  "', "  spaced.png  "],
     ["attachment; filename=  spaced.png  ", "spaced.png"],
     ['attachment; filename="a\\"b.png"', 'a"b.png'],
