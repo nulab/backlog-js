@@ -494,6 +494,80 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", "test.png");
   });
 
+  // Measured against a live Backlog space: it always uses the extended notation
+  // and percent-encodes anything that needs it, so `%20`, `%3B` and `%2530` are
+  // what an ordinary filename arrives as.
+  it.each([
+    ["attachment; filename*=UTF-8''shot.png", "shot.png"],
+    ["attachment; filename*=UTF-8''%E5%9B%B3%E9%9D%A2.png", "図面.png"],
+    ["attachment; filename*=UTF-8''a%20b.csv", "a b.csv"],
+    ["attachment; filename*=UTF-8''q1%3Bsummary.csv", "q1;summary.csv"],
+    ["attachment; filename*=UTF-8''20%2530report.csv", "20%30report.csv"],
+  ])("should read the filename Backlog sends in %j", async (disposition, expected) => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 3;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: { "Content-Disposition": disposition },
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", expected);
+  });
+
+  // Shapes RFC 6266 permits that Backlog does not send, so the client does not
+  // depend on one server's habits.
+  it.each([
+    ['attachment; filename="report.png"', "report.png"],
+    ["attachment; filename=report.png", "report.png"],
+    ["attachment; filename*=UTF-8''%E5%9B%B3%E9%9D%A2.png", "図面.png"],
+    // RFC 6266: `filename*` wins when a header carries both.
+    ["attachment; filename=\"fallback.png\"; filename*=UTF-8''%E5%9B%B3.png", "図.png"],
+    // A quoted value may contain the delimiter.
+    ['attachment; filename="quarter;summary.pdf"', "quarter;summary.pdf"],
+    ['attachment; filename="20%30report.pdf"', "20%30report.pdf"],
+    // RFC 5987 does not allow a quoted ext-value, but servers send one.
+    ["attachment; filename*=\"UTF-8''%E5%9B%B3.png\"", "図.png"],
+    ['attachment; filename="  spaced.png  "', "  spaced.png  "],
+    ["attachment; filename=  spaced.png  ", "spaced.png"],
+    ['attachment; filename="a\\"b.png"', 'a"b.png'],
+    ["attachment;filename=nospace.png", "nospace.png"],
+    ["attachment", ""],
+  ])("should read the filename from %j", async (disposition, expected) => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 1;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: { "Content-Disposition": disposition },
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", expected);
+  });
+
+  it("should return an empty filename when the header is absent.", async () => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 2;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", "");
+  });
+
   it("should add a document.", async () => {
     mockRequest({
       method: "POST",

@@ -3,6 +3,43 @@ import * as Entity from "./entity";
 import Request from "./request";
 import type { Fetch } from "./types";
 
+/**
+ * Extracts the filename from a `Content-Disposition` header, or `""` when it
+ * carries none.
+ *
+ * Per RFC 6266 the `filename*` extended notation wins over plain `filename`;
+ * its `<charset>'<language>'` prefix is dropped and the rest percent-decoded.
+ * The value is the server's, so sanitise it before using it as a path.
+ */
+const parseContentDispositionFilename = (disposition: string | null): string => {
+  if (!disposition) {
+    return "";
+  }
+
+  const extended = /(?:^|;)\s*filename\*\s*=\s*([^;]+)/i.exec(disposition);
+  if (extended) {
+    // Servers send a quoted ext-value even though RFC 5987 forbids it.
+    const value = extended[1].trim().replace(/^"(.*)"$/, "$1");
+    const encoded = /^[^']*'[^']*'(.*)$/.exec(value);
+    if (encoded) {
+      try {
+        return decodeURIComponent(encoded[1]);
+      } catch {
+        return encoded[1];
+      }
+    }
+  }
+
+  // Before the unquoted form: a quoted value may contain the `;` that ends one.
+  const quoted = /(?:^|;)\s*filename\s*=\s*"((?:[^"\\]|\\.)*)"/i.exec(disposition);
+  if (quoted) {
+    return quoted[1].replace(/\\(.)/g, "$1");
+  }
+
+  const plain = /(?:^|;)\s*filename\s*=\s*([^;]*)/i.exec(disposition);
+  return plain ? plain[1].trim() : "";
+};
+
 export default class Backlog extends Request {
   constructor(configure: {
     host: string;
@@ -1408,12 +1445,10 @@ export default class Backlog extends Request {
           blob: () => response.blob(),
         });
       } else {
-        const disposition = response.headers.get("Content-Disposition");
-        const filename = disposition ? disposition.substring(disposition.indexOf("''") + 2) : "";
         resolve({
           body: (<any>response).body,
           url: response.url,
-          filename: filename,
+          filename: parseContentDispositionFilename(response.headers.get("Content-Disposition")),
         });
       }
     });
