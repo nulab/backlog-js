@@ -553,8 +553,8 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", expected);
   });
 
-  // Backlog does send a correct Content-Type; before this it was read off the
-  // response and thrown away, leaving callers to guess from the extension.
+  // Measured against a live space: Backlog sends a bare media type, with no
+  // charset parameter, so the value compares directly.
   it.each([
     ["image/png", "shot.png"],
     ["text/csv", "data.csv"],
