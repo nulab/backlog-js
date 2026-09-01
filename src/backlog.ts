@@ -1438,17 +1438,20 @@ export default class Backlog extends Request {
 
   private parseFileData(response: Response): Promise<Entity.File.FileData> {
     return new Promise((resolve) => {
+      const contentType = response.headers.get("Content-Type") ?? "";
       if (typeof window !== "undefined") {
         resolve({
           body: (<any>response).body,
           url: response.url,
           blob: () => response.blob(),
+          contentType,
         });
       } else {
         resolve({
           body: (<any>response).body,
           url: response.url,
           filename: parseContentDispositionFilename(response.headers.get("Content-Disposition")),
+          contentType,
         });
       }
     });

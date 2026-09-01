@@ -7,12 +7,16 @@ export namespace File {
     body: ReadableStream;
     url: string;
     filename: string;
+    /** The response's `Content-Type`, or `""` when it carries none. */
+    contentType: string;
   }
 
   export interface BrowserFileData {
     body: any;
     url: string;
     blob?: () => Promise<Blob>;
+    /** The response's `Content-Type`, or `""` when it carries none. */
+    contentType: string;
   }
 
   export interface FileInfo {
