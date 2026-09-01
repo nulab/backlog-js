@@ -3,6 +3,46 @@ import * as Entity from "./entity";
 import Request from "./request";
 import type { Fetch } from "./types";
 
+/**
+ * Extracts the filename from a `Content-Disposition` header.
+ *
+ * Per RFC 6266, `filename*` (the RFC 5987 extended notation, used for
+ * non-ASCII names) takes precedence over `filename` when a header carries
+ * both. Its value is `<charset>'<language>'<percent-encoded>`, so the prefix
+ * is dropped and the rest is decoded. A plain `filename` is never
+ * percent-encoded and is returned as written, with the quoted form unescaped.
+ *
+ * Returns an empty string when the header is absent or carries no filename.
+ */
+const parseContentDispositionFilename = (disposition: string | null): string => {
+  if (!disposition) {
+    return "";
+  }
+
+  const extended = /(?:^|;)\s*filename\*\s*=\s*([^;]+)/i.exec(disposition);
+  if (extended) {
+    const encoded = /^[^']*'[^']*'(.*)$/.exec(extended[1].trim());
+    if (encoded) {
+      try {
+        return decodeURIComponent(encoded[1]);
+      } catch {
+        // Malformed percent-encoding: better the raw value than nothing.
+        return encoded[1];
+      }
+    }
+  }
+
+  // A quoted value may contain `;`, so it has to be matched before the
+  // unquoted form, which ends at the first one.
+  const quoted = /(?:^|;)\s*filename\s*=\s*"((?:[^"\\]|\\.)*)"/i.exec(disposition);
+  if (quoted) {
+    return quoted[1].replace(/\\(.)/g, "$1");
+  }
+
+  const plain = /(?:^|;)\s*filename\s*=\s*([^;]*)/i.exec(disposition);
+  return plain ? plain[1].trim() : "";
+};
+
 export default class Backlog extends Request {
   constructor(configure: {
     host: string;
@@ -1408,12 +1448,10 @@ export default class Backlog extends Request {
           blob: () => response.blob(),
         });
       } else {
-        const disposition = response.headers.get("Content-Disposition");
-        const filename = disposition ? disposition.substring(disposition.indexOf("''") + 2) : "";
         resolve({
           body: (<any>response).body,
           url: response.url,
-          filename: filename,
+          filename: parseContentDispositionFilename(response.headers.get("Content-Disposition")),
         });
       }
     });

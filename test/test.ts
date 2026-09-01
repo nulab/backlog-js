@@ -494,6 +494,51 @@ describe("Backlog API", () => {
     expect(data).toHaveProperty("filename", "test.png");
   });
 
+  // Every shape Backlog can send. The extended notation without any
+  // percent-encoding, covered above, is the one the previous `substring`
+  // implementation happened to get right.
+  it.each([
+    ['attachment; filename="report.png"', "report.png"],
+    ["attachment; filename=report.png", "report.png"],
+    ["attachment; filename*=UTF-8''%E5%9B%B3%E9%9D%A2.png", "図面.png"],
+    // RFC 6266: `filename*` wins when a header carries both.
+    ["attachment; filename=\"fallback.png\"; filename*=UTF-8''%E5%9B%B3.png", "図.png"],
+    // A quoted value may contain the delimiter.
+    ['attachment; filename="quarter;summary.pdf"', "quarter;summary.pdf"],
+    // A plain value is not percent-encoded, so `%30` is two literal characters.
+    ['attachment; filename="20%30report.pdf"', "20%30report.pdf"],
+    ["attachment", ""],
+  ])("should read the filename from %j", async (disposition, expected) => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 1;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: { "Content-Disposition": disposition },
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", expected);
+  });
+
+  it("should return an empty filename when the header is absent.", async () => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 2;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      times: 1,
+    });
+    const data = await backlog.getIssueAttachment(issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", "");
+  });
+
   it("should add a document.", async () => {
     mockRequest({
       method: "POST",
