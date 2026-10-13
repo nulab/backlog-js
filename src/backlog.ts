@@ -1011,6 +1011,13 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/get-document-comment/
+   */
+  public getDocumentComments(documentId: string): Promise<Entity.Document.DocumentComment[]> {
+    return this.get(`documents/${documentId}/comments`);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
    */
   public downloadDocumentAttachment(

@@ -476,6 +476,20 @@ describe("Backlog API", () => {
     expect(data).toEqual(Fixtures.document);
   });
 
+  it("should get document comments.", async () => {
+    const documentId = "01939983409c79d5a06a49859789e38f";
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/documents/${documentId}/comments`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: Fixtures.documentComments,
+      times: 1,
+    });
+    const data = await backlog.getDocumentComments(documentId);
+    expect(data).toEqual(Fixtures.documentComments);
+  });
+
   it("should download a document attachment.", async () => {
     const documentId = "01939983409c79d5a06a49859789e38f";
     const attachmentId = 22067;
