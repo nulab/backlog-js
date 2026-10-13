@@ -680,6 +680,17 @@ describe("Standalone functions", () => {
     mockCleanup();
   });
 
+  // Every method is written in two places, so catch one added to only the class.
+  it("should export a function for every Backlog method.", () => {
+    const methods = Object.getOwnPropertyNames(backlogjs.Backlog.prototype).filter(
+      (name) => name !== "constructor",
+    );
+    const missing = methods.filter(
+      (name) => typeof (backlogjs as Record<string, unknown>)[name] !== "function",
+    );
+    expect(missing).toEqual([]);
+  });
+
   it("should get space.", async () => {
     mockRequest({
       method: "GET",

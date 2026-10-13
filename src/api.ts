@@ -43,7 +43,7 @@ const download = (client: Client, path: string): Promise<Entity.File.FileData> =
   client.request({ method: "GET", path }).then(parseFileData);
 
 const upload = (client: Client, path: string, params: FormData): Promise<any> =>
-  client.request({ method: "POST", path, params }).then(client.parseJSON);
+  client.request({ method: "POST", path, params }).then((response) => client.parseJSON(response));
 
 const parseFileData = (response: Response): Promise<Entity.File.FileData> => {
   return new Promise((resolve) => {
@@ -67,9 +67,14 @@ const parseFileData = (response: Response): Promise<Entity.File.FileData> => {
 };
 
 /**
- * A client to pass as the first argument of the API functions.
+ * A client to pass as the first argument of the API functions: what
+ * `createClient` returns, a `Backlog` instance, or anything with the same
+ * request methods.
  */
-export type Client = Request;
+export type Client = Pick<
+  Request,
+  "request" | "get" | "post" | "put" | "patch" | "delete" | "parseJSON"
+>;
 
 export type { ClientConfigure };
 
@@ -1205,6 +1210,16 @@ export function getDocumentTree(
  */
 export function getDocument(client: Client, documentId: string): Promise<Entity.Document.Document> {
   return client.get(`documents/${documentId}`);
+}
+
+/**
+ * https://developer.nulab.com/docs/backlog/api/2/get-document-comment/
+ */
+export function getDocumentComments(
+  client: Client,
+  documentId: string,
+): Promise<Entity.Document.DocumentComment[]> {
+  return client.get(`documents/${documentId}/comments`);
 }
 
 /**
