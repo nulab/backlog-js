@@ -5,3 +5,4 @@ import * as Entity from "./entity";
 import * as Types from "./types";
 import * as Error from "./error";
 export { Backlog, OAuth2, Option, Entity, Types, Error };
+export * from "./api";

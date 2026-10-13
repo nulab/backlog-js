@@ -36,6 +36,18 @@ backlog.getSpace().then(data => {
 
 ```
 
+### Standalone functions
+
+Every method of `Backlog` is also exported as a function that takes a client as its first argument. Import only the functions you use and your bundler can drop the rest.
+
+``` javascript
+import { createClient, getSpace } from 'backlog-js';
+
+const client = createClient({ host, apiKey });
+
+const space = await getSpace(client);
+```
+
 ### Other Example
 
 #### Download File

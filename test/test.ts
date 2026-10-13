@@ -669,6 +669,69 @@ describe("Backlog API", () => {
   });
 });
 
+describe("Standalone functions", () => {
+  const client = backlogjs.createClient(configure);
+
+  beforeEach(() => {
+    mockPrepare(`https://${host}`);
+  });
+
+  afterEach(() => {
+    mockCleanup();
+  });
+
+  it("should get space.", async () => {
+    mockRequest({
+      method: "GET",
+      path: "/api/v2/space",
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: Fixtures.space,
+      times: 1,
+    });
+    const data = await backlogjs.getSpace(client);
+    expect(data).toEqual(Fixtures.space);
+  });
+
+  it("should download a file.", async () => {
+    const issueIdOrKey = "BLG-1";
+    const attachmentId = 3;
+    mockRequest({
+      method: "GET",
+      path: `/api/v2/issues/${issueIdOrKey}/attachments/${attachmentId}`,
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: "dummy",
+      headers: { "Content-Disposition": "attachment; filename*=UTF-8''shot.png" },
+      times: 1,
+    });
+    const data = await backlogjs.getIssueAttachment(client, issueIdOrKey, attachmentId);
+    expect(data).toHaveProperty("filename", "shot.png");
+  });
+
+  it("should upload a file.", async () => {
+    const fileInfo = { id: 1, name: "test.txt", size: 4 };
+    mockRequest({
+      method: "POST",
+      path: "/api/v2/space/attachment",
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: fileInfo,
+      times: 1,
+    });
+    const form = new FormData();
+    form.append("file", new Blob(["test"]), "test.txt");
+    const data = await backlogjs.postSpaceAttachment(client, form);
+    expect(data).toEqual(fileInfo);
+  });
+
+  it("should reject the same configure the Backlog class rejects.", () => {
+    expect(() => backlogjs.createClient({ host, apiKey: "key\r\nX-Injected: 1" })).toThrow(
+      "Invalid apiKey",
+    );
+  });
+});
+
 describe("Custom fetch option", () => {
   it("should use the provided fetch function instead of global fetch", async () => {
     let capturedUrl: string | undefined;
