@@ -5,3 +5,4 @@ export * from "./document";
 export * from "./documents";
 export * from "./documentTree";
 export * from "./documentAttachments";
+export * from "./documentComments";
