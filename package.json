@@ -47,7 +47,7 @@
     "@types/node": "^25.2.3",
     "@types/qs": "^6.9.15",
     "dotenv": "^16.4.5",
-    "oxfmt": "^0.57.0",
+    "oxfmt": "^0.72.0",
     "oxlint": "^1.72.0",
     "tsdown": "^0.21.1",
     "typescript": "^5.5.2",
