@@ -15,32 +15,31 @@ Append your "API Key" or "OAuth2 Access Token" to requests to the API to return 
 
 Create a client with `createClient`, then pass it as the first argument of the API functions. Import only the functions you use and your bundler can drop the rest.
 
-``` javascript
+```typescript
 import { createClient, getSpace } from 'backlog-js';
 
 // 'xxx.backlog.jp' or 'xxx.backlogtool.com' or 'your package host'
 const host = 'yourSpaceHost';
 const apiKey = 'yourApiKey';
-const accessToken = 'yourAccessToken';
 
 // Use API Key
 const client = createClient({ host, apiKey });
 
-// Use OAuth2 Access Token
-const client = createClient({ host, accessToken });
+// Or use OAuth2 Access Token
+// const client = createClient({ host, accessToken: 'yourAccessToken' });
 
 // Returns information about your space.
 try {
   const space = await getSpace(client);
   console.log('space:', space);
 } catch (err) {
-  console.log('error:', err.message);
+  console.log('error:', err);
 }
 ```
 
 Each function takes the client first, followed by the parameters of the Backlog API it calls:
 
-``` javascript
+```typescript
 import { createClient, getIssue, getIssues, patchIssue } from 'backlog-js';
 
 const client = createClient({ host, apiKey });
@@ -54,7 +53,7 @@ await patchIssue(client, 'PROJ-1', { summary: 'New summary' });
 
 The `Backlog` class is still available and has a method for every function, without the client argument:
 
-``` javascript
+```typescript
 import { Backlog } from 'backlog-js';
 
 const backlog = new Backlog({ host, apiKey });
@@ -68,52 +67,71 @@ A `Backlog` instance is also a client, so it can be passed to the functions as w
 
 #### Download File
 
-``` javascript
+Node.js:
+
+```typescript
+import { createWriteStream } from 'node:fs';
+import { Readable } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { createClient, getSpaceIcon } from 'backlog-js';
 
 const client = createClient({ host, apiKey });
 const data = await getSpaceIcon(client);
 
-// node
-import { createWriteStream } from 'node:fs';
-import { Readable } from 'node:stream';
-import { pipeline } from 'node:stream/promises';
+if ('filename' in data) {
+  await pipeline(Readable.fromWeb(data.body), createWriteStream(`./${data.filename}`));
+}
+```
 
-await pipeline(Readable.fromWeb(data.body), createWriteStream(`./${data.filename}`));
+Browser:
 
-// browser
-const blob = await data.blob();
-const objectURL = URL.createObjectURL(blob);
-const element = window.document.querySelector('#image');
-element.src = objectURL;
+```typescript
+import { createClient, getSpaceIcon } from 'backlog-js';
+
+const client = createClient({ host, apiKey });
+const data = await getSpaceIcon(client);
+
+if ('blob' in data && data.blob) {
+  const blob = await data.blob();
+  const element = document.querySelector<HTMLImageElement>('#image');
+  if (element) {
+    element.src = URL.createObjectURL(blob);
+  }
+}
 ```
 
 #### Upload File
 
-``` javascript
+Node.js:
+
+```typescript
+import { openAsBlob } from 'node:fs';
 import { createClient, postSpaceAttachment } from 'backlog-js';
 
 const client = createClient({ host, apiKey });
 
-// node
-import { openAsBlob } from 'node:fs';
-
 const formData = new FormData();
 formData.append('file', await openAsBlob('./sample.png'), 'sample.png');
 
-// browser
+const attachment = await postSpaceAttachment(client, formData);
+console.log('success:', attachment);
+```
+
+Browser:
+
+```typescript
 // <form id="upload_form" method="post" enctype="multipart/form-data" >
 //   <input type="file" name="file" >
 // </form>
-const $form = window.document.querySelector('#upload_form');
-const formData = new FormData($form);
+import { createClient, postSpaceAttachment } from 'backlog-js';
 
-try {
-  const data = await postSpaceAttachment(client, formData);
-  console.log('success:', data);
-} catch (err) {
-  console.log('error:', err.message);
-}
+const client = createClient({ host, apiKey });
+
+const form = document.querySelector<HTMLFormElement>('#upload_form');
+const formData = new FormData(form ?? undefined);
+
+const attachment = await postSpaceAttachment(client, formData);
+console.log('success:', attachment);
 ```
 
 ## Use OAuth2 for authentication
@@ -121,7 +139,8 @@ try {
 Details on the OAuth2 process are available [here](https://developer.nulab-inc.com/docs/backlog/auth#oauth2).
 
 Here are the basic steps for OAuth2 using [Hono](https://hono.dev/):
-```` javascript
+
+```typescript
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { OAuth2, createClient, getMyself } from 'backlog-js';
@@ -134,8 +153,7 @@ const clientSecret = 'yourClientSecret';
 const redirectUri = 'http://localhost:3000/callback';
 const state = 'yourState';
 
-const credentials = { clientId, clientSecret };
-const oauth2 = new OAuth2(credentials);
+const oauth2 = new OAuth2({ clientId, clientSecret });
 
 const authorizationURL = oauth2.getAuthorizationURL({ host, redirectUri, state });
 
@@ -143,6 +161,10 @@ app.get('/auth', (c) => c.redirect(authorizationURL));
 
 app.get('/callback', async (c) => {
   const code = c.req.query('code');
+  if (!code) {
+    return c.redirect('/login');
+  }
+
   try {
     const accessToken = await oauth2.getAccessToken({ host, code, redirectUri });
     console.log('Access Token:', accessToken);
@@ -154,8 +176,8 @@ app.get('/callback', async (c) => {
     console.log('Myself:', myself);
 
     return c.redirect('/');
-  } catch (e) {
-    console.log('Access Token Error', e.message);
+  } catch (err) {
+    console.log('Access Token Error', err);
     return c.redirect('/login');
   }
 });
@@ -167,14 +189,14 @@ app.get('/login', (c) => c.html('<a href="/auth">Login with Backlog</a>'));
 serve({ fetch: app.fetch, port: 3000 });
 
 console.log('Hono server started on port 3000');
-````
+```
 
 ## HTTP proxy support
 
 You can route requests through an HTTP proxy by injecting a custom `fetch` function
 into `createClient` (or the `Backlog` constructor) and the `OAuth2` constructor.
 
-```javascript
+```typescript
 import { createClient } from 'backlog-js';
 import { ProxyAgent, fetch as undiciFetch } from 'undici';
 
