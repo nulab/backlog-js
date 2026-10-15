@@ -8,19 +8,19 @@ import type { Fetch } from "./types";
 // eslint-disable-next-line no-control-regex
 const CONTROL_CHARACTER = /[\x00-\x1f\x7f]/;
 
+export type ClientConfigure = {
+  host: string;
+  apiKey?: string;
+  accessToken?: string;
+  timeout?: number;
+  fetch?: Fetch;
+  userAgent?: string;
+};
+
 export default class Request {
   private readonly fetch: Fetch;
 
-  constructor(
-    private configure: {
-      host: string;
-      apiKey?: string;
-      accessToken?: string;
-      timeout?: number;
-      fetch?: Fetch;
-      userAgent?: string;
-    },
-  ) {
+  constructor(private configure: ClientConfigure) {
     this.fetch = configure.fetch ?? globalThis.fetch;
     // Reject control characters (including CR/LF) in userAgent to prevent header
     // injection: a value containing "\r\n" could otherwise smuggle extra headers.

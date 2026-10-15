@@ -21,6 +21,7 @@
   "files": [
     "dist"
   ],
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git://github.com/nulab/backlog-js.git"
