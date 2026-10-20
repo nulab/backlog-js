@@ -1,4 +1,4 @@
-import { describe, it, beforeEach, afterEach, expect } from "vitest";
+import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
 import * as qs from "qs";
 import * as backlogjs from "../src/index";
 import * as Fixtures from "./fixtures/index";
@@ -876,6 +876,43 @@ describe("Custom fetch option", () => {
     expect(capturedUrl).not.toBeUndefined();
     expect(capturedUrl!.includes("/api/v2/oauth2/token")).toBe(true);
     expect(data).toEqual(Fixtures.access_token);
+  });
+});
+
+describe("Unbound fetch", () => {
+  // Mimics runtimes such as Cloudflare Workers, where the native fetch throws
+  // when called with a `this` other than the global object.
+  const thisSensitiveFetch = function (this: unknown) {
+    if (this !== undefined && this !== globalThis) {
+      return Promise.reject(new TypeError("Illegal invocation"));
+    }
+    return Promise.resolve(
+      new Response(JSON.stringify(Fixtures.space), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+  } as typeof globalThis.fetch;
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it("should not call the global fetch as a method of the client", async () => {
+    vi.stubGlobal("fetch", thisSensitiveFetch);
+    const client = new backlogjs.Backlog({ host, apiKey });
+    await expect(client.getSpace()).resolves.toEqual(Fixtures.space);
+  });
+
+  it("should not call the provided fetch as a method of the client", async () => {
+    const client = new backlogjs.Backlog({ host, apiKey, fetch: thisSensitiveFetch });
+    await expect(client.getSpace()).resolves.toEqual(Fixtures.space);
+  });
+
+  it("should not call the global fetch as a method in OAuth2", async () => {
+    vi.stubGlobal("fetch", thisSensitiveFetch);
+    const oauth2 = new backlogjs.OAuth2(credentials);
+    await expect(oauth2.getAccessToken({ host, code })).resolves.toEqual(Fixtures.space);
   });
 });
 
