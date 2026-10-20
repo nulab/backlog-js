@@ -21,7 +21,11 @@ export default class Request {
   private readonly fetch: Fetch;
 
   constructor(private configure: ClientConfigure) {
-    this.fetch = configure.fetch ?? globalThis.fetch;
+    // Call fetch through a wrapper rather than as a method of this object.
+    // Runtimes such as Cloudflare Workers throw "Illegal invocation" when the
+    // native fetch is called with any `this` other than the global object.
+    const fetch = configure.fetch ?? globalThis.fetch;
+    this.fetch = (input, init) => fetch(input, init);
     // Reject control characters (including CR/LF) in userAgent to prevent header
     // injection: a value containing "\r\n" could otherwise smuggle extra headers.
     if (configure.userAgent !== undefined && CONTROL_CHARACTER.test(configure.userAgent)) {
