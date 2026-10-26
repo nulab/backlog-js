@@ -1521,7 +1521,7 @@ export function deletePullRequestAttachment(
   number: number,
   attachmentId: number,
 ): Promise<Entity.File.PullRequestFileInfo> {
-  return client.get(
+  return client.delete(
     `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`,
   );
 }
