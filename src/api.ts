@@ -1234,6 +1234,17 @@ export function downloadDocumentAttachment(
 }
 
 /**
+ * https://developer.nulab.com/docs/backlog/api/2/add-document-attachment/
+ */
+export function addDocumentAttachment(
+  client: Client,
+  documentId: string,
+  form: FormData,
+): Promise<Entity.File.DocumentFileInfo> {
+  return upload(client, `documents/${documentId}/attachments`, form);
+}
+
+/**
  * https://developer.nulab.com/docs/backlog/api/2/add-document/
  */
 export function addDocument(

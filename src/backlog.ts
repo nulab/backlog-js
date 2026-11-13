@@ -985,6 +985,16 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/add-document-attachment/
+   */
+  public addDocumentAttachment(
+    documentId: string,
+    form: FormData,
+  ): Promise<Entity.File.DocumentFileInfo> {
+    return Api.addDocumentAttachment(this, documentId, form);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/add-document/
    */
   public addDocument(params: Option.Document.AddDocumentParams): Promise<Entity.Document.Document> {
