@@ -985,6 +985,22 @@ export default class Backlog extends Request {
   }
 
   /**
+   * https://developer.nulab.com/docs/backlog/api/2/add-document-attachment/
+   *
+   * Send the file itself in a field named `file`; no prior upload is needed.
+   * @example
+   * const form = new FormData();
+   * form.append("file", blob, "report.pdf");
+   * await backlog.addDocumentAttachment(documentId, form);
+   */
+  public addDocumentAttachment(
+    documentId: string,
+    form: FormData,
+  ): Promise<Entity.File.DocumentFileInfo> {
+    return Api.addDocumentAttachment(this, documentId, form);
+  }
+
+  /**
    * https://developer.nulab.com/docs/backlog/api/2/add-document/
    */
   public addDocument(params: Option.Document.AddDocumentParams): Promise<Entity.Document.Document> {

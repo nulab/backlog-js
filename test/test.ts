@@ -639,6 +639,29 @@ describe("Backlog API", () => {
     expect(data).toEqual(Fixtures.document);
   });
 
+  it("should add a document attachment.", async () => {
+    const documentId = "01939983409c79d5a06a49859789e38f";
+    const attachment = Fixtures.documentAttachments[0];
+    mockRequest({
+      method: "POST",
+      path: `/api/v2/documents/${documentId}/attachments`,
+      // The API reads the upload only from the multipart field named "file".
+      // undici hands the matcher the FormData itself, not a serialized string.
+      body: (body) => {
+        const file = (body as unknown as FormData).get("file");
+        return file instanceof File && file.name === "test.png";
+      },
+      reqHeaders: { "Backlog-API-Key": apiKey },
+      status: 200,
+      data: attachment,
+      times: 1,
+    });
+    const form = new FormData();
+    form.append("file", new Blob(["test"]), "test.png");
+    const data = await backlog.addDocumentAttachment(documentId, form);
+    expect(data).toEqual(attachment);
+  });
+
   it("should delete a document.", async () => {
     const documentId = "01939983409c79d5a06a49859789e38f";
     mockRequest({
