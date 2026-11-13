@@ -1235,6 +1235,12 @@ export function downloadDocumentAttachment(
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-document-attachment/
+ *
+ * Send the file itself in a field named `file`; no prior upload is needed.
+ * @example
+ * const form = new FormData();
+ * form.append("file", blob, "report.pdf");
+ * await addDocumentAttachment(client, documentId, form);
  */
 export function addDocumentAttachment(
   client: Client,

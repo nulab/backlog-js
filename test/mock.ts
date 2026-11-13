@@ -9,7 +9,7 @@ interface MockParams {
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   path: string;
   query?: Record<string, any>;
-  body?: string;
+  body?: string | RegExp | ((body: string) => boolean);
   status: number;
   data: any;
   headers?: Record<string, any>;

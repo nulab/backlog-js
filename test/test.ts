@@ -645,6 +645,12 @@ describe("Backlog API", () => {
     mockRequest({
       method: "POST",
       path: `/api/v2/documents/${documentId}/attachments`,
+      // The API reads the upload only from the multipart field named "file".
+      // undici hands the matcher the FormData itself, not a serialized string.
+      body: (body) => {
+        const file = (body as unknown as FormData).get("file");
+        return file instanceof File && file.name === "test.png";
+      },
       reqHeaders: { "Backlog-API-Key": apiKey },
       status: 200,
       data: attachment,
