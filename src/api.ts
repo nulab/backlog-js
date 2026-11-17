@@ -1,6 +1,7 @@
 import * as Option from "./option";
 import * as Entity from "./entity";
 import Request, { type ClientConfigure } from "./request";
+import { encodePathSegment, encodeFilePath } from "./path";
 
 /**
  * Extracts the filename from a `Content-Disposition` header, or `""` when it
@@ -154,7 +155,7 @@ export function getUsers(client: Client): Promise<Entity.User.User[]> {
  * https://developer.nulab.com/docs/backlog/api/2/get-user/
  */
 export function getUser(client: Client, userId: number): Promise<Entity.User.User> {
-  return client.get(`users/${userId}`);
+  return client.get(`users/${encodePathSegment(userId)}`);
 }
 
 /**
@@ -175,14 +176,14 @@ export function patchUser(
   userId: number,
   params: Option.User.PatchUserParams,
 ): Promise<Entity.User.User> {
-  return client.patch(`users/${userId}`, params);
+  return client.patch(`users/${encodePathSegment(userId)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-user/
  */
 export function deleteUser(client: Client, userId: number): Promise<Entity.User.User> {
-  return client.delete(`users/${userId}`);
+  return client.delete(`users/${encodePathSegment(userId)}`);
 }
 
 /**
@@ -196,7 +197,7 @@ export function getMyself(client: Client): Promise<Entity.User.User> {
  * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
  */
 export function getUserIcon(client: Client, userId: number): Promise<Entity.File.FileData> {
-  return download(client, `users/${userId}/icon`);
+  return download(client, `users/${encodePathSegment(userId)}/icon`);
 }
 
 /**
@@ -207,7 +208,7 @@ export function getUserActivities(
   userId: number,
   params: Option.User.GetUserActivitiesParams,
 ): Promise<Entity.Activity.Activity[]> {
-  return client.get(`users/${userId}/activities`, params);
+  return client.get(`users/${encodePathSegment(userId)}/activities`, params);
 }
 
 /**
@@ -218,7 +219,7 @@ export function getUserStars(
   userId: number,
   params: Option.User.GetUserStarsParams,
 ): Promise<Entity.Star.Star[]> {
-  return client.get(`users/${userId}/stars`, params);
+  return client.get(`users/${encodePathSegment(userId)}/stars`, params);
 }
 
 /**
@@ -229,7 +230,7 @@ export function getUserStarsCount(
   userId: number,
   params: Option.User.GetUserStarsCountParams,
 ): Promise<Entity.Star.StarCount> {
-  return client.get(`users/${userId}/stars/count`, params);
+  return client.get(`users/${encodePathSegment(userId)}/stars/count`, params);
 }
 
 /**
@@ -269,7 +270,7 @@ export function getProjectStatuses(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.ProjectStatus[]> {
-  return client.get(`projects/${projectIdOrKey}/statuses`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/statuses`);
 }
 
 /**
@@ -313,7 +314,7 @@ export function getProject(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Project> {
-  return client.get(`projects/${projectIdOrKey}`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}`);
 }
 
 /**
@@ -324,7 +325,7 @@ export function patchProject(
   projectIdOrKey: string | number,
   params: Option.Project.PatchProjectParams,
 ): Promise<Entity.Project.Project> {
-  return client.patch(`projects/${projectIdOrKey}`, params);
+  return client.patch(`projects/${encodePathSegment(projectIdOrKey)}`, params);
 }
 
 /**
@@ -334,7 +335,7 @@ export function deleteProject(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Project> {
-  return client.delete(`projects/${projectIdOrKey}`);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}`);
 }
 
 /**
@@ -344,7 +345,7 @@ export function getProjectIcon(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `projects/${projectIdOrKey}/image`);
+  return download(client, `projects/${encodePathSegment(projectIdOrKey)}/image`);
 }
 
 /**
@@ -355,7 +356,7 @@ export function getProjectActivities(
   projectIdOrKey: string | number,
   params: Option.Space.GetActivitiesParams,
 ): Promise<Entity.Activity.Activity[]> {
-  return client.get(`projects/${projectIdOrKey}/activities`, params);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/activities`, params);
 }
 
 /**
@@ -366,7 +367,7 @@ export function postProjectUser(
   projectIdOrKey: string | number,
   userId: string,
 ): Promise<Entity.User.User> {
-  return client.post(`projects/${projectIdOrKey}/users`, { userId });
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/users`, { userId });
 }
 
 /**
@@ -376,7 +377,7 @@ export function getProjectUsers(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`projects/${projectIdOrKey}/users`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/users`);
 }
 
 /**
@@ -387,7 +388,7 @@ export function deleteProjectUsers(
   projectIdOrKey: string | number,
   params: Option.Project.DeleteProjectUsersParams,
 ): Promise<Entity.User.User> {
-  return client.delete(`projects/${projectIdOrKey}/users`, params);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/users`, params);
 }
 
 /**
@@ -398,7 +399,7 @@ export function postProjectAdministrators(
   projectIdOrKey: string | number,
   params: Option.Project.PostProjectAdministrators,
 ): Promise<Entity.User.User> {
-  return client.post(`projects/${projectIdOrKey}/administrators`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/administrators`, params);
 }
 
 /**
@@ -408,7 +409,7 @@ export function getProjectAdministrators(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`projects/${projectIdOrKey}/administrators`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/administrators`);
 }
 
 /**
@@ -419,7 +420,7 @@ export function deleteProjectAdministrators(
   projectIdOrKey: string | number,
   params: Option.Project.DeleteProjectAdministrators,
 ): Promise<Entity.User.User> {
-  return client.delete(`projects/${projectIdOrKey}/administrators`, params);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/administrators`, params);
 }
 
 /**
@@ -430,7 +431,7 @@ export function postProjectStatus(
   projectIdOrKey: string | number,
   params: Option.Project.PostStatusParams,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.post(`projects/${projectIdOrKey}/statuses`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/statuses`, params);
 }
 
 /**
@@ -442,7 +443,10 @@ export function patchProjectStatus(
   id: number,
   params: Option.Project.PatchStatusParams,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.patch(`projects/${projectIdOrKey}/statuses/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/statuses/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -454,7 +458,10 @@ export function deleteProjectStatus(
   id: number,
   substituteStatusId: number,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.delete(`projects/${projectIdOrKey}/statuses/${id}`, { substituteStatusId });
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/statuses/${encodePathSegment(id)}`,
+    { substituteStatusId },
+  );
 }
 
 /**
@@ -465,7 +472,9 @@ export function patchProjectStatusOrder(
   projectIdOrKey: string | number,
   statusId: number[],
 ): Promise<Entity.Project.ProjectStatus[]> {
-  return client.patch(`projects/${projectIdOrKey}/statuses/updateDisplayOrder`, { statusId });
+  return client.patch(`projects/${encodePathSegment(projectIdOrKey)}/statuses/updateDisplayOrder`, {
+    statusId,
+  });
 }
 
 /**
@@ -475,7 +484,7 @@ export function getIssueTypes(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Issue.IssueType[]> {
-  return client.get(`projects/${projectIdOrKey}/issueTypes`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/issueTypes`);
 }
 
 /**
@@ -486,7 +495,7 @@ export function postIssueType(
   projectIdOrKey: string | number,
   params: Option.Project.PostIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.post(`projects/${projectIdOrKey}/issueTypes`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/issueTypes`, params);
 }
 
 /**
@@ -498,7 +507,10 @@ export function patchIssueType(
   id: number,
   params: Option.Project.PatchIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.patch(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/issueTypes/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -510,7 +522,10 @@ export function deleteIssueType(
   id: number,
   params: Option.Project.DeleteIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.delete(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/issueTypes/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -520,7 +535,7 @@ export function getCategories(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Category[]> {
-  return client.get(`projects/${projectIdOrKey}/categories`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/categories`);
 }
 
 /**
@@ -531,7 +546,7 @@ export function postCategories(
   projectIdOrKey: string | number,
   params: Option.Project.PostCategoriesParams,
 ): Promise<Entity.Project.Category> {
-  return client.post(`projects/${projectIdOrKey}/categories`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/categories`, params);
 }
 
 /**
@@ -543,7 +558,10 @@ export function patchCategories(
   id: number,
   params: Option.Project.PatchCategoriesParams,
 ): Promise<Entity.Project.Category> {
-  return client.patch(`projects/${projectIdOrKey}/categories/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/categories/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -554,7 +572,9 @@ export function deleteCategories(
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.Category> {
-  return client.delete(`projects/${projectIdOrKey}/categories/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/categories/${encodePathSegment(id)}`,
+  );
 }
 
 /**
@@ -564,7 +584,7 @@ export function getVersions(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Version[]> {
-  return client.get(`projects/${projectIdOrKey}/versions`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/versions`);
 }
 
 /**
@@ -575,7 +595,7 @@ export function postVersions(
   projectIdOrKey: string | number,
   params: Option.Project.PostVersionsParams,
 ): Promise<Entity.Project.Version> {
-  return client.post(`projects/${projectIdOrKey}/versions`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/versions`, params);
 }
 
 /**
@@ -587,7 +607,10 @@ export function patchVersions(
   id: number,
   params: Option.Project.PatchVersionsParams,
 ): Promise<Entity.Project.Version> {
-  return client.patch(`projects/${projectIdOrKey}/versions/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/versions/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -598,7 +621,9 @@ export function deleteVersions(
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.Version> {
-  return client.delete(`projects/${projectIdOrKey}/versions/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/versions/${encodePathSegment(id)}`,
+  );
 }
 
 /**
@@ -608,7 +633,7 @@ export function getCustomFields(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.CustomField[]> {
-  return client.get(`projects/${projectIdOrKey}/customFields`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/customFields`);
 }
 
 /**
@@ -623,7 +648,7 @@ export function postCustomField(
     | Option.Project.PostCustomFieldWithDateParams
     | Option.Project.PostCustomFieldWithListParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.post(`projects/${projectIdOrKey}/customFields`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/customFields`, params);
 }
 
 /**
@@ -639,7 +664,10 @@ export function patchCustomField(
     | Option.Project.PatchCustomFieldWithDateParams
     | Option.Project.PatchCustomFieldWithListParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.patch(`projects/${projectIdOrKey}/customFields/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
@@ -650,7 +678,9 @@ export function deleteCustomField(
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.CustomField> {
-  return client.delete(`projects/${projectIdOrKey}/customFields/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}`,
+  );
 }
 
 /**
@@ -662,7 +692,10 @@ export function postCustomFieldItem(
   id: number,
   params: Option.Project.PostCustomFieldItemParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.post(`projects/${projectIdOrKey}/customFields/${id}/items`, params);
+  return client.post(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items`,
+    params,
+  );
 }
 
 /**
@@ -675,7 +708,10 @@ export function patchCustomFieldItem(
   itemId: number,
   params: Option.Project.PatchCustomFieldItemParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.patch(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items/${encodePathSegment(itemId)}`,
+    params,
+  );
 }
 
 /**
@@ -687,7 +723,9 @@ export function deleteCustomFieldItem(
   id: number,
   itemId: number,
 ): Promise<Entity.Project.CustomField> {
-  return client.delete(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items/${encodePathSegment(itemId)}`,
+  );
 }
 
 /**
@@ -699,7 +737,10 @@ export function getSharedFiles(
   path: string,
   params: Option.Project.GetSharedFilesParams,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`projects/${projectIdOrKey}/files/metadata/${path}`, params);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/files/metadata/` + encodeFilePath(path),
+    params,
+  );
 }
 
 /**
@@ -710,7 +751,10 @@ export function getSharedFile(
   projectIdOrKey: string | number,
   sharedFileId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `projects/${projectIdOrKey}/files/${sharedFileId}`);
+  return download(
+    client,
+    `projects/${encodePathSegment(projectIdOrKey)}/files/${encodePathSegment(sharedFileId)}`,
+  );
 }
 
 /**
@@ -720,7 +764,7 @@ export function getProjectsDiskUsage(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.DiskUsage.ProjectDiskUsage> {
-  return client.get(`projects/${projectIdOrKey}/diskUsage`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/diskUsage`);
 }
 
 /**
@@ -730,7 +774,7 @@ export function getWebhooks(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Webhook.Webhook[]> {
-  return client.get(`projects/${projectIdOrKey}/webhooks`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/webhooks`);
 }
 
 /**
@@ -741,7 +785,7 @@ export function postWebhook(
   projectIdOrKey: string | number,
   params: Option.Project.PostWebhookParams,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.post(`projects/${projectIdOrKey}/webhooks`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/webhooks`, params);
 }
 
 /**
@@ -752,7 +796,9 @@ export function getWebhook(
   projectIdOrKey: string | number,
   webhookId: string,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.get(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+  );
 }
 
 /**
@@ -764,7 +810,10 @@ export function patchWebhook(
   webhookId: string,
   params: Option.Project.PatchWebhookParams,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.patch(`projects/${projectIdOrKey}/webhooks/${webhookId}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+    params,
+  );
 }
 
 /**
@@ -775,7 +824,9 @@ export function deleteWebhook(
   projectIdOrKey: string | number,
   webhookId: string,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.delete(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+  );
 }
 
 /**
@@ -816,7 +867,7 @@ export function patchIssue(
   issueIdOrKey: string | number,
   params: Option.Issue.PatchIssueParams,
 ): Promise<Entity.Issue.Issue> {
-  return client.patch(`issues/${issueIdOrKey}`, params);
+  return client.patch(`issues/${encodePathSegment(issueIdOrKey)}`, params);
 }
 
 /**
@@ -827,7 +878,7 @@ export function getIssue(
   issueIdOrKey: string | number,
   params?: Option.Issue.GetIssueParams,
 ): Promise<Entity.Issue.Issue> {
-  return client.get(`issues/${issueIdOrKey}`, params);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}`, params);
 }
 
 /**
@@ -837,7 +888,7 @@ export function deleteIssue(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.Issue> {
-  return client.delete(`issues/${issueIdOrKey}`);
+  return client.delete(`issues/${encodePathSegment(issueIdOrKey)}`);
 }
 
 /**
@@ -848,7 +899,7 @@ export function getIssueComments(
   issueIdOrKey: string | number,
   params: Option.Issue.GetIssueCommentsParams,
 ): Promise<Entity.Issue.Comment[]> {
-  return client.get(`issues/${issueIdOrKey}/comments`, params);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/comments`, params);
 }
 
 /**
@@ -859,7 +910,7 @@ export function postIssueComments(
   issueIdOrKey: string | number,
   params: Option.Issue.PostIssueCommentsParams,
 ): Promise<Entity.Issue.Comment> {
-  return client.post(`issues/${issueIdOrKey}/comments`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/comments`, params);
 }
 
 /**
@@ -869,7 +920,7 @@ export function getIssueCommentsCount(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.IssueCommentCount> {
-  return client.get(`issues/${issueIdOrKey}/comments/count`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/comments/count`);
 }
 
 /**
@@ -880,7 +931,9 @@ export function getIssueComment(
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.Issue.Comment> {
-  return client.get(`issues/${issueIdOrKey}/comments/${commentId}`);
+  return client.get(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+  );
 }
 
 /**
@@ -891,7 +944,9 @@ export function deleteIssueComment(
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.Issue.Comment> {
-  return client.delete(`issues/${issueIdOrKey}/comments/${commentId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+  );
 }
 
 /**
@@ -903,7 +958,10 @@ export function patchIssueComment(
   commentId: number,
   params: Option.Issue.PatchIssueCommentParams,
 ): Promise<Entity.Issue.Comment> {
-  return client.patch(`issues/${issueIdOrKey}/comments/${commentId}`, params);
+  return client.patch(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+    params,
+  );
 }
 
 /**
@@ -914,7 +972,9 @@ export function getIssueCommentNotifications(
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.CommentNotification.CommentNotification[]> {
-  return client.get(`issues/${issueIdOrKey}/comments/${commentId}/notifications`);
+  return client.get(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}/notifications`,
+  );
 }
 
 /**
@@ -926,7 +986,10 @@ export function postIssueCommentNotifications(
   commentId: number,
   prams: Option.Issue.IssueCommentNotifications,
 ): Promise<Entity.Issue.Comment> {
-  return client.post(`issues/${issueIdOrKey}/comments/${commentId}/notifications`, prams);
+  return client.post(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}/notifications`,
+    prams,
+  );
 }
 
 /**
@@ -936,7 +999,7 @@ export function getIssueAttachments(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.File.IssueFileInfo[]> {
-  return client.get(`issues/${issueIdOrKey}/attachments`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/attachments`);
 }
 
 /**
@@ -947,7 +1010,10 @@ export function getIssueAttachment(
   issueIdOrKey: string | number,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `issues/${issueIdOrKey}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `issues/${encodePathSegment(issueIdOrKey)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -958,7 +1024,9 @@ export function deleteIssueAttachment(
   issueIdOrKey: string | number,
   attachmentId: string,
 ): Promise<Entity.File.IssueFileInfo> {
-  return client.delete(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -968,7 +1036,7 @@ export function getIssueParticipants(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`issues/${issueIdOrKey}/participants`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/participants`);
 }
 
 /**
@@ -978,7 +1046,7 @@ export function getIssueSharedFiles(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`issues/${issueIdOrKey}/sharedFiles`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/sharedFiles`);
 }
 
 /**
@@ -989,7 +1057,7 @@ export function linkIssueSharedFiles(
   issueIdOrKey: string | number,
   params: Option.Issue.LinkIssueSharedFilesParams,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.post(`issues/${issueIdOrKey}/sharedFiles`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/sharedFiles`, params);
 }
 
 /**
@@ -1000,7 +1068,9 @@ export function unlinkIssueSharedFile(
   issueIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.SharedFile> {
-  return client.delete(`issues/${issueIdOrKey}/sharedFiles/${id}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/sharedFiles/${encodePathSegment(id)}`,
+  );
 }
 
 /**
@@ -1012,7 +1082,7 @@ export function getRelatedIssues(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.RelatedIssue[]> {
-  return client.get(`issues/${issueIdOrKey}/relatedIssues`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/relatedIssues`);
 }
 
 /**
@@ -1025,7 +1095,7 @@ export function addRelatedIssue(
   issueIdOrKey: string | number,
   params: Option.Issue.AddRelatedIssueParams,
 ): Promise<Entity.Issue.RelatedIssue> {
-  return client.post(`issues/${issueIdOrKey}/relatedIssues`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/relatedIssues`, params);
 }
 
 /**
@@ -1038,7 +1108,9 @@ export function removeRelatedIssue(
   issueIdOrKey: string | number,
   relatedIssueId: number,
 ): Promise<Entity.Issue.RelatedIssue> {
-  return client.delete(`issues/${issueIdOrKey}/relatedIssues/${relatedIssueId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/relatedIssues/${encodePathSegment(relatedIssueId)}`,
+  );
 }
 
 /**
@@ -1085,7 +1157,7 @@ export function postWiki(
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
  */
 export function getWiki(client: Client, wikiId: number): Promise<Entity.Wiki.Wiki> {
-  return client.get(`wikis/${wikiId}`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}`);
 }
 
 /**
@@ -1096,7 +1168,7 @@ export function patchWiki(
   wikiId: number,
   params: Option.Wiki.PatchWikiParams,
 ): Promise<Entity.Wiki.Wiki> {
-  return client.patch(`wikis/${wikiId}`, params);
+  return client.patch(`wikis/${encodePathSegment(wikiId)}`, params);
 }
 
 /**
@@ -1107,7 +1179,7 @@ export function deleteWiki(
   wikiId: number,
   mailNotify: boolean,
 ): Promise<Entity.Wiki.Wiki> {
-  return client.delete(`wikis/${wikiId}`, { mailNotify });
+  return client.delete(`wikis/${encodePathSegment(wikiId)}`, { mailNotify });
 }
 
 /**
@@ -1117,7 +1189,7 @@ export function getWikisAttachments(
   client: Client,
   wikiId: number,
 ): Promise<Entity.File.WikiFileInfo[]> {
-  return client.get(`wikis/${wikiId}/attachments`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/attachments`);
 }
 
 /**
@@ -1128,7 +1200,7 @@ export function postWikisAttachments(
   wikiId: number,
   attachmentId: number[],
 ): Promise<Entity.File.WikiFileInfo[]> {
-  return client.post(`wikis/${wikiId}/attachments`, { attachmentId });
+  return client.post(`wikis/${encodePathSegment(wikiId)}/attachments`, { attachmentId });
 }
 
 /**
@@ -1139,7 +1211,10 @@ export function getWikiAttachment(
   wikiId: number,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `wikis/${wikiId}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `wikis/${encodePathSegment(wikiId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -1150,7 +1225,9 @@ export function deleteWikisAttachments(
   wikiId: number,
   attachmentId: number,
 ): Promise<Entity.File.WikiFileInfo> {
-  return client.delete(`wikis/${wikiId}/attachments/${attachmentId}`);
+  return client.delete(
+    `wikis/${encodePathSegment(wikiId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -1160,7 +1237,7 @@ export function getWikisSharedFiles(
   client: Client,
   wikiId: number,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`wikis/${wikiId}/sharedFiles`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/sharedFiles`);
 }
 
 /**
@@ -1171,7 +1248,7 @@ export function linkWikisSharedFiles(
   wikiId: number,
   fileId: number[],
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.post(`wikis/${wikiId}/sharedFiles`, { fileId });
+  return client.post(`wikis/${encodePathSegment(wikiId)}/sharedFiles`, { fileId });
 }
 
 /**
@@ -1182,7 +1259,7 @@ export function unlinkWikisSharedFiles(
   wikiId: number,
   id: number,
 ): Promise<Entity.Project.SharedFile> {
-  return client.delete(`wikis/${wikiId}/sharedFiles/${id}`);
+  return client.delete(`wikis/${encodePathSegment(wikiId)}/sharedFiles/${encodePathSegment(id)}`);
 }
 
 /**
@@ -1209,7 +1286,7 @@ export function getDocumentTree(
  * https://developer.nulab.com/docs/backlog/api/get-document/
  */
 export function getDocument(client: Client, documentId: string): Promise<Entity.Document.Document> {
-  return client.get(`documents/${documentId}`);
+  return client.get(`documents/${encodePathSegment(documentId)}`);
 }
 
 /**
@@ -1219,7 +1296,7 @@ export function getDocumentComments(
   client: Client,
   documentId: string,
 ): Promise<Entity.Document.DocumentComment[]> {
-  return client.get(`documents/${documentId}/comments`);
+  return client.get(`documents/${encodePathSegment(documentId)}/comments`);
 }
 
 /**
@@ -1230,7 +1307,10 @@ export function downloadDocumentAttachment(
   documentId: string,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `documents/${documentId}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `documents/${encodePathSegment(documentId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -1247,7 +1327,7 @@ export function addDocumentAttachment(
   documentId: string,
   form: FormData,
 ): Promise<Entity.File.DocumentFileInfo> {
-  return upload(client, `documents/${documentId}/attachments`, form);
+  return upload(client, `documents/${encodePathSegment(documentId)}/attachments`, form);
 }
 
 /**
@@ -1267,7 +1347,7 @@ export function deleteDocument(
   client: Client,
   documentId: string,
 ): Promise<Entity.Document.Document> {
-  return client.delete(`documents/${documentId}`);
+  return client.delete(`documents/${encodePathSegment(documentId)}`);
 }
 
 /**
@@ -1278,14 +1358,14 @@ export function getWikisHistory(
   wikiId: number,
   params: Option.Wiki.GetWikisHistoryParams,
 ): Promise<Entity.Wiki.History[]> {
-  return client.get(`wikis/${wikiId}/history`, params);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/history`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
  */
 export function getWikisStars(client: Client, wikiId: number): Promise<Entity.Star.Star[]> {
-  return client.get(`wikis/${wikiId}/stars`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/stars`);
 }
 
 /**
@@ -1299,7 +1379,7 @@ export function postStar(client: Client, params: Option.Project.PostStarParams):
  * https://developer.nulab.com/docs/backlog/api/2/remove-star/
  */
 export function removeStar(client: Client, starId: number): Promise<void> {
-  const endpoint = `stars/${starId}`;
+  const endpoint = `stars/${encodePathSegment(starId)}`;
   return client.delete(endpoint);
 }
 
@@ -1336,7 +1416,7 @@ export function resetNotificationsMarkAsRead(
  * https://developer.nulab.com/docs/backlog/api/2/read-notification/
  */
 export function markAsReadNotification(client: Client, id: number): Promise<void> {
-  return client.post(`notifications/${id}/markAsRead`);
+  return client.post(`notifications/${encodePathSegment(id)}/markAsRead`);
 }
 
 /**
@@ -1346,7 +1426,7 @@ export function getGitRepositories(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Git.GitRepository[]> {
-  return client.get(`projects/${projectIdOrKey}/git/repositories`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/git/repositories`);
 }
 
 /**
@@ -1357,7 +1437,9 @@ export function getGitRepository(
   projectIdOrKey: string | number,
   repoIdOrName: string,
 ): Promise<Entity.Git.GitRepository> {
-  return client.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}`);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}`,
+  );
 }
 
 /**
@@ -1370,7 +1452,7 @@ export function getPullRequests(
   params: Option.PullRequest.GetPullRequestsParams,
 ): Promise<Entity.PullRequest.PullRequest[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests`,
     params,
   );
 }
@@ -1385,7 +1467,7 @@ export function getPullRequestsCount(
   params: Option.PullRequest.GetPullRequestsParams,
 ): Promise<Entity.PullRequest.PullRequestCount> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/count`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/count`,
     params,
   );
 }
@@ -1400,7 +1482,7 @@ export function postPullRequest(
   params: Option.PullRequest.PostPullRequestParams,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.post(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests`,
     params,
   );
 }
@@ -1415,7 +1497,7 @@ export function getPullRequest(
   number: number,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}`,
   );
 }
 
@@ -1430,7 +1512,7 @@ export function patchPullRequest(
   params: Option.PullRequest.PatchPullRequestParams,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.patch(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}`,
     params,
   );
 }
@@ -1446,7 +1528,7 @@ export function getPullRequestComments(
   params: Option.PullRequest.GetPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments`,
     params,
   );
 }
@@ -1462,7 +1544,7 @@ export function postPullRequestComments(
   params: Option.PullRequest.PostPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment> {
   return client.post(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments`,
     params,
   );
 }
@@ -1477,7 +1559,7 @@ export function getPullRequestCommentsCount(
   number: number,
 ): Promise<Entity.PullRequest.PullRequestCommentCount> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/count`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments/count`,
   );
 }
 
@@ -1493,7 +1575,7 @@ export function patchPullRequestComments(
   params: Option.PullRequest.PatchPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment> {
   return client.patch(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/${commentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments/${encodePathSegment(commentId)}`,
     params,
   );
 }
@@ -1508,7 +1590,7 @@ export function getPullRequestAttachments(
   number: number,
 ): Promise<Entity.File.PullRequestFileInfo[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments`,
   );
 }
 
@@ -1524,7 +1606,7 @@ export function getPullRequestAttachment(
 ): Promise<Entity.File.FileData> {
   return download(
     client,
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments/${encodePathSegment(attachmentId)}`,
   );
 }
 
@@ -1539,7 +1621,7 @@ export function deletePullRequestAttachment(
   attachmentId: number,
 ): Promise<Entity.File.PullRequestFileInfo> {
   return client.delete(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments/${encodePathSegment(attachmentId)}`,
   );
 }
 
@@ -1551,7 +1633,7 @@ export function getWatchingListItems(
   userId: number,
   params?: Option.WatchingList.GetWatchingListParams,
 ): Promise<Entity.WatchingList.WatchingListItem[]> {
-  return client.get(`users/${userId}/watchings`, params);
+  return client.get(`users/${encodePathSegment(userId)}/watchings`, params);
 }
 
 /**
@@ -1562,7 +1644,7 @@ export function getWatchingListCount(
   userId: number,
   params?: Option.WatchingList.GetWatchingListCountParams,
 ): Promise<Entity.WatchingList.WatchingListCount> {
-  return client.get(`users/${userId}/watchings/count`, params);
+  return client.get(`users/${encodePathSegment(userId)}/watchings/count`, params);
 }
 
 /**
@@ -1572,7 +1654,7 @@ export function getWatchingListItem(
   client: Client,
   watchId: number,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.get(`watchings/${watchId}`);
+  return client.get(`watchings/${encodePathSegment(watchId)}`);
 }
 
 /**
@@ -1593,7 +1675,7 @@ export function patchWatchingListItem(
   watchId: number,
   note: string,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.patch(`watchings/${watchId}`, { note });
+  return client.patch(`watchings/${encodePathSegment(watchId)}`, { note });
 }
 
 /**
@@ -1603,14 +1685,14 @@ export function deletehWatchingListItem(
   client: Client,
   watchId: number,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.delete(`watchings/${watchId}`);
+  return client.delete(`watchings/${encodePathSegment(watchId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
  */
 export function resetWatchingListItemAsRead(client: Client, watchId: number): Promise<void> {
-  return client.post(`watchings/${watchId}/markAsRead`);
+  return client.post(`watchings/${encodePathSegment(watchId)}/markAsRead`);
 }
 
 /**
@@ -1644,7 +1726,7 @@ export function postTeam(
  * https://developer.nulab.com/docs/backlog/api/2/get-team/
  */
 export function getTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
-  return client.get(`teams/${teamId}`);
+  return client.get(`teams/${encodePathSegment(teamId)}`);
 }
 
 /**
@@ -1655,21 +1737,21 @@ export function patchTeam(
   teamId: number,
   params: Option.Team.PatchTeamParams,
 ): Promise<Entity.Team.Team> {
-  return client.patch(`teams/${teamId}`, params);
+  return client.patch(`teams/${encodePathSegment(teamId)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-team/
  */
 export function deleteTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
-  return client.delete(`teams/${teamId}`);
+  return client.delete(`teams/${encodePathSegment(teamId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
  */
 export function getTeamIcon(client: Client, teamId: number): Promise<Entity.File.FileData> {
-  return download(client, `teams/${teamId}/icon`);
+  return download(client, `teams/${encodePathSegment(teamId)}/icon`);
 }
 
 /**
@@ -1679,7 +1761,7 @@ export function getProjectTeams(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Team.Team[]> {
-  return client.get(`projects/${projectIdOrKey}/teams`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/teams`);
 }
 
 /**
@@ -1690,7 +1772,7 @@ export function postProjectTeam(
   projectIdOrKey: string | number,
   teamId: number,
 ): Promise<Entity.Team.Team> {
-  return client.post(`projects/${projectIdOrKey}/teams`, { teamId });
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/teams`, { teamId });
 }
 
 /**
@@ -1701,7 +1783,7 @@ export function deleteProjectTeam(
   projectIdOrKey: string | number,
   teamId: number,
 ): Promise<Entity.Team.Team> {
-  return client.delete(`projects/${projectIdOrKey}/teams`, { teamId });
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/teams`, { teamId });
 }
 
 /**
