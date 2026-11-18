@@ -105,8 +105,30 @@ describe("API path inputs preserve the requested endpoint", () => {
 
   it.each([".", ".."])("rejects dot segment %j before fetch", async (value) => {
     const { client, requests } = capture();
-    await expect(async () => api.getIssue(client, value)).rejects.toThrow(TypeError);
+    await expect(api.getIssue(client, value)).rejects.toThrow(TypeError);
     expect(requests).toEqual([]);
+  });
+
+  // Callers chaining .catch() must see the error, so it has to be a rejection
+  // rather than a synchronous throw.
+  it.each(cases)("rejects a dot segment for $name instead of throwing", async (endpoint) => {
+    const { client, requests } = capture();
+    let result: Promise<unknown> | undefined;
+    expect(() => {
+      result = endpoint.call(client, "..");
+    }).not.toThrow();
+    await expect(result).rejects.toThrow(TypeError);
+    expect(requests).toEqual([]);
+  });
+
+  it("lets Backlog methods report a dot segment through .catch()", async () => {
+    const backlog = new api.Backlog({
+      host: "example.backlog.com",
+      accessToken: "synthetic-token",
+      fetch: async () => Response.json({}),
+    });
+    const error = await backlog.getIssue("..").catch((e: unknown) => e);
+    expect(error).toBeInstanceOf(TypeError);
   });
 
   it.each(cases)("encodes path input for $name", async (endpoint) => {
@@ -139,9 +161,7 @@ describe("API path inputs preserve the requested endpoint", () => {
     "rejects shared-file traversal %j before fetch",
     async (path) => {
       const { client, requests } = capture();
-      await expect(async () => api.getSharedFiles(client, "PROJ", path, {})).rejects.toThrow(
-        TypeError,
-      );
+      await expect(api.getSharedFiles(client, "PROJ", path, {})).rejects.toThrow(TypeError);
       expect(requests).toEqual([]);
     },
   );
