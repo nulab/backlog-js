@@ -1,6 +1,7 @@
 import * as Option from "./option";
 import * as Entity from "./entity";
 import Request, { type ClientConfigure } from "./request";
+import { encodePathSegment, encodeFilePath } from "./path";
 
 /**
  * Extracts the filename from a `Content-Disposition` header, or `""` when it
@@ -153,8 +154,8 @@ export function getUsers(client: Client): Promise<Entity.User.User[]> {
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-user/
  */
-export function getUser(client: Client, userId: number): Promise<Entity.User.User> {
-  return client.get(`users/${userId}`);
+export async function getUser(client: Client, userId: number): Promise<Entity.User.User> {
+  return client.get(`users/${encodePathSegment(userId)}`);
 }
 
 /**
@@ -170,19 +171,19 @@ export function postUser(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-user/
  */
-export function patchUser(
+export async function patchUser(
   client: Client,
   userId: number,
   params: Option.User.PatchUserParams,
 ): Promise<Entity.User.User> {
-  return client.patch(`users/${userId}`, params);
+  return client.patch(`users/${encodePathSegment(userId)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-user/
  */
-export function deleteUser(client: Client, userId: number): Promise<Entity.User.User> {
-  return client.delete(`users/${userId}`);
+export async function deleteUser(client: Client, userId: number): Promise<Entity.User.User> {
+  return client.delete(`users/${encodePathSegment(userId)}`);
 }
 
 /**
@@ -195,41 +196,41 @@ export function getMyself(client: Client): Promise<Entity.User.User> {
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-user-icon/
  */
-export function getUserIcon(client: Client, userId: number): Promise<Entity.File.FileData> {
-  return download(client, `users/${userId}/icon`);
+export async function getUserIcon(client: Client, userId: number): Promise<Entity.File.FileData> {
+  return download(client, `users/${encodePathSegment(userId)}/icon`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-user-recent-updates/
  */
-export function getUserActivities(
+export async function getUserActivities(
   client: Client,
   userId: number,
   params: Option.User.GetUserActivitiesParams,
 ): Promise<Entity.Activity.Activity[]> {
-  return client.get(`users/${userId}/activities`, params);
+  return client.get(`users/${encodePathSegment(userId)}/activities`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-received-star-list/
  */
-export function getUserStars(
+export async function getUserStars(
   client: Client,
   userId: number,
   params: Option.User.GetUserStarsParams,
 ): Promise<Entity.Star.Star[]> {
-  return client.get(`users/${userId}/stars`, params);
+  return client.get(`users/${encodePathSegment(userId)}/stars`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/count-user-received-stars/
  */
-export function getUserStarsCount(
+export async function getUserStarsCount(
   client: Client,
   userId: number,
   params: Option.User.GetUserStarsCountParams,
 ): Promise<Entity.Star.StarCount> {
-  return client.get(`users/${userId}/stars/count`, params);
+  return client.get(`users/${encodePathSegment(userId)}/stars/count`, params);
 }
 
 /**
@@ -265,11 +266,11 @@ export function getRecentlyViewedWikis(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-status-list-of-project/
  */
-export function getProjectStatuses(
+export async function getProjectStatuses(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.ProjectStatus[]> {
-  return client.get(`projects/${projectIdOrKey}/statuses`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/statuses`);
 }
 
 /**
@@ -309,312 +310,336 @@ export function postProject(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project/
  */
-export function getProject(
+export async function getProject(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Project> {
-  return client.get(`projects/${projectIdOrKey}`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-project/
  */
-export function patchProject(
+export async function patchProject(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PatchProjectParams,
 ): Promise<Entity.Project.Project> {
-  return client.patch(`projects/${projectIdOrKey}`, params);
+  return client.patch(`projects/${encodePathSegment(projectIdOrKey)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-project/
  */
-export function deleteProject(
+export async function deleteProject(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Project> {
-  return client.delete(`projects/${projectIdOrKey}`);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project-icon/
  */
-export function getProjectIcon(
+export async function getProjectIcon(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `projects/${projectIdOrKey}/image`);
+  return download(client, `projects/${encodePathSegment(projectIdOrKey)}/image`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project-recent-updates/
  */
-export function getProjectActivities(
+export async function getProjectActivities(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Space.GetActivitiesParams,
 ): Promise<Entity.Activity.Activity[]> {
-  return client.get(`projects/${projectIdOrKey}/activities`, params);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/activities`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-project-user/
  */
-export function postProjectUser(
+export async function postProjectUser(
   client: Client,
   projectIdOrKey: string | number,
   userId: string,
 ): Promise<Entity.User.User> {
-  return client.post(`projects/${projectIdOrKey}/users`, { userId });
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/users`, { userId });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project-user-list/
  */
-export function getProjectUsers(
+export async function getProjectUsers(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`projects/${projectIdOrKey}/users`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/users`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-project-user/
  */
-export function deleteProjectUsers(
+export async function deleteProjectUsers(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.DeleteProjectUsersParams,
 ): Promise<Entity.User.User> {
-  return client.delete(`projects/${projectIdOrKey}/users`, params);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/users`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-project-administrator/
  */
-export function postProjectAdministrators(
+export async function postProjectAdministrators(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostProjectAdministrators,
 ): Promise<Entity.User.User> {
-  return client.post(`projects/${projectIdOrKey}/administrators`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/administrators`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-project-administrators/
  */
-export function getProjectAdministrators(
+export async function getProjectAdministrators(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`projects/${projectIdOrKey}/administrators`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/administrators`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-project-administrator/
  */
-export function deleteProjectAdministrators(
+export async function deleteProjectAdministrators(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.DeleteProjectAdministrators,
 ): Promise<Entity.User.User> {
-  return client.delete(`projects/${projectIdOrKey}/administrators`, params);
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/administrators`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-status/
  */
-export function postProjectStatus(
+export async function postProjectStatus(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostStatusParams,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.post(`projects/${projectIdOrKey}/statuses`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/statuses`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-status/
  */
-export function patchProjectStatus(
+export async function patchProjectStatus(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.PatchStatusParams,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.patch(`projects/${projectIdOrKey}/statuses/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/statuses/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-status/
  */
-export function deleteProjectStatus(
+export async function deleteProjectStatus(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   substituteStatusId: number,
 ): Promise<Entity.Project.ProjectStatus> {
-  return client.delete(`projects/${projectIdOrKey}/statuses/${id}`, { substituteStatusId });
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/statuses/${encodePathSegment(id)}`,
+    { substituteStatusId },
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-order-of-status/
  */
-export function patchProjectStatusOrder(
+export async function patchProjectStatusOrder(
   client: Client,
   projectIdOrKey: string | number,
   statusId: number[],
 ): Promise<Entity.Project.ProjectStatus[]> {
-  return client.patch(`projects/${projectIdOrKey}/statuses/updateDisplayOrder`, { statusId });
+  return client.patch(`projects/${encodePathSegment(projectIdOrKey)}/statuses/updateDisplayOrder`, {
+    statusId,
+  });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-issue-type-list/
  */
-export function getIssueTypes(
+export async function getIssueTypes(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Issue.IssueType[]> {
-  return client.get(`projects/${projectIdOrKey}/issueTypes`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/issueTypes`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-issue-type/
  */
-export function postIssueType(
+export async function postIssueType(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.post(`projects/${projectIdOrKey}/issueTypes`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/issueTypes`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-issue-type/
  */
-export function patchIssueType(
+export async function patchIssueType(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.PatchIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.patch(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/issueTypes/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-issue-type/
  */
-export function deleteIssueType(
+export async function deleteIssueType(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.DeleteIssueTypeParams,
 ): Promise<Entity.Issue.IssueType> {
-  return client.delete(`projects/${projectIdOrKey}/issueTypes/${id}`, params);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/issueTypes/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-category-list/
  */
-export function getCategories(
+export async function getCategories(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Category[]> {
-  return client.get(`projects/${projectIdOrKey}/categories`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/categories`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-category/
  */
-export function postCategories(
+export async function postCategories(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostCategoriesParams,
 ): Promise<Entity.Project.Category> {
-  return client.post(`projects/${projectIdOrKey}/categories`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/categories`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-category/
  */
-export function patchCategories(
+export async function patchCategories(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.PatchCategoriesParams,
 ): Promise<Entity.Project.Category> {
-  return client.patch(`projects/${projectIdOrKey}/categories/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/categories/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-category/
  */
-export function deleteCategories(
+export async function deleteCategories(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.Category> {
-  return client.delete(`projects/${projectIdOrKey}/categories/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/categories/${encodePathSegment(id)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-version-milestone-list/
  */
-export function getVersions(
+export async function getVersions(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.Version[]> {
-  return client.get(`projects/${projectIdOrKey}/versions`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/versions`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-version-milestone/
  */
-export function postVersions(
+export async function postVersions(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostVersionsParams,
 ): Promise<Entity.Project.Version> {
-  return client.post(`projects/${projectIdOrKey}/versions`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/versions`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-version-milestone/
  */
-export function patchVersions(
+export async function patchVersions(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.PatchVersionsParams,
 ): Promise<Entity.Project.Version> {
-  return client.patch(`projects/${projectIdOrKey}/versions/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/versions/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-version/
  */
-export function deleteVersions(
+export async function deleteVersions(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.Version> {
-  return client.delete(`projects/${projectIdOrKey}/versions/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/versions/${encodePathSegment(id)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-custom-field-list/
  */
-export function getCustomFields(
+export async function getCustomFields(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Project.CustomField[]> {
-  return client.get(`projects/${projectIdOrKey}/customFields`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/customFields`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-custom-field/
  */
-export function postCustomField(
+export async function postCustomField(
   client: Client,
   projectIdOrKey: string | number,
   params:
@@ -623,13 +648,13 @@ export function postCustomField(
     | Option.Project.PostCustomFieldWithDateParams
     | Option.Project.PostCustomFieldWithListParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.post(`projects/${projectIdOrKey}/customFields`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/customFields`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-custom-field/
  */
-export function patchCustomField(
+export async function patchCustomField(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
@@ -639,143 +664,169 @@ export function patchCustomField(
     | Option.Project.PatchCustomFieldWithDateParams
     | Option.Project.PatchCustomFieldWithListParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.patch(`projects/${projectIdOrKey}/customFields/${id}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-custom-field/
  */
-export function deleteCustomField(
+export async function deleteCustomField(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.CustomField> {
-  return client.delete(`projects/${projectIdOrKey}/customFields/${id}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-list-item-for-list-type-custom-field/
  */
-export function postCustomFieldItem(
+export async function postCustomFieldItem(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   params: Option.Project.PostCustomFieldItemParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.post(`projects/${projectIdOrKey}/customFields/${id}/items`, params);
+  return client.post(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-list-item-for-list-type-custom-field/
  */
-export function patchCustomFieldItem(
+export async function patchCustomFieldItem(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   itemId: number,
   params: Option.Project.PatchCustomFieldItemParams,
 ): Promise<Entity.Project.CustomField> {
-  return client.patch(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items/${encodePathSegment(itemId)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-list-item-for-list-type-custom-field/
  */
-export function deleteCustomFieldItem(
+export async function deleteCustomFieldItem(
   client: Client,
   projectIdOrKey: string | number,
   id: number,
   itemId: number,
 ): Promise<Entity.Project.CustomField> {
-  return client.delete(`projects/${projectIdOrKey}/customFields/${id}/items/${itemId}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/customFields/${encodePathSegment(id)}/items/${encodePathSegment(itemId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files/
  */
-export function getSharedFiles(
+export async function getSharedFiles(
   client: Client,
   projectIdOrKey: string | number,
   path: string,
   params: Option.Project.GetSharedFilesParams,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`projects/${projectIdOrKey}/files/metadata/${path}`, params);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/files/metadata/` + encodeFilePath(path),
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-file/
  */
-export function getSharedFile(
+export async function getSharedFile(
   client: Client,
   projectIdOrKey: string | number,
   sharedFileId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `projects/${projectIdOrKey}/files/${sharedFileId}`);
+  return download(
+    client,
+    `projects/${encodePathSegment(projectIdOrKey)}/files/${encodePathSegment(sharedFileId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project-disk-usage/
  */
-export function getProjectsDiskUsage(
+export async function getProjectsDiskUsage(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.DiskUsage.ProjectDiskUsage> {
-  return client.get(`projects/${projectIdOrKey}/diskUsage`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/diskUsage`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-webhooks/
  */
-export function getWebhooks(
+export async function getWebhooks(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Webhook.Webhook[]> {
-  return client.get(`projects/${projectIdOrKey}/webhooks`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/webhooks`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-webhook/
  */
-export function postWebhook(
+export async function postWebhook(
   client: Client,
   projectIdOrKey: string | number,
   params: Option.Project.PostWebhookParams,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.post(`projects/${projectIdOrKey}/webhooks`, params);
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/webhooks`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-webhook/
  */
-export function getWebhook(
+export async function getWebhook(
   client: Client,
   projectIdOrKey: string | number,
   webhookId: string,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.get(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-webhook/
  */
-export function patchWebhook(
+export async function patchWebhook(
   client: Client,
   projectIdOrKey: string | number,
   webhookId: string,
   params: Option.Project.PatchWebhookParams,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.patch(`projects/${projectIdOrKey}/webhooks/${webhookId}`, params);
+  return client.patch(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-webhook/
  */
-export function deleteWebhook(
+export async function deleteWebhook(
   client: Client,
   projectIdOrKey: string | number,
   webhookId: string,
 ): Promise<Entity.Webhook.Webhook> {
-  return client.delete(`projects/${projectIdOrKey}/webhooks/${webhookId}`);
+  return client.delete(
+    `projects/${encodePathSegment(projectIdOrKey)}/webhooks/${encodePathSegment(webhookId)}`,
+  );
 }
 
 /**
@@ -811,196 +862,215 @@ export function postIssue(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-issue/
  */
-export function patchIssue(
+export async function patchIssue(
   client: Client,
   issueIdOrKey: string | number,
   params: Option.Issue.PatchIssueParams,
 ): Promise<Entity.Issue.Issue> {
-  return client.patch(`issues/${issueIdOrKey}`, params);
+  return client.patch(`issues/${encodePathSegment(issueIdOrKey)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-issue/
  */
-export function getIssue(
+export async function getIssue(
   client: Client,
   issueIdOrKey: string | number,
   params?: Option.Issue.GetIssueParams,
 ): Promise<Entity.Issue.Issue> {
-  return client.get(`issues/${issueIdOrKey}`, params);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-issue/
  */
-export function deleteIssue(
+export async function deleteIssue(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.Issue> {
-  return client.delete(`issues/${issueIdOrKey}`);
+  return client.delete(`issues/${encodePathSegment(issueIdOrKey)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-comment-list/
  */
-export function getIssueComments(
+export async function getIssueComments(
   client: Client,
   issueIdOrKey: string | number,
   params: Option.Issue.GetIssueCommentsParams,
 ): Promise<Entity.Issue.Comment[]> {
-  return client.get(`issues/${issueIdOrKey}/comments`, params);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/comments`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-comment/
  */
-export function postIssueComments(
+export async function postIssueComments(
   client: Client,
   issueIdOrKey: string | number,
   params: Option.Issue.PostIssueCommentsParams,
 ): Promise<Entity.Issue.Comment> {
-  return client.post(`issues/${issueIdOrKey}/comments`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/comments`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/count-comment/
  */
-export function getIssueCommentsCount(
+export async function getIssueCommentsCount(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.IssueCommentCount> {
-  return client.get(`issues/${issueIdOrKey}/comments/count`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/comments/count`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-comment/
  */
-export function getIssueComment(
+export async function getIssueComment(
   client: Client,
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.Issue.Comment> {
-  return client.get(`issues/${issueIdOrKey}/comments/${commentId}`);
+  return client.get(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-comment/
  */
-export function deleteIssueComment(
+export async function deleteIssueComment(
   client: Client,
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.Issue.Comment> {
-  return client.delete(`issues/${issueIdOrKey}/comments/${commentId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-comment/
  */
-export function patchIssueComment(
+export async function patchIssueComment(
   client: Client,
   issueIdOrKey: string | number,
   commentId: number,
   params: Option.Issue.PatchIssueCommentParams,
 ): Promise<Entity.Issue.Comment> {
-  return client.patch(`issues/${issueIdOrKey}/comments/${commentId}`, params);
+  return client.patch(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}`,
+    params,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-comment-notifications/
  */
-export function getIssueCommentNotifications(
+export async function getIssueCommentNotifications(
   client: Client,
   issueIdOrKey: string | number,
   commentId: number,
 ): Promise<Entity.CommentNotification.CommentNotification[]> {
-  return client.get(`issues/${issueIdOrKey}/comments/${commentId}/notifications`);
+  return client.get(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}/notifications`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-comment-notification/
  */
-export function postIssueCommentNotifications(
+export async function postIssueCommentNotifications(
   client: Client,
   issueIdOrKey: string | number,
   commentId: number,
   prams: Option.Issue.IssueCommentNotifications,
 ): Promise<Entity.Issue.Comment> {
-  return client.post(`issues/${issueIdOrKey}/comments/${commentId}/notifications`, prams);
+  return client.post(
+    `issues/${encodePathSegment(issueIdOrKey)}/comments/${encodePathSegment(commentId)}/notifications`,
+    prams,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-issue-attachments/
  */
-export function getIssueAttachments(
+export async function getIssueAttachments(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.File.IssueFileInfo[]> {
-  return client.get(`issues/${issueIdOrKey}/attachments`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/attachments`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-issue-attachment/
  */
-export function getIssueAttachment(
+export async function getIssueAttachment(
   client: Client,
   issueIdOrKey: string | number,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `issues/${issueIdOrKey}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `issues/${encodePathSegment(issueIdOrKey)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-issue-attachment/
  */
-export function deleteIssueAttachment(
+export async function deleteIssueAttachment(
   client: Client,
   issueIdOrKey: string | number,
   attachmentId: string,
 ): Promise<Entity.File.IssueFileInfo> {
-  return client.delete(`issues/${issueIdOrKey}/attachments/${attachmentId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-issue-participant-list/
  */
-export function getIssueParticipants(
+export async function getIssueParticipants(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.User.User[]> {
-  return client.get(`issues/${issueIdOrKey}/participants`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/participants`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-linked-shared-files/
  */
-export function getIssueSharedFiles(
+export async function getIssueSharedFiles(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`issues/${issueIdOrKey}/sharedFiles`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/sharedFiles`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-issue/
  */
-export function linkIssueSharedFiles(
+export async function linkIssueSharedFiles(
   client: Client,
   issueIdOrKey: string | number,
   params: Option.Issue.LinkIssueSharedFilesParams,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.post(`issues/${issueIdOrKey}/sharedFiles`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/sharedFiles`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-issue/
  */
-export function unlinkIssueSharedFile(
+export async function unlinkIssueSharedFile(
   client: Client,
   issueIdOrKey: string | number,
   id: number,
 ): Promise<Entity.Project.SharedFile> {
-  return client.delete(`issues/${issueIdOrKey}/sharedFiles/${id}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/sharedFiles/${encodePathSegment(id)}`,
+  );
 }
 
 /**
@@ -1008,11 +1078,11 @@ export function unlinkIssueSharedFile(
  *
  * GET /api/v2/issues/:issueIdOrKey/relatedIssues
  */
-export function getRelatedIssues(
+export async function getRelatedIssues(
   client: Client,
   issueIdOrKey: string | number,
 ): Promise<Entity.Issue.RelatedIssue[]> {
-  return client.get(`issues/${issueIdOrKey}/relatedIssues`);
+  return client.get(`issues/${encodePathSegment(issueIdOrKey)}/relatedIssues`);
 }
 
 /**
@@ -1020,12 +1090,12 @@ export function getRelatedIssues(
  *
  * POST /api/v2/issues/:issueIdOrKey/relatedIssues
  */
-export function addRelatedIssue(
+export async function addRelatedIssue(
   client: Client,
   issueIdOrKey: string | number,
   params: Option.Issue.AddRelatedIssueParams,
 ): Promise<Entity.Issue.RelatedIssue> {
-  return client.post(`issues/${issueIdOrKey}/relatedIssues`, params);
+  return client.post(`issues/${encodePathSegment(issueIdOrKey)}/relatedIssues`, params);
 }
 
 /**
@@ -1033,12 +1103,14 @@ export function addRelatedIssue(
  *
  * DELETE /api/v2/issues/:issueIdOrKey/relatedIssues/:relatedIssueId
  */
-export function removeRelatedIssue(
+export async function removeRelatedIssue(
   client: Client,
   issueIdOrKey: string | number,
   relatedIssueId: number,
 ): Promise<Entity.Issue.RelatedIssue> {
-  return client.delete(`issues/${issueIdOrKey}/relatedIssues/${relatedIssueId}`);
+  return client.delete(
+    `issues/${encodePathSegment(issueIdOrKey)}/relatedIssues/${encodePathSegment(relatedIssueId)}`,
+  );
 }
 
 /**
@@ -1084,105 +1156,110 @@ export function postWiki(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page/
  */
-export function getWiki(client: Client, wikiId: number): Promise<Entity.Wiki.Wiki> {
-  return client.get(`wikis/${wikiId}`);
+export async function getWiki(client: Client, wikiId: number): Promise<Entity.Wiki.Wiki> {
+  return client.get(`wikis/${encodePathSegment(wikiId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-wiki-page/
  */
-export function patchWiki(
+export async function patchWiki(
   client: Client,
   wikiId: number,
   params: Option.Wiki.PatchWikiParams,
 ): Promise<Entity.Wiki.Wiki> {
-  return client.patch(`wikis/${wikiId}`, params);
+  return client.patch(`wikis/${encodePathSegment(wikiId)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-wiki-page/
  */
-export function deleteWiki(
+export async function deleteWiki(
   client: Client,
   wikiId: number,
   mailNotify: boolean,
 ): Promise<Entity.Wiki.Wiki> {
-  return client.delete(`wikis/${wikiId}`, { mailNotify });
+  return client.delete(`wikis/${encodePathSegment(wikiId)}`, { mailNotify });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-wiki-attachments/
  */
-export function getWikisAttachments(
+export async function getWikisAttachments(
   client: Client,
   wikiId: number,
 ): Promise<Entity.File.WikiFileInfo[]> {
-  return client.get(`wikis/${wikiId}/attachments`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/attachments`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/attach-file-to-wiki/
  */
-export function postWikisAttachments(
+export async function postWikisAttachments(
   client: Client,
   wikiId: number,
   attachmentId: number[],
 ): Promise<Entity.File.WikiFileInfo[]> {
-  return client.post(`wikis/${wikiId}/attachments`, { attachmentId });
+  return client.post(`wikis/${encodePathSegment(wikiId)}/attachments`, { attachmentId });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-attachment/
  */
-export function getWikiAttachment(
+export async function getWikiAttachment(
   client: Client,
   wikiId: number,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `wikis/${wikiId}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `wikis/${encodePathSegment(wikiId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/remove-wiki-attachment/
  */
-export function deleteWikisAttachments(
+export async function deleteWikisAttachments(
   client: Client,
   wikiId: number,
   attachmentId: number,
 ): Promise<Entity.File.WikiFileInfo> {
-  return client.delete(`wikis/${wikiId}/attachments/${attachmentId}`);
+  return client.delete(
+    `wikis/${encodePathSegment(wikiId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-shared-files-on-wiki/
  */
-export function getWikisSharedFiles(
+export async function getWikisSharedFiles(
   client: Client,
   wikiId: number,
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.get(`wikis/${wikiId}/sharedFiles`);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/sharedFiles`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/link-shared-files-to-wiki/
  */
-export function linkWikisSharedFiles(
+export async function linkWikisSharedFiles(
   client: Client,
   wikiId: number,
   fileId: number[],
 ): Promise<Entity.Project.SharedFile[]> {
-  return client.post(`wikis/${wikiId}/sharedFiles`, { fileId });
+  return client.post(`wikis/${encodePathSegment(wikiId)}/sharedFiles`, { fileId });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/remove-link-to-shared-file-from-wiki/
  */
-export function unlinkWikisSharedFiles(
+export async function unlinkWikisSharedFiles(
   client: Client,
   wikiId: number,
   id: number,
 ): Promise<Entity.Project.SharedFile> {
-  return client.delete(`wikis/${wikiId}/sharedFiles/${id}`);
+  return client.delete(`wikis/${encodePathSegment(wikiId)}/sharedFiles/${encodePathSegment(id)}`);
 }
 
 /**
@@ -1208,29 +1285,35 @@ export function getDocumentTree(
 /**
  * https://developer.nulab.com/docs/backlog/api/get-document/
  */
-export function getDocument(client: Client, documentId: string): Promise<Entity.Document.Document> {
-  return client.get(`documents/${documentId}`);
+export async function getDocument(
+  client: Client,
+  documentId: string,
+): Promise<Entity.Document.Document> {
+  return client.get(`documents/${encodePathSegment(documentId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-document-comment/
  */
-export function getDocumentComments(
+export async function getDocumentComments(
   client: Client,
   documentId: string,
 ): Promise<Entity.Document.DocumentComment[]> {
-  return client.get(`documents/${documentId}/comments`);
+  return client.get(`documents/${encodePathSegment(documentId)}/comments`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/get-document-attachments/
  */
-export function downloadDocumentAttachment(
+export async function downloadDocumentAttachment(
   client: Client,
   documentId: string,
   attachmentId: number,
 ): Promise<Entity.File.FileData> {
-  return download(client, `documents/${documentId}/attachments/${attachmentId}`);
+  return download(
+    client,
+    `documents/${encodePathSegment(documentId)}/attachments/${encodePathSegment(attachmentId)}`,
+  );
 }
 
 /**
@@ -1242,12 +1325,12 @@ export function downloadDocumentAttachment(
  * form.append("file", blob, "report.pdf");
  * await addDocumentAttachment(client, documentId, form);
  */
-export function addDocumentAttachment(
+export async function addDocumentAttachment(
   client: Client,
   documentId: string,
   form: FormData,
 ): Promise<Entity.File.DocumentFileInfo> {
-  return upload(client, `documents/${documentId}/attachments`, form);
+  return upload(client, `documents/${encodePathSegment(documentId)}/attachments`, form);
 }
 
 /**
@@ -1263,29 +1346,29 @@ export function addDocument(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-document/
  */
-export function deleteDocument(
+export async function deleteDocument(
   client: Client,
   documentId: string,
 ): Promise<Entity.Document.Document> {
-  return client.delete(`documents/${documentId}`);
+  return client.delete(`documents/${encodePathSegment(documentId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-history/
  */
-export function getWikisHistory(
+export async function getWikisHistory(
   client: Client,
   wikiId: number,
   params: Option.Wiki.GetWikisHistoryParams,
 ): Promise<Entity.Wiki.History[]> {
-  return client.get(`wikis/${wikiId}/history`, params);
+  return client.get(`wikis/${encodePathSegment(wikiId)}/history`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-wiki-page-star/
  */
-export function getWikisStars(client: Client, wikiId: number): Promise<Entity.Star.Star[]> {
-  return client.get(`wikis/${wikiId}/stars`);
+export async function getWikisStars(client: Client, wikiId: number): Promise<Entity.Star.Star[]> {
+  return client.get(`wikis/${encodePathSegment(wikiId)}/stars`);
 }
 
 /**
@@ -1298,8 +1381,8 @@ export function postStar(client: Client, params: Option.Project.PostStarParams):
 /**
  * https://developer.nulab.com/docs/backlog/api/2/remove-star/
  */
-export function removeStar(client: Client, starId: number): Promise<void> {
-  const endpoint = `stars/${starId}`;
+export async function removeStar(client: Client, starId: number): Promise<void> {
+  const endpoint = `stars/${encodePathSegment(starId)}`;
   return client.delete(endpoint);
 }
 
@@ -1335,42 +1418,44 @@ export function resetNotificationsMarkAsRead(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/read-notification/
  */
-export function markAsReadNotification(client: Client, id: number): Promise<void> {
-  return client.post(`notifications/${id}/markAsRead`);
+export async function markAsReadNotification(client: Client, id: number): Promise<void> {
+  return client.post(`notifications/${encodePathSegment(id)}/markAsRead`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-git-repositories/
  */
-export function getGitRepositories(
+export async function getGitRepositories(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Git.GitRepository[]> {
-  return client.get(`projects/${projectIdOrKey}/git/repositories`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/git/repositories`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-git-repository/
  */
-export function getGitRepository(
+export async function getGitRepository(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
 ): Promise<Entity.Git.GitRepository> {
-  return client.get(`projects/${projectIdOrKey}/git/repositories/${repoIdOrName}`);
+  return client.get(
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}`,
+  );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-list/
  */
-export function getPullRequests(
+export async function getPullRequests(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   params: Option.PullRequest.GetPullRequestsParams,
 ): Promise<Entity.PullRequest.PullRequest[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests`,
     params,
   );
 }
@@ -1378,14 +1463,14 @@ export function getPullRequests(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-requests/
  */
-export function getPullRequestsCount(
+export async function getPullRequestsCount(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   params: Option.PullRequest.GetPullRequestsParams,
 ): Promise<Entity.PullRequest.PullRequestCount> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/count`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/count`,
     params,
   );
 }
@@ -1393,14 +1478,14 @@ export function getPullRequestsCount(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-pull-request/
  */
-export function postPullRequest(
+export async function postPullRequest(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   params: Option.PullRequest.PostPullRequestParams,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.post(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests`,
     params,
   );
 }
@@ -1408,21 +1493,21 @@ export function postPullRequest(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-pull-request/
  */
-export function getPullRequest(
+export async function getPullRequest(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   number: number,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}`,
   );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-pull-request/
  */
-export function patchPullRequest(
+export async function patchPullRequest(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1430,7 +1515,7 @@ export function patchPullRequest(
   params: Option.PullRequest.PatchPullRequestParams,
 ): Promise<Entity.PullRequest.PullRequest> {
   return client.patch(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}`,
     params,
   );
 }
@@ -1438,7 +1523,7 @@ export function patchPullRequest(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-pull-request-comment/
  */
-export function getPullRequestComments(
+export async function getPullRequestComments(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1446,7 +1531,7 @@ export function getPullRequestComments(
   params: Option.PullRequest.GetPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments`,
     params,
   );
 }
@@ -1454,7 +1539,7 @@ export function getPullRequestComments(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-pull-request-comment/
  */
-export function postPullRequestComments(
+export async function postPullRequestComments(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1462,7 +1547,7 @@ export function postPullRequestComments(
   params: Option.PullRequest.PostPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment> {
   return client.post(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments`,
     params,
   );
 }
@@ -1470,21 +1555,21 @@ export function postPullRequestComments(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-number-of-pull-request-comments/
  */
-export function getPullRequestCommentsCount(
+export async function getPullRequestCommentsCount(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   number: number,
 ): Promise<Entity.PullRequest.PullRequestCommentCount> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/count`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments/count`,
   );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-pull-request-comment-information/
  */
-export function patchPullRequestComments(
+export async function patchPullRequestComments(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1493,7 +1578,7 @@ export function patchPullRequestComments(
   params: Option.PullRequest.PatchPullRequestCommentsParams,
 ): Promise<Entity.PullRequest.Comment> {
   return client.patch(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/comments/${commentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/comments/${encodePathSegment(commentId)}`,
     params,
   );
 }
@@ -1501,21 +1586,21 @@ export function patchPullRequestComments(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-list-of-pull-request-attachment/
  */
-export function getPullRequestAttachments(
+export async function getPullRequestAttachments(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
   number: number,
 ): Promise<Entity.File.PullRequestFileInfo[]> {
   return client.get(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments`,
   );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/download-pull-request-attachment/
  */
-export function getPullRequestAttachment(
+export async function getPullRequestAttachment(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1524,14 +1609,14 @@ export function getPullRequestAttachment(
 ): Promise<Entity.File.FileData> {
   return download(
     client,
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments/${encodePathSegment(attachmentId)}`,
   );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-pull-request-attachments/
  */
-export function deletePullRequestAttachment(
+export async function deletePullRequestAttachment(
   client: Client,
   projectIdOrKey: string | number,
   repoIdOrName: string,
@@ -1539,40 +1624,40 @@ export function deletePullRequestAttachment(
   attachmentId: number,
 ): Promise<Entity.File.PullRequestFileInfo> {
   return client.delete(
-    `projects/${projectIdOrKey}/git/repositories/${repoIdOrName}/pullRequests/${number}/attachments/${attachmentId}`,
+    `projects/${encodePathSegment(projectIdOrKey)}/git/repositories/${encodePathSegment(repoIdOrName)}/pullRequests/${encodePathSegment(number)}/attachments/${encodePathSegment(attachmentId)}`,
   );
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-watching-list
  */
-export function getWatchingListItems(
+export async function getWatchingListItems(
   client: Client,
   userId: number,
   params?: Option.WatchingList.GetWatchingListParams,
 ): Promise<Entity.WatchingList.WatchingListItem[]> {
-  return client.get(`users/${userId}/watchings`, params);
+  return client.get(`users/${encodePathSegment(userId)}/watchings`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/count-watching
  */
-export function getWatchingListCount(
+export async function getWatchingListCount(
   client: Client,
   userId: number,
   params?: Option.WatchingList.GetWatchingListCountParams,
 ): Promise<Entity.WatchingList.WatchingListCount> {
-  return client.get(`users/${userId}/watchings/count`, params);
+  return client.get(`users/${encodePathSegment(userId)}/watchings/count`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-watching
  */
-export function getWatchingListItem(
+export async function getWatchingListItem(
   client: Client,
   watchId: number,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.get(`watchings/${watchId}`);
+  return client.get(`watchings/${encodePathSegment(watchId)}`);
 }
 
 /**
@@ -1588,29 +1673,29 @@ export function postWatchingListItem(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-watching
  */
-export function patchWatchingListItem(
+export async function patchWatchingListItem(
   client: Client,
   watchId: number,
   note: string,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.patch(`watchings/${watchId}`, { note });
+  return client.patch(`watchings/${encodePathSegment(watchId)}`, { note });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-watching
  */
-export function deletehWatchingListItem(
+export async function deletehWatchingListItem(
   client: Client,
   watchId: number,
 ): Promise<Entity.WatchingList.WatchingListItem> {
-  return client.delete(`watchings/${watchId}`);
+  return client.delete(`watchings/${encodePathSegment(watchId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/mark-watching-as-read
  */
-export function resetWatchingListItemAsRead(client: Client, watchId: number): Promise<void> {
-  return client.post(`watchings/${watchId}/markAsRead`);
+export async function resetWatchingListItemAsRead(client: Client, watchId: number): Promise<void> {
+  return client.post(`watchings/${encodePathSegment(watchId)}/markAsRead`);
 }
 
 /**
@@ -1643,65 +1728,65 @@ export function postTeam(
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-team/
  */
-export function getTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
-  return client.get(`teams/${teamId}`);
+export async function getTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
+  return client.get(`teams/${encodePathSegment(teamId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/update-team/
  */
-export function patchTeam(
+export async function patchTeam(
   client: Client,
   teamId: number,
   params: Option.Team.PatchTeamParams,
 ): Promise<Entity.Team.Team> {
-  return client.patch(`teams/${teamId}`, params);
+  return client.patch(`teams/${encodePathSegment(teamId)}`, params);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-team/
  */
-export function deleteTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
-  return client.delete(`teams/${teamId}`);
+export async function deleteTeam(client: Client, teamId: number): Promise<Entity.Team.Team> {
+  return client.delete(`teams/${encodePathSegment(teamId)}`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-team-icon/
  */
-export function getTeamIcon(client: Client, teamId: number): Promise<Entity.File.FileData> {
-  return download(client, `teams/${teamId}/icon`);
+export async function getTeamIcon(client: Client, teamId: number): Promise<Entity.File.FileData> {
+  return download(client, `teams/${encodePathSegment(teamId)}/icon`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/get-project-team-list/
  */
-export function getProjectTeams(
+export async function getProjectTeams(
   client: Client,
   projectIdOrKey: string | number,
 ): Promise<Entity.Team.Team[]> {
-  return client.get(`projects/${projectIdOrKey}/teams`);
+  return client.get(`projects/${encodePathSegment(projectIdOrKey)}/teams`);
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/add-project-team/
  */
-export function postProjectTeam(
+export async function postProjectTeam(
   client: Client,
   projectIdOrKey: string | number,
   teamId: number,
 ): Promise<Entity.Team.Team> {
-  return client.post(`projects/${projectIdOrKey}/teams`, { teamId });
+  return client.post(`projects/${encodePathSegment(projectIdOrKey)}/teams`, { teamId });
 }
 
 /**
  * https://developer.nulab.com/docs/backlog/api/2/delete-project-team/
  */
-export function deleteProjectTeam(
+export async function deleteProjectTeam(
   client: Client,
   projectIdOrKey: string | number,
   teamId: number,
 ): Promise<Entity.Team.Team> {
-  return client.delete(`projects/${projectIdOrKey}/teams`, { teamId });
+  return client.delete(`projects/${encodePathSegment(projectIdOrKey)}/teams`, { teamId });
 }
 
 /**
